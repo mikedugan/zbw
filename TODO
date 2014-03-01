@@ -1,0 +1,11 @@
+models:
+--event
+--news
+--messenger
+
+automation:
+--new controller
+--transfer controller
+--visiting controller
+
+

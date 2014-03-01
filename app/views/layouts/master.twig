@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <title>{{ title }}</title>
+    </head>
+    <body>
+    {% include "includes/_header.twig" %}
+    <nav>
+        {% block header %}
+        {% endblock %}
+    </nav>
+    <div id="content">
+    {% block content %}
+    {% endblock %}
+    </div>
+    {% include "includes/_footer.twig" %}
+    {% block inc %}
+    {% endblock %}
+    </body>
+</html>
