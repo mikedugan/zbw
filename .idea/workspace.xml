@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="5c08d32d-47a3-435e-89ea-41fce7ee3781" name="Default" comment="" />
+    <list default="true" id="5c08d32d-47a3-435e-89ea-41fce7ee3781" name="Default" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/filters.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/models/User.php" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/start/global.php" afterPath="$PROJECT_DIR$/app/start/global.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/routes.php" afterPath="$PROJECT_DIR$/app/routes.php" />
+    </list>
     <ignored path="zbw-new.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -25,7 +30,7 @@
       <file leaf-file-name="global.php" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/start/global.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="67" column="3" selection-start="2107" selection-end="2107" vertical-scroll-proportion="0.907195" vertical-offset="0" max-vertical-offset="1170">
+            <state line="49" column="1" selection-start="1602" selection-end="1602" vertical-scroll-proportion="0.61001045" vertical-offset="15" max-vertical-offset="1170">
               <folding />
             </state>
           </provider>
@@ -193,7 +198,7 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/app/start/global.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="67" column="3" selection-start="2107" selection-end="2107" vertical-scroll-proportion="0.907195" vertical-offset="0" max-vertical-offset="1170">
+        <state line="49" column="1" selection-start="1602" selection-end="1602" vertical-scroll-proportion="0.61001045" vertical-offset="15" max-vertical-offset="1170">
           <folding />
         </state>
       </provider>
