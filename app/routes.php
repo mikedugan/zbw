@@ -1,1 +1,1 @@
-bin/routes.php
+zbw/routes.php
