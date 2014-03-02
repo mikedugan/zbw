@@ -10,10 +10,18 @@
 |
 */
 
+//the main 3 pages
 Route::get('/', 'ZbwController@getIndex');
 Route::get('pilots', 'ZbwController@getPilotIndex');
+Route::get('controllers', 'ZbwController@getControllerIndex');
 
-Route::resource('controllers', 'ControllersController');
+//other top-levels
+Route::get('forum', 'ForumController@getIndex');
+Route::get('staff', 'StaffController@getIndex');
+Route::get('training', 'TrainingController@getIndex');
+
+
+/*Route::resource('controllers', 'ControllersController');
 
 Route::resource('controllertrainings', 'ControllertrainingsController');
 
@@ -33,4 +41,4 @@ Route::resource('airportcharts', 'AirportchartsController');
 
 Route::resource('pokercards', 'PokercardsController');
 
-Route::resource('pilotfeedbacks', 'PilotfeedbacksController');
+Route::resource('pilotfeedbacks', 'PilotfeedbacksController');*/

@@ -1,9 +1,20 @@
-{% extends "master.twig" %}
+{% extends "layouts.master" %}
 
 {% block header %}
-
+    {{ parent() }}
+    <ul class="right">
+        <li class="has-dropdown">
+            <a href="#">Staff Home</a>
+            <ul class="dropdown">
+                <li><a href="#">Roster Admin</a></li>
+                <li><a href="#">Training Center</a></li>
+                <li><a href="#">Events</a></li>
+                <li><a href="#">News</a></li>
+                <li><a href="#">Pages</a></li>
+            </ul>
+        </li>
+    </ul>
 {% endblock %}
 
 {% block content %}
-
 {% endblock %}

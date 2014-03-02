@@ -2,18 +2,25 @@
 <html>
     <head>
     <title>{{ title }}</title>
+    {% include "includes._head" %}
     </head>
     <body>
-    {% include "includes/_header.twig" %}
-    <nav>
+    <nav class="top-bar" data-topbar>
+        {% include "includes._header" %}
         {% block header %}
         {% endblock %}
     </nav>
-    <div id="content">
+
+    <div id="content" class="small-12 large-12">
     {% block content %}
     {% endblock %}
     </div>
+
+    <footer class="small-12 large-12">
     {% include "includes/_footer.twig" %}
+    </footer>
+
+    {% include "includes/_includes.twig" %}
     {% block inc %}
     {% endblock %}
     </body>
