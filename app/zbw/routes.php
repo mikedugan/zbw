@@ -10,11 +10,8 @@
 |
 */
 
-Route::get('/', function()
-{
-	return View::make('hello');
-});
-
+Route::get('/', 'ZbwController@getIndex');
+Route::get('pilots', 'ZbwController@getPilotIndex');
 
 Route::resource('controllers', 'ControllersController');
 
