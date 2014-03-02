@@ -18,8 +18,14 @@ h5 {
 h6 {
   font-size: 1.1em; }
 
+h1, h2, h3, h4, h5, h6 {
+  margin-bottom: 0; }
+
 p {
   font-size: 1em; }
+
+a:hover {text-decoration: none;}
+
 
 #content {
   min-height: 80%;
@@ -37,14 +43,25 @@ footer {
   bottom: 1%;
   position: absolute; }
 
-.top-bar {
+nav.navbar {
   background: #333; }
-  .top-bar ul.left, .top-bar ul.right {
+  ul.nav {
     width: 30%; }
-  .top-bar li:not(first-child) {
+  ul.nav li:not(first-child) {
     margin-left: 5%; }
-  .top-bar a {
+  ul.nav li a {
     color: #dbdbdb;
     font-family: "Jacques Francois", Georgia, Times, serif; }
-    .top-bar a:hover {
-      color: #f4f4f4; }
+    ul.dropdown-menu {
+	    background: #555;
+    }
+    ul.dropdown-menu li a:hover {
+	    color: #555;
+    }
+    nav.navbar li.dropdown.open > a:focus { background : #333; color: #f4f4f4;}
+
+ul.nav.navbar-nav li a { color: #dbdbdb; font-size: 1.75em;}
+ul.nav.navbar-nav li a:hover { color: #f4f4f4;}
+ul.nav.navbar-nav ul.dropdown-menu li a:hover { color: #555;}
+ul.nav.navbar-nav ul.dropdown-menu a { font-size: 1.25em;}
+ul.nav.navbar-nav li .dropdown a:hover { background: #f4f4f4; }
