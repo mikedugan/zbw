@@ -1,0 +1,70 @@
+@import url(http://fonts.googleapis.com/css?family=Flamenco|Jacques+Francois|Pontano+Sans);
+.Flamenco {
+  font-family: Flamenco, Helvetica, Arial, sans-serif;
+}
+.Jacques {
+  font-family: 'Jacques Francois', Georgia, Times, "Times New Roman", serif;
+}
+.Pontano {
+  font-family: 'Pontano Sans', Arial, Verdana, sans-serif;
+}
+.left {
+  float: left;
+}
+.right {
+  float: right;
+}
+.clear {
+  clear: both;
+}
+.text-center {
+  text-align: center;
+}
+.center {
+  margin: 0 auto;
+}
+h1 {
+  font-size: 2em;
+  font-family: Flamenco, Helvetica, Arial, sans-serif;
+}
+h2 {
+  font-size: 1.75em;
+}
+h3 {
+  font-size: 1.5em;
+}
+h4 {
+  font-size: 1.3em;
+}
+h5 {
+  font-size: 1.1em;
+}
+h6 {
+  font-size: 1.1em;
+}
+p {
+  font-size: 1em;
+}
+a {
+  font-family: 'Pontano Sans', Arial, Verdana, sans-serif;
+  font-size: 1em;
+  text-decoration: none;
+  color: #336699;
+}
+a:hover {
+  color: #407fbf;
+}
+body {
+  width: 90%;
+  margin: 0 auto;
+}
+body h1 {
+  text-align: center;
+}
+nav div {
+  width: 45%;
+}
+nav h3 {
+  list-style-type: none;
+  margin: 0 auto;
+}
