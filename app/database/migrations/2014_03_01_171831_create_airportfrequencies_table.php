@@ -12,7 +12,7 @@ class CreateAirportFrequenciesTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('AirportFrequencies', function(Blueprint $table) {
+		Schema::create('airport_frequencies', function(Blueprint $table) {
 			$table->increments('id');
 			$table->string('icao', 4)->required();
 			$table->string('name', 20);
@@ -33,7 +33,7 @@ class CreateAirportFrequenciesTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('AirportFrequencies');
+		Schema::drop('airport_frequencies');
 	}
 
 }

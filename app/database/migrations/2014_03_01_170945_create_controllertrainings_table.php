@@ -12,22 +12,22 @@ class CreateControllerTrainingsTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('ControllerTrainings', function(Blueprint $table) {
+		Schema::create('controller_training', function(Blueprint $table) {
 			$table->increments('id');
-			$table->integer('cid', 8)->required();
-			$table->integer('sid', 8)->required();
+			$table->integer('cid')->required();
+			$table->integer('sid')->required();
 			$table->date('session_date');
-			$table->integer('weather', 1)->default(0);
-			$table->integer('workload', 1)->default(0);
-			$table->integer('complexity', 1)->default(0);
+			$table->integer('weather')->default("0");
+			$table->integer('workload')->default(0);
+			$table->integer('complexity')->default(0);
 			$table->text('staff_comment');
 			$table->text('student_comment');
 			$table->boolean('is_ots')->default(0);
 			$table->string('position', 30)->required();
-			$table->integer('brief_time', 3)->required()->default(0);
-			$table->integer('position_time', 3)->required()->default(0);
+			$table->integer('brief_time')->required()->default(0);
+			$table->integer('position_time')->required()->default(0);
 			$table->boolean('is_live')->default(0);
-			$table->integer('training_type', 1)->default(0);
+			$table->integer('training_type')->default(0);
 			$table->timestamps();
 		});
 	}
@@ -40,7 +40,7 @@ class CreateControllerTrainingsTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('ControllerTrainings');
+		Schema::drop('controller_training');
 	}
 
 }

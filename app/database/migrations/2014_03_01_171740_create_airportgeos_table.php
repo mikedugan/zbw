@@ -12,7 +12,7 @@ class CreateAirportGeosTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('AirportGeos', function(Blueprint $table) {
+		Schema::create('airport_geo', function(Blueprint $table) {
 			$table->increments('id');
 			$table->string('icao', 4)->required();
 			$table->string('airspace', 1);
@@ -20,7 +20,7 @@ class CreateAirportGeosTable extends Migration {
 			$table->string('name', 40);
 			$table->string('lat', 10);
 			$table->string('lon', 10);
-			$table->integer('elevation', 6)->required()->default(0);
+			$table->integer('elevation')->required()->default(0);
 			$table->string('tracon', 20);
 			$table->string('location', 50);
 			$table->timestamps();
@@ -35,7 +35,7 @@ class CreateAirportGeosTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('AirportGeos');
+		Schema::drop('airport_geo');
 	}
 
 }

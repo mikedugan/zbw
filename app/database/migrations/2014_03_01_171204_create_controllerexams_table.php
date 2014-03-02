@@ -12,12 +12,12 @@ class CreateControllerExamsTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('ControllerExams', function(Blueprint $table) {
+		Schema::create('controller_exams', function(Blueprint $table) {
 			$table->increments('id');
-			$table->integer('cid', 8)->required();
+			$table->integer('cid')->required();
 			$table->string('exam', 30)->required();
 			$table->boolean('passed')->required();
-			$table->integer('times_taken', 1)->default(0);
+			$table->integer('times_taken')->default(0);
 			$table->date('first_exam');
 			$table->date('last_exam');
 			$table->date('first_request');
@@ -36,7 +36,7 @@ class CreateControllerExamsTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('ControllerExams');
+		Schema::drop('controller_exams');
 	}
 
 }

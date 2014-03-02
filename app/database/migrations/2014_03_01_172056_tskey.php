@@ -12,9 +12,9 @@ class TsKey extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('', function(Blueprint $table) {
+		Schema::create('zbw_tskeys', function(Blueprint $table) {
 			$table->increments('id');
-			$table->('cid=integer[8]');
+			$table->integer('cid');
 			$table->string('ts_key', 8);
 			$table->string('computer_id', 50);
 			$table->string('created', 32);
@@ -31,7 +31,7 @@ class TsKey extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('');
+		Schema::drop('zbw_tskeys');
 	}
 
 }
