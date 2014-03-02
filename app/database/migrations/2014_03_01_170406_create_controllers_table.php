@@ -12,8 +12,8 @@ class CreateControllersTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('Controllers', function(Blueprint $table) {
-			$table->increments('id');
+		Schema::create('controllers', function(Blueprint $table) {
+			$table->string('username', 60)->unique()->required();
 			$table->integer('cid', 8)->unique()->required();
 			$table->string('first_name', 30)->required();
 			$table->string('last_name', 30)->required();
@@ -41,7 +41,7 @@ class CreateControllersTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('Controllers');
+		Schema::drop('controllers');
 	}
 
 }

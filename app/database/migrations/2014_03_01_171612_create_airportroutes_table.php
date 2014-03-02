@@ -12,7 +12,7 @@ class CreateAirportRoutesTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('AirportRoutes', function(Blueprint $table) {
+		Schema::create('airport_routes', function(Blueprint $table) {
 			$table->increments('id');
 			$table->string('orig_icao', 4);
 			$table->string('dest_icao', 4);
@@ -23,10 +23,10 @@ class CreateAirportRoutesTable extends Migration {
 			$table->string('altitude');
 			$table->string('aircraft');
 			$table->string('direction');
-			$table->integer('sequence', 3)->required()->default(0);
+			$table->integer('sequence')->required()->default(0);
 			$table->string('orig_artcc', 3);
 			$table->string('dest_artcc', 3);
-			$table->integer('stale', 3);
+			$table->integer('stale');
 			$table->timestamps();
 		});
 	}
@@ -39,7 +39,7 @@ class CreateAirportRoutesTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('AirportRoutes');
+		Schema::drop('airport_routes');
 	}
 
 }

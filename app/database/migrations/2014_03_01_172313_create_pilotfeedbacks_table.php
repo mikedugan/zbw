@@ -12,10 +12,10 @@ class CreatePilotFeedbacksTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('PilotFeedbacks', function(Blueprint $table) {
+		Schema::create('pilot_feedback', function(Blueprint $table) {
 			$table->increments('id');
 			$table->string('controller', 50);
-			$table->integer('rating', 5);
+			$table->integer('rating');
 			$table->string('name', 50);
 			$table->string('email', 50);
 			$table->string('ip', 16);
@@ -32,7 +32,7 @@ class CreatePilotFeedbacksTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('PilotFeedbacks');
+		Schema::drop('pilot_feedback');
 	}
 
 }

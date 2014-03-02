@@ -12,11 +12,11 @@ class CreatePokerCardsTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('PokerCards', function(Blueprint $table) {
+		Schema::create('zbw_pokercards', function(Blueprint $table) {
 			$table->increments('id');
 			$table->date('time_dealt');
 			$table->string('card', 3);
-			$table->integer('pid', 10);
+			$table->integer('pid');
 			$table->datetime('discarded');
 			$table->timestamps();
 		});
@@ -30,7 +30,7 @@ class CreatePokerCardsTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('PokerCards');
+		Schema::drop('zbw_pokercards');
 	}
 
 }

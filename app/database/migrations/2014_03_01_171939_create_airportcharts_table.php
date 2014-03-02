@@ -12,7 +12,7 @@ class CreateAirportChartsTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('AirportCharts', function(Blueprint $table) {
+		Schema::create('airport_charts', function(Blueprint $table) {
 			$table->increments('id');
 			$table->string('icao', 4)->required();
 			$table->string('type', 4);
@@ -30,7 +30,7 @@ class CreateAirportChartsTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('AirportCharts');
+		Schema::drop('airport_charts');
 	}
 
 }
