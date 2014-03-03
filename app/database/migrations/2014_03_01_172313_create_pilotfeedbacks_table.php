@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreatePilotFeedbacksTable extends Migration {
+class CreatePilotfeedbacksTable extends Migration {
 
 	/**
 	 * Run the migrations.
