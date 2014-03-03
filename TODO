@@ -1,6 +1,8 @@
+TODO:
+
 models:
---event
---news
+--event (scopes/relations)
+--news (scopes/relations)
 --messenger
 
 automation:
@@ -8,4 +10,11 @@ automation:
 --transfer controller
 --visiting controller
 
+auth:
+--password resets with cid or email
+
+DONE:
+--login
+--nav design
+--pass reset
 
