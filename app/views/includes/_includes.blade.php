@@ -3,3 +3,4 @@
 {{ HTML::script('js/bootstrap.js') }}
 {{ HTML::script('js/underscore.js') }}
 {{ HTML::script('js/backbone.js') }}
+{{ HTML::script('js/events.js') }}

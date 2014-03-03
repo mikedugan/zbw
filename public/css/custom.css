@@ -79,7 +79,7 @@ ul.nav.navbar-nav ul.dropdown-menu li a:hover { color: #555;}
 ul.nav.navbar-nav ul.dropdown-menu a { font-size: 1.25em;}
 ul.nav.navbar-nav li .dropdown a:hover { background: #f4f4f4; }
 ul.navbar-left { margin-left: 5%; }
-
+#nav-login a { padding: 5px 10px;}
 #logo
 {
 	position: absolute;
