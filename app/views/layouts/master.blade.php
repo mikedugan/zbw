@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-    <title>{{ title }}</title>
+    <title>{{ $title }}</title>
     @include('includes._head')
     </head>
     <body>
@@ -25,7 +25,7 @@
         </span></div>
     @endif
     @if (Session::get('flash_success'))
-        <div class="flash flash-info"><span class="glyphicon glyphicon-thumbs-up green">
+        <div class="flash flash-success"><span class="glyphicon glyphicon-thumbs-up green">
                 {{ Session::get('flash_success') }}
         </span></div>
     @endif

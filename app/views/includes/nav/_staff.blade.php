@@ -2,11 +2,11 @@
     <li class="dropdown">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Staff <b class="caret"></b></a>
         <ul class="dropdown-menu">
-            <li><a href="#">Roster Admin</a></li>
-            <li><a href="#">Training Center</a></li>
-            <li><a href="#">Events</a></li>
-            <li><a href="#">News</a></li>
-            <li><a href="#">Pages</a></li>
+            <li>{{ HTML::link('admin/roster', 'Roster') }}</li>
+            <li>{{ HTML::link('admin/training', 'Training') }}</li>
+            <li>{{ HTML::link('admin/events', 'Events') }}</li>
+            <li>{{ HTML::link('admin/news', 'News') }}</li>
+            <li>{{ HTML::link('admin/cms', 'Pages') }}</li>
         </ul>
     </li>
 </ul>
