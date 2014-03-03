@@ -35,7 +35,7 @@ class SessionsController extends BaseController {
 		if(! $user->is_active)
 		{
 			return Redirect::back()->with('flash_error', 'Your account is not active. Please email <a
-			href="mailto:staff@bostonartcc.net"');
+			href="mailto:staff@bostonartcc.net">admin</a>');
 		}
 
 		if($remember == 'remember')
