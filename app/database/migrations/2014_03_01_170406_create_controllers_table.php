@@ -22,6 +22,7 @@ class CreateControllersTable extends Migration {
 			$table->string('email', 60)->unique()->required();
 			$table->string('rating', 3)->required();
 			$table->string('artcc', 3)->required()->default('ZBW');
+			$table->string('signature', 255);
 			$table->boolean('is_mentor')->default(0);
 			$table->boolean('is_instructor')->default(0);
 			$table->boolean('is_facilities')->default(0);
