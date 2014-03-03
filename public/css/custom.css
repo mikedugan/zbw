@@ -62,9 +62,38 @@ nav.navbar {
 	    color: #555;
     }
     nav.navbar li.dropdown.open > a:focus { background : #333; color: #f4f4f4;}
+		form .navbar-right li {
+			color: #fff;
+			height: 36px;
+			font-size: 18px;
+			font-family: "Pontano Sans", Arial, Helvetica, sans-serif;
+			margin-top: 8px;
+		}
+		form .navbar-right li input { height: 36px; color: black;}
+		nav form li:first-child { margin-bottom: 3px;}
+		nav form button { margin: 8px 5px 0 5px;}
 
 ul.nav.navbar-nav li a { color: #dbdbdb; font-size: 1.75em;}
 ul.nav.navbar-nav li a:hover { color: #f4f4f4;}
 ul.nav.navbar-nav ul.dropdown-menu li a:hover { color: #555;}
 ul.nav.navbar-nav ul.dropdown-menu a { font-size: 1.25em;}
 ul.nav.navbar-nav li .dropdown a:hover { background: #f4f4f4; }
+ul.navbar-left { margin-left: 5%; }
+
+#logo
+{
+	position: absolute;
+	left: 1%;
+}
+
+#logo img { height: 100px;}
+
+.red, .green, .blue, .orange { color: black;}
+.red { boder: 1px solid red; }
+.green { border: 1px solid green;}
+.blue { border: 1px solid blue; }
+.orange { border: 1px solid orange;}
+.flash-info { color: blue; }
+.flash-success { color: green; }
+.flash-warning { color: orange; }
+.flash-error { color: red; }
