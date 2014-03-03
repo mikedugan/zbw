@@ -15,6 +15,7 @@ class CreateControllersTable extends Migration {
 		Schema::create('controllers', function(Blueprint $table) {
 			$table->string('username', 60)->unique()->required();
 			$table->integer('cid', 8)->unique()->required();
+			$table->string('initials', 2)->required();
 			$table->string('first_name', 30)->required();
 			$table->string('last_name', 30)->required();
 			$table->string('password')->required();
@@ -29,6 +30,8 @@ class CreateControllersTable extends Migration {
 			$table->boolean('is_datm')->default(0);
 			$table->boolean('is_ta')->default(0);
 			$table->boolean('is_emeritus')->default(0);
+			$table->boolean('is_active');
+			$table->boolean('is_staff')->default(0);
 			$table->timestamps();
 		});
 	}
