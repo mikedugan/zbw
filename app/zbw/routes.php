@@ -15,7 +15,7 @@ View::share('me', Auth::user());
 Route::get('login', 'SessionsController@getLogin');
 Route::post('login', 'SessionsController@postLogin');
 Route::get('logout', 'SessionsController@getLogout');
-
+Route::controller('password', 'RemindersController');
 
 //the main 3 pages
 Route::get('/', array('as' => 'home', 'uses' => 'ZbwController@getIndex'));
