@@ -1,2 +1,2 @@
-<link rel="stylesheet" href="css/bootstrap.css">
-<link rel="stylesheet" href="css/custom.css">
+{{ HTML::style('css/bootstrap.css') }}
+{{ HTML::style('css/custom.css') }}
