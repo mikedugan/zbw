@@ -5,12 +5,9 @@
 	"license": "MIT",
 	"require": {
 		"laravel/framework": "4.1.*",
-		"rcrowe/twigbridge": "dev-master",
 		"way/generators": "dev-master",
 		"barryvdh/laravel-ide-helper": "dev-master",
-		"barryvdh/laravel-debugbar": "dev-master",
-		"jason-morton-nz/laravel-grunt": "dev-master",
-		"panique/laravel-sass": "dev-master"
+		"barryvdh/laravel-debugbar": "dev-master"
 	},
 	"autoload": {
 		"classmap": [

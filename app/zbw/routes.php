@@ -9,9 +9,16 @@
 | and give it the Closure to execute when that URI is requested.
 |
 */
+View::share('me', Auth::user());
+
+//login and logout
+Route::get('login', 'SessionsController@getLogin');
+Route::post('login', 'SessionsController@postLogin');
+Route::get('logout', 'SessionsController@getLogout');
+
 
 //the main 3 pages
-Route::get('/', 'ZbwController@getIndex');
+Route::get('/', array('as' => 'home', 'uses' => 'ZbwController@getIndex'));
 Route::get('pilots', 'ZbwController@getPilotIndex');
 Route::get('controllers', 'ZbwController@getControllerIndex');
 

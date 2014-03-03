@@ -5,7 +5,8 @@ class ZbwController extends BaseController {
 	public function getIndex()
 	{
 		$data = [
-			'title' => 'vZBW ARTCC'
+			'title' => 'vZBW ARTCC',
+			'me' => Auth::user()
 		];
 		return View::make('zbw', $data);
 
@@ -21,7 +22,10 @@ class ZbwController extends BaseController {
 
 	public function getPilotIndex()
 	{
-		return "pilot index";
+		$data = [
+			'title' => 'vZBW Pilot Home'
+		];
+		return View::make('pilots/index', $data);
 	}
 
 }
