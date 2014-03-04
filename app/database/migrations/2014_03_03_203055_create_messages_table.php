@@ -32,7 +32,7 @@ class CreateMessagesTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('messages');
+		Schema::drop('zbw_messages');
 	}
 
 }

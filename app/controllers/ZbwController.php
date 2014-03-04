@@ -6,7 +6,8 @@ class ZbwController extends BaseController {
 	{
 		$data = [
 			'title' => 'vZBW ARTCC',
-			'me' => Auth::user()
+			'me' => Auth::user(),
+			'news' => News::front(5)
 		];
 		return View::make('zbw', $data);
 

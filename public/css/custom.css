@@ -1,8 +1,7 @@
 @import url(http://fonts.googleapis.com/css?family=Flamenco|Jacques+Francois|Pontano+Sans);
 
 h1 {
-  font-size: 2em;
-  font-family: Flamenco, Helvetica, Arial, sans-serif; }
+  font-size: 2em;}
 
 h2 {
   font-size: 1.75em; }
@@ -23,13 +22,25 @@ h1, h2, h3, h4, h5, h6 {
   margin: 1%;
 }
 
-h1,h2,h3 { font-family: "Jacques Francois", Georgia, Times, "Times New Roman", serif;}
-h4,h5,h6 { font-family: "Pontano Sans", Helvetica Neue, Arial, sans-serif; }
+/*slideshow related stuff*/
+#slideshow { display: none; height: 400px; width: 900px; margin: 0 auto;}
 
-p {
-  font-size: 1em;
-	font-family: 'Pontano Sans', Arial, Helvetica, sans-serif;
+/*flight strips*/
+div.strip { height: 70px; font: 12px Arial, sans-serif; margin-bottom: 4%;}
+div p { margin: 0;}
+div.strip > div {
+	float: left;
+	height: 70px;
+	border: 1px solid black;
 }
+div.strip > div:first-child { height: auto;}
+div.strip div div { border-bottom: 1px solid black;}
+
+/*metars*/
+.metar h4 { display: inline; }
+
+/*online atc*/
+
 
 a:hover {text-decoration: none;}
 
@@ -40,10 +51,13 @@ a:hover {text-decoration: none;}
   margin: 0 0 2% 5%;
 }
   #content a {
-    font-family: 'Pontano Sans', Arial, Verdana, sans-serif;
     font-size: 1em;
     text-decoration: none;
   }
+
+article h3 { font: 1.5em 'Flamenco', arial, serif; }
+div.news h3 { text-align: right;}
+
 
 #content a.btn { color: #fff; }
 #content a.btn:hover { color: #eee; }

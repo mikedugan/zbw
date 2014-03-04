@@ -33,17 +33,17 @@ class News extends Eloquent {
 
 	public function scopeControllers($query)
 	{
-		return $query->where('audience', '=', 'controllers');
+		return $query->where('audience', '=', 'controllers')->where('type', '!=', 'staff')->get();
 	}
 
 	public function scopePilots($query)
 	{
-		return $query->where('audience', '=', 'pilots');
+		return $query->where('audience', '=', 'pilots')->where('type', '!=', 'staff')->get();
 	}
 
-	public function scopeAll($query)
+	public function scopeFront($query, $lim)
 	{
-		return $query->where('audience', '=', 'both')->where('type', '!=', 'staff');
+		return $query->where('audience', '=', 'both')->where('type', '!=', 'staff')->limit($lim)->get();
 	}
 
 	//relations

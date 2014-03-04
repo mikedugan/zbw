@@ -17,10 +17,10 @@ class NewsTableSeeder extends Seeder {
           $n = new News();
           $n->type = $faker->randomElement($types);
           $n->audience = $faker->randomElement($audience);
-          $n->title = $faker->sentence();
+          $n->title = $faker->sentence(5);
           $n->content = $faker->realText();
-          $n->starts = $faker->dateTimeThisYear()->optional();
-          $n->ends = $faker->dateTimeThisYear()->optional();
+          //$n->starts = $faker->optional()->dateTimeThisYear();
+          //$n->ends = $faker->optional()->dateTimeThisYear();
           $n->facility = $faker->randomElement($facility);
 	        $n->save();
         }
