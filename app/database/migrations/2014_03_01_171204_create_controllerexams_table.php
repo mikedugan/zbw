@@ -22,8 +22,6 @@ class CreateControllerExamsTable extends Migration {
 			$table->date('last_exam');
 			$table->date('first_request');
 			$table->date('last_request');
-			$table->boolean('certified_peak')->default(0);
-			$table->boolean('certified_offpeak')->default(0);
 			$table->timestamps();
 		});
 	}

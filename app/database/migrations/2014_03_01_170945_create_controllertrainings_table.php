@@ -17,17 +17,18 @@ class CreateControllerTrainingsTable extends Migration {
 			$table->integer('cid')->required();
 			$table->integer('sid')->required();
 			$table->date('session_date');
-			$table->integer('weather')->default("0");
-			$table->integer('workload')->default(0);
-			$table->integer('complexity')->default(0);
+			$table->enum('weather', ['vfr', 'mvfr', 'ifr'])->default('vfr');
+			$table->enum('complexity',['very_easy', 'easy', 'moderate', 'hard', 'very_hard'])->default('very_easy');
+			$table->enum('workload', ['light', 'medium', 'heavy'])->default('light');
 			$table->text('staff_comment');
 			$table->text('student_comment');
 			$table->boolean('is_ots')->default(0);
-			$table->string('position', 30)->required();
+			$table->enum('position', ['PVD_GND', 'PVD_TWR', 'PWM_TWR', 'PWM_GND', 'PVD_APP', 'PWM_APP',
+				'BOS_GND', 'BOS_TWR', 'BOS_APP', 'BOS_CTR'])->required();
 			$table->integer('brief_time')->required()->default(0);
 			$table->integer('position_time')->required()->default(0);
 			$table->boolean('is_live')->default(0);
-			$table->integer('training_type')->default(0);
+			$table->enum('training_type', ['sb_training', 'sb_familiarization', 'network_training']);
 			$table->timestamps();
 		});
 	}
