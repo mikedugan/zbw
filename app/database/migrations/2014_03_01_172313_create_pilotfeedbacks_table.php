@@ -15,7 +15,7 @@ class CreatePilotfeedbacksTable extends Migration {
 		Schema::create('pilot_feedback', function(Blueprint $table) {
 			$table->increments('id');
 			$table->string('controller', 50);
-			$table->integer('rating');
+			$table->tinyInteger('rating');
 			$table->string('name', 50);
 			$table->string('email', 50);
 			$table->string('ip', 16);

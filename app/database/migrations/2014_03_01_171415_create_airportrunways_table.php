@@ -16,15 +16,15 @@ class CreateAirportRunwaysTable extends Migration {
 			$table->increments('id');
 			$table->string('icao', 4);
 			$table->string('runway', 7);
-			$table->integer('heading');
-			$table->integer('full_length');
-			$table->integer('width');
-			$table->integer('takeoff_dist');
-			$table->integer('landing_dist');
+			$table->smallInteger('heading');
+			$table->smallInteger('full_length');
+			$table->smallInteger('width');
+			$table->smallInteger('takeoff_dist');
+			$table->smallInteger('landing_dist');
 			$table->string('ils_freq', 7);
 			$table->string('ils_ident', 4);
 			$table->string('ils_cat', 4);
-			$table->integer('ils_course');
+			$table->smallInteger('ils_course');
 			$table->timestamps();
 		});
 	}
