@@ -22,26 +22,6 @@ h1, h2, h3, h4, h5, h6 {
   margin: 1%;
 }
 
-/*slideshow related stuff*/
-#slideshow { display: none; height: 400px; width: 900px; margin: 0 auto;}
-
-/*flight strips*/
-div.strip { height: 70px; font: 12px Arial, sans-serif; margin-bottom: 4%;}
-div p { margin: 0;}
-div.strip > div {
-	float: left;
-	height: 70px;
-	border: 1px solid black;
-}
-div.strip > div:first-child { height: auto;}
-div.strip div div { border-bottom: 1px solid black;}
-
-/*metars*/
-.metar h4 { display: inline; }
-
-/*online atc*/
-
-
 a:hover {text-decoration: none;}
 
 .clear { clear:both;float:none;}

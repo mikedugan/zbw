@@ -12,7 +12,7 @@ class SessionsController extends BaseController {
 		$data = [
 			'title' => 'vZBW Login'
 		];
-		return View::make('controllers.login', $data);
+		return View::make('users.login', $data);
 	}
 
 	public function postLogin()
@@ -38,32 +38,11 @@ class SessionsController extends BaseController {
 			href="mailto:staff@bostonartcc.net">admin</a>');
 		}
 
-		if($remember == 'remember')
+		if(Auth::attempt(array('cid' => $user->cid, 'password' => $password), true))
 		{
-			if(Auth::attempt(array('cid' => $user->cid, 'password' => $password), true))
-			{
-				return Redirect::intended('/')->with('flash_success', 'You have been successfully logged in.');
-			}
-			else
-			{
-				return Redirect::back()->with('flash_error', 'Invalid login credentials');
-			}
+			return Redirect::intended('/')->with('flash_success', 'You have been successfully logged in.');
 		}
-		else
-		{
-			if(Auth::attempt(array('cid' => $user->cid, 'password' => $password)))
-			{
-				return Redirect::intended('/')->with('flash_success', 'You were successfully logged in.');
-			}
-			else
-			{
-				return Redirect::back()->with('flash_error', 'Invalid login credentials');
-			}
-		}
-
-
-
-
+		return Redirect::back()->with('flash_error', 'Invalid login credentials!');
 	}
 
 	public function getLogout()
