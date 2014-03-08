@@ -1,4 +1,4 @@
-<div></div><?php
+<?php
 
 class TsKey extends Eloquent {
 	protected $guarded = array();
