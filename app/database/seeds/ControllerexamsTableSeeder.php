@@ -6,20 +6,24 @@ class ControllerexamsTableSeeder extends Seeder {
 	{
 		$faker = Faker::create();
 		DB::table('controller_exams')->truncate();
-
-		$exams = ['C_GND', 'C_TWR', 'C_APP', 'B_GND', 'B_TWR', 'B_APP', 'CTR'];
+        $answers = ['a', 'b', 'c', 'd'];
 
 		foreach(range(1,250) as $c)
 		{
+            //set up the number of wrong answers and generate the incorrect answers
+            $wrong = $faker->randomNumber(0,8);
+            $wronga = "";
+            for($i = 0; $i <= $wrong; $i++)
+            {
+                $wronga .= $faker->randomElement($answers) + ",";
+            }
+
 			$e = new ControllerExam();
-			$e->cid = $faker->randomNumber(1,50);
-			$e->exam = $faker->randomElement($exams);
-			$e->passed = $faker->boolean(80);
-			$e->times_taken = $faker->randomNumber(1,2);
-			$e->first_exam = $faker->dateTimeThisYear();
-			$e->last_exam = $faker->dateTimeThisYear();
-			$e->first_request = $faker->dateTimeThisYear();
-			$e->last_request = $faker->dateTimeThisYear();
+			$e->exam_id = $faker->randomNumber(0,12);
+            $e->reviewed = $faker->boolean(80);
+            $e->wrong_questions = $wrong;
+            $e->wrong_answers = $wronga;
+            $e->total_questions = 20;
 			$e->save();
 		}
 	}

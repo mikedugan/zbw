@@ -14,8 +14,8 @@ class CreateNewsTable extends Migration {
 	{
 		Schema::create('zbw_news', function(Blueprint $table) {
 			$table->increments('id');
-			$table->enum('type', ['event', 'news', 'policy', 'forum', 'staff'])->required();
-			$table->enum('audience', ['pilots', 'controllers', 'both'])->required();
+			$table->tinyInteger('news_type')->default(0);
+			$table->tinyInteger('audience')->default(0);
 			$table->string('title', 60)->required();
 			$table->text('content')->required();
 			$table->dateTime('starts')->nullable();

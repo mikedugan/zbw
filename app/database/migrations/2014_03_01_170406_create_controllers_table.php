@@ -33,6 +33,7 @@ class CreateControllersTable extends Migration {
 			$table->boolean('is_emeritus')->default(0);
 			$table->boolean('is_active');
 			$table->boolean('is_staff')->default(0);
+			$table->tinyInteger('cert')->default(0);
 			$table->timestamps();
 		});
 	}

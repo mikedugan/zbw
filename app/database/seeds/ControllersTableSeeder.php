@@ -26,6 +26,7 @@ class ControllersTableSeeder extends Seeder {
 		$c->is_mentor = 1;
 		$c->is_webmaster = 1;
 		$c->is_staff = 1;
+		$c->cert = 7;
 		$c->save();
 
 		$c = new User();
@@ -43,6 +44,7 @@ class ControllersTableSeeder extends Seeder {
 		$c->is_mentor = 1;
 		$c->is_atm = 1;
 		$c->is_staff = 1;
+		$c->cert = 6;
 		$c->save();
 
 		$c = new User();
@@ -60,6 +62,7 @@ class ControllersTableSeeder extends Seeder {
 		$c->is_ta = 1;
 		$c->is_instructor = 1;
 		$c->is_staff = 1;
+		$c->cert = 7;
 		$c->save();
 
 		foreach(range(1,50) as $i)

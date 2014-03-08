@@ -12,9 +12,9 @@ class CreateExamsTable extends Migration {
 	 */
 	public function up()
 	{
-        Schema::create('exams', function(Blueprint $table) {
+        Schema::create('controller_exams', function(Blueprint $table) {
             $table->increments('id');
-            $table->enum('exam_id', ['C_S1','B_S1', 'C_S2','B_S2', 'C_S3','B_S3','C'])->required();
+            $table->tinyInteger('exam_id')->default(0);
             $table->boolean('reviewed')->default(0);
             $table->string('wrong_questions')->nullable();
             $table->string('wrong_answers')->nullable();
@@ -31,7 +31,7 @@ class CreateExamsTable extends Migration {
 	 */
 	public function down()
 	{
-	    Schema::drop('exams');
+	    Schema::drop('controller_exams');
 	}
 
 }

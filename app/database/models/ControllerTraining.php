@@ -1,7 +1,9 @@
 <?php
 
 class ControllerTraining extends Eloquent {
-	protected $guarded = array();
+	protected $guarded = ['cid', 'sid'];
 	protected $table = 'controller_training';
-	public static $rules = array();
+	public static $rules = [
+
+	];
 }
