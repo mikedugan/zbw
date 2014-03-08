@@ -16,7 +16,7 @@ class CreateForumTopicsTable extends Migration {
 			$table->increments('id');
 			$table->string('title', 60);
 			$table->integer('user_id');
-			$table->integer('topics');
+			$table->smallInteger('topics');
 			$table->boolean('has_attachments')->default(0);
 			$table->timestamps();
 		});

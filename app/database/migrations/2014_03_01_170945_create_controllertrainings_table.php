@@ -25,8 +25,8 @@ class CreateControllerTrainingsTable extends Migration {
 			$table->boolean('is_ots')->default(0);
 			$table->enum('position', ['PVD_GND', 'PVD_TWR', 'PWM_TWR', 'PWM_GND', 'PVD_APP', 'PWM_APP',
 				'BOS_GND', 'BOS_TWR', 'BOS_APP', 'BOS_CTR'])->required();
-			$table->integer('brief_time')->required()->default(0);
-			$table->integer('position_time')->required()->default(0);
+			$table->tinyInteger('brief_time')->unsigned()->required()->default(0);
+			$table->tinyInteger('position_time')->unsigned()->required()->default(0);
 			$table->boolean('is_live')->default(0);
 			$table->enum('training_type', ['sb_training', 'sb_familiarization', 'network_training']);
 			$table->timestamps();

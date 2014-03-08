@@ -4,8 +4,8 @@ use Illuminate\Auth\UserInterface;
 use Illuminate\Auth\Reminders\RemindableInterface;
 
 class User extends Eloquent implements UserInterface, RemindableInterface {
-
 	protected $table = 'controllers';
+	protected $guarded = ['cid', 'email', 'rating', 'is_webmaster', 'is_staff'];
 	protected $primaryKey = 'cid';
 	protected $positions;
 	public function __construct()
