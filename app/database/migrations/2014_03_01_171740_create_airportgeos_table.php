@@ -20,7 +20,7 @@ class CreateAirportGeosTable extends Migration {
 			$table->string('name', 40);
 			$table->string('lat', 10);
 			$table->string('lon', 10);
-			$table->smallIn('elevation')->required()->default(0);
+			$table->smallInteger('elevation')->required()->default(0);
 			$table->string('tracon', 20);
 			$table->string('location', 50);
 			$table->timestamps();
