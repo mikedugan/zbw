@@ -7,7 +7,7 @@ class AdminController extends BaseController
         $data = [
             'title' => 'vZBW Staff Area'
         ];
-        return View::make('admin.index', $data);
+        return View::make('staff.index', $data);
     }
     public function getTrainingIndex()
     {
@@ -19,5 +19,41 @@ class AdminController extends BaseController
             'title' => 'vZBW Training Home'
         ];
         return View::make('training.admin.index', $data);
+    }
+
+    public function getForumIndex()
+    {
+        $data = [
+            'title' => 'ZBW Forum Admin'
+        ];
+        return View::make('staff.forum', $data);
+    }
+
+    public function getCmsIndex()
+    {
+        $data = [
+            'title' => 'ZBW CMS Admin'
+        ];
+        return View::make('staff.cms', $data);
+    }
+
+    public function getNewsIndex()
+    {
+        $data = [
+            'title' => 'ZBW News Admin'
+        ];
+        return View::make('staff.news', $data);
+    }
+
+    public function getRosterIndex()
+    {
+        $data = [ 'title' => 'ZBW Roster Admin'];
+        return View::make('staff.roster', $data);
+    }
+
+    public function getTsIndex()
+    {
+        $data = [ 'title' => 'ZBW TS Admin'];
+        return View::make('staff.ts', $data);
     }
 } 

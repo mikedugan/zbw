@@ -28,27 +28,10 @@ Route::get('staff', 'StaffController@getIndex');
 Route::get('training', 'TrainingController@getIndex');
 
 //admin and staff routes
-Route::get('admin', 'AdminController@getAdminIndex');
-Route::get('admin/training', 'AdminController@getTrainingIndex');
-
-/*Route::resource('controllers', 'ControllersController');
-
-Route::resource('controllertrainings', 'ControllertrainingsController');
-
-Route::resource('controllergroups', 'ControllergroupsController');
-
-Route::resource('controllerexams', 'ControllerexamsController');
-
-Route::resource('airportrunways', 'AirportrunwaysController');
-
-Route::resource('airportroutes', 'AirportroutesController');
-
-Route::resource('airportgeos', 'AirportgeosController');
-
-Route::resource('airportfrequencies', 'AirportfrequenciesController');
-
-Route::resource('airportcharts', 'AirportchartsController');
-
-Route::resource('pokercards', 'PokercardsController');
-
-Route::resource('pilotfeedbacks', 'PilotfeedbacksController');*/
+Route::get('staff', 'AdminController@getAdminIndex');
+Route::get('staff/training', 'AdminController@getTrainingIndex');
+Route::get('staff/roster', 'AdminController@getRosterIndex');
+Route::get('staff/cms', 'AdminController@getCmsIndex');
+Route::get('staff/forum', 'AdminController@getForumIndex');
+Route::get('staff/ts', 'AdminController@getTsIndex');
+Route::get('staff/news', 'AdminController@getNewsIndex');

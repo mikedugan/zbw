@@ -8,6 +8,16 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	protected $guarded = ['cid', 'email', 'rating', 'is_webmaster', 'is_staff'];
 	protected $primaryKey = 'cid';
 	protected $positions;
+    public $rules = [
+        'username' => 'alpha',
+        'cid' => 'integer',
+        'initials' => 'alpha|max:2',
+        'first_name' => 'alpha|max:30',
+        'last_name' => 'alpha|max:30',
+        'email' => 'email|max:60',
+        'rating' => 'alpha_num|max:3',
+        'artcc' => 'alpha|max:3'
+    ];
 
 	//scopes
 
