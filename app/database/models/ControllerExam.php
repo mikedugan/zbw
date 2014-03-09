@@ -3,7 +3,10 @@
 class ControllerExam extends Eloquent {
     protected $guarded = ['exam_id', 'reviewed'];
     protected $table = 'controller_exams';
-    public static $rules = array();
+    public static $rules = [
+        'exam_id' => 'between:1,10',
+        '
+    ]
 
     //relations
     public function exam()

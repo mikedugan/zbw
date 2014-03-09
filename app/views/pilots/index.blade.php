@@ -16,4 +16,5 @@
 
 @section('content')
 <h1>Welcome to the vZBW Pilot Area!</h1>
+<h3>Hello, {{ $me->initials or 'Guest'}}</h3>
 @stop
