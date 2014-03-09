@@ -3,8 +3,13 @@
 class News extends Eloquent {
 	protected $guarded = ['audience', 'deleted_at'];
 	protected $table = 'zbw_news';
-	public static $rules = array();
-
+    public static $rules = [
+        'news_type' => 'integer|max:4',
+        'audience' => 'integer|max:4',
+        'title' => 'max:60',
+        'starts' => 'date',
+        'ends' => 'date',
+    ];
 	//scopes
     /**
      * @param Query $query

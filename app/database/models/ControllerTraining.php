@@ -4,8 +4,20 @@ class ControllerTraining extends Eloquent {
 	protected $guarded = ['cid', 'sid'];
 	protected $table = 'controller_training';
 	public static $rules = [
-
+        'cid' => '',
+        'sid' => '',
+        'session_date' => 'date',
+        'weather' => 'integer|max:4',
+        'complexity' => 'integer|max:4',
+        'workload' => 'integer|max:4',
 	];
+
+    public function __construct()
+    {
+        $cids = \Zbw\Helpers::getCids(true);
+        $this->rules['cid'] = 'in:' . $cids;
+        $this->rules['sid'] = 'in:' . $cids;
+    }
 
     //scopes
     public function scopeOlder($query, $date)

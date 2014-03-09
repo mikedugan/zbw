@@ -5,8 +5,17 @@ class ControllerExam extends Eloquent {
     protected $table = 'controller_exams';
     public static $rules = [
         'exam_id' => 'between:1,10',
-        '
-    ]
+        'total_questions' => 'integer',
+        'cid' => '',
+        'reviewed_by' => ''
+    ];
+
+    public function __construct()
+    {
+        $cids = \Zbw\Helpers::getCids(true);
+        $this->rules['cid'] = 'in:' . $cids;
+        $this->rules['reviewed_by'] = 'in:' . $cids;
+    }
 
     //relations
     public function exam()
