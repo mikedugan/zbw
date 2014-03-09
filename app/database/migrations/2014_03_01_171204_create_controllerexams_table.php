@@ -15,7 +15,7 @@ class CreateControllerExamsTable extends Migration {
 		Schema::create('controller_certs', function(Blueprint $table) {
 			$table->increments('id');
 			$table->integer('cid')->required();
-			$table->tinyInteger('exam_id')->default(0);
+			$table->tinyInteger('cert_type')->default(0);
 			$table->boolean('passed')->required();
 			$table->tinyInteger('times_taken')->default(0);
 			$table->date('first_exam');

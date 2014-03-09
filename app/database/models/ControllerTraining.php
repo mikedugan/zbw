@@ -6,4 +6,38 @@ class ControllerTraining extends Eloquent {
 	public static $rules = [
 
 	];
+
+    //scopes
+    public function scopeOlder($query, $date)
+    {
+        return $query->where('session_date', '<', $date);
+    }
+
+    public function scopeNewer($query, $date)
+    {
+      return $query->where('session_date', '>', $date);
+    }
+
+    //relations
+    public function student()
+    {
+        return $this->belongsTo('User', 'cid', 'cid');
+    }
+
+    public function staff()
+    {
+        return $this->belongsTo('User', 'sid', 'cid');
+    }
+
+    public function location()
+    {
+        return $this->hasOne('TrainingFacility', 'id', 'facility');
+    }
+
+    //statics
+    public static function recentReports($n)
+    {
+        return ControllerTraining::with(['student', 'staff', 'location'])
+            ->latest('session_date')->take($n)->get();
+    }
 }
