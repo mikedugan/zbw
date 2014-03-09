@@ -14,7 +14,7 @@ class CreateComplexityTypesTable extends Migration {
 	{
         Schema::create('_complexity_types', function(Blueprint $table) {
             $table->increments('id');
-            $table->string('type');
+            $table->string('value');
         });
 	}
 

@@ -3,8 +3,8 @@
 class ReferenceTableSeeder extends Seeder {
 
         public function run()
-	{
-	DB::table('_complexity_types')->truncate();
+        {
+	    DB::table('_complexity_types')->truncate();
         DB::table('_news_audience')->truncate();
         DB::table('_news_types')->truncate();
         DB::table('_training_types')->truncate();
@@ -13,65 +13,72 @@ class ReferenceTableSeeder extends Seeder {
         DB::table('_cert_types')->truncate();
         DB::table('_training_facilities')->truncate();
         DB::table('_file_types')->truncate();
+        DB::table('_message_types')->truncate();
 
-        ComplexityType::create(['type' => 'very_easy']);
-        ComplexityType::create(['type' => 'easy']);
-        ComplexityType::create(['type' => 'medium']);
-        ComplexityType::create(['type' => 'hard']);
-        ComplexityType::create(['type' => 'very_hard']);
+        ComplexityType::create(['value' => 'very_easy']);
+        ComplexityType::create(['value' => 'easy']);
+        ComplexityType::create(['value' => 'medium']);
+        ComplexityType::create(['value' => 'hard']);
+        ComplexityType::create(['value' => 'very_hard']);
 
-        WeatherType::create(['type' => 'ifr']);
-        WeatherType::create(['type' => 'vfr']);
-        WeatherType::create(['type' => 'mvfr']);
+        WeatherType::create(['value' => 'ifr']);
+        WeatherType::create(['value' => 'vfr']);
+        WeatherType::create(['value' => 'mvfr']);
 
-        WorkloadType::create(['type' => 'light']);
-        WorkloadType::create(['type' => 'medium']);
-        WorkloadType::create(['type' => 'heavy']);
+        WorkloadType::create(['value' => 'light']);
+        WorkloadType::create(['value' => 'medium']);
+        WorkloadType::create(['value' => 'heavy']);
 
-        TrainingType::create(['type' => 'sb_training']);
-        TrainingType::create(['type' => 'sb_familiarization']);
-        TrainingType::create(['type' => 'network_training']);
+        TrainingType::create(['value' => 'sb_training']);
+        TrainingType::create(['value' => 'sb_familiarization']);
+        TrainingType::create(['value' => 'network_training']);
 
-        AudienceType::create(['type' => 'both']);
-        AudienceType::create(['type' => 'pilots']);
-        AudienceType::create(['type' => 'controllers']);
+        AudienceType::create(['value' => 'both']);
+        AudienceType::create(['value' => 'pilots']);
+        AudienceType::create(['value' => 'controllers']);
 
-        NewsType::create(['type' => 'event']);
-        NewsType::create(['type' => 'news']);
-        NewsType::create(['type' => 'policy']);
-        NewsType::create(['type' => 'forum']);
-        NewsType::create(['type' => 'staff']);
+        NewsType::create(['value' => 'event']);
+        NewsType::create(['value' => 'news']);
+        NewsType::create(['value' => 'policy']);
+        NewsType::create(['value' => 'forum']);
+        NewsType::create(['value' => 'staff']);
 
-        CertType::create(['type' => 'C_S1']);
-        CertType::create(['type' => 'B_S1']);
-        CertType::create(['type' => 'C_S2']);
-        CertType::create(['type' => 'B_S2']);
-        CertType::create(['type' => 'C_S3']);
-        CertType::create(['type' => 'B_S3']);
-        CertType::create(['type' => 'C1']);
-        CertType::create(['type' => 'I1']);
-        CertType::create(['type' => 'I3']);
-        CertType::create(['type' => 'C3']);
+        CertType::create(['value' => 'C_S1']);
+        CertType::create(['value' => 'B_S1']);
+        CertType::create(['value' => 'C_S2']);
+        CertType::create(['value' => 'B_S2']);
+        CertType::create(['value' => 'C_S3']);
+        CertType::create(['value' => 'B_S3']);
+        CertType::create(['value' => 'C1']);
+        CertType::create(['value' => 'I1']);
+        CertType::create(['value' => 'I3']);
+        CertType::create(['value' => 'C3']);
 
-        TrainingFacility::create(['facility' => 'PVD_GND']);
-        TrainingFacility::create(['facility' => 'PWM_GND']);
-        TrainingFacility::create(['facility' => 'BDL_GND']);
-        TrainingFacility::create(['facility' => 'BOS_GND']);
-        TrainingFacility::create(['facility' => 'PVD_TWR']);
-        TrainingFacility::create(['facility' => 'PWM_TWR']);
-        TrainingFacility::create(['facility' => 'BDL_TWR']);
-        TrainingFacility::create(['facility' => 'BOS_TWR']);
-        TrainingFacility::create(['facility' => 'PVD_APP']);
-        TrainingFacility::create(['facility' => 'PWM_APP']);
-        TrainingFacility::create(['facility' => 'BDL_APP']);
-        TrainingFacility::create(['facility' => 'BOS_APP']);
-        TrainingFacility::create(['facility' => 'BOS_CTR']);
+        TrainingFacility::create(['value' => 'PVD_GND']);
+        TrainingFacility::create(['value' => 'PWM_GND']);
+        TrainingFacility::create(['value' => 'BDL_GND']);
+        TrainingFacility::create(['value' => 'BOS_GND']);
+        TrainingFacility::create(['value' => 'PVD_TWR']);
+        TrainingFacility::create(['value' => 'PWM_TWR']);
+        TrainingFacility::create(['value' => 'BDL_TWR']);
+        TrainingFacility::create(['value' => 'BOS_TWR']);
+        TrainingFacility::create(['value' => 'PVD_APP']);
+        TrainingFacility::create(['value' => 'PWM_APP']);
+        TrainingFacility::create(['value' => 'BDL_APP']);
+        TrainingFacility::create(['value' => 'BOS_APP']);
+        TrainingFacility::create(['value' => 'BOS_CTR']);
 
-        FileType::create(['type' => 'image']);
-        FileType::create(['type' => 'sector']);
-        FileType::create(['type' => 'chart']);
-        FileType::create(['type' => 'exe']);
-        FileType::create(['type' => 'document']);
+        FileType::create(['value' => 'image']);
+        FileType::create(['value' => 'sector']);
+        FileType::create(['value' => 'chart']);
+        FileType::create(['value' => 'exe']);
+        FileType::create(['value' => 'document']);
+
+        MessageType::create(['value' => 'private']);
+        MessageType::create(['value' => 'c_session']);
+        MessageType::create(['value' => 'c_event']);
+        MessageType::create(['value' => 'c_news']);
+        MessageType::create(['value' => 'c_exam']);
 	}
 
 }

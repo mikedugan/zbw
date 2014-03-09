@@ -14,7 +14,7 @@ class CreateNewsAudienceTable extends Migration {
 	{
         Schema::create('_news_audience', function(Blueprint $table) {
             $table->increments('id');
-            $table->string('type');
+            $table->string('value');
         });
 	}
 

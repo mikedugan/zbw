@@ -3,6 +3,6 @@
 class FileType extends Eloquent
 {
     protected $table = '_file_types';
-    protected $fillable = 'type';
+    protected $fillable = ['type'];
     public $timestamps = false;
 } 

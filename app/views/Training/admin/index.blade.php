@@ -7,7 +7,7 @@
         <h4>Recent Reports</h4>
         @foreach($reports as $r)
             <p class="well">
-                <a href="#">
+                <a href="/staff/training/{{$r->id}}">
                 {{ strtoupper($r->student->initials) }} was trained by
                 {{ strtoupper($r->staff->initials) }}
                 {{ \Zbw\Helpers::timeAgo($r->session_date) }} on

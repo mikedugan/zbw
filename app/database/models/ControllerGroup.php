@@ -3,7 +3,7 @@
 class ControllerGroup extends Eloquent {
 	protected $guarded = ['name'];
 	protected $table = 'controller_groups';
-	public static $rules = [
+	public $rules = [
         'name' => 'max:40',
     ];
 }

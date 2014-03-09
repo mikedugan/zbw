@@ -14,7 +14,7 @@ class CreateTrainingFacilitiesTable extends Migration {
 	{
         Schema::create('_training_facilities', function(Blueprint $table) {
             $table->increments('id');
-			$table->string('facility', 8);
+			$table->string('value', 8);
         });
 	}
 
