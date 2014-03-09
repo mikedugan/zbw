@@ -14,7 +14,7 @@ class CreateTrainingTypesTable extends Migration {
 	{
         Schema::create('_training_types', function(Blueprint $table) {
             $table->increments('id');
-            $table->string('type');
+            $table->string('value');
         });
 	}
 

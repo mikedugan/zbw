@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateFileTypesTable extends Migration {
+class CreateMessageTypesTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,9 +12,9 @@ class CreateFileTypesTable extends Migration {
 	 */
 	public function up()
 	{
-        Schema::create('_file_types', function(Blueprint $table) {
+        Schema::create('_message_types', function(Blueprint $table) {
             $table->increments('id');
-			$table->string('value');
+			$table->string('value', 20);
         });
 	}
 
@@ -26,7 +26,7 @@ class CreateFileTypesTable extends Migration {
 	 */
 	public function down()
 	{
-	    Schema::drop('_file_types');
+	    Schema::drop('_message_types');
 	}
 
 }

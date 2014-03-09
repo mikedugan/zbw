@@ -14,7 +14,7 @@ class CreateExamTypesTable extends Migration {
 	{
         Schema::create('_cert_types', function(Blueprint $table) {
             $table->increments('id');
-			$table->string('type');
+			$table->string('value');
         });
 	}
 

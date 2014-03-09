@@ -14,7 +14,7 @@ class CreateWorkloadTypesTable extends Migration {
 	{
         Schema::create('_workload_types', function(Blueprint $table) {
             $table->increments('id');
-			$table->string('type');
+			$table->string('value');
         });
 	}
 

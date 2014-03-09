@@ -35,3 +35,6 @@ Route::get('staff/cms', 'AdminController@getCmsIndex');
 Route::get('staff/forum', 'AdminController@getForumIndex');
 Route::get('staff/ts', 'AdminController@getTsIndex');
 Route::get('staff/news', 'AdminController@getNewsIndex');
+
+//training sessions
+Route::get('staff/training/{id}', 'TrainingController@showAdmin');

@@ -14,7 +14,7 @@ class CreateWeatherTypesTable extends Migration {
 	{
         Schema::create('_weather_types', function(Blueprint $table) {
             $table->increments('id');
-			$table->string('type', 4);
+			$table->string('value', 4);
         });
 	}
 
