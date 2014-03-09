@@ -14,6 +14,8 @@ class CreateUploadsTable extends Migration {
 	{
         Schema::create('zbw_uploads', function(Blueprint $table) {
             $table->increments('id');
+            $table->integer('parent_id');
+            $table->enum('parent_type', ['message', 'forum', 'download']);
             $table->string('name', 60);
             $table->string('description', 120);
             $table->string('location');

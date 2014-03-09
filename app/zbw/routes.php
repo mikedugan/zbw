@@ -27,6 +27,9 @@ Route::get('forum', 'ForumController@getIndex');
 Route::get('staff', 'StaffController@getIndex');
 Route::get('training', 'TrainingController@getIndex');
 
+//admin and staff routes
+Route::get('admin', 'AdminController@getAdminIndex');
+Route::get('admin/training', 'AdminController@getTrainingIndex');
 
 /*Route::resource('controllers', 'ControllersController');
 

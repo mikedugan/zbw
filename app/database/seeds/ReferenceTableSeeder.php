@@ -10,8 +10,9 @@ class ReferenceTableSeeder extends Seeder {
         DB::table('_training_types')->truncate();
         DB::table('_workload_types')->truncate();
         DB::table('_weather_types')->truncate();
-        DB::table('_exam_types')->truncate();
+        DB::table('_cert_types')->truncate();
         DB::table('_training_facilities')->truncate();
+        DB::table('_file_types')->truncate();
 
         ComplexityType::create(['type' => 'very_easy']);
         ComplexityType::create(['type' => 'easy']);
@@ -65,6 +66,12 @@ class ReferenceTableSeeder extends Seeder {
         TrainingFacility::create(['facility' => 'BDL_APP']);
         TrainingFacility::create(['facility' => 'BOS_APP']);
         TrainingFacility::create(['facility' => 'BOS_CTR']);
+
+        FileType::create(['type' => 'image']);
+        FileType::create(['type' => 'sector']);
+        FileType::create(['type' => 'chart']);
+        FileType::create(['type' => 'exe']);
+        FileType::create(['type' => 'document']);
 	}
 
 }
