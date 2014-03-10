@@ -12,10 +12,15 @@ class TrainingController extends BaseController {
 
     public function showAdmin($id)
     {
-        $ts = ControllerTraining::find($id);
+        $ts = ControllerTraining::
+            with(['student', 'location', 'staff', 'complexityType', 'weatherType', 'workloadType'])
+            ->find($id);
         $data = [
             'title' => 'View Training Session',
-            'tsession' => $ts
+            'tsession' => $ts,
+            'student' => $ts->student,
+            'staff' => $ts->staff,
+            'location' => $ts->location
         ];
         return View::make('training.admin.session', $data);
     }

@@ -57,9 +57,8 @@
             @foreach($exams as $e)
                 <p class="well">
                     <a href="#">
-                    {{ strtoupper($e->student->initials) }} took {{ $e->exam->type }}
-                    ,{{ \Zbw\Helpers::getWrongCount($e) }} wrong out of
-                    {{ $e->total_questions }}
+                    {{ strtoupper($e->student->initials) }} took {{ $e->exam['value'] }}
+                    , scored {{ \zbw\Helpers::getScore($e) }}%
                     </a>
                 </p>
             @endforeach

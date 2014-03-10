@@ -45,6 +45,21 @@ class ControllerTraining extends Eloquent {
         return $this->hasOne('TrainingFacility', 'id', 'facility');
     }
 
+    public function weatherType()
+    {
+        return $this->hasOne('WeatherType', 'id', 'weather');
+    }
+
+    public function complexityType()
+    {
+        return $this->hasOne('ComplexityType', 'id', 'complexity');
+    }
+
+    public function workloadType()
+    {
+        return $this->hasOne('WorkloadType', 'id', 'workload');
+    }
+
     //statics
     public static function recentReports($n)
     {

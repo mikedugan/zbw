@@ -43,6 +43,7 @@ class ControllerExam extends Eloquent {
         return $query->where('reviewed', '=', 0);
     }
 
+
     //statics
     public static function recentExams($n)
     {
