@@ -18,6 +18,7 @@ class AdminController extends BaseController
             'exams' => ControllerExam::recentExams(5),
             'title' => 'vZBW Training Home'
         ];
+        JavaScript::put(['foo' => 'mike']);
         return View::make('training.admin.index', $data);
     }
 

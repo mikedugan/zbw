@@ -109,6 +109,7 @@ return array(
 		'Way\Generators\GeneratorsServiceProvider',
 		'Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider',
 		'Barryvdh\Debugbar\ServiceProvider',
+        'Laracasts\Utilities\UtilitiesServiceProvider',
 	),
 
 	/*
@@ -175,6 +176,7 @@ return array(
 		'Validator'       => 'Illuminate\Support\Facades\Validator',
 		'View'            => 'Illuminate\Support\Facades\View',
         'Carbon'          => 'Carbon\Carbon',
+        'JavaScript'      => 'Laracasts\Utlities\JavaScript\Facades\JavaScript'
 
 	),
 

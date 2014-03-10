@@ -8,7 +8,8 @@
 		"way/generators": "dev-master",
 		"barryvdh/laravel-ide-helper": "dev-master",
 		"barryvdh/laravel-debugbar": "dev-master",
-		"fzaninotto/faker": "dev-master"
+		"fzaninotto/faker": "dev-master",
+		"laracasts/utilities": "dev-master"
 	},
 	"autoload": {
 		"classmap": [
