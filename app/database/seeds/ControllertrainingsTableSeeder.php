@@ -7,7 +7,7 @@ class ControllertrainingsTableSeeder extends Seeder {
 
 	public function run()
 	{
-        $cid = [190632, 273648, 3001257, 93182, 1394942, 1720206, 3275607];
+        $cid = [6728094, 8859385, 3423026, 190632, 85000057, 3207799, 3423026];
         $sid = [1240047, 1544047, 1170055];
 
 		DB::table('controller_training')->truncate();

@@ -22,6 +22,8 @@ h1, h2, h3, h4, h5, h6 {
   margin: 1%;
 }
 
+b { font-weight: bold; }
+
 a:hover {text-decoration: none;}
 
 .clear { clear:both;float:none;}

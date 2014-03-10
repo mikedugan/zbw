@@ -32,9 +32,9 @@ class Helpers {
      * @param \ControllerExam $exam
      * @return integer
      */
-    public static function getWrongCount($exam)
+    public static function getScore($exam)
     {
-        return count(explode(',', $exam->wrong_questions)) - 1;
+        return (count(explode(',', $exam->wrong_questions)) - 1) / $exam->total_questions * 100;
     }
 
     /**
