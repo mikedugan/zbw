@@ -11916,3 +11916,6 @@ class View extends Illuminate\Support\Facades\View{
 
 }
 
+class Carbon extends Carbon\Carbon{
+}
+
