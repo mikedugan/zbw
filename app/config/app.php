@@ -27,6 +27,8 @@ return array(
 	*/
 
 	'url' => 'http://localhost',
+	'vatid' => 4,
+	'vatkey' => 'ahwwSh8N0BlobHcuzcozmbZ2me5TCs',
 
 	/*
 	|--------------------------------------------------------------------------
