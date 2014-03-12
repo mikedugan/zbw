@@ -1,5 +1,7 @@
 <?php 
 
+use Zbw\Repositories\UserRepository as UserRepository;
+
 class AdminController extends BaseController
 {
     public function getAdminIndex()
@@ -48,7 +50,11 @@ class AdminController extends BaseController
 
     public function getRosterIndex()
     {
-        $data = [ 'title' => 'ZBW Roster Admin'];
+        $ur = new UserRepository();
+        $data = [
+            'title' => 'ZBW Roster Admin',
+            'users' => $ur->all()
+        ];
         return View::make('staff.roster', $data);
     }
 

@@ -27,6 +27,8 @@ b { font-weight: bold; }
 a:hover {text-decoration: none;}
 
 .clear { clear:both;float:none;}
+.bcenter { margin: 0 auto;}
+
 
 #content {
   width: 90%;
@@ -40,6 +42,13 @@ a:hover {text-decoration: none;}
 article h3 { font: 1.5em 'Flamenco', arial, serif; }
 div.news h3 { text-align: right;}
 
+.btn-xs {
+    background: #dbdbdb;
+    color: black;
+    border: 1px outset #555;
+}
+.full { width: 100%; }
+td, th { padding: 2px 5px;}
 
 #content a.btn { color: #fff; }
 #content a.btn:hover { color: #eee; }

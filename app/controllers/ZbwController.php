@@ -2,12 +2,15 @@
 
 class ZbwController extends BaseController {
 
+    public function __construct() {
+        $this->news = new \zbw\Repositories\NewsRepository();
+    }
 	public function getIndex()
 	{
 		$data = [
 			'title' => 'vZBW ARTCC',
 			'me' => Auth::user(),
-			'news' => News::front(5)
+			'news' => $this->news->front(5)
 		];
 		return View::make('zbw', $data);
 
