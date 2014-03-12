@@ -60,33 +60,6 @@ class News extends Eloquent {
      * @param Query $query
      * @return Eloquent
      */
-	public function scopeControllers($query)
-	{
-		return $query->where('audience', '=', 'controllers')->where('news_type', '!=', 'staff')->get();
-	}
-
-    /**
-     * @param Query $query
-     * @return Eloquent
-     */
-	public function scopePilots($query)
-	{
-		return $query->where('audience', '=', 'pilots')->where('news_type', '!=', 4)->get();
-	}
-
-    /**
-     * @param Query $query
-     * @return Eloquent
-     */
-	public function scopeFront($query, $lim)
-	{
-		return $query->where('audience', '=', 'both')->where('news_type', '!=', '4')->limit($lim)->get();
-	}
-
-    /**
-     * @param Query $query
-     * @return Eloquent
-     */
     public function scopeFacility($query, $fac)
     {
         return $query->where('facility', '=', $fac);
@@ -136,6 +109,6 @@ class News extends Eloquent {
 
     public function type()
     {
-        return $this->hasOne('NewsType', 'id', 'news_type');
+        return $this->hasOne('NewsType', 'id', '_news_types');
     }
 }
