@@ -1,14 +1,14 @@
-<form action="/staff/roster" method="GET">
+<form action="/staff/roster/results" method="GET">
     <div class="form-group">
-        <label class="control-label" for="email">Email</label>
-        <input class="form-control" type="email" name="email" id="email"/>
+        <label class="control-label" for="text">Email</label>
+        <input class="form-control" type="text" name="email" id="email"/>
     </div>
     <div class="form-group">
-        <label class="control-label" for="rating">Rating</label>
+        <label class="control-label" for="rating">Rating (ie I3)</label>
         <input class="form-control" type="text" name="rating" id="rating"/>
     </div>
     <div class="form-group">
-        <label class="control-label" for="cid">CID</label>
+        <label class="control-label" for="cid">CID (exact match)</label>
         <input class="form-control" type="number" name="cid" id="cid" maxlength="2"/>
     </div>
     <div class="form-group">
