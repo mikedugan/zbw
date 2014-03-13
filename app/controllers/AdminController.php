@@ -4,6 +4,12 @@ use Zbw\Repositories\UserRepository as UserRepository;
 
 class AdminController extends BaseController
 {
+    private $uRepo;
+
+    public function __construct()
+    {
+        $this->uRepo = new UserRepository();
+    }
     public function getAdminIndex()
     {
         $data = [
@@ -58,9 +64,30 @@ class AdminController extends BaseController
         return View::make('staff.roster', $data);
     }
 
+    public function getSearchResults()
+    {
+        $ur = new UserRepository();
+        $results = $ur->search(Input::all());
+        $data = [
+            'title' => 'Roster Search Results',
+            'stype' => 'roster',
+            'results' => $results
+        ];
+        return View::make('staff.results', $data);
+    }
+
     public function getTsIndex()
     {
         $data = [ 'title' => 'ZBW TS Admin'];
         return View::make('staff.ts', $data);
+    }
+
+    public function showUser($id)
+    {
+        $data = [
+            'title' => 'View Controller',
+            'user' => $this->uRepo->find($id)
+        ];
+        return View::make('users.staffView', $data);
     }
 } 
