@@ -44,12 +44,16 @@ class ReferenceTableSeeder extends Seeder {
         NewsType::create(['value' => 'staff']);
 
         CertType::create(['value' => 'C_S1']);
+        CertType::create(['value' => 'O_S1']);
         CertType::create(['value' => 'B_S1']);
         CertType::create(['value' => 'C_S2']);
+        CertType::create(['value' => 'O_S2']);
         CertType::create(['value' => 'B_S2']);
         CertType::create(['value' => 'C_S3']);
+        CertType::create(['value' => 'O_S3']);
         CertType::create(['value' => 'B_S3']);
-        CertType::create(['value' => 'C1']);
+        CertType::create(['value' => 'C_C1']);
+        CertType::create(['value' => 'B_C1']);
         CertType::create(['value' => 'I1']);
         CertType::create(['value' => 'I3']);
         CertType::create(['value' => 'C3']);

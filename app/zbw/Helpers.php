@@ -46,4 +46,18 @@ class Helpers {
     {
         return $csv ? implode(',', array_values(\DB::table('controllers')->lists('cid'))) : array_values(\DB::table('controllers')->lists('cid'));
     }
+
+    public static function readableCert($cert)
+    {
+        switch($cert)
+        {   case 'C_S1': return "Class C/D Ground"; break;
+            case 'B_S1': return "Class B Ground"; break;
+            case 'C_S2': return "Class C/D Tower"; break;
+            case 'B_S2': return "Class B Tower"; break;
+            case 'C_S3': return "Class C Approach"; break;
+            case 'B_S3': return "Class B Approach"; break;
+            case 'C_C1': return "Off Peak Center"; break;
+            case 'B_C1': return "Center Controller"; break;
+        }
+    }
 }

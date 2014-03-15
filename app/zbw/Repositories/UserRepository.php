@@ -1,12 +1,14 @@
 <?php  namespace Zbw\Repositories;
 
+use Zbw\Helpers;
+
 class UserRepository
 {
     protected $user;
 
     public function __construct($user = null)
     {
-        $this->user = $user ? $user : null;
+        $this->user = $user ? \User::find($user) : null;
     }
 
     public function all()
@@ -17,6 +19,42 @@ class UserRepository
     public function find($id)
     {
         return $id ? \User::find($id) : \User::find($this->user);
+    }
+
+    public function cid()
+    {
+        return $this->user->cid;
+    }
+
+    public function name()
+    {
+        return $this->user->username;
+    }
+
+
+    //returns % of training completed
+    public function trainingProgress()
+    {
+        return floor($this->user->cert / 7 * 100);
+    }
+
+    public function rating() { return $this->user->rating; }
+
+    public function cert() { return $this->user->cert; }
+    public function certTitle()
+    {
+        return Helpers::readableCert($this->user->certification['value']);
+    }
+
+    public function availableExams($minor = false)
+    {
+        if($minor) { return "ohshit"; }
+        else
+        {
+            $avail = $this->user->certification->id + 1;
+            $title = \CertType::find($avail)->value;
+            return [$avail, Helpers::readableCert($title)];
+        }
     }
 
     public function search($input)

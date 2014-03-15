@@ -5,7 +5,8 @@ class TrainingController extends BaseController {
 	public function getIndex()
 	{
 		$data = [
-			'title' => 'Training Center'
+			'title' => 'Training Center',
+            'user' => new \Zbw\Repositories\UserRepository(Auth::user()->cid),
 		];
 		return View::make('training.index', $data);
 	}

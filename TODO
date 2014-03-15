@@ -1,5 +1,11 @@
 TODO:
 
+repositories:
+--finish the exam request ajax function - currently need to populate certs table
+
+messenger:
+--start on it so required actions can be sent out and viewed
+
 models:
 --event (scopes/relations)
 --news (scopes/relations)

@@ -31,4 +31,10 @@ $(function() {
 			}
 		}
 	});
+    if($('#training'))
+    {
+        var nVal = $('#training .progress-bar').attr('aria-valuenow');
+        var width = (nVal / 58 ) * 100;
+        $('#training .progress-bar').css('width', width + '%');
+    }
 });
