@@ -20,6 +20,7 @@
 
     <div id="content" class="col-md-12 center-block">
     <div class="pull-right">
+    <div id="flash">
     @if(Session::get('flash_info'))
         <div class="flash flash-info"><span class="glyphicon glyphicon-info-sign blue">
               {{  Session::get('flash_info') }}
@@ -40,6 +41,7 @@
                 {{ Session::get('flash_warning') }}
         </span></div>
     @endif
+    </div>
     </div>
     @yield('content')
     </div>

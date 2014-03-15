@@ -1,7 +1,7 @@
 <?php
 
 class CertType extends Eloquent {
-    protected $fillable = ['type'];
+    protected $fillable = ['value'];
 	protected $table = '_cert_types';
     public $timestamps = false;
 }

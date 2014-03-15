@@ -4,5 +4,6 @@
 {{ HTML::script('js/underscore.js') }}
 {{ HTML::script('js/backbone.js') }}
 {{ HTML::script('js/slide.js') }}
+{{ HTML::script('js/functions.js') }}
 {{ HTML::script('js/events.js') }}
 {{ HTML::script('js/custom.js') }}

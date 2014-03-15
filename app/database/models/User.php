@@ -65,9 +65,9 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		return $this->hasMany('ControllerExam');
 	}
 
-    public function cert()
+    public function certification()
     {
-        return $this->hasOne('ControllerCert');
+        return $this->hasOne('CertType', 'id', 'cert');
     }
 
 	protected $hidden = array('password');
