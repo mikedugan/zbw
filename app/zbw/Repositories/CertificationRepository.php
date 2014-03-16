@@ -23,6 +23,7 @@ class CertificationRepository {
 
     public function assignExam($cid)
     {
-        
+       $e = \ControllerExam::create();
+       $p = \PendingExam::create(['exam_id' => $e->id, 'cert_id' => $this->exam->id, 'cid' => $cid]); 
     }
 }
