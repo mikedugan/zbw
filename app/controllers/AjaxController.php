@@ -22,4 +22,12 @@ class AjaxController extends BaseController
             );
         }
     }
+
+    public function actionCompleted($aid)
+    {
+        $ar = new Zbw\Repositories\ActionRepository($aid);
+        if($ar->resolve())
+            return json_encode(['success' => true, 'message' => 'Notification marked completed!']);
+        else return json_encode(['success' => false, 'message' => 'Notification could not be resolved!']);
+    }
 }

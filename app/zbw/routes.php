@@ -41,7 +41,8 @@ Route::get('staff/ts', 'AdminController@getTsIndex');
 Route::get('staff/news', 'AdminController@getNewsIndex');
 
 //ajax routes
-Route::post('e/request/{cid}/{eid}', array('uses' => 'AjaxController@requestExam'));
+Route::post('/e/request/{cid}/{eid}', array('uses' => 'AjaxController@requestExam'));
+Route::post('/a/complete/{aid}', 'AjaxController@actionCompleted');
 
 //training sessions
 Route::get('staff/training/{id}', 'TrainingController@showAdmin');

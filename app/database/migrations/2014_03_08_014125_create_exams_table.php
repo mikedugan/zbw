@@ -14,7 +14,7 @@ class CreateExamsTable extends Migration {
 	{
         Schema::create('controller_exams', function(Blueprint $table) {
             $table->increments('id');
-            $table->tinyInteger('exam_id')->default(0);
+            $table->tinyInteger('cert_id')->default(0);
             $table->boolean('reviewed')->default(0);
             $table->string('wrong_questions')->nullable();
             $table->string('wrong_answers')->nullable();

@@ -3,9 +3,10 @@ $(function() {
 		$('#nav-login').children().toggleClass('hidden');
 	});
 
-    $('#request-exam').click(function(e) {
-        submitAjax($(this));
-        e.preventDefault();
-        console.log('click');
-    });
+	//this handles any forms that should be submitted to the Ajax Controller
+	//they -must- have a route in routes.php, action, and method
+	$('.axform').submit(function(e) {
+		submitAjax($(this));
+		e.preventDefault();
+	});
 });
