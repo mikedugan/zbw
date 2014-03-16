@@ -21,7 +21,7 @@ class ZbwController extends BaseController {
 		$data = [
 			'title' => 'vZBW Controller Home'
 		];
-		return View::make('controllers/index', $data);
+		return View::make('zbw.controllers', $data);
 	}
 
 	public function getPilotIndex()
@@ -29,7 +29,7 @@ class ZbwController extends BaseController {
 		$data = [
 			'title' => 'vZBW Pilot Home'
 		];
-		return View::make('pilots/index', $data);
+		return View::make('zbw.pilots', $data);
 	}
 
 }

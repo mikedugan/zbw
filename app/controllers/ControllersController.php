@@ -7,7 +7,7 @@ class ControllersController extends BaseController {
 		$data = [
 			'title' => 'vZBW Controller Home'
 		];
-		return View::make('controllers.index');
+		return View::make('zbw.controllers');
 	}
 
 }
