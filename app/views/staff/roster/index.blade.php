@@ -1,4 +1,4 @@
-@extends('layouts.training')
+@extends('layouts.staff')
 @section('content')
     <h1 class="text-center">Roster Admin</h1>
     <div class="clearfix"></div>
