@@ -20,4 +20,9 @@ class CertificationRepository {
             . "All the best, \r\nBoston John";
         return $action->save();
     }
+
+    public function assignExam($cid)
+    {
+        
+    }
 }
