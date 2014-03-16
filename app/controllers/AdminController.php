@@ -27,7 +27,7 @@ class AdminController extends BaseController
             'title' => 'vZBW Training Home'
         ];
         JavaScript::put(['foo' => 'mike']);
-        return View::make('training.admin.index', $data);
+        return View::make('staff.training.index', $data);
     }
 
     public function getForumIndex()
@@ -35,7 +35,7 @@ class AdminController extends BaseController
         $data = [
             'title' => 'ZBW Forum Admin'
         ];
-        return View::make('staff.forum', $data);
+        return View::make('staff.forum.index', $data);
     }
 
     public function getCmsIndex()
@@ -43,7 +43,7 @@ class AdminController extends BaseController
         $data = [
             'title' => 'ZBW CMS Admin'
         ];
-        return View::make('staff.cms', $data);
+        return View::make('staff.cms.index', $data);
     }
 
     public function getNewsIndex()
@@ -51,7 +51,7 @@ class AdminController extends BaseController
         $data = [
             'title' => 'ZBW News Admin'
         ];
-        return View::make('staff.news', $data);
+        return View::make('staff.news.index', $data);
     }
 
     public function getRosterIndex()
@@ -61,7 +61,7 @@ class AdminController extends BaseController
             'title' => 'ZBW Roster Admin',
             'users' => $ur->all()
         ];
-        return View::make('staff.roster', $data);
+        return View::make('staff.roster.index', $data);
     }
 
     public function getSearchResults()
@@ -73,7 +73,7 @@ class AdminController extends BaseController
             'stype' => 'roster',
             'results' => $results
         ];
-        return View::make('staff.results', $data);
+        return View::make('staff.roster.results', $data);
     }
 
     public function getTsIndex()
@@ -88,6 +88,6 @@ class AdminController extends BaseController
             'title' => 'View Controller',
             'user' => $this->uRepo->find($id)
         ];
-        return View::make('users.staffView', $data);
+        return View::make('staff.roster.view', $data);
     }
 } 
