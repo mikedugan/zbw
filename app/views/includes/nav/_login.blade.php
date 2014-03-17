@@ -1,4 +1,4 @@
-<form action="{{ URL::to('login') }}" method="post">
+<form action="/login" method="post">
 <ul id="nav-login" class="nav navbar-nav navbar-right col-md-5">
     <li class="hidden">username <input type="text"  name="username"></li>
     <li class="hidden">password <input type="password" name="password"></li>
