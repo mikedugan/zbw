@@ -11,6 +11,15 @@ class UserRepository
         $this->user = $user ? \User::find($user) : null;
     }
 
+    public function add($fname, $lname, $email)
+    {
+        $u = new \User();
+        $u->first_name = $fname;
+        $u->last_name = $lname;
+        $u->email = $email;
+        return $u->save();
+    }
+
     public function all()
     {
         return \User::all();

@@ -1,8 +1,12 @@
 @extends('layouts.staff')
 @section('content')
     <h1 class="text-center">Roster Admin</h1>
+    <div class="col-md-12 btn-box">
+        <a href="/staff/roster/add-controller" class="btn btn-xs btn-primary">Add Controller</a>
+        <a href="/staff/roster/add-staff" class="btn btn-xs btn-primary">Add Staff</a>
+    </div>
     <div class="clearfix"></div>
-    <div class="col-md-6">
+    <div class="col-md-8">
         <h3>Current Roster</h3>
     <table class="full table-bordered table-striped">
         <thead>
@@ -25,7 +29,7 @@
     @endforeach
     </table>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-4">
         <h3>Search Controllers</h3>
         @include('includes.search._controller')
     </div>

@@ -21,9 +21,9 @@
     </div>
     <div class="col-md-6">
         <h3 class="text-left">ATC Online</h3>
-        @include('includes._atc')
+        @include('includes.bj._atc')
         <h3 class="text-left">Air Traffic</h3>
-        @include('includes._flightstrip')
+        @include('includes.bj._flightstrip')
         <h3 class="text-left">Weather</h3>
         @include('includes.bj._metar')
     </div>

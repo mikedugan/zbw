@@ -8,8 +8,8 @@
         @foreach($reports as $r)
             <p class="well">
                 <a href="/staff/training/{{$r->id}}">
-                {{ strtoupper($r->student->initials) }} was trained by
-                {{ strtoupper($r->staff->initials) }}
+                {{ strtoupper($r->student['initials']) }} was trained by
+                {{ strtoupper($r->staff['initials']) }}
                 {{ \Zbw\Helpers::timeAgo($r->session_date) }} on
                 {{ $r->location->facility }}
                 </a>
@@ -57,7 +57,7 @@
             @foreach($exams as $e)
                 <p class="well">
                     <a href="#">
-                    {{ strtoupper($e->student->initials) }} took {{ $e->exam['value'] }}
+                    {{ strtoupper($e->student['initials']) }} took {{ $e->exam['value'] }}
                     , scored {{ \zbw\Helpers::getScore($e) }}%
                     </a>
                 </p>

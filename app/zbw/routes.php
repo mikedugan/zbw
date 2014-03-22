@@ -35,6 +35,7 @@ Route::get('staff/training', 'AdminController@getTrainingIndex');
 Route::get('staff/roster', 'AdminController@getRosterIndex');
 Route::get('staff/roster/results', 'AdminController@getSearchResults');
 Route::get('staff/u/{id}', 'AdminController@showUser');
+Route::get('staff/roster/add-controller', 'RosterController@getAddController');
 
 Route::get('staff/cms', 'AdminController@getCmsIndex');
 Route::get('staff/forum', 'AdminController@getForumIndex');
