@@ -13,8 +13,9 @@ class CreateExamsTable extends Migration {
 	public function up()
 	{
         Schema::create('controller_exams', function(Blueprint $table) {
-            $table->increments('id');
-            $table->date('assigned_on')->default('NOW()');
+			$table->increments('id');
+			$table->integer('exam_id');
+            $table->date('assigned_on')->nullable();
             $table->tinyInteger('cert_id')->default(0);
             $table->boolean('reviewed')->default(0);
             $table->string('wrong_questions')->nullable();

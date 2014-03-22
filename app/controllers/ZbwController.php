@@ -3,7 +3,7 @@
 class ZbwController extends BaseController {
 
     public function __construct() {
-        $this->news = new \zbw\Repositories\NewsRepository();
+        $this->news = new \Zbw\Repositories\NewsRepository();
     }
 	public function getIndex()
 	{
