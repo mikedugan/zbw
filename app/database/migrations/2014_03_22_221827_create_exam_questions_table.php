@@ -14,7 +14,7 @@ class CreateExamQuestionsTable extends Migration {
 	{
         Schema::create('_exam_questions', function(Blueprint $table) {
             $table->increments('id');
-            $table->tinyInt('cert_type');
+            $table->tinyInteger('cert_type');
 			$table->text('question');
             $table->string('answer_a');
             $table->string('answer_b');
@@ -22,7 +22,7 @@ class CreateExamQuestionsTable extends Migration {
             $table->string('answer_d')->nullable();
             $table->string('answer_e')->nullable();
             $table->string('answer_f')->nullable();
-            $table->tinyInt('correct')->nullable();
+            $table->tinyInteger('correct')->nullable();
         });
 	}
 
