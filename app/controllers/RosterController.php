@@ -15,8 +15,8 @@ class RosterController extends BaseController {
     public function postAddController()
     {
         $ur = new UserRepository();
-        if($ur->add(Input::get('fname'), Input::get('lname'), Input::get('email'))) {
-            return Redirect::back()->with('flash_info', 'Not ready yet!');
+        if($ur->add(Input::get('fname'), Input::get('lname'), Input::get('email'), Input::get('artcc'), Input::get('cid'))) {
+            return Redirect::back()->with('flash_info', 'Controller successfully added!');
         }
 
         else {
