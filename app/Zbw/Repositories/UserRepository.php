@@ -18,6 +18,11 @@ class UserRepository
         return $this->user->save();
     }
 
+    public function getUser($cid = null)
+    {
+        return $cid == null ? $this->user : \User::find($cid);
+    }
+
     public function add($fname, $lname, $email, $artcc, $cid)
     {
         $tempPassword = Helpers::createPassword();

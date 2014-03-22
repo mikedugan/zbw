@@ -114,3 +114,13 @@ ul.nav li a.small { font-size: 1em; }
 .flash-success { color: green; }
 .flash-warning { color: orange; }
 .flash-error { color: red; }
+
+/*log file*/
+.error { color:red; }
+.error:before {
+    content: "Error:"
+}
+.override { color: orange; }
+.override:before {
+    content: "Override:"
+}

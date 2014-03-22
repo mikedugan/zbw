@@ -7,7 +7,12 @@ function submitAjax(form)
         //dataType: "json"
     })
         .done(function(msg) {
-            $('#flash').prepend(msg);
+            msg = JSON.parse(msg);
+            if(msg.success)
+            {
+                $('#flash').prepend(msg.message);
+            }
+            else $('#flash').prepend(msg.message);
         });
 }
 

@@ -42,5 +42,10 @@
             </div>
             <button class="btn btn-primary" type="submit">Save</button>
         </form>
+        <br>
+        <form class="axform" action="/m/staff-welcome/{{$user->cid}}" method="post">
+            <button type="submit" class="btn btn-sm" id="staff-welcome">Send Staff Welcome Email</button>
+        </form>
+
     </div>
 @stop

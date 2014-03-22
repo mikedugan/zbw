@@ -30,4 +30,12 @@ class AjaxController extends BaseController
             return json_encode(['success' => true, 'message' => 'Notification marked completed!']);
         else return json_encode(['success' => false, 'message' => 'Notification could not be resolved!']);
     }
+
+    public function sendStaffWelcome($cid)
+    {
+        $ur = new UserRepository($cid);
+        $em = new \Zbw\Bostonjohn\Emailer($ur->getUser());
+        $em->staffWelcome();
+        return json_encode(['success' => true, 'message' => "Staff welcome email sent successfully!"]);
+    }
 }
