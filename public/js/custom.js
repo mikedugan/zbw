@@ -37,4 +37,9 @@ $(function() {
         var width = (nVal / 58 ) * 100;
         $('#training .progress-bar').css('width', width + '%');
     }
+
+    $('.editor').redactor({
+        buttons: ['bold', 'italic', 'underline', 'unorderedlist', 'orderedlist', 'outdent', 'indent',
+        'image', 'link']
+    });
 });

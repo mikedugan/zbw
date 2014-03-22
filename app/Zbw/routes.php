@@ -31,6 +31,7 @@ Route::get('training', 'TrainingController@getIndex');
 //these still need filters in front of them
 Route::get('staff', 'AdminController@getAdminIndex');
 Route::get('staff/training', 'AdminController@getTrainingIndex');
+Route::get('staff/exams/review/{eid}', 'ControllerExamsController@getStaffReview');
 
 Route::get('staff/roster', 'AdminController@getRosterIndex');
 Route::get('staff/roster/results', 'AdminController@getSearchResults');

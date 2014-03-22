@@ -64,6 +64,6 @@ class ControllerTraining extends Eloquent {
     public static function recentReports($n)
     {
         return ControllerTraining::with(['student', 'staff', 'location'])
-            ->latest('session_date')->take($n)->get();
+            ->orderBy('created_at')->limit($n)->get();
     }
 }

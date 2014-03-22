@@ -48,6 +48,6 @@ class ControllerExam extends Eloquent {
     public static function recentExams($n)
     {
         return ControllerExam::with(['student', 'reviewer', 'exam'])
-            ->limit($n)->orderBy('created_at', 'desc')->where('reviewed', '=', 0)->get();
+            ->orderBy('created_at', 'desc')->where('reviewed', '=', 0)->limit($n)->get();
     }
 }
