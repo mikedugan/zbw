@@ -124,3 +124,5 @@ ul.nav li a.small { font-size: 1em; }
 .override:before {
     content: "Override:"
 }
+
+.redactor_box { margin-bottom: 1%; }

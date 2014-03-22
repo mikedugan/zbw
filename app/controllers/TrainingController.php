@@ -23,7 +23,7 @@ class TrainingController extends BaseController {
             'staff' => $ts->staff,
             'location' => $ts->location
         ];
-        return View::make('training.admin.session', $data);
+        return View::make('staff.training.session', $data);
     }
 
 }

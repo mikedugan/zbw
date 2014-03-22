@@ -56,9 +56,9 @@
         @if($exams)
             @foreach($exams as $e)
                 <p class="well">
-                    <a href="#">
+                    <a href="/staff/exams/review/{{$e->id}}">
                     {{ strtoupper($e->student['initials']) }} took {{ $e->exam['value'] }}
-                    , scored {{ \zbw\Helpers::getScore($e) }}%
+                    , scored {{ \Zbw\Helpers::getScore($e) }}%
                     </a>
                 </p>
             @endforeach

@@ -18,17 +18,17 @@ class ControllertrainingsTableSeeder extends Seeder {
 			$t->cid = $faker->randomElement($cid);
 			$t->sid = $faker->randomElement($sid);
 			$t->session_date = $faker->dateTimeThisDecade('2014-06-12 12:55:30');
-			$t->weather = $faker->randomNumber(0,2);
-			$t->complexity = $faker->randomNumber(0,4);
-			$t->workload = $faker->randomNumber(0,2);
+			$t->weather = $faker->randomNumber(1,3);
+			$t->complexity = $faker->randomNumber(1,5);
+			$t->workload = $faker->randomNumber(1,3);
 			$t->staff_comment = $faker->realText();
 			$t->student_comment = $faker->realText();
 			$t->is_ots = $faker->boolean(30);
-			$t->facility = $faker->randomNumber(0,12);
+			$t->facility = $faker->randomNumber(1,13);
 			$t->brief_time = $faker->randomNumber(1,30);
 			$t->position_time = $faker->randomNumber(30,60);
 			$t->is_live = $faker->boolean(40);
-			$t->training_type = $faker->randomNumber(0,2);
+			$t->training_type = $faker->randomNumber(1, 3);
 			$t->save();
 		}
 	}
