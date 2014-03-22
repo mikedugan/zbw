@@ -2,6 +2,7 @@
 
 use Zbw\Bostonjohn\Emailer;
 use Zbw\Helpers;
+use Zbw\Bostonjohn\ZbwLog;
 
 class UserRepository
 {
@@ -46,7 +47,7 @@ class UserRepository
         $this->user->last_name = $input['lname'];
         $this->user->initials = $input['initials'];
         $this->user->artcc = $input['artcc'];
-        $this->user->is_mentor = $input['ismentor'] ? $input['ismentor'] : 0;
+        $this->user->is_mentor = isset($input['ismentor']) ? $input['ismentor'] : 0;
         $this->user->is_instructor = isset($input['isins']) ? $input['isins']: 0;
         $this->user->is_ta = isset($input['is_ta']) ? $input['is_ta'] : 0;
         $this->user->is_webmaster = isset($input['isweb']) ? $input['isweb'] : 0;
@@ -54,6 +55,8 @@ class UserRepository
         $this->user->is_atm = isset($input['isatm']) ? $input['isatm'] : 0;
         $this->user->is_datm = isset($input['isdatm']) ? $input['isdatm'] : 0;
         $this->user->is_emeritus = isset($input['isemeritus']) ? $input['isemeritus'] : 0;
+        $log = new ZbwLog();
+        $log->addLog(\Auth::user()->initials . " edited " . strtoupper($this->user->initials) . " on " . \Carbon::now());
         return $this->save();
     }
 

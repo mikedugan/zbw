@@ -46,6 +46,8 @@ Route::get('staff/forum', 'AdminController@getForumIndex');
 Route::get('staff/ts', 'AdminController@getTsIndex');
 Route::get('staff/news', 'AdminController@getNewsIndex');
 
+Route::get('staff/log', 'AdminController@getLog');
+
 //ajax routes
 Route::post('/e/request/{cid}/{eid}', array('uses' => 'AjaxController@requestExam'));
 Route::post('/a/complete/{aid}', 'AjaxController@actionCompleted');
