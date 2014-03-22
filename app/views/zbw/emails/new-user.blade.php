@@ -13,7 +13,7 @@
      a staff member!</p>
 </div>
 <div>
-    <p><b>Username:</b> {{ $user->cid }}</p>
+    <p><b>Username:</b> {{ $user->username }}</p>
     <p><b>Password:</b> {{ $password }}</p>
     <p><b>Controller Initials:</b> {{ $user->initials }}</p>
     <p><b>Registered CID: </b> {{ $user->cid }}</p>

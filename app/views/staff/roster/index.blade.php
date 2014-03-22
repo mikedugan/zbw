@@ -23,7 +23,7 @@
             <td>{{ $u->email }}</td>
             <td>{{ $u->cid }}</td>
             <td>{{ $u->rating }}</td>
-            <td><a href="#"><button class="btn-xs">Edit</button></a></td>
+            <td><a href="/staff/{{$u->cid}}/edit"><button class="btn-xs">Edit</button></a></td>
             <td><a href="#"><button class="btn-xs">Training</button></a></td>
         </tr>
     @endforeach

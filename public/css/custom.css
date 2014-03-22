@@ -99,6 +99,9 @@ ul.navbar-left { margin-left: 5%; }
 
 #logo img { height: 100px;}
 
+.form-inline label { margin-left: 1%;}
+.form-inline label:first-child { margin-left: 0;}
+
 ul.nav li a.small { font-size: 1em; }
 
 .flash span { padding: 1%;}
