@@ -26,4 +26,17 @@ class Emailer
             $message->subject('Welcome to vZBW');
         });
     }
+
+    public function staffWelcome()
+    {
+        $vData = [
+            'user' => $this->user
+        ];
+        \Mail::send('zbw.emails.welcome-staff', $vData, function($message)
+        {
+            $message->from($this->from, $this->fromName);
+            $message->to($this->to, $this->user->first_name . ' ' . $this->user->last_name);
+            $message->subject('Welcome to the ZBW Staff');
+        });
+    }
 } 

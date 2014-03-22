@@ -5,10 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5c08d32d-47a3-435e-89ea-41fce7ee3781" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/Zbw/Bostonjohn/ZbwLog.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/staff/log.blade.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/AdminController.php" afterPath="$PROJECT_DIR$/app/controllers/AdminController.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/zbw/emails/welcome-staff.blade.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/AjaxController.php" afterPath="$PROJECT_DIR$/app/controllers/AjaxController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Zbw/Bostonjohn/Emailer.php" afterPath="$PROJECT_DIR$/app/Zbw/Bostonjohn/Emailer.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Zbw/Repositories/UserRepository.php" afterPath="$PROJECT_DIR$/app/Zbw/Repositories/UserRepository.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Zbw/Bostonjohn/ZbwLog.php" afterPath="$PROJECT_DIR$/app/Zbw/Bostonjohn/ZbwLog.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/css/custom.css" afterPath="$PROJECT_DIR$/public/css/custom.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/staff/roster/edit.blade.php" afterPath="$PROJECT_DIR$/app/views/staff/roster/edit.blade.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/js/functions.js" afterPath="$PROJECT_DIR$/public/js/functions.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Zbw/routes.php" afterPath="$PROJECT_DIR$/app/Zbw/routes.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -35,60 +39,6 @@
     <splitter split-orientation="horizontal" split-proportion="0.5">
       <split-first>
         <leaf>
-          <file leaf-file-name="AdminController.php" pinned="false" current="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/app/controllers/AdminController.php">
-              <provider selected="true" editor-type-id="text-editor">
-                <state line="97" column="10" selection-start="2366" selection-end="2366" vertical-scroll-proportion="0.0" vertical-offset="2047" max-vertical-offset="2996">
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="log.blade.php" pinned="false" current="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/app/views/staff/log.blade.php">
-              <provider selected="true" editor-type-id="text-editor">
-                <state line="4" column="35" selection-start="106" selection-end="106" vertical-scroll-proportion="0.11801897" vertical-offset="0" max-vertical-offset="949">
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="staff.blade.php" pinned="false" current="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/app/views/layouts/staff.blade.php">
-              <provider selected="true" editor-type-id="text-editor">
-                <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="336">
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="log.html" pinned="false" current="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/app/Zbw/feeds/log.html">
-              <provider selected="true" editor-type-id="text-editor">
-                <state line="0" column="6" selection-start="6" selection-end="6" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="168">
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="routes.php" pinned="false" current="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/app/Zbw/routes.php">
-              <provider selected="true" editor-type-id="text-editor">
-                <state line="34" column="61" selection-start="1296" selection-end="1296" vertical-scroll-proportion="0.0" vertical-offset="660" max-vertical-offset="1736">
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="Helpers.php" pinned="false" current="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/app/Zbw/Helpers.php">
-              <provider selected="true" editor-type-id="text-editor">
-                <state line="2" column="0" selection-start="21" selection-end="21" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2296">
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
           <file leaf-file-name="global.php" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/app/start/global.php">
               <provider selected="true" editor-type-id="text-editor">
@@ -98,50 +48,19 @@
               </provider>
             </entry>
           </file>
-        </leaf>
-      </split-first>
-      <split-second>
-        <leaf>
-          <file leaf-file-name="index.blade.php" pinned="false" current="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/app/views/staff/roster/index.blade.php">
+          <file leaf-file-name="edit.blade.php" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/app/views/staff/roster/edit.blade.php">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="25" column="32" selection-start="925" selection-end="925" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1176">
+                <state line="25" column="20" selection-start="1239" selection-end="1239" vertical-scroll-proportion="0.0" vertical-offset="576" max-vertical-offset="1596">
                   <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="UserRepository.php" pinned="false" current="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/app/Zbw/Repositories/UserRepository.php">
+          <file leaf-file-name="master.blade.php" pinned="false" current="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/app/views/layouts/master.blade.php">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="49" column="58" selection-start="1334" selection-end="1334" vertical-scroll-proportion="0.0" vertical-offset="1092" max-vertical-offset="4732">
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="custom.css" pinned="false" current="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/public/css/custom.css">
-              <provider selected="true" editor-type-id="text-editor">
-                <state line="91" column="1" selection-start="1969" selection-end="1969" vertical-scroll-proportion="0.0" vertical-offset="2396" max-vertical-offset="3416">
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="RosterController.php" pinned="false" current="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/app/controllers/RosterController.php">
-              <provider selected="true" editor-type-id="text-editor">
-                <state line="42" column="8" selection-start="1165" selection-end="1165" vertical-scroll-proportion="0.0" vertical-offset="492" max-vertical-offset="1428">
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="ZbwLog.php" pinned="false" current="true" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/app/Zbw/Bostonjohn/ZbwLog.php">
-              <provider selected="true" editor-type-id="text-editor">
-                <state line="23" column="68" selection-start="662" selection-end="662" vertical-scroll-proportion="0.41880342" vertical-offset="252" max-vertical-offset="1568">
+                <state line="43" column="10" selection-start="1419" selection-end="1419" vertical-scroll-proportion="0.7008547" vertical-offset="548" max-vertical-offset="1736">
                   <folding />
                 </state>
               </provider>
@@ -150,7 +69,65 @@
           <file leaf-file-name="Emailer.php" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/app/Zbw/Bostonjohn/Emailer.php">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="25" column="49" selection-start="875" selection-end="875" vertical-scroll-proportion="0.0" vertical-offset="16" max-vertical-offset="980">
+                <state line="37" column="50" selection-start="1193" selection-end="1193" vertical-scroll-proportion="0.0" vertical-offset="324" max-vertical-offset="1344">
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
+      </split-first>
+      <split-second>
+        <leaf>
+          <file leaf-file-name="UserRepository.php" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/app/Zbw/Repositories/UserRepository.php">
+              <provider selected="true" editor-type-id="text-editor">
+                <state line="22" column="62" selection-start="455" selection-end="455" vertical-scroll-proportion="0.0" vertical-offset="772" max-vertical-offset="4872">
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="routes.php" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/app/Zbw/routes.php">
+              <provider selected="true" editor-type-id="text-editor">
+                <state line="45" column="32" selection-start="1865" selection-end="1865" vertical-scroll-proportion="0.0" vertical-offset="800" max-vertical-offset="1764">
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="events.js" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/public/js/events.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state line="10" column="7" selection-start="331" selection-end="331" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="504">
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="functions.js" pinned="false" current="true" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/public/js/functions.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state line="14" column="26" selection-start="414" selection-end="414" vertical-scroll-proportion="0.4130664" vertical-offset="0" max-vertical-offset="949">
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="AjaxController.php" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/app/controllers/AjaxController.php">
+              <provider selected="true" editor-type-id="text-editor">
+                <state line="34" column="5" selection-start="1030" selection-end="1030" vertical-scroll-proportion="0.0" vertical-offset="184" max-vertical-offset="1316">
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="welcome-staff.blade.php" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/app/views/zbw/emails/welcome-staff.blade.php">
+              <provider selected="true" editor-type-id="text-editor">
+                <state line="6" column="24" selection-start="109" selection-end="109" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="784">
                   <folding />
                 </state>
               </provider>
@@ -159,7 +136,7 @@
           <file leaf-file-name="new-user.blade.php" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/app/views/zbw/emails/new-user.blade.php">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="16" column="28" selection-start="508" selection-end="508" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="896">
+                <state line="0" column="0" selection-start="0" selection-end="811" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="896">
                   <folding />
                 </state>
               </provider>
@@ -180,7 +157,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/app/database/seeds/DatabaseSeeder.php" />
         <option value="$PROJECT_DIR$/app/database/migrations/2014_03_10_230215_create_training_report_table.php" />
         <option value="$PROJECT_DIR$/app/database/seeds/ControllerReportsTableSeeder.php" />
         <option value="$PROJECT_DIR$/app/zbw/Composites/ZbwController.php" />
@@ -205,11 +181,9 @@
         <option value="$PROJECT_DIR$/app/database/seeds/ReferenceTableSeeder.php" />
         <option value="$PROJECT_DIR$/app/Zbw/Repositories/ExamsRepository.php" />
         <option value="$PROJECT_DIR$/app/views/layouts/master.blade.php" />
-        <option value="$PROJECT_DIR$/public/js/functions.js" />
         <option value="$PROJECT_DIR$/app/views/training/index.blade.php" />
         <option value="$PROJECT_DIR$/app/views/includes/_includes.blade.php" />
         <option value="$PROJECT_DIR$/public/js/events.js" />
-        <option value="$PROJECT_DIR$/app/controllers/AjaxController.php" />
         <option value="$PROJECT_DIR$/app/Zbw/Repositories/CertificationRepository.php" />
         <option value="$PROJECT_DIR$/TODO" />
         <option value="$PROJECT_DIR$/app/controllers/ZbwController.php" />
@@ -220,17 +194,20 @@
         <option value="$PROJECT_DIR$/app/Zbw/Helpers.php" />
         <option value="$PROJECT_DIR$/app/views/staff/roster/add-controller.blade.php" />
         <option value="$PROJECT_DIR$/app/config/mail.php" />
-        <option value="$PROJECT_DIR$/app/Zbw/Bostonjohn/Emailer.php" />
         <option value="$PROJECT_DIR$/app/views/zbw/emails/new-user.blade.php" />
         <option value="$PROJECT_DIR$/app/views/staff/roster/index.blade.php" />
-        <option value="$PROJECT_DIR$/public/css/custom.css" />
-        <option value="$PROJECT_DIR$/app/views/staff/roster/edit.blade.php" />
         <option value="$PROJECT_DIR$/app/controllers/RosterController.php" />
-        <option value="$PROJECT_DIR$/app/Zbw/routes.php" />
         <option value="$PROJECT_DIR$/app/controllers/AdminController.php" />
-        <option value="$PROJECT_DIR$/app/Zbw/Repositories/UserRepository.php" />
         <option value="$PROJECT_DIR$/app/views/staff/log.blade.php" />
         <option value="$PROJECT_DIR$/app/Zbw/Bostonjohn/ZbwLog.php" />
+        <option value="$PROJECT_DIR$/public/css/custom.css" />
+        <option value="$PROJECT_DIR$/app/Zbw/routes.php" />
+        <option value="$PROJECT_DIR$/app/Zbw/Repositories/UserRepository.php" />
+        <option value="$PROJECT_DIR$/app/Zbw/Bostonjohn/Emailer.php" />
+        <option value="$PROJECT_DIR$/app/views/staff/roster/edit.blade.php" />
+        <option value="$PROJECT_DIR$/app/controllers/AjaxController.php" />
+        <option value="$PROJECT_DIR$/app/views/zbw/emails/welcome-staff.blade.php" />
+        <option value="$PROJECT_DIR$/public/js/functions.js" />
       </list>
     </option>
   </component>
@@ -397,7 +374,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="staff" />
+              <option name="myItemId" value="zbw" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -419,7 +396,11 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="includes" />
+              <option name="myItemId" value="zbw" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="emails" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -551,11 +532,6 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/views/includes/search/_multipleresult.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="0" selection-start="180" selection-end="180" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="336" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/config/view.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1036" />
@@ -616,16 +592,6 @@
         <state line="6" column="37" selection-start="358" selection-end="358" vertical-scroll-proportion="0.19421965" vertical-offset="0" max-vertical-offset="865" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/js/events.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="28" selection-start="136" selection-end="136" vertical-scroll-proportion="0.15224358" vertical-offset="0" max-vertical-offset="624" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/js/functions.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="34" selection-start="281" selection-end="281" vertical-scroll-proportion="0.27403846" vertical-offset="0" max-vertical-offset="624" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/database/models/ControllerExam.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="37" column="49" selection-start="883" selection-end="883" vertical-scroll-proportion="0.31587562" vertical-offset="510" max-vertical-offset="1121" />
@@ -641,16 +607,6 @@
         <state line="6" column="50" selection-start="170" selection-end="170" vertical-scroll-proportion="0.18657938" vertical-offset="0" max-vertical-offset="611">
           <folding />
         </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/AjaxController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="18" selection-start="257" selection-end="257" vertical-scroll-proportion="0.09819967" vertical-offset="130" max-vertical-offset="741" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/layouts/master.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="43" column="10" selection-start="1419" selection-end="1419" vertical-scroll-proportion="0.4091653" vertical-offset="567" max-vertical-offset="1178" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Zbw/Repositories/ExamsRepository.php">
@@ -736,20 +692,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Zbw/Bostonjohn/Emailer.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="25" column="49" selection-start="875" selection-end="875" vertical-scroll-proportion="0.0" vertical-offset="16" max-vertical-offset="980">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/zbw/emails/new-user.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="28" selection-start="508" selection-end="508" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="896">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/config/mail.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="43" column="17" selection-start="1338" selection-end="1338" vertical-scroll-proportion="0.0" vertical-offset="252" max-vertical-offset="3640">
@@ -760,20 +702,6 @@
     <entry file="jar://$APPLICATION_HOME_DIR$/lib/phpstorm.jar!/resources/html5-schema/web-forms2.rnc">
       <provider selected="true" editor-type-id="text-editor">
         <state line="443" column="16" selection-start="10035" selection-end="10035" vertical-scroll-proportion="0.33333334" vertical-offset="12092" max-vertical-offset="22792">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/css/custom.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="91" column="1" selection-start="1969" selection-end="1969" vertical-scroll-proportion="0.0" vertical-offset="2396" max-vertical-offset="3416">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/staff/roster/edit.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="29" column="38" selection-start="1680" selection-end="1680" vertical-scroll-proportion="0.0" vertical-offset="268" max-vertical-offset="1456">
           <folding />
         </state>
       </provider>
@@ -792,27 +720,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Zbw/Helpers.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="0" selection-start="21" selection-end="21" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2296">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/start/global.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="52" column="0" selection-start="1641" selection-end="1641" vertical-scroll-proportion="0.0" vertical-offset="1397" max-vertical-offset="2436">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/AdminController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="97" column="10" selection-start="2366" selection-end="2366" vertical-scroll-proportion="0.0" vertical-offset="2047" max-vertical-offset="2996">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/controllers/RosterController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="42" column="8" selection-start="1165" selection-end="1165" vertical-scroll-proportion="0.0" vertical-offset="492" max-vertical-offset="1428">
@@ -820,23 +727,25 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Zbw/feeds/log.html">
+    <entry file="file://$PROJECT_DIR$/app/Zbw/Bostonjohn/ZbwLog.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="6" selection-start="6" selection-end="6" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="168">
+        <state line="13" column="5" selection-start="381" selection-end="381" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1568">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Zbw/routes.php">
+    <entry file="file://$PROJECT_DIR$/app/views/staff/log.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="34" column="61" selection-start="1296" selection-end="1296" vertical-scroll-proportion="0.0" vertical-offset="660" max-vertical-offset="1736">
-          <folding />
+        <state line="9" column="0" selection-start="193" selection-end="193" vertical-scroll-proportion="0.2655427" vertical-offset="0" max-vertical-offset="949">
+          <folding>
+            <marker date="1395499016648" expanded="true" signature="-1:-1" placeholder="..." />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Zbw/Repositories/UserRepository.php">
+    <entry file="file://$PROJECT_DIR$/app/controllers/AdminController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="49" column="58" selection-start="1334" selection-end="1334" vertical-scroll-proportion="0.0" vertical-offset="1092" max-vertical-offset="4732">
+        <state line="97" column="10" selection-start="2366" selection-end="2366" vertical-scroll-proportion="0.7049526" vertical-offset="2047" max-vertical-offset="2996">
           <folding />
         </state>
       </provider>
@@ -848,16 +757,100 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/staff/log.blade.php">
+    <entry file="file://$PROJECT_DIR$/app/Zbw/feeds/log.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="35" selection-start="106" selection-end="106" vertical-scroll-proportion="0.11801897" vertical-offset="0" max-vertical-offset="949">
+        <state line="0" column="6" selection-start="6" selection-end="6" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="168">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Zbw/Bostonjohn/ZbwLog.php">
+    <entry file="file://$PROJECT_DIR$/app/Zbw/Helpers.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="23" column="68" selection-start="662" selection-end="662" vertical-scroll-proportion="0.41880342" vertical-offset="252" max-vertical-offset="1568">
+        <state line="2" column="0" selection-start="21" selection-end="21" vertical-scroll-proportion="0.05982906" vertical-offset="0" max-vertical-offset="2296">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/start/global.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="52" column="0" selection-start="1641" selection-end="1641" vertical-scroll-proportion="0.0" vertical-offset="1397" max-vertical-offset="2436">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/css/custom.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="108" column="25" selection-start="2405" selection-end="2405" vertical-scroll-proportion="0.0" vertical-offset="2592" max-vertical-offset="3696">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/js/events.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="10" column="7" selection-start="331" selection-end="331" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="504">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Zbw/Repositories/UserRepository.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="22" column="62" selection-start="455" selection-end="455" vertical-scroll-proportion="0.0" vertical-offset="772" max-vertical-offset="4872">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/zbw/emails/new-user.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="811" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="896">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Zbw/routes.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="45" column="32" selection-start="1865" selection-end="1865" vertical-scroll-proportion="0.0" vertical-offset="800" max-vertical-offset="1764">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Zbw/Bostonjohn/Emailer.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="37" column="50" selection-start="1193" selection-end="1193" vertical-scroll-proportion="0.0" vertical-offset="324" max-vertical-offset="1344">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/AjaxController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="34" column="5" selection-start="1030" selection-end="1030" vertical-scroll-proportion="0.0" vertical-offset="184" max-vertical-offset="1316">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/zbw/emails/welcome-staff.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="6" column="24" selection-start="109" selection-end="109" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="784">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/staff/roster/edit.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="25" column="20" selection-start="1239" selection-end="1239" vertical-scroll-proportion="0.0" vertical-offset="576" max-vertical-offset="1596">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/layouts/master.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="43" column="10" selection-start="1419" selection-end="1419" vertical-scroll-proportion="0.7008547" vertical-offset="548" max-vertical-offset="1736">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/js/functions.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="14" column="26" selection-start="414" selection-end="414" vertical-scroll-proportion="0.4130664" vertical-offset="0" max-vertical-offset="949">
           <folding />
         </state>
       </provider>
