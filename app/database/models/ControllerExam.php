@@ -9,7 +9,7 @@ class ControllerExam extends Eloquent {
     {
         $cids = \Zbw\Helpers::getCids(true);
         $this-> rules = [
-            'exam_id' => 'between:1,10',
+            'exam_id' => 'between:1,11',
             'total_questions' => 'integer',
             'cid' => 'in:' . $cids,
             'reviewed_by' => 'in:' . $cids

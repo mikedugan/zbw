@@ -53,6 +53,8 @@ Route::get('staff/log', 'AdminController@getLog');
 Route::post('/e/request/{cid}/{eid}', array('uses' => 'AjaxController@requestExam'));
 Route::post('/a/complete/{aid}', 'AjaxController@actionCompleted');
 Route::post('/m/staff-welcome/{cid}', 'AjaxController@sendStaffWelcome');
+Route::post('/e/review/{eid}', 'AjaxController@postReviewComment');
+
 
 //training sessions
 Route::get('staff/training/{id}', 'TrainingController@showAdmin');
