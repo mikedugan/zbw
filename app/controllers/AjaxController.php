@@ -38,4 +38,10 @@ class AjaxController extends BaseController
         $em->staffWelcome();
         return json_encode(['success' => true, 'message' => "Staff welcome email sent successfully!"]);
     }
+
+    public function postReviewComment($eid)
+    {
+        $er = new \Zbw\Repositories\ExamsRepository();
+
+    }
 }

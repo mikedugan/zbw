@@ -12,8 +12,8 @@
         <h5>Current Certification {{ $user->certTitle() }}</h5>
     </div>
     <div class="col-md-6">
-        <form id="request-exam" action="/e/request/{{ $user->cid() }}/{{ $user->availableExams()[0] }}" method="post">
-            <button type="button" class="btn btn-primary">Request {{ $user->availableExams()[1] }}</button>
+        <form class="axform" id="request-exam" action="/e/request/{{ $user->cid() }}/{{ $user->availableExams()[0] }}" method="post">
+            <button type="submit" class="btn btn-primary">Request {{ $user->availableExams()[1] }}</button>
         </form>
         <a class="btn btn-primary" href="/training/take">Take Exam</a>
         <a class="btn btn-primary" href="/training/review">Review Exams</a>
