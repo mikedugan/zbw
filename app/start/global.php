@@ -78,4 +78,4 @@ App::down(function()
 |
 */
 
-require app_path().'/zbw/filters.php';
+require app_path().'/Zbw/filters.php';
