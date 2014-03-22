@@ -35,7 +35,7 @@
 <div class="col-md-6">
  {{-- this area should contain pending training & exam requests, etc --}}
     <div class="col-md-6">
-        <h4>Training &amp; Exam Requests</h4>
+        <h4>Requests</h4>
         <p class="well">
             AS has requested training on B_S3
         </p>
