@@ -90,4 +90,12 @@ class AdminController extends BaseController
         ];
         return View::make('staff.roster.view', $data);
     }
+
+    public function getLog()
+    {
+        $data = [
+            'title' => 'View ZBW Log'
+        ];
+        return View::make('staff.log', $data);
+    }
 } 
