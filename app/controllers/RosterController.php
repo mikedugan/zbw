@@ -24,4 +24,22 @@ class RosterController extends BaseController {
         }
     }
 
+    public function getEditUser($id)
+    {
+        $data = [
+            'user' => \User::find($id),
+            'title' => 'Edit Controller'
+        ];
+        return View::make('staff.roster.edit', $data);
+    }
+
+    public function postEditUser($id)
+    {
+        $ur = new UserRepository($id);
+        if($ur->updateUser(Input::all()))
+        {
+            return Redirect::back()->with('flash_success', 'User successfully updated!');
+        }
+        else return Redirect::back()->with('flash_error', 'There was an error - postEditUser');
+    }
 }

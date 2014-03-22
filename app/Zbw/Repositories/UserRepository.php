@@ -12,6 +12,11 @@ class UserRepository
         $this->user = $user ? \User::find($user) : null;
     }
 
+    public function save()
+    {
+        return $this->user->save();
+    }
+
     public function add($fname, $lname, $email, $artcc, $cid)
     {
         $tempPassword = Helpers::createPassword();
@@ -20,11 +25,12 @@ class UserRepository
         $u->cid = $cid;
         $u->first_name = $fname;
         $u->last_name = $lname;
+        $u->username = $fname . ' ' . $lname;
         $u->artcc = $artcc;
         $u->email = $email;
         $u->password = \Hash::make($tempPassword);
         $u->rating = 'OBS';
-        $u->initials = $this->createInitials($fname, $lname);
+        $u->initials = strtoupper($this->createInitials($fname, $lname));
         if($u->save())
         {
             $em = new Emailer($u, ['password' => $tempPassword]);
@@ -32,6 +38,23 @@ class UserRepository
             return true;
         }
         else return false;
+    }
+
+    public function updateUser($input)
+    {
+        $this->user->first_name = $input['fname'];
+        $this->user->last_name = $input['lname'];
+        $this->user->initials = $input['initials'];
+        $this->user->artcc = $input['artcc'];
+        $this->user->is_mentor = $input['ismentor'] ? $input['ismentor'] : 0;
+        $this->user->is_instructor = isset($input['isins']) ? $input['isins']: 0;
+        $this->user->is_ta = isset($input['is_ta']) ? $input['is_ta'] : 0;
+        $this->user->is_webmaster = isset($input['isweb']) ? $input['isweb'] : 0;
+        $this->user->is_facilities = isset($input['isfe']) ? $input['isfe'] : 0;
+        $this->user->is_atm = isset($input['isatm']) ? $input['isatm'] : 0;
+        $this->user->is_datm = isset($input['isdatm']) ? $input['isdatm'] : 0;
+        $this->user->is_emeritus = isset($input['isemeritus']) ? $input['isemeritus'] : 0;
+        return $this->save();
     }
 
     public function all()
