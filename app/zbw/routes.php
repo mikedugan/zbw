@@ -28,6 +28,7 @@ Route::get('staff', 'StaffController@getIndex');
 Route::get('training', 'TrainingController@getIndex');
 
 //admin and staff routes
+//these still need filters in front of them
 Route::get('staff', 'AdminController@getAdminIndex');
 Route::get('staff/training', 'AdminController@getTrainingIndex');
 

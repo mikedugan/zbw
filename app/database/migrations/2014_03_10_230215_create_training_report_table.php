@@ -26,10 +26,10 @@ class CreateTrainingReportTable extends Migration {
             $table->enum('o_knowledge', ['s', 'ni', 'u']);
             $table->enum('o_phraseology', ['s', 'ni', 'u']);
             $table->enum('o_priority', ['s', 'ni', 'u']);
-            $table->text('markups')->default("");
-            $table->text('markdown')->default("");
-            $table->text('reviewed')->default("");
-            $table->text('summary')->default("");
+            $table->text('markups');
+            $table->text('markdown');
+            $table->text('reviewed');
+            $table->text('summary');
             $table->smallInteger('s_ppoints');
             $table->smallInteger('s_npoints');
             $table->float('s_modifier');
