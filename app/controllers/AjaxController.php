@@ -81,4 +81,45 @@ class AjaxController extends BaseController
             ]);
         }
     }
+    public function activateUser($id)
+    {
+        $ur = new UserRepository();
+        if($ur->activateUser($id))
+        {
+            return json_encode([
+                'success' => true,
+                'message' => 'User activated'
+            ]);
+        }
+        else
+        {
+            return json_encode([
+                'success' => false,
+                'message' => 'Error activating user'
+            ]);
+        }
+    }
+
+    public function postTrainingRequest()
+    {
+        $i = Input::all();
+        $tr = new \TrainingRequest();
+        $tr->cid = $i['user'];
+        $tr->start = $i['start'];
+        $tr->end = $i['end'];
+        $tr->cert = $i['cert'];
+        if($tr->save()) {
+            return json_encode([
+                'success' => true,
+                'message' => 'Training request added successfully for ' . $i['start']
+            ]);
+        }
+        else
+        {
+            return json_encode([
+               'success' => false,
+                'messaage' => 'Error sending training request!'
+            ]);
+        }
+    }
 }

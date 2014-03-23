@@ -5,4 +5,5 @@
     <p>If you believe this is an error, please contact a staff member!</p>
     <p><b>User:</b> {{$me->username}}</p>
     <p><b>Requested Page: </b>{{$page}}</p>
+    <p><b>Access Level Needed: </b>{{$needed}}</p>
 @stop

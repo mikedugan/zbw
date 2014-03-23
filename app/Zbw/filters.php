@@ -121,3 +121,17 @@ Route::filter('instructor', function() {
         return View::make('zbw.errors.403', $data);
     }
 });
+
+Route::filter('instructor', function() {
+    if(! Auth::user()->is_instructor && ! Auth::user()->is_mentor)
+    {
+        $data = [
+            'title' => 'Access Denied',
+            'page' => Request::url(),
+            'needed' => 'mentor'
+        ];
+        $log = new Zbw\Bostonjohn\ZbwLog();
+        $log->addLog(Auth::user()->initials . ' tried to access ' . Request::url());
+        return View::make('zbw.errors.403', $data);
+    }
+});

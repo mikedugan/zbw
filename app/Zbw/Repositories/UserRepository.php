@@ -122,15 +122,11 @@ class UserRepository
         return Helpers::readableCert($this->user->certification['value']);
     }
 
-    public function availableExams($minor = false)
+    public function availableExams($training = false)
     {
-        if($minor) { return "ohshit"; }
-        else
-        {
-            $avail = $this->user->certification->id + 1;
-            $title = \CertType::find($avail)->value;
-            return [$avail, Helpers::readableCert($title)];
-        }
+        $avail = $this->user->certification->id + 1;
+        $next = \CertType::find($avail);
+        return [$next->id, Helpers::readableCert($next->value)];
     }
 
     public function search($input)
@@ -173,12 +169,12 @@ class UserRepository
         $user->is_active = 0;
         if($user->save())
         {
-            $this->log->addOverride(Auth::user()->initials . ' suspended ' . $user->initials);
+            $this->log->addOverride(\Auth::user()->initials . ' suspended ' . $user->initials);
             return true;
         }
         else
         {
-            $this->log->addError(Auth::user()->initials . ' had an error attempting to suspend ' . $user->initials);
+            $this->log->addError(\Auth::user()->initials . ' had an error attempting to suspend ' . $user->initials);
             return false;
         }
     }
@@ -189,12 +185,28 @@ class UserRepository
         $user->is_active = -1;
         if($user->save())
         {
-            $this->log->addOverride(Auth::user()->initials . ' terminated ' . $user->initials);
+            $this->log->addOverride(\Auth::user()->initials . ' terminated ' . $user->initials);
             return true;
         }
         else
         {
-            $this->log->addError(Auth::user()->initials . ' had an error attempting to terminate ' . $user->initials);
+            $this->log->addError(\Auth::user()->initials . ' had an error attempting to terminate ' . $user->initials);
+            return false;
+        }
+    }
+
+    public function activateUser($id)
+    {
+        $user = \User::find($id);
+        $user->is_active = 1;
+        if($user->save())
+        {
+            $this->log->addOverride(\Auth::user()->initials . ' activated ' . $user->initials);
+            return true;
+        }
+        else
+        {
+            $this->log->addError(\Auth::user()->initials . ' had an error attempting to activate ' . $user->initials);
             return false;
         }
     }
