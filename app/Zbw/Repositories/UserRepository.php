@@ -198,4 +198,10 @@ class UserRepository
             return false;
         }
     }
+
+    public function isStaff()
+    {
+        $u = $this->user;
+        return $u->is_atm || $u->is_datm || $u->is_ta || $u->is_mentor || $u->is_instructor || $u->is_facilities || $u->is_webmaster;
+    }
 }
