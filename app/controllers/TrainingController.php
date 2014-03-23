@@ -36,4 +36,16 @@ class TrainingController extends BaseController {
         return View::make('training.request', $data);
     }
 
+    public function showRequest($tid)
+    {
+        $request = \TrainingRequest::with(['student', 'certType', 'staff'])->find($tid);
+        $ur = new \Zbw\Repositories\UserRepository($request->student->cid);
+        $data = [
+            'title' => 'View Training Request',
+            'student' => $ur->getUser(),
+            'request' => $request
+        ];
+        return View::make('training.show-request', $data);
+    }
+
 }

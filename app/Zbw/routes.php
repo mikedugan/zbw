@@ -45,6 +45,9 @@ Route::get('staff/log', 'AdminController@getLog');
 Route::group(array('before' => 'controller'), function() {
     Route::post('/e/request/{cid}/{eid}', array('uses' => 'AjaxController@requestExam'));
     Route::post('/t/request/new', 'AjaxController@postTrainingRequest');
+    Route::get('training/request/{tid}', 'TrainingController@showRequest');
+    Route::post('/t/request/{tid}/cancel', 'AjaxController@cancelTrainingRequest');
+    Route::post('/t/request/{tid}/accept', 'AjaxController@acceptTrainingRequest');
 });
 
 //route accessible only by mentors and instructors

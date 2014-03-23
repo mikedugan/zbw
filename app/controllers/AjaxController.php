@@ -122,4 +122,43 @@ class AjaxController extends BaseController
             ]);
         }
     }
+
+    public function cancelTrainingRequest($tid)
+    {
+        $tr = \TrainingRequest::find($tid);
+        if($tr->delete())
+        {
+            return json_encode([
+                'success' => true,
+                'message' => 'Training request cancelled'
+            ]);
+        }
+        else
+        {
+            return json_encode([
+                'success' => false,
+                'message' => 'Error cancelling training request'
+            ]);
+        }
+    }
+
+    public function acceptTrainingRequest($tid)
+    {
+        $tr = \TrainingRequest::find($tid);
+        $tr->sid = $tr->sid == null ? Auth::user()->cid : $tr->sid;
+        if($tr->save() && $tr->sid == Auth::user()->cid)
+        {
+            return json_encode([
+                'success' => true,
+                'message' => 'Training session accepted'
+            ]);
+        }
+        else
+        {
+            return json_encode([
+                'success' => false,
+                'message' => 'Error accepting training session'
+            ]);
+        }
+    }
 }
