@@ -15,6 +15,7 @@ class CreateTrainingRequestsTable extends Migration {
 		Schema::create('_training_requests', function(Blueprint $table) {
 			$table->increments('id');
             $table->integer('cid');
+            $table->integer('sid')->nullable()->default(null);
             $table->dateTime('start');
             $table->dateTime('end');
             $table->tinyInteger('cert');
