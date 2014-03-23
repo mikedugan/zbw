@@ -11,7 +11,7 @@
 */
 View::share('me', Auth::user());
 
-Route::when('staff/*', 'admin');
+Route::when('staff/*', 'staff');
 
 //login and logout
 Route::get('login', 'SessionsController@getLogin');
