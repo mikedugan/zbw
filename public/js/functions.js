@@ -16,6 +16,16 @@ function submitAjax(form)
         });
 }
 
+function highlightCorrect()
+{
+    var ca = $('.correct-answer').toArray();
+    ca.forEach(function(a) {
+        var v = $(a)[0].value;
+        var correct = $(a).next().children('li')[v - 1];
+        $(correct).addClass('correct');
+    });
+}
+
 function pad2(number) {
     return (number < 10 ? '0' : '') + number
 }

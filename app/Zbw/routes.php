@@ -32,6 +32,8 @@ Route::get('training', 'TrainingController@getIndex');
 Route::get('staff', 'AdminController@getAdminIndex');
 Route::get('staff/training', 'AdminController@getTrainingIndex');
 Route::get('staff/exams/review/{eid}', 'ControllerExamsController@getStaffReview');
+Route::get('staff/exams/questions', 'ControllerExamsController@getQuestions');
+Route::post('staff/exams/questions', 'ControllerExamsController@addQuestion');
 
 Route::get('staff/roster', 'AdminController@getRosterIndex');
 Route::get('staff/roster/results', 'AdminController@getSearchResults');
@@ -52,6 +54,8 @@ Route::get('staff/log', 'AdminController@getLog');
 //ajax routes
 Route::post('/e/request/{cid}/{eid}', array('uses' => 'AjaxController@requestExam'));
 Route::post('/a/complete/{aid}', 'AjaxController@actionCompleted');
+Route::post('/r/suspend/{cid}', 'AjaxController@suspendUser');
+Route::post('/r/terminate/{cid}', 'AjaxController@terminateUser');
 Route::post('/m/staff-welcome/{cid}', 'AjaxController@sendStaffWelcome');
 Route::post('/e/review/{eid}', 'AjaxController@postReviewComment');
 

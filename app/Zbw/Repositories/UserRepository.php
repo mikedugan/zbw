@@ -7,10 +7,12 @@ use Zbw\Bostonjohn\ZbwLog;
 class UserRepository
 {
     protected $user;
+    protected $log;
 
     public function __construct($user = null)
     {
         $this->user = $user ? \User::find($user) : null;
+        $this->log = new ZbwLog();
     }
 
     public function save()
@@ -60,8 +62,7 @@ class UserRepository
         $this->user->is_atm = isset($input['isatm']) ? $input['isatm'] : 0;
         $this->user->is_datm = isset($input['isdatm']) ? $input['isdatm'] : 0;
         $this->user->is_emeritus = isset($input['isemeritus']) ? $input['isemeritus'] : 0;
-        $log = new ZbwLog();
-        $log->addLog(\Auth::user()->initials . " edited " . strtoupper($this->user->initials) . " on " . \Carbon::now());
+        $this->log->addLog(\Auth::user()->initials . " edited " . strtoupper($this->user->initials) . " on " . \Carbon::now() ,'');
         return $this->save();
     }
 
@@ -165,4 +166,36 @@ class UserRepository
 
         return $users->get();
     }
-} 
+
+    public function suspendUser($id)
+    {
+        $user = \User::find($id);
+        $user->is_active = 0;
+        if($user->save())
+        {
+            $this->log->addOverride(Auth::user()->initials . ' suspended ' . $user->initials);
+            return true;
+        }
+        else
+        {
+            $this->log->addError(Auth::user()->initials . ' had an error attempting to suspend ' . $user->initials);
+            return false;
+        }
+    }
+
+    public function terminateUser($id)
+    {
+        $user = \User::find($id);
+        $user->is_active = -1;
+        if($user->save())
+        {
+            $this->log->addOverride(Auth::user()->initials . ' terminated ' . $user->initials);
+            return true;
+        }
+        else
+        {
+            $this->log->addError(Auth::user()->initials . ' had an error attempting to terminate ' . $user->initials);
+            return false;
+        }
+    }
+}
