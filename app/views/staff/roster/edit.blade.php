@@ -46,6 +46,12 @@
         <form class="axform" action="/m/staff-welcome/{{$user->cid}}" method="post">
             <button type="submit" class="btn btn-sm" id="staff-welcome">Send Staff Welcome Email</button>
         </form>
+        <form class="axform" action="/r/suspend/{{$user->cid}}">
+            <button type="submit" class="btn btn-warning">Suspend User</button>
+        </form>
+        <form class="axform" action="/r/terminate/{{$user->cid}}">
+            <button type="submit" class="btn btn-danger">Terminate User</button>
+        </form>
 
     </div>
 @stop

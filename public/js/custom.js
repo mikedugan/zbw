@@ -1,4 +1,5 @@
 $(function() {
+    highlightCorrect();
 	$('#slideshow').slidesjs({
 		width: 900,
 		height: 400,

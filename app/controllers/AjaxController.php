@@ -42,6 +42,43 @@ class AjaxController extends BaseController
     public function postReviewComment($eid)
     {
         $er = new \Zbw\Repositories\ExamsRepository();
+    }
 
+    public function suspendUser($id)
+    {
+        $ur = new UserRepository();
+        if($ur->suspendUser($id))
+        {
+            return json_encode([
+                'success' => true,
+                'message' => 'User suspended'
+            ]);
+        }
+        else
+        {
+            return json_encode([
+                'success' => false,
+                'message' => 'Error suspending user'
+            ]);
+        }
+    }
+
+    public function terminateUser($id)
+    {
+        $ur = new UserRepository();
+        if($ur->terminateUser($id))
+        {
+            return json_encode([
+                'success' => true,
+                'message' => 'User terminated'
+            ]);
+        }
+        else
+        {
+            return json_encode([
+               'success' => false,
+                'message' => 'Error terminating user'
+            ]);
+        }
     }
 }
