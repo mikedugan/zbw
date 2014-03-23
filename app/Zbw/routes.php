@@ -1,16 +1,9 @@
 <?php
-/*
-|--------------------------------------------------------------------------
-| Application Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register all of the routes for an application.
-| It's a breeze. Simply tell Laravel the URIs it should respond to
-| and give it the Closure to execute when that URI is requested.
-|
-*/
+
+//share the logged in user with the view, if it exists
 View::share('me', Auth::user());
 
+//filter all staff routes, additional filters in route groups
 Route::when('staff/*', 'staff');
 
 //login and logout
@@ -29,38 +22,48 @@ Route::get('forum', 'ForumController@getIndex');
 Route::get('staff', 'StaffController@getIndex');
 Route::get('training', 'TrainingController@getIndex');
 
-//admin and staff routes
-//these still need filters in front of them
-Route::get('staff', 'AdminController@getAdminIndex');
+Route::get('training/request/new', 'TrainingController@getRequest');
+
 Route::get('staff/training', 'AdminController@getTrainingIndex');
 Route::get('staff/exams/review/{eid}', 'ControllerExamsController@getStaffReview');
 Route::get('staff/exams/questions', 'ControllerExamsController@getQuestions');
 Route::post('staff/exams/questions', 'ControllerExamsController@addQuestion');
-
 Route::get('staff/roster', 'AdminController@getRosterIndex');
 Route::get('staff/roster/results', 'AdminController@getSearchResults');
 Route::get('staff/u/{id}', 'AdminController@showUser');
 Route::get('staff/{id}/edit', 'RosterController@getEditUser');
 Route::post('staff/{id}/edit', 'RosterController@postEditUser');
-
 Route::get('staff/roster/add-controller', 'RosterController@getAddController');
 Route::post('staff/roster/add-controller', 'RosterController@postAddController');
-
 Route::get('staff/cms', 'AdminController@getCmsIndex');
 Route::get('staff/forum', 'AdminController@getForumIndex');
 Route::get('staff/ts', 'AdminController@getTsIndex');
 Route::get('staff/news', 'AdminController@getNewsIndex');
-
 Route::get('staff/log', 'AdminController@getLog');
 
-//ajax routes
-Route::post('/e/request/{cid}/{eid}', array('uses' => 'AjaxController@requestExam'));
-Route::post('/a/complete/{aid}', 'AjaxController@actionCompleted');
-Route::post('/r/suspend/{cid}', 'AjaxController@suspendUser');
-Route::post('/r/terminate/{cid}', 'AjaxController@terminateUser');
-Route::post('/m/staff-welcome/{cid}', 'AjaxController@sendStaffWelcome');
-Route::post('/e/review/{eid}', 'AjaxController@postReviewComment');
+//route accessible only by logged in controllers
+Route::group(array('before' => 'controller'), function() {
+    Route::post('/e/request/{cid}/{eid}', array('uses' => 'AjaxController@requestExam'));
+    Route::post('/t/request/new', 'AjaxController@postTrainingRequest');
+});
 
+//route accessible only by mentors and instructors
+Route::group(array('before' => 'mentor'), function() {
+    Route::post('/e/review/{eid}', 'AjaxController@postReviewComment');
+    Route::get('staff/training/{id}', 'TrainingController@showAdmin');
+});
 
-//training sessions
-Route::get('staff/training/{id}', 'TrainingController@showAdmin');
+//routes accessible by any staff member
+Route::group(array('before' => 'staff'), function() {
+    Route::get('staff', 'AdminController@getAdminIndex');
+    Route::post('/a/complete/{aid}', 'AjaxController@actionCompleted');
+});
+
+//routes accessible only by the ATM, DATM, and TA
+Route::group(array('before' => 'executive'), function() {
+    Route::post('/r/activate/{cid}', 'AjaxController@activateUser');
+    Route::post('/r/suspend/{cid}', 'AjaxController@suspendUser');
+    Route::post('/r/terminate/{cid}', 'AjaxController@terminateUser');
+    Route::post('/m/staff-welcome/{cid}', 'AjaxController@sendStaffWelcome');
+});
+
