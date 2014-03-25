@@ -1,9 +1,18 @@
 <?php  namespace Zbw\Validators; 
 
+use Zbw\Helpers;
+
 class PrivateMessageValidator extends ZbwValidator
 {
-    static $rules =
-        [
-
-        ];
+    public $rules;
+    public function __construct()
+    {
+        $cids = Helpers::getCids(true);
+        $this->rules =
+            [
+                'from' => "in:$cids",
+                'to' => "in:$cids",
+                'subject' => 'max:60'
+            ];
+    }
 } 
