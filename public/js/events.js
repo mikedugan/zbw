@@ -10,6 +10,11 @@ $(function() {
 		e.preventDefault();
 	});
 
+    $('.file-form').submit(function(e) {
+        e.preventDefault();
+        $(this).children('button').innerHTML = 'Uploading...';
+    })
+
     $('#request-training').submit(function(e) {
         e.preventDefault();
 

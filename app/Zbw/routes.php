@@ -38,7 +38,11 @@ Route::post('staff/roster/add-controller', 'RosterController@postAddController')
 Route::get('staff/cms', 'AdminController@getCmsIndex');
 Route::get('staff/forum', 'AdminController@getForumIndex');
 Route::get('staff/ts', 'AdminController@getTsIndex');
+
 Route::get('staff/news', 'AdminController@getNewsIndex');
+Route::get('staff/news/add', 'NewsController@getCreate');
+Route::post('staff/news/add', 'NewsController@postCreate');
+
 Route::get('staff/log', 'AdminController@getLog');
 
 //route accessible only by logged in controllers
@@ -48,6 +52,7 @@ Route::group(array('before' => 'controller'), function() {
     Route::get('training/request/{tid}', 'TrainingController@showRequest');
     Route::post('/t/request/{tid}/cancel', 'AjaxController@cancelTrainingRequest');
     Route::post('/t/request/{tid}/accept', 'AjaxController@acceptTrainingRequest');
+    Route::post('/f/upload/photos', 'AjaxController@photoUpload');
 });
 
 //route accessible only by mentors and instructors
