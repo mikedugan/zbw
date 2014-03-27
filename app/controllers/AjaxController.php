@@ -161,4 +161,9 @@ class AjaxController extends BaseController
             ]);
         }
     }
+
+    public function photoUpload()
+    {
+
+    }
 }
