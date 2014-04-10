@@ -7,4 +7,9 @@ class NewsRepository {
     {
         return News::where('audience', '=', 'both')->where('news_type', '!=', '4')->limit($lim)->get();
     }
+
+    public function events($num)
+    {
+
+    }
 }
