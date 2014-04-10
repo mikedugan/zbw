@@ -43,9 +43,27 @@
             <button class="btn btn-primary" type="submit">Save</button>
         </form>
         <br>
+        @if($user->is_active == 1)
         <form class="axform" action="/m/staff-welcome/{{$user->cid}}" method="post">
             <button type="submit" class="btn btn-sm" id="staff-welcome">Send Staff Welcome Email</button>
         </form>
-
+        <form class="axform" action="/r/suspend/{{$user->cid}}" method="post">
+            <button type="submit" class="btn btn-warning">Suspend User</button>
+        </form>
+        <form class="axform" action="/r/terminate/{{$user->cid}}" method="post">
+            <button type="submit" class="btn btn-danger">Terminate User</button>
+        </form>
+        @elseif($user->is_active == 0)
+        <form class="axform" action="/r/activate/{{$user->cid}}" method="post">
+            <button type="submit" class="btn btn-success">Activate User</button>
+        </form>
+        <form class="axform" action="/r/terminate/{{$user->cid}}" method="post">
+            <button type="submit" class="btn btn-danger">Terminate User</button>
+        </form>
+        @elseif($user->is_active == -1)
+        <form class="axform" action="/r/activate/{{$user->cid}}" method="post">
+            <button type="submit" class="btn btn-success">Activate User</button>
+        </form>
+        @endif
     </div>
 @stop

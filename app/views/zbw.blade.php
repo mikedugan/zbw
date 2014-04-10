@@ -6,7 +6,7 @@
 @section('content')
   <div class="col-md-12 text-center">
   <h4>Welcome to Boston ARTCC, where excellence is served daily with a cup of MOCHA HAGoTDI</h4>
-  		<div id="slideshow">
+  		<div class="hidden-sm hidden-xs" id="slideshow">
     		@include('includes._slideshow')
     	</div>
         <p>We hope you like the new website! If you are a new, transferring, or visiting controller,

@@ -7,9 +7,9 @@ class ZbwLog
     {
         $this->file = app_path() . '/views/includes/bj/log.blade.php';
     }
-    public function addLog($text, $type)
+    public function addLog($text, $type = '')
     {
-        $text = file_get_contents($this->file) . '<p class="log '.$type.'">' . $text . '</p>';
+        $text = file_get_contents($this->file) . '<p class="log '.$type.'">' . $text . '('. \Carbon::now() . ')</p>';
         file_put_contents($this->file, $text);
     }
 

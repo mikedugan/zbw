@@ -1,4 +1,12 @@
 $(function() {
+    highlightCorrect();
+    $('.datepick').datetimepicker({
+        language: 'en',
+        inline: true,
+        minDate:'0',
+        maxDate: '+1970/01/30'
+    });
+
 	$('#slideshow').slidesjs({
 		width: 900,
 		height: 400,

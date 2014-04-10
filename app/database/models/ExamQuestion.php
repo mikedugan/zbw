@@ -5,6 +5,11 @@ class ExamQuestion extends Eloquent
     protected $table = '_exam_questions';
     public $timestamps = false;
 
+    public function exam()
+    {
+        return $this->hasOne('CertType', 'id', 'cert_type');
+    }
+
     public function scopeCs1($q)
     {
         return $q->where('cert_type','=',1);

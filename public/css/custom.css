@@ -126,3 +126,8 @@ ul.nav li a.small { font-size: 1em; }
 }
 
 .redactor_box { margin-bottom: 1%; }
+.correct { color: #1d8a25; }
+
+.axform { margin: 1% 0;}
+.iblock { display: inline-block;}
+.input-group .datepick { display: block;}

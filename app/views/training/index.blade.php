@@ -13,8 +13,9 @@
     </div>
     <div class="col-md-6">
         <form class="axform" id="request-exam" action="/e/request/{{ $user->cid() }}/{{ $user->availableExams()[0] }}" method="post">
-            <button type="submit" class="btn btn-primary">Request {{ $user->availableExams()[1] }}</button>
+            <button type="submit" class="btn btn-primary">Request {{ $user->availableExams()[1] }} Exam</button>
         </form>
+        <a class="btn btn-primary" href="/training/request/new">Request Training</a>
         <a class="btn btn-primary" href="/training/take">Take Exam</a>
         <a class="btn btn-primary" href="/training/review">Review Exams</a>
     </div>
