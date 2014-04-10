@@ -49,9 +49,10 @@ class AdminController extends BaseController
     public function getNewsIndex()
     {
         $data = [
+            'events' =>
             'title' => 'ZBW News Admin'
         ];
-        return View::make('staff.news.index', $data);
+        return View::make('staff.cms.news', $data);
     }
 
     public function getRosterIndex()

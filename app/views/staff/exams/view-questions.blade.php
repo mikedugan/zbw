@@ -6,7 +6,7 @@
 
     <div class="col-md-6">
         <h3>Filter Options</h3>
-        <select class="dropdown" name="question-filter" id="question-filter">
+        <select class="dropdown" ¡name="question-filter" id="question-filter">
             <option value="1">Class C/D S1</option>
             <option value="2">Class B S1</option>
             <option value="3">Class C/D S2</option>
