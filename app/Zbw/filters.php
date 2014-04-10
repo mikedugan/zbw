@@ -78,3 +78,60 @@ Route::filter('csrf', function()
 		throw new Illuminate\Session\TokenMismatchException;
 	}
 });
+
+Route::filter('staff', function() {
+    $ur = new Zbw\Repositories\UserRepository(Auth::user()->cid);
+    if(!$ur->isStaff()) {
+        $data = [
+            'title' => 'Access Denied',
+            'page' => Request::url(),
+            'needed' => 'general staff member'
+        ];
+        $log = new Zbw\Bostonjohn\ZbwLog();
+        $log->addLog(Auth::user()->initials . ' tried to access ' . Request::url());
+        return View::make('zbw.errors.403', $data);
+    }
+});
+
+Route::filter('executive', function() {
+    $ur = new Zbw\Repositories\UserRepository(Auth::user()->cid);
+    if(!$ur->isExecutive())
+    {
+        $data = [
+            'title' => 'Access Denied',
+            'page' => Request::url(),
+            'needed' => 'executive staff member'
+        ];
+        $log = new Zbw\Bostonjohn\ZbwLog();
+        $log->addLog(Auth::user()->initials . ' tried to access ' . Request::url());
+        return View::make('zbw.errors.403', $data);
+    }
+});
+
+Route::filter('instructor', function() {
+    if(! Auth::user()->is_instructor)
+    {
+        $data = [
+            'title' => 'Access Denied',
+            'page' => Request::url(),
+            'needed' => 'instructor'
+        ];
+        $log = new Zbw\Bostonjohn\ZbwLog();
+        $log->addLog(Auth::user()->initials . ' tried to access ' . Request::url());
+        return View::make('zbw.errors.403', $data);
+    }
+});
+
+Route::filter('instructor', function() {
+    if(! Auth::user()->is_instructor && ! Auth::user()->is_mentor)
+    {
+        $data = [
+            'title' => 'Access Denied',
+            'page' => Request::url(),
+            'needed' => 'mentor'
+        ];
+        $log = new Zbw\Bostonjohn\ZbwLog();
+        $log->addLog(Auth::user()->initials . ' tried to access ' . Request::url());
+        return View::make('zbw.errors.403', $data);
+    }
+});

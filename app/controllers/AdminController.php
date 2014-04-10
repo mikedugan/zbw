@@ -22,7 +22,7 @@ class AdminController extends BaseController
         $data = [
             'reports' => ControllerTraining::recentReports(5),
             'sessions' => ['a', 'b'],
-            'requests' => ['c', 'd'],
+            'requests' => TrainingRequest::with(['student', 'certType'])->get(),
             'exams' => ControllerExam::recentExams(5),
             'title' => 'vZBW Training Home'
         ];

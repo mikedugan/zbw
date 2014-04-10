@@ -1,5 +1,7 @@
 <?php
 
+use Zbw\Repositories\QuestionsRepository;
+
 class ControllerExamsController extends BaseController {
 
     protected $er;
@@ -39,7 +41,25 @@ class ControllerExamsController extends BaseController {
     {
         $data = [
             'title' => 'vZBW Question Bank',
-            'questions' =>
+            'questions' => \Zbw\Repositories\QuestionsRepository::all()
         ];
+        return View::make('staff.exams.view-questions', $data);
+    }
+
+    public function addQuestion()
+    {
+        if(QuestionsRepository::add(Input::all()))
+        {
+            $log = new \Zbw\Bostonjohn\ZbwLog();
+            $log->addLog(Auth::user()->initials . 'added an exam question', '');
+            return Redirect::back()->with('flash_success', 'Exam question added');
+        }
+        else
+        {
+            $log = new \Zbw\Bostonjohn\ZbwLog();
+            $log->addError('There was an error while adding an exam question');
+            return Redirect::back()->with('flash_error', 'Error adding exam question');
+        }
+
     }
 }

@@ -7,3 +7,6 @@ composer.lock
 Thumbs.db
 /.idea
 zbw.sublime-project
+/.vagrant
+/_ide_helper.php
+/zbw.sublime-*

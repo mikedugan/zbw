@@ -9,4 +9,42 @@ $(function() {
 		submitAjax($(this));
 		e.preventDefault();
 	});
+
+    $('.file-form').submit(function(e) {
+        e.preventDefault();
+        $(this).children('button').innerHTML = 'Uploading...';
+    })
+
+    $('#request-training').submit(function(e) {
+        e.preventDefault();
+
+        var now = new Date();
+        var month = now.getMonth();
+        var date = now.getDate();
+        var year = now.getFullYear();
+        var hour = now.getHours();
+        var minutes = now.getMinutes();
+
+        var start = $('.datepick:eq(0)').val();
+        if(start == '') { start = year + "-" + month + "-" + date + " " + hour + ":" + minutes + ":00"; }
+        var end = $('.datepick:eq(1)').val();
+        if(end == '') { end = year + "-" + month + "-" + date + " " + hour + ":" + minutes + ":00"; }
+        $.ajax({
+            url: '/t/request/new',
+            type: 'post',
+            data: {
+                'start': start,
+                'end': end,
+                'user': document.getElementById('userid').value,
+                'cert': document.getElementById('examid').value
+            }
+        }).done(function(msg) {
+                msg = JSON.parse(msg);
+                if(msg.success)
+                {
+                    $('#flash').prepend(msg.message);
+                }
+                else $('#flash').prepend(msg.message);
+            });
+    });
 });

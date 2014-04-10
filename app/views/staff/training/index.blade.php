@@ -36,18 +36,9 @@
  {{-- this area should contain pending training & exam requests, etc --}}
     <div class="col-md-6">
         <h4>Requests</h4>
-        <p class="well">
-            AS has requested training on B_S3
-        </p>
-        <p class="well">
-            PG has requested training on C_S2
-        </p>
-        <p class="well">
-            AB has requested training on C1
-        </p>
         @if($requests)
-            @foreach($exams as $e)
-                {{-- training requests --}}
+            @foreach($requests as $r)
+                <p class="well"><a href="/training/request/{{$r->id}}">{{$r->student->initials}} has requested training on {{Zbw\Helpers::readableCert($r->certType->value)}}</a></p>
             @endforeach
         @endif
     </div>
