@@ -26,6 +26,8 @@ b { font-weight: bold; }
 
 a:hover {text-decoration: none;}
 
+.sans { font-family: 'Pontano Sans', Arial, sans-serif;}
+
 .clear { clear:both;float:none;}
 .bcenter { margin: 0 auto;}
 
@@ -106,10 +108,10 @@ ul.nav li a.small { font-size: 1em; }
 
 .flash span { padding: 1%;}
 .red, .green, .blue, .orange { color: black;}
-.red { boder: 1px solid red; }
-.green { border: 1px solid green;}
-.blue { border: 1px solid blue; }
-.orange { border: 1px solid orange;}
+.red { color: red;}
+.green { color: green;}
+.blue { color: blue; }
+.orange { color: orange;}
 .flash-info { color: blue; }
 .flash-success { color: green; }
 .flash-warning { color: orange; }

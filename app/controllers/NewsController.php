@@ -8,4 +8,10 @@ class NewsController extends BaseController {
         ];
         return View::make('staff.news.create', $data);
     }
+
+    public function postCreate()
+    {
+    	$i = Input::all();
+    	return Redirect::to('/')->with('flash_success', 'Event added');
+    }
 }
