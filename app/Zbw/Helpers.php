@@ -73,4 +73,9 @@ class Helpers {
         }
         return implode($pass); //turn the array into a string
     }
+
+    public static function convertToCarbon($date)
+    {
+        return \Carbon::createFromFormat('Y-m-d H:i:s', $date);
+    }
 }

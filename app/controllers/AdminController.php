@@ -1,6 +1,7 @@
 <?php 
 
 use Zbw\Repositories\UserRepository as UserRepository;
+use Zbw\Repositories\NewsRepository;
 
 class AdminController extends BaseController
 {
@@ -49,7 +50,11 @@ class AdminController extends BaseController
     public function getNewsIndex()
     {
         $data = [
-            'events' =>
+            'events' => ['expired' => NewsRepository::expiredEvents() ,
+                         'upcoming' => NewsRepository::upcomingEvents(5),
+                         'active' => NewsRepository::activeEvents() ],
+            'staffnews' => NewsRepository::staffNews(5),
+            'generalnews' => NewsRepository::recentNews(5),
             'title' => 'ZBW News Admin'
         ];
         return View::make('staff.cms.news', $data);
