@@ -3,6 +3,11 @@
 class News extends Eloquent {
 	protected $guarded = ['audience', 'deleted_at'];
 	protected $table = 'zbw_news';
+
+    public function getDates()
+    {
+        return ['starts', 'ends'];
+    }
 	//scopes
     /**
      * @param Query $query

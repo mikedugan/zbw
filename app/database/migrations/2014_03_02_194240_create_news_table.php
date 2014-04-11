@@ -18,8 +18,8 @@ class CreateNewsTable extends Migration {
 			$table->tinyInteger('audience')->default(0);
 			$table->string('title', 60)->required();
 			$table->text('content')->required();
-			$table->dateTime('starts')->nullable();
-			$table->dateTime('ends')->nullable();
+			$table->timestamp('starts')->nullable();
+			$table->timestamp('ends')->nullable();
 			$table->string('facility')->nullable();
 			$table->softDeletes();
 			$table->timestamps();
