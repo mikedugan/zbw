@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-    <title>{{ $title }}</title>
+    <title>{{ $title }} | vZBW ARTCC</title>
     @include('includes._head')
     </head>
     <body>
@@ -18,31 +18,31 @@
         @yield('header')
     </nav>
 
-    <div id="content" class="col-md-12 center-block">
-    <div class="pull-right">
-    <div id="flash">
+    <div id="content" class="col-md-10 center-block">
     @if(Session::get('flash_info'))
-        <div class="flash flash-info"><span class="glyphicon glyphicon-info-sign blue">
+        <div class="alert alert-info alert-dismissable"><span class="glyphicon glyphicon-info-sign blue">
+            <button type="button" class="close pull-right" data-dismiss="alert" aria-hidden="true">&times;</button>
               {{  Session::get('flash_info') }}
         </span></div>
     @endif
     @if (Session::get('flash_success'))
-        <div class="flash flash-success"><span class="glyphicon glyphicon-thumbs-up green">
+        <div class="alert alert-success alert-dismissable"><span class="glyphicon glyphicon-thumbs-up green">
+                <button type="button" class="close pull-right" data-dismiss="alert" aria-hidden="true">&times;</button>
                 {{ Session::get('flash_success') }}
         </span></div>
     @endif
     @if (Session::get('flash_info'))
-        <div class="flash flash-error"><span class="glyphicon glyphicon-fire red">
+        <div class="alert alert-error alert-dismissable"><span class="glyphicon glyphicon-fire red">
+            <button type="button" class="close pull-right" data-dismiss="alert" aria-hidden="true">&times;</button>
                 {{ Session::get('flash_error') }}
         </span></div>
     @endif
     @if (Session::get('flash_warning'))
-        <div class="flash flash-error"><span class="glyphicon glyphicon-warning-sign orange">
+        <div class="alert alert-warning alert-dismissable"><span class="glyphicon glyphicon-warning-sign orange">
+            <button type="button" class="close pull-right" data-dismiss="alert" aria-hidden="true">&times;</button>
                 {{ Session::get('flash_warning') }}
         </span></div>
     @endif
-    </div>
-    </div>
     @yield('content')
     </div>
 
