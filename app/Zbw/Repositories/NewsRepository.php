@@ -1,14 +1,15 @@
 <?php namespace Zbw\Repositories;
 
 use \News as News;
+use Zbw\Interfaces\EloquentRepositoryInterface;
 use Zbw\Validators\ZbwValidator;
 
-class NewsRepository {
+class NewsRepository implements EloquentRepositoryInterface {
     /** methods */
 
     public function front($lim)
     {
-        return News::where('audience', '=', 'both')->where('news_type', '!=', '4')->limit($lim)->get();
+        return News::where('audience_type_id', '=', '1')->where('news_type_id', '!=', '5')->limit($lim)->get();
     }
 
     /** static functions */
@@ -47,6 +48,11 @@ class NewsRepository {
         $n->audience = $input['audience'];
         //return the save result
         return $n->save();
+    }
+
+    public static function delete($id)
+    {
+        return \News::destroy($id);
     }
 
     public static function staffNews($lim, $direction = 'DESC')

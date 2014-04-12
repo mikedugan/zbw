@@ -8,14 +8,7 @@ class TrainingSession extends Eloquent {
     public function __construct()
     {
         $cids = \Zbw\Helpers::getCids(true);
-        $this->rules = [
-            'cid' => 'in:' . $cids,
-            'sid' => 'in:' . $cids,
-            'session_date' => 'date',
-            'weather' => 'integer|max:4',
-            'complexity' => 'integer|max:4',
-            'workload' => 'integer|max:4',
-        ];
+
     }
 
     //scopes
