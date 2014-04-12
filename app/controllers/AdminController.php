@@ -21,7 +21,7 @@ class AdminController extends BaseController
     public function getTrainingIndex()
     {
         $data = [
-            'reports' => ControllerTraining::recentReports(5),
+            'reports' => TrainingSession::recentReports(5),
             'sessions' => ['a', 'b'],
             'requests' => TrainingRequest::with(['student', 'certType'])->get(),
             'exams' => ControllerExam::recentExams(5),
@@ -50,9 +50,9 @@ class AdminController extends BaseController
     public function getNewsIndex()
     {
         $data = [
-            'events' => ['expired' => NewsRepository::expiredEvents() ,
+            'events' => ['expired' => NewsRepository::expiredEvents(5) ,
                          'upcoming' => NewsRepository::upcomingEvents(5),
-                         'active' => NewsRepository::activeEvents() ],
+                         'active' => NewsRepository::activeEvents(5) ],
             'staffnews' => NewsRepository::staffNews(5),
             'generalnews' => NewsRepository::recentNews(5),
             'title' => 'ZBW News Admin'

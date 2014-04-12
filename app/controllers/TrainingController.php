@@ -13,7 +13,7 @@ class TrainingController extends BaseController {
 
     public function showAdmin($id)
     {
-        $ts = ControllerTraining::
+        $ts = TrainingSession::
             with(['student', 'location', 'staff', 'complexityType', 'weatherType', 'workloadType'])
             ->find($id);
         $data = [

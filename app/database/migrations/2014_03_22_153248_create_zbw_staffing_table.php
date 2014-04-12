@@ -16,8 +16,8 @@ class CreateZbwStaffingTable extends Migration {
 			$table->increments('id');
 			$table->integer('cid');
             $table->string('position');
-            $table->dateTime('start');
-            $table->dateTime('stop');
+            $table->timestamp('start');
+            $table->timestamp('stop');
 		});
 	}
 

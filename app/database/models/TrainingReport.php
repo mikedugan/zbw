@@ -2,7 +2,7 @@
 
 class TrainingReport extends Eloquent
 {
-    protected $table = 'controller_reports';
+    protected $table = 'controller_training_reports';
     public $timestamps = false;
 
     //relations

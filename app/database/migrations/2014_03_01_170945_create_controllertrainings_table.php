@@ -12,7 +12,7 @@ class CreateControllerTrainingsTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('controller_training', function(Blueprint $table) {
+		Schema::create('controller_training_sessions', function(Blueprint $table) {
 			$table->increments('id');
 			$table->integer('cid')->required();
 			$table->integer('sid')->required();
@@ -27,7 +27,7 @@ class CreateControllerTrainingsTable extends Migration {
 			$table->tinyInteger('brief_time')->unsigned()->required()->default(0);
 			$table->tinyInteger('position_time')->unsigned()->required()->default(0);
 			$table->boolean('is_live')->default(0);
-			$table->tinyInteger('training_type')->default(0)->unsigned();
+			$table->tinyInteger('training_type_id')->default(0)->unsigned();
 			$table->timestamps();
 		});
 	}
@@ -40,7 +40,7 @@ class CreateControllerTrainingsTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('controller_training');
+		Schema::drop('controller_training_sessions');
 	}
 
 }

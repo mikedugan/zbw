@@ -12,9 +12,9 @@ class CreateTrainingReportTable extends Migration {
 	 */
 	public function up()
 	{
-        Schema::create('controller_reports', function(Blueprint $table) {
+        Schema::create('controller_training_reports', function(Blueprint $table) {
             $table->increments('id');
-            $table->integer('training_id');
+            $table->integer('training_session_id');
             $table->enum('o_brief', ['s', 'ni', 'u']);
             $table->enum('o_runway', ['s', 'ni', 'u']);
             $table->enum('o_weather', ['s', 'ni', 'u']);
@@ -44,7 +44,7 @@ class CreateTrainingReportTable extends Migration {
 	 */
 	public function down()
 	{
-	    Schema::drop('controller_reports');
+	    Schema::drop('controller_training_reports');
 	}
 
 }

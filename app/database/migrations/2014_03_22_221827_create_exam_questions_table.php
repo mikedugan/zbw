@@ -14,7 +14,7 @@ class CreateExamQuestionsTable extends Migration {
 	{
         Schema::create('_exam_questions', function(Blueprint $table) {
             $table->increments('id');
-            $table->tinyInteger('cert_type');
+            $table->tinyInteger('cert_type_id');
 			$table->text('question');
             $table->string('answer_a');
             $table->string('answer_b');

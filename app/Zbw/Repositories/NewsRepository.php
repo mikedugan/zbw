@@ -22,6 +22,11 @@ class NewsRepository {
         return \News::find($id);
     }
 
+    public static function findWithRelations($id)
+    {
+        return \News::with(['Facility'])->find($id);
+    }
+
     public static function add($input)
     {
         $invalid = ZbwValidator::get('News', $input);
@@ -34,9 +39,10 @@ class NewsRepository {
             'title' => $input['title'],
             'starts' => \Carbon::createFromFormat('Y/m/d H:i',$input['starts']),
             'ends' => \Carbon::createFromFormat('Y/m/d H:i', $input['ends']),
-            'news_type' => $input['news_type'],
+            'news_type_id' => $input['news_type'],
             'content' => $input['content'],
-            'facility' => $input['facility']
+            'facility_id' => $input['facility'],
+            'audience_id' => $input['audience']
         ]);
         $n->audience = $input['audience'];
         //return the save result
@@ -61,12 +67,12 @@ class NewsRepository {
 
     public static function activeEvents()
     {
-        return \News::where('ends', '>', \Carbon::now())->get();
+        return \News::where('ends', '>', \Carbon::now())->where('starts', '<', \Carbon::now())->get();
     }
 
-    public static function expiredEvents()
+    public static function expiredEvents($lim, $sortBy = 'ends', $direction = 'DESC')
     {
-        return \News::where('ends', '<', \Carbon::now())->where('news_type', '=', 1)->get();
+        return \News::where('ends', '<', \Carbon::now())->where('news_type', '=', 1)->limit($lim)->orderBy($sortBy, $direction)->get();
     }
 
     public static function upcomingEvents($lim)

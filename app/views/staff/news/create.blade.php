@@ -17,33 +17,25 @@
             <div class="form-group">
                 <label class="control-label" for="facility">Facility</label>
                 <select class="form-control" name="facility" id="facility">
-                    <option value="0">ZBW</option>
-                    <option value="1">BOS</option>
-                    <option value="2">BDL</option>
-                    <option value="3">PVD</option>
-                    <option value="4">ALB</option>
-                    <option value="5">PWM</option>
-                    <option value="6">BTV</option>
-                    <option value="7">K90</option>
-                    <option value="8">ZNY</option>
-                    <option value="9">ZUL</option>
+                    @foreach($facilities as $facility)
+                        <option value="{{$facility->id}}">{{$facility->value}}</option>
+                    @endforeach
                 </select>
             </div>
             <div class="form-group">
                 <label class="control-label" for="news_type">News Type</label>
                 <select class="form-control" name="news_type" id="news_type">
-                    <option value="1">News</option>
-                    <option value="2">Event</option>
-                    <option value="3">Announcement</option>
+                    @foreach($news_types as $type)
+                        <option value="{{$type->id}}">{{Str::title($type->value)}}</option>
+                    @endforeach
                 </select>
             </div>
             <div class="form-group">
                 <label class="control-label" for="audience">Target Audience</label>
                 <select class="form-control" name="audience" id="audience">
-                    <option value="1">All</option>
-                    <option value="2">Controllers</option>
-                    <option value="3">Pilots</option>
-                    <option value="4">Staff</option>
+                    @foreach($audiences as $a)
+                        <option value="{{$a->id}}">{{Str::title($a->value)}}</option>
+                    @endforeach
                 </select>
             </div>
         </div>

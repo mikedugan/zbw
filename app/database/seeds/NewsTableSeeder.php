@@ -13,13 +13,13 @@ class NewsTableSeeder extends Seeder {
         foreach(range(1, 50) as $index)
         {
           $n = new News();
-          $n->news_type = $faker->randomNumber(1,5);
-          $n->audience = $faker->randomNumber(1,3);
+          $n->news_type_id = $faker->randomNumber(1,5);
+          $n->audience_type_id = $faker->randomNumber(1,3);
           $n->title = $faker->sentence(2);
           $n->content = $faker->realText();
           $n->starts = $faker->dateTimeThisDecade('2014-06-12 12:55:30');
           $n->ends = $faker->dateTimeThisDecade('2014-06-12 12:55:30');
-          $n->facility = $faker->randomElement($facility);
+          $n->facility_id = $faker->randomElement($facility);
 	      $n->save();
         }
     }
