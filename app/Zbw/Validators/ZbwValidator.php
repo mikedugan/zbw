@@ -1,8 +1,19 @@
 <?php namespace Zbw\Validators;
 
+use Zbw\Helpers;
+
 class ZbwValidator {
     protected $errors;
+    protected $cids;
+    protected $sids;
+    protected $tids;
 
+    public function __construct()
+    {
+        $this->cids = Helpers::getCids(true);
+        $this->sids = Helpers::getSids(true);
+        $this->tids = Helpers::getTids(true);
+    }
     /**
      * @param array $input
      * @return bool

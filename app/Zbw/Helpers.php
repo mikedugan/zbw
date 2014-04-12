@@ -47,6 +47,18 @@ class Helpers {
         return $csv ? implode(',', array_values(\DB::table('controllers')->lists('cid'))) : array_values(\DB::table('controllers')->lists('cid'));
     }
 
+    public static function getSids($csv = false)
+    {
+        return $csv ? implode(',', array_values(\DB::table('controllers')->where('is_staff', '=', 1)->pluck('cid'))) :
+                        array_values(\DB::table('controllers')->where('is_staff', '=', 1)->pluck('cid'));
+    }
+
+    public static function getTids($csv = false)
+    {
+        return $csv ? implode(',', array_values(\DB::table('controllers')->where('is_mentor', '=', 1)->orWhere('is_instructor', '=', 1)->pluck('cid')))
+                    : array_values(\DB::table('controllers')->where('is_mentor', '=', 1)->orWhere('is_instructor', '=', 1)->pluck('cid'));
+    }
+
     public static function readableCert($cert)
     {
         switch($cert)
