@@ -112,6 +112,7 @@ return array(
 		'Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider',
 		'Barryvdh\Debugbar\ServiceProvider',
         'Laracasts\Utilities\UtilitiesServiceProvider',
+        'Zbw\Validators\ZbwValidatorServiceProvider',
 	),
 
 	/*
@@ -178,7 +179,8 @@ return array(
 		'Validator'       => 'Illuminate\Support\Facades\Validator',
 		'View'            => 'Illuminate\Support\Facades\View',
         'Carbon'          => 'Carbon\Carbon',
-        'JavaScript'      => 'Laracasts\Utlities\JavaScript\Facades\JavaScript'
+        'JavaScript'      => 'Laracasts\Utlities\JavaScript\Facades\JavaScript',
+        'ZbwValidator'    => 'Zbw\Facades\ZbwValidator',
 
 	),
 

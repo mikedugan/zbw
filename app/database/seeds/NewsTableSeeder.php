@@ -13,8 +13,8 @@ class NewsTableSeeder extends Seeder {
         foreach(range(1, 50) as $index)
         {
           $n = new News();
-          $n->news_type = $faker->randomNumber(0,4);
-          $n->audience = $faker->randomNumber(0,2);
+          $n->news_type = $faker->randomNumber(1,5);
+          $n->audience = $faker->randomNumber(1,3);
           $n->title = $faker->sentence(2);
           $n->content = $faker->realText();
           $n->starts = $faker->dateTimeThisDecade('2014-06-12 12:55:30');

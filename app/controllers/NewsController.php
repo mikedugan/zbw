@@ -1,6 +1,10 @@
 <?php
 
+use Zbw\Validators\NewsValidator;
+use Zbw\Repositories\NewsRepository;
+
 class NewsController extends BaseController {
+
     public function getCreate()
     {
         $data = [
@@ -11,7 +15,15 @@ class NewsController extends BaseController {
 
     public function postCreate()
     {
-    	$i = Input::all();
-    	return Redirect::to('/')->with('flash_success', 'Event added');
+        $errors = NewsRepository::add(Input::all());
+    	if(is_array($errors))
+        {
+            return Redirect::back()->with('flash_error', $errors)->withInput();
+        }
+
+        else
+        {
+            return Redirect::home()->with('flash_success', 'Event created successfully!');
+        }
     }
 }

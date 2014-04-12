@@ -9,16 +9,16 @@
 		{{ Form::text('title', ['class' => 'form-control']) }}
 	</div>
 	<div class="form-group">
-		{{ Form::label('start', 'Starts:')}}
-		<div class="datepick" name="start" id="start"></div>
+		{{ Form::label('starts', 'Starts:')}}
+		<div class="datepick" name="starts" id="starts"></div>
 	</div>
 	<div class="form-group">
 		{{ Form::label('ends', 'Ends:') }}
 		<div class="datepick" id="ends" name="ends"></div>
 	</div>
 	<div class="form-group">
-		{{ Form::label('description', ['class' => 'form-control']) }}
-		{{ Form::textarea('description') }}
+		{{ Form::label('content', 'Description:') }}
+		{{ Form::textarea('content') }}
 	</div>
 	{{ Form::close() }}
 @stop

@@ -18,33 +18,39 @@
         @yield('header')
     </nav>
 
-    <div id="content" class="col-md-10 center-block">
+    <div class="logopad">
     @if(Session::get('flash_info'))
-        <div class="alert alert-info alert-dismissable"><span class="glyphicon glyphicon-info-sign blue">
+        <div class="alert alert-info alert-dismissable"><span class="glyphicon glyphicon-info-sign blue"></span>
             <button type="button" class="close pull-right" data-dismiss="alert" aria-hidden="true">&times;</button>
               {{  Session::get('flash_info') }}
-        </span></div>
+        </div>
     @endif
     @if (Session::get('flash_success'))
-        <div class="alert alert-success alert-dismissable"><span class="glyphicon glyphicon-thumbs-up green">
+        <div class="alert alert-success alert-dismissable"><span class="glyphicon glyphicon-thumbs-up green"></span>
                 <button type="button" class="close pull-right" data-dismiss="alert" aria-hidden="true">&times;</button>
                 {{ Session::get('flash_success') }}
-        </span></div>
+        </div>
     @endif
-    @if (Session::get('flash_info'))
-        <div class="alert alert-error alert-dismissable"><span class="glyphicon glyphicon-fire red">
+    @if (Session::get('flash_error'))
+        <div class="alert alert-danger alert-dismissable"><span class="glyphicon glyphicon-fire red"></span>
             <button type="button" class="close pull-right" data-dismiss="alert" aria-hidden="true">&times;</button>
-                {{ Session::get('flash_error') }}
-        </span></div>
+                @if(is_array(Session::get('flash_error')))
+                    @foreach(Session::get('flash_error') as $error)
+                        {{ $error[0] }}&nbsp;
+                    @endforeach
+                @else
+                    {{ Session::get('flash_error') }}
+                @endif
+        </div>
     @endif
     @if (Session::get('flash_warning'))
-        <div class="alert alert-warning alert-dismissable"><span class="glyphicon glyphicon-warning-sign orange">
+        <div class="alert alert-warning alert-dismissable"><span class="glyphicon glyphicon-warning-sign orange"></span>
             <button type="button" class="close pull-right" data-dismiss="alert" aria-hidden="true">&times;</button>
                 {{ Session::get('flash_warning') }}
-        </span></div>
+        </div>
     @endif
-    @yield('content')
     </div>
+    @yield('content')
 
     <footer class="clear text-center">
         @include('includes._footer')

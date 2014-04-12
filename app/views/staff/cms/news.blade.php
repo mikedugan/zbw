@@ -3,6 +3,7 @@
 @stop
 @section('content')
     <h1 class="text-center">ZBW News and Events</h1>
+    <p class="text-center">
     <div class="col-md-6">
         <h3>Active Events</h3>
             @foreach($events['active'] as $event)
