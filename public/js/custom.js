@@ -4,7 +4,12 @@ $(function() {
         language: 'en',
         inline: true,
         minDate:'0',
-        maxDate: '+1970/01/30'
+        maxDate: '+1970/01/30',
+        onChangeDateTime: function(dp, $input)
+        {
+            var field = $(this.prev()[0]).data('field');
+            document.getElementById(field).value = $input.val();
+        }
     });
 
 	$('#slideshow').slidesjs({

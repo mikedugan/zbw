@@ -30,42 +30,35 @@
                 </select>
             </div>
             <div class="form-group">
-                <label class="control-label" for="type">News Type</label>
-                <select class="form-control" name="type" id="type">
-                    <option value="0">News</option>
-                    <option value="1">Event</option>
-                    <option value="2">Announcement</option>
+                <label class="control-label" for="news_type">News Type</label>
+                <select class="form-control" name="news_type" id="news_type">
+                    <option value="1">News</option>
+                    <option value="2">Event</option>
+                    <option value="3">Announcement</option>
                 </select>
             </div>
             <div class="form-group">
                 <label class="control-label" for="audience">Target Audience</label>
                 <select class="form-control" name="audience" id="audience">
-                    <option value="0">All</option>
-                    <option value="1">Controllers</option>
-                    <option value="2">Pilots</option>
-                    <option value="3">Staff</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label class="control-label" for="placement">Announcement Location</label>
-                <select class="form-control" name="placement" id="placement">
-                    <option value="0">Home Page</option>
-                    <option value="1">Staff Area</option>
-                    <option value="2">Training Area</option>
-                    <opton value="3">Forum</opton>
+                    <option value="1">All</option>
+                    <option value="2">Controllers</option>
+                    <option value="3">Pilots</option>
+                    <option value="4">Staff</option>
                 </select>
             </div>
         </div>
         <div class="col-md-5 col-md-offset-2">
+            <input type="hidden" id="starts" name="starts" value="">
+            <input type="hidden" id="ends" name="ends">
             <div class="form-group">
-                <label class="control-label" for="start">Start</label>
+                <label class="control-label" for="starts">Start</label>
             </div>
-            <div class="datepick" name="start"></div>
+            <div class="datepick" data-field="starts" id="starts-dp"></div>
 
             <div class="form-group">
-                <label class="control-label" for="end">End</label>
+                <label class="control-label" for="ends">End</label>
             </div>
-            <div class="datepick" name="end"></div>
+            <div class="datepick" data-field="ends" id="ends-dp"></div>
             <div class="clearfix"></div>
             <button type="submit" class="btn btn-primary">Submit</button>
             </form>

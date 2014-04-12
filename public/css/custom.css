@@ -26,6 +26,8 @@ b { font-weight: bold; }
 
 a:hover {text-decoration: none;}
 
+div.logopad { margin-top: 4%; }
+
 .sans { font-family: 'Pontano Sans', Arial, sans-serif;}
 
 .clear { clear:both;float:none;}
