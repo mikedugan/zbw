@@ -58,10 +58,10 @@ class News extends Eloquent {
      * @param Query $query
      * @return Eloquent
      */
-    public function scopeFacility($query, $fac)
+ /*   public function scopeFacility($query, $fac)
     {
         return $query->where('facility', '=', $fac);
-    }
+    }*/
 
     /**
      * @param Query $query
@@ -105,8 +105,13 @@ class News extends Eloquent {
 
 	//relations
 
-    public function type()
+    public function newsType()
     {
-        return $this->hasOne('NewsType', 'id', '_news_types');
+        return $this->hasOne('NewsType', 'id', 'news_type_id');
+    }
+
+    public function facility()
+    {
+        return $this->hasOne('Facility', 'id', 'facility_id');
     }
 }

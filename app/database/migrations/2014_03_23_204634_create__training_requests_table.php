@@ -18,7 +18,7 @@ class CreateTrainingRequestsTable extends Migration {
             $table->integer('sid')->nullable()->default(null);
             $table->dateTime('start');
             $table->dateTime('end');
-            $table->tinyInteger('cert');
+            $table->tinyInteger('cert_id');
 			$table->timestamps();
 		});
 	}

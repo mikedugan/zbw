@@ -14,13 +14,13 @@ class CreateNewsTable extends Migration {
 	{
 		Schema::create('zbw_news', function(Blueprint $table) {
 			$table->increments('id');
-			$table->tinyInteger('news_type')->default(0);
-			$table->tinyInteger('audience')->default(0);
+			$table->tinyInteger('news_type_id')->default(1);
+			$table->tinyInteger('audience_type_id')->default(1);
 			$table->string('title', 60)->required();
 			$table->text('content')->required();
 			$table->timestamp('starts')->nullable();
 			$table->timestamp('ends')->nullable();
-			$table->string('facility')->nullable();
+			$table->tinyInteger('facility_id')->nullable();
 			$table->softDeletes();
 			$table->timestamps();
 		});

@@ -5,7 +5,7 @@ class ReferenceTableSeeder extends Seeder {
         public function run()
         {
             DB::table('_complexity_types')->truncate();
-            DB::table('_news_audience')->truncate();
+            DB::table('_audience_types')->truncate();
             DB::table('_news_types')->truncate();
             DB::table('_training_types')->truncate();
             DB::table('_workload_types')->truncate();
@@ -14,6 +14,7 @@ class ReferenceTableSeeder extends Seeder {
             DB::table('_training_facilities')->truncate();
             DB::table('_file_types')->truncate();
             DB::table('_message_types')->truncate();
+            DB::table('_facilities')->truncate();
 
             ComplexityType::create(['value' => 'very_easy']);
             ComplexityType::create(['value' => 'easy']);

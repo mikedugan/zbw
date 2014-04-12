@@ -28,7 +28,7 @@ class CreatePendingExamsTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('pending_exams');
+		Schema::drop('_pending_exams');
 	}
 
 }

@@ -8,12 +8,12 @@ class ControllerReportsTableSeeder extends Seeder {
     public function run()
     {
         $faker = Faker::create();
-        DB::table('controller_reports')->truncate();
+        DB::table('controller_training_reports')->truncate();
         $lev = ['s', 'ni', 'u'];
         foreach(range(1, 150) as $index)
         {
             $r = new TrainingReport();
-            $r->training_id = $index;
+            $r->training_session_id = $index;
             $r->o_brief = $faker->randomElement($lev);
             $r->o_runway = $faker->randomElement($lev);
             $r->o_weather = $faker->randomElement($lev);

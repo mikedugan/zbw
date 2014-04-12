@@ -25,6 +25,8 @@ Route::get('training', 'TrainingController@getIndex');
 
 Route::get('training/request/new', 'TrainingController@getRequest');
 
+Route::get('news/{id}', 'NewsController@show');
+
 Route::get('staff/training', 'AdminController@getTrainingIndex');
 Route::get('staff/exams/review/{eid}', 'ControllerExamsController@getStaffReview');
 Route::get('staff/exams/questions', 'ControllerExamsController@getQuestions');
