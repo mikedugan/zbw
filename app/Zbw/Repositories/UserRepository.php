@@ -6,26 +6,24 @@ use Zbw\Bostonjohn\ZbwLog;
 
 class UserRepository
 {
-    protected $user;
-    protected $log;
-
-    public function __construct($user = null)
+    /**
+     * @param integer cid
+     * @return \User
+     */
+    public function find($id)
     {
-        $this->user = $user ? \User::find($user) : null;
-        $this->log = new ZbwLog();
+        return \User::find($id);
     }
 
-    public function save()
-    {
-        return $this->user->save();
-    }
-
-    public function getUser($cid = null)
-    {
-        return $cid == null ? $this->user : \User::find($cid);
-    }
-
-    public function add($fname, $lname, $email, $artcc, $cid)
+    /**
+     * @param string first name
+     * @param string last name
+     * @param string email address
+     * @param string home artcc
+     * @param integer cid
+     * @return boolean
+     */
+    public static function add($fname, $lname, $email, $artcc, $cid)
     {
         $tempPassword = Helpers::createPassword();
 
@@ -48,35 +46,51 @@ class UserRepository
         else return false;
     }
 
-    public function updateUser($input)
+    /**
+     * @param array input(post)
+     * @return boolean success
+     */
+    public static function updateUser($input, $cid = null)
     {
-        $this->user->first_name = $input['fname'];
-        $this->user->last_name = $input['lname'];
-        $this->user->initials = $input['initials'];
-        $this->user->artcc = $input['artcc'];
-        $this->user->is_mentor = isset($input['ismentor']) ? $input['ismentor'] : 0;
-        $this->user->is_instructor = isset($input['isins']) ? $input['isins']: 0;
-        $this->user->is_ta = isset($input['is_ta']) ? $input['is_ta'] : 0;
-        $this->user->is_webmaster = isset($input['isweb']) ? $input['isweb'] : 0;
-        $this->user->is_facilities = isset($input['isfe']) ? $input['isfe'] : 0;
-        $this->user->is_atm = isset($input['isatm']) ? $input['isatm'] : 0;
-        $this->user->is_datm = isset($input['isdatm']) ? $input['isdatm'] : 0;
-        $this->user->is_emeritus = isset($input['isemeritus']) ? $input['isemeritus'] : 0;
-        $this->log->addLog(\Auth::user()->initials . " edited " . strtoupper($this->user->initials) . " on " . \Carbon::now() ,'');
-        return $this->save();
+        $user = $cid ? \User::find($cid) : \User::find($input['cid']);
+        $user->first_name = $input['fname'];
+        $user->last_name = $input['lname'];
+        $user->initials = $input['initials'];
+        $user->artcc = $input['artcc'];
+        $user->is_mentor = isset($input['ismentor']) ? $input['ismentor'] : 0;
+        $user->is_instructor = isset($input['isins']) ? $input['isins']: 0;
+        $user->is_ta = isset($input['is_ta']) ? $input['is_ta'] : 0;
+        $user->is_webmaster = isset($input['isweb']) ? $input['isweb'] : 0;
+        $user->is_facilities = isset($input['isfe']) ? $input['isfe'] : 0;
+        $user->is_atm = isset($input['isatm']) ? $input['isatm'] : 0;
+        $user->is_datm = isset($input['isdatm']) ? $input['isdatm'] : 0;
+        $user->is_emeritus = isset($input['isemeritus']) ? $input['isemeritus'] : 0;
+        return $user->save();
     }
 
-    public function all()
+    /**
+     * @return eloquent collection
+     */
+    public static function all()
     {
         return \User::all();
     }
 
-    public function find($id)
+    /**
+     * @param integer user id
+     * @return \User
+     */
+    public static function find($id)
     {
         return $id ? \User::find($id) : \User::find($this->user);
     }
 
-    public function createInitials($fname, $lname)
+    /**
+     * @param string controller first name
+     * @param string controller last name
+     * @return string suggested operating initials
+     */
+    public static function createInitials($fname, $lname)
     {
         $i = -1;
         for($i = -1; $i >= '-'.strlen($lname); $i--)
@@ -97,39 +111,42 @@ class UserRepository
         }
     }
 
-    public function cid()
+
+    /**
+     * @param integer user id
+     * @return float training progress
+     */
+    public static function trainingProgress($id)
     {
-        return $this->user->cid;
+
+        return floor(\User::find($id)->cert / 7 * 100);
     }
 
-    public function name()
+    /**
+     * @param integer certification id
+     * @return string certification title
+     */
+    public static function certTitle($id)
     {
-        return $this->user->username;
+        return Helpers::readableCert(\User::find($id)->certification['value']);
     }
 
-
-    //returns % of training completed
-    public function trainingProgress()
-    {
-        return floor($this->user->cert / 7 * 100);
-    }
-
-    public function rating() { return $this->user->rating; }
-
-    public function cert() { return $this->user->cert; }
-    public function certTitle()
-    {
-        return Helpers::readableCert($this->user->certification['value']);
-    }
-
-    public function availableExams($training = false)
+    /**
+     * @param boolean training
+     * @return string next available exam
+     */
+    public function availableExams()
     {
         $avail = $this->user->certification->id + 1;
         $next = \CertType::find($avail);
         return [$next->id, Helpers::readableCert($next->value)];
     }
 
-    public function search($input)
+    /**
+     * @param array input data (POST/GET)
+     * @return mixed \User|Eloquent\Collection
+     */
+    public static function search($input)
     {
         $users = \User::where('cid', '>', 0);
         if($input['email'] != null && $input['email'] != '')
@@ -163,63 +180,83 @@ class UserRepository
         return $users->get();
     }
 
-    public function suspendUser($id)
+    /**
+     * @param integer user id
+     * @return boolean
+     */
+    public static function suspendUser($id)
     {
         $user = \User::find($id);
         $user->is_active = 0;
         if($user->save())
         {
-            $this->log->addOverride(\Auth::user()->initials . ' suspended ' . $user->initials);
+            ZbwLog::override(\Auth::user()->initials . ' suspended ' . $user->initials);
             return true;
         }
         else
         {
-            $this->log->addError(\Auth::user()->initials . ' had an error attempting to suspend ' . $user->initials);
+            ZbwLog::error(\Auth::user()->initials . ' had an error attempting to suspend ' . $user->initials);
             return false;
         }
     }
 
-    public function terminateUser($id)
+    /**
+     * @param integer user id
+     * @return boolean
+     */
+    public static function terminateUser($id)
     {
         $user = \User::find($id);
         $user->is_active = -1;
         if($user->save())
         {
-            $this->log->addOverride(\Auth::user()->initials . ' terminated ' . $user->initials);
+            ZbwLog::log(\Auth::user()->initials . ' terminated ' . $user->initials);
             return true;
         }
         else
         {
-            $this->log->addError(\Auth::user()->initials . ' had an error attempting to terminate ' . $user->initials);
+            ZbwLog::error(\Auth::user()->initials . ' had an error attempting to terminate ' . $user->initials);
             return false;
         }
     }
 
-    public function activateUser($id)
+    /**
+     * @param integer user id
+     * @return boolean
+     */
+    public static function activateUser($id)
     {
         $user = \User::find($id);
         $user->is_active = 1;
         if($user->save())
         {
-            $this->log->addOverride(\Auth::user()->initials . ' activated ' . $user->initials);
+            ZbwLog::override(\Auth::user()->initials . ' activated ' . $user->initials);
             return true;
         }
         else
         {
-            $this->log->addError(\Auth::user()->initials . ' had an error attempting to activate ' . $user->initials);
+            ZbwLog::error(\Auth::user()->initials . ' had an error attempting to activate ' . $user->initials);
             return false;
         }
     }
 
-    public function isStaff()
+    /**
+     * @param integer user id
+     * @return boolean
+     */ 
+    public static function isStaff($id)
     {
-        $u = $this->user;
+        $u = \User::find($id);
         return $u->is_atm || $u->is_datm || $u->is_ta || $u->is_mentor || $u->is_instructor || $u->is_facilities || $u->is_webmaster;
     }
 
-    public function isExecutive()
+    /**
+     * @param integer user id
+     * @return boolean
+     */
+    public static function isExecutive($id)
     {
-        $u = $this->user;
+        $u = \User::find($id);
         return $u->is_atm || $u->is_datm || $u->is_ta || $u->is_webmaster;
     }
 }
