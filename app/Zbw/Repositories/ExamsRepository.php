@@ -47,4 +47,15 @@ class ExamsRepository {
 
         $this->exam->total_questions = count($wrong_q);
     }
+
+    /**
+     * @param boolean training
+     * @return string next available exam
+     */
+    public function availableExams($cid)
+    {
+        $user = UserRepository::find($cid);
+        $next = \CertType::find($user->certification->id + 1);
+        return [$next->id, Helpers::readableCert($next->value)];
+    }
 }

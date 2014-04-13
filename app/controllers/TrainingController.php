@@ -1,5 +1,7 @@
 <?php
 
+use Zbw\Repositories\TrainingSessionRepository;
+
 class TrainingController extends BaseController {
 
 	public function getIndex()
@@ -13,9 +15,7 @@ class TrainingController extends BaseController {
 
     public function showAdmin($id)
     {
-        $ts = TrainingSession::
-            with(['student', 'location', 'staff', 'complexityType', 'weatherType', 'workloadType'])
-            ->find($id);
+        $ts = TrainingSessionRepository::findWithRelations($id);
         $data = [
             'title' => 'View Training Session',
             'tsession' => $ts,
@@ -28,10 +28,9 @@ class TrainingController extends BaseController {
 
     public function getRequest()
     {
-        $ur = new \Zbw\Repositories\UserRepository(\Auth::user()->cid);
         $data = [
             'title' => 'Request Training Session',
-            'available' => $ur->availableExams()
+            'available' => ExamsRepository::availableExams(Auth::user()->cid)
         ];
         return View::make('training.request', $data);
     }

@@ -17,13 +17,13 @@ class CreateControllerTrainingsTable extends Migration {
 			$table->integer('cid')->required();
 			$table->integer('sid')->required();
 			$table->dateTime('session_date');
-			$table->tinyInteger('weather')->default(0);
-			$table->tinyInteger('complexity')->default(0);
-			$table->tinyInteger('workload')->default(0);
+			$table->tinyInteger('weather_id')->default(0);
+			$table->tinyInteger('complexity_id')->default(0);
+			$table->tinyInteger('workload_id')->default(0);
 			$table->text('staff_comment');
 			$table->text('student_comment');
 			$table->boolean('is_ots')->default(0);
-			$table->tinyInteger('facility')->default(0)->required(0);
+			$table->tinyInteger('facility_id')->default(0)->required(0);
 			$table->tinyInteger('brief_time')->unsigned()->required()->default(0);
 			$table->tinyInteger('position_time')->unsigned()->required()->default(0);
 			$table->boolean('is_live')->default(0);

@@ -11,7 +11,7 @@
                 {{ strtoupper($r->student['initials']) }} was trained by
                 {{ strtoupper($r->staff['initials']) }}
                 {{ \Zbw\Helpers::timeAgo($r->session_date) }} on
-                {{ $r->location->facility }}
+                {{ $r->facility->value }}
                 </a>
             </p>
         @endforeach

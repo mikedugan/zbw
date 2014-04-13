@@ -80,8 +80,7 @@ Route::filter('csrf', function()
 });
 
 Route::filter('staff', function() {
-    $ur = new Zbw\Repositories\UserRepository(Auth::user()->cid);
-    if(!$ur->isStaff()) {
+    if(!\Zbw\Repositories\UserRepository::isStaff(Auth::user()->cid)) {
         $data = [
             'title' => 'Access Denied',
             'page' => Request::url(),
@@ -94,8 +93,7 @@ Route::filter('staff', function() {
 });
 
 Route::filter('executive', function() {
-    $ur = new Zbw\Repositories\UserRepository(Auth::user()->cid);
-    if(!$ur->isExecutive())
+    if(!\Zbw\Repositories\UserRepository::isExecutive(Auth::user()->cid))
     {
         $data = [
             'title' => 'Access Denied',
