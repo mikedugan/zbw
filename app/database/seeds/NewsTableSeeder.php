@@ -19,7 +19,7 @@ class NewsTableSeeder extends Seeder {
           $n->content = $faker->realText();
           $n->starts = $faker->dateTimeThisDecade('2014-06-12 12:55:30');
           $n->ends = $faker->dateTimeThisDecade('2014-06-12 12:55:30');
-          $n->facility_id = $faker->randomElement($facility);
+          $n->facility_id = $faker->randomNumber(1,8);
 	      $n->save();
         }
     }

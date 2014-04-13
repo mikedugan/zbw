@@ -1,16 +1,11 @@
 <?php 
 
-use Zbw\Repositories\UserRepository as UserRepository;
+use Zbw\Repositories\UserRepository;
 use Zbw\Repositories\NewsRepository;
+use Zbw\Repositories\TrainingSessionRepository;
 
 class AdminController extends BaseController
 {
-    private $uRepo;
-
-    public function __construct()
-    {
-        $this->uRepo = new UserRepository();
-    }
     public function getAdminIndex()
     {
         $data = [
@@ -21,10 +16,10 @@ class AdminController extends BaseController
     public function getTrainingIndex()
     {
         $data = [
-            'reports' => TrainingSession::recentReports(5),
+            'reports' => TrainingSessionRepository::recentReports(5),
             'sessions' => ['a', 'b'],
-            'requests' => TrainingRequest::with(['student', 'certType'])->get(),
-            'exams' => ControllerExam::recentExams(5),
+            'requests' => \TrainingRequest::with(['student', 'certType'])->get(),
+            'exams' => \ControllerExam::recentExams(5),
             'title' => 'vZBW Training Home'
         ];
         JavaScript::put(['foo' => 'mike']);
@@ -92,7 +87,7 @@ class AdminController extends BaseController
     {
         $data = [
             'title' => 'View Controller',
-            'user' => $this->uRepo->find($id)
+            'user' => UserRepository::find($id)
         ];
         return View::make('staff.roster.view', $data);
     }

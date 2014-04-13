@@ -5,8 +5,8 @@ class TrainingSessionValidator extends ZbwValidator {
         'cid' => "in: ",
         'sid' => 'in:',
         'session_date' => 'date',
-        'weather' => 'integer|max:4',
-        'complexity' => 'integer|max:4',
-        'workload' => 'integer|max:4',
+        'weather' => 'integer|between:1,5',
+        'complexity' => 'integer|between:1,5',
+        'workload' => 'integer|between:1,3',
     ];
 }

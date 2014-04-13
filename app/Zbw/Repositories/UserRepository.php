@@ -10,7 +10,7 @@ class UserRepository
      * @param integer cid
      * @return \User
      */
-    public function find($id)
+    public static function find($id)
     {
         return \User::find($id);
     }
@@ -36,7 +36,7 @@ class UserRepository
         $u->email = $email;
         $u->password = \Hash::make($tempPassword);
         $u->rating = 'OBS';
-        $u->initials = strtoupper($this->createInitials($fname, $lname));
+        $u->initials = strtoupper(UserRepository::createInitials($fname, $lname));
         if($u->save())
         {
             $em = new Emailer($u, ['password' => $tempPassword]);
@@ -74,15 +74,6 @@ class UserRepository
     public static function all()
     {
         return \User::all();
-    }
-
-    /**
-     * @param integer user id
-     * @return \User
-     */
-    public static function find($id)
-    {
-        return $id ? \User::find($id) : \User::find($this->user);
     }
 
     /**
@@ -129,17 +120,6 @@ class UserRepository
     public static function certTitle($id)
     {
         return Helpers::readableCert(\User::find($id)->certification['value']);
-    }
-
-    /**
-     * @param boolean training
-     * @return string next available exam
-     */
-    public function availableExams()
-    {
-        $avail = $this->user->certification->id + 1;
-        $next = \CertType::find($avail);
-        return [$next->id, Helpers::readableCert($next->value)];
     }
 
     /**

@@ -12,51 +12,72 @@ class TrainingSession extends Eloquent {
     }
 
     //scopes
+    /**
+     * @param $query eloquent query
+     * @param $date \Carbon object
+     * @return Eloquent query
+     */
     public function scopeOlder($query, $date)
     {
         return $query->where('session_date', '<', $date);
     }
 
+    /**
+     * @param $query eloquent query
+     * @param $date \Carbon object
+     * @return Eloquent query
+     */
     public function scopeNewer($query, $date)
     {
       return $query->where('session_date', '>', $date);
     }
 
     //relations
+    /**
+     * @return User
+     */
     public function student()
     {
         return $this->belongsTo('User', 'cid', 'cid');
     }
 
+    /**
+     * @return User
+     */
     public function staff()
     {
         return $this->belongsTo('User', 'sid', 'cid');
     }
 
-    public function location()
+    /**
+     * @return TrainingFacility
+     */
+    public function facility()
     {
-        return $this->hasOne('TrainingFacility', 'id', 'facility');
+        return $this->hasOne('TrainingFacility', 'id', 'facility_id');
     }
 
+    /**
+     * @return WeatherType
+     */
     public function weatherType()
     {
-        return $this->hasOne('WeatherType', 'id', 'weather');
+        return $this->hasOne('WeatherType', 'id', 'weather_id');
     }
 
+    /**
+     * @return ComplexityType
+     */
     public function complexityType()
     {
-        return $this->hasOne('ComplexityType', 'id', 'complexity');
+        return $this->hasOne('ComplexityType', 'id', 'complexity_id');
     }
 
+    /**
+     * @return WorkloadType
+     */
     public function workloadType()
     {
-        return $this->hasOne('WorkloadType', 'id', 'workload');
-    }
-
-    //statics
-    public static function recentReports($n)
-    {
-        return TrainingSession::with(['student', 'staff', 'location'])
-            ->orderBy('created_at')->limit($n)->get();
+        return $this->hasOne('WorkloadType', 'id', 'workload_id');
     }
 }
