@@ -19,6 +19,7 @@ class CreateMessagesTable extends Migration {
 			$table->string('subject', 60)->default('No subject');
 			$table->text('content')->required();
 			$table->boolean('has_attachments')->default(0);
+            $table->boolean('is_read')->default(0);
 			$table->softDeletes();
 			$table->timestamps();
 		});
