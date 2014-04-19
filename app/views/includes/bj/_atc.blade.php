@@ -26,4 +26,5 @@
       </tr>
 		</tbody>
 	</table>
+    <p>{{gmdate("H:i")}} UTC</p>
 </div>
