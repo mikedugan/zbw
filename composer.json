@@ -5,11 +5,12 @@
 	"license": "MIT",
 	"require": {
 		"laravel/framework": "4.1.*",
-		"way/generators": "dev-master",
+		"laracasts/utilities": "dev-master"
+	},
+	"require-dev": {
 		"barryvdh/laravel-ide-helper": "dev-master",
 		"barryvdh/laravel-debugbar": "dev-master",
-		"fzaninotto/faker": "dev-master",
-		"laracasts/utilities": "dev-master"
+		"fzaninotto/faker": "dev-master"
 	},
 	"autoload": {
 		"classmap": [

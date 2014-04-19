@@ -8,7 +8,19 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	protected $guarded = ['cid', 'email', 'rating', 'is_webmaster', 'is_staff'];
 	protected $primaryKey = 'cid';
 	protected $positions;
+	public function getRememberToken()
+	{
+		return $this->remember_token;
+	}
+	public function setRememberToken($value)
+	{
+		$this->remember_token = $value;
+	}
 
+	public function getRememberTokenName()
+	{
+		return 'remember_token';
+	}
 	//scopes
 
 	public function scopeMentors($query)
