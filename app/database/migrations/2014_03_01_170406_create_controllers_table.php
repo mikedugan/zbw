@@ -14,6 +14,7 @@ class CreateControllersTable extends Migration {
 	{
 		Schema::create('controllers', function(Blueprint $table) {
 			$table->string('username', 60)->unique()->required();
+			$table->string('remember_token', 100)->nullable();
 			$table->integer('cid', 8)->unique()->required();
 			$table->string('initials', 2)->required();
 			$table->string('first_name', 30)->required();

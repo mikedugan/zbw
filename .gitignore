@@ -1,4 +1,5 @@
 /bootstrap/compiled.php
+/app/config/database.php
 composer.phar
 composer.lock
 .env.local.php
@@ -10,3 +11,5 @@ zbw.sublime-project
 /.vagrant
 /_ide_helper.php
 /zbw.sublime-*
+/vendor
+_ide_helper.php
