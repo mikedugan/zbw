@@ -1,4 +1,7 @@
 @extends('layouts.staff')
+@section('title')
+Staff Area
+@stop
 @section('content')
     <div class="col-md-6">
         <p>Welcome to the ZBW Staff Area. Within here, you can tackle tasks

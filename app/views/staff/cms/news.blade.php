@@ -1,4 +1,7 @@
 @extends('layouts.master')
+@section('title')
+News and Events
+@stop
 @section('header')
 @stop
 @section('content')

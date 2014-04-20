@@ -1,4 +1,7 @@
 @extends('layouts.staff')
+@section('title')
+Edit Controller
+@stop
 @section('header')
 @stop
 @section('content')

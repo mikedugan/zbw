@@ -1,4 +1,7 @@
 @extends('layouts.master')
+@section('title')
+Make News
+@stop
 @section('header')
 @stop
 

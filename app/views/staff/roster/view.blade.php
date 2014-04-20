@@ -1,4 +1,7 @@
 @extends('layouts.staff')
+@section('title')
+View Controller
+@stop
 @section('content')
     <h2>View {{ $user->initials }}</h2>
     <div class="col-md-12">

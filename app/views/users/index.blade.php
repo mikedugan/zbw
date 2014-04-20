@@ -1,4 +1,7 @@
 @extends('layouts.master')
+@section('title')
+Controller Area
+@stop
 @section('header')
 	@yield('header')
 @stop
