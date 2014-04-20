@@ -1,5 +1,7 @@
 @extends('layouts.master')
-
+@section('title')
+Welcome
+@stop
 @section('header')
 @stop
 
