@@ -1,4 +1,7 @@
 @extends('layouts.staff')
+@section('title')
+Feedback
+@stop
 @section('header')
 
 @stop

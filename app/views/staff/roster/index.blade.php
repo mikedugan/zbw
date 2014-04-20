@@ -1,4 +1,7 @@
 @extends('layouts.staff')
+@section('title')
+Roster Admin
+@stop
 @section('content')
     <h1 class="text-center">Roster Admin</h1>
     <div class="col-md-12 btn-box">

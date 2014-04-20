@@ -1,4 +1,7 @@
 @extends('layouts.master')
+@section('title')
+Send Message
+@stop
 @section('header')
 @stop
 @section('content')

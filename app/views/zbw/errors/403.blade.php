@@ -1,4 +1,7 @@
 @extends('layouts.master')
+@section('title')
+A Not Creative 403 Page
+@stop
 @section('content')
     <h1 class="text-center">Access Denied</h1>
     <p>We're sorry, but you do not have adequate permissions to view this page.</p>

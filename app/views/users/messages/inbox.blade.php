@@ -1,4 +1,7 @@
 @extends('layouts.master')
+@section('title')
+Inbox
+@stop
 @section('header')
 
 @stop
