@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html>
     <head>
-    <title>{{ $title }} | vZBW ARTCC</title>
+    <title>
+    @yield('title')
+    | vZBW ARTCC</title>
     @include('includes._head')
     </head>
     <body>
