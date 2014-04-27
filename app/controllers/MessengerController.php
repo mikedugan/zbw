@@ -33,9 +33,9 @@ class MessengerController extends BaseController {
     public function create()
     {
         $data = [
-            'title' => 'Send Message'
+            'users' => \Zbw\Repositories\UserRepository::allVitals()
         ];
-        return View::make('users.messages.create');
+        return View::make('users.messages.create', $data);
     }
 
     public function store($user_id)

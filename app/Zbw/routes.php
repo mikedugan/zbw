@@ -56,6 +56,10 @@ Route::group(array('before' => 'controller'), function() {
         Route::get('inbox', ['as' => 'inbox', 'uses' => 'MessengerController@index']);
         //@pm-compose
         Route::get('new', ['as' => 'pm-compose', 'uses' => 'MessengerController@create']);
+        //@outbox
+        Route::get('outbox', ['as' => 'outbox', 'uses' => 'MessengerController@outbox']);
+        //@trash
+        Route::get('trash', ['as' => 'pm-trash', 'uses' => 'MessengerController@trash']);
         Route::get('inbox/{mid}', 'MessengerController@view');
         Route::get('inbox/{mid}', 'MessengerController@view');
         Route::post('outbox/new', 'MessengerController@store');

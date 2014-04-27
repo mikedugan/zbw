@@ -1,12 +1,12 @@
-@extends('layouts.master')
+@extends('layouts.messages')
 @section('title')
 Inbox
 @stop
 @section('header')
-
+    @include('includes.nav._messenger')
 @stop
 @section('content')
-    <h1>My Inbox</h1>
+    <h1 class="text-center">My Inbox</h1>
     <div class="col-md-12 subnav">
         <form action="/u/{{$me->cid}}/markallread" method="post">
             <button type="submit" class="btn btn-xs">Mark All as Read</button>
@@ -27,7 +27,11 @@ Inbox
             </thead>
             <tbody>
                 @foreach($inbox as $message)
+                    @if($message->is_read == 0)
+                    <tr class="new-message">
+                    @else
                     <tr>
+                    @endif
                         <td>{{$message->created_at->toFormattedDateString()}}</td>
                         <td>{{$message->sender->initials}}</td>
                         <td>{{$message->subject}}</td>
