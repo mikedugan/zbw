@@ -1,6 +1,8 @@
 <?php namespace Zbw\Repositories;
 
-class MessagesRepository implements Zbw\Interfaces\EloquentRepositoryInterface {
+use Zbw\Interfaces\EloquentRepositoryInterface;
+
+class MessagesRepository implements EloquentRepositoryInterface {
     /**
      * @param integer $id
      * @return mixed
@@ -16,7 +18,7 @@ class MessagesRepository implements Zbw\Interfaces\EloquentRepositoryInterface {
      */
     static function all($withTrash = false)
     {
-        return $withTrash == true ? \PrivateMessage::withTrashed() : \PrivateMessage::all();
+        return $withTrash == true ? \PrivateMessage::withTrashed()->get() : \PrivateMessage::all();
     }
 
     /**
@@ -26,6 +28,11 @@ class MessagesRepository implements Zbw\Interfaces\EloquentRepositoryInterface {
     static function add($input)
     {
 
+    }
+
+    static function withUsers($id)
+    {
+        return \PrivateMessage::with(['sender', 'recipients'])->where('id', $id)->firstOrFail();
     }
 
     /**
@@ -50,9 +57,9 @@ class MessagesRepository implements Zbw\Interfaces\EloquentRepositoryInterface {
      * @param boolean unread messages only
      * @return Eloquent Collection
      */
-    public static function inbox($user, $unread = false)
+    public static function to($user, $unread = false)
     {
-        $messages = \PrivateMessage::all()->userInbox($user);
+        $messages = \PrivateMessage::where('to', $user);
         return $unread ? $messages->unread()->get() : $messages->get();
     }
 

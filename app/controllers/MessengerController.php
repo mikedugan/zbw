@@ -3,22 +3,29 @@
 use Zbw\Repositories\MessagesRepository;
 
 class MessengerController extends BaseController {
-    public function index()
+    public function index($cid)
     {
         $data = [
-            'messages' => '',
-            'title' => 'Inbox'
+            //'messages' => MessagesRepository::all($cid),
+            'inbox' => MessagesRepository::to($cid)
         ];
 
-        return View::make('user.messages.inbox', $data);
+        return View::make('users.messages.inbox', $data);
     }
 
-    public function view($message_id)
+    /**
+     *
+     * @param integer cid
+     * @param integer message id
+     * @return View
+     */
+    public function view($cid, $message_id)
     {
         $data = [
-            'message' => MessagesRepository::find($message_id)
+            'message' => MessagesRepository::withUsers($message_id),
+            'users' => \Zbw\Repositories\UserRepository::allVitals(),
         ];
-        return View::make('user.messages.show');
+        return View::make('users.messages.view', $data);
     }
 
     public function create()
@@ -26,7 +33,7 @@ class MessengerController extends BaseController {
         $data = [
             'title' => 'Send Message'
         ];
-        return View::make('user.messages.create');
+        return View::make('users.messages.create');
     }
 
     public function store($user_id)

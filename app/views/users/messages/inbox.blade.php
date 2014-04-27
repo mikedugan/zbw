@@ -16,13 +16,14 @@ Inbox
                 <th></th>
             </thead>
             <tbody>
-                @foreach($messages as $message)
+                @foreach($inbox as $message)
                     <tr>
-                        <td>{{$message->date->toFormattedDateString()}}</td>
+                        <td>{{$message->created_at->toFormattedDateString()}}</td>
                         <td>{{$message->sender->initials}}</td>
-                        <td>$message->subject}}</td>
-                        <td><a href="/messages/{{$message->id}}">View</a><a href="/messages/{{$message-id}}/delete">Delete</a></td>
+                        <td>{{$message->subject}}</td>
+                        <td><a href="/u/{{$me->cid}}/inbox/{{$message->id}}">View</a> | <a href="/u/{{$me->cid}}/inbox/{{$message->id}}/delete">Delete</a></td>
                     </tr>
+                @endforeach
             </tbody>
         </table>
     </div>

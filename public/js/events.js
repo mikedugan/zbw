@@ -13,7 +13,7 @@ $(function() {
     $('.file-form').submit(function(e) {
         e.preventDefault();
         $(this).children('button').innerHTML = 'Uploading...';
-    })
+    });
 
     $('#request-training').submit(function(e) {
         e.preventDefault();
@@ -46,5 +46,10 @@ $(function() {
                 }
                 else $('#flash').prepend(msg.message);
             });
+    });
+
+    $('#pm-reply').submit(function(e) {
+        validateCC($(this));
+        e.preventDefault();
     });
 });

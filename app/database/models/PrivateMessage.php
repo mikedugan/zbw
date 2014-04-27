@@ -13,7 +13,7 @@ class PrivateMessage extends Eloquent {
         return $this->hasOne('User', 'cid', 'from');
     }
 
-    public function recipient()
+    public function recipients()
     {
         return $this->belongsTo('User', 'to', 'cid');
     }
@@ -26,17 +26,17 @@ class PrivateMessage extends Eloquent {
 
     public function unread(\Illuminate\Database\Query\Builder $query)
     {
-        return $query->where('is_read', '=', 0);
+        return $query->where('is_read', 0);
     }
 
     public function userInbox($query, $id)
     {
-        return $query->where('to', '=', $id);
+        return $query->where('to', $id);
     }
 
     public function userOutbox($query, $id)
     {
-        return $query->where('from', '=', $id);
+        return $query->where('from', $id);
     }
 
 }

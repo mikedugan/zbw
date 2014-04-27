@@ -50,6 +50,8 @@ Route::get('staff/log', 'AdminController@getLog');
 
 //route accessible only by logged in controllers
 Route::group(array('before' => 'controller'), function() {
+    Route::get('/u/{cid}/inbox', 'MessengerController@index');
+    Route::get('/u/{cid}/inbox/{mid}', 'MessengerController@view');
     Route::post('/e/request/{cid}/{eid}', array('uses' => 'AjaxController@requestExam'));
     Route::post('/t/request/new', 'AjaxController@postTrainingRequest');
     Route::get('training/request/{tid}', 'TrainingController@showRequest');
