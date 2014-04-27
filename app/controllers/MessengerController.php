@@ -48,7 +48,20 @@ class MessengerController extends BaseController {
         {
             return Redirect::back()->with('flash_error', 'Error sending message');
         }
+    }
 
+    public function reply($cid, $mid)
+    {
+        $input = Input::all();
+        if($input['cc'] !== '')
+        {
+            MessagesRepository::cc($input, $input['cc'], $cid, $mid);
+        }
+
+        if(MessagesRepository::reply($input, $cid, $mid))
+        {
+            return Redirect::home()->with('flash_success', 'Message sent successfully');
+        }
     }
 
     public function delete($message_id)

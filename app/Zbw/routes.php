@@ -52,6 +52,11 @@ Route::get('staff/log', 'AdminController@getLog');
 Route::group(array('before' => 'controller'), function() {
     Route::get('/u/{cid}/inbox', 'MessengerController@index');
     Route::get('/u/{cid}/inbox/{mid}', 'MessengerController@view');
+    Route::get('/u/{cid}/outbox/new', 'MessengerController@create');
+    Route::post('/u/{cid}/outbox/new', 'MessengerController@store');
+    Route::post('/u/{cid}/inbox/{mid}', 'MessengerController@reply');
+
+
     Route::post('/e/request/{cid}/{eid}', array('uses' => 'AjaxController@requestExam'));
     Route::post('/t/request/new', 'AjaxController@postTrainingRequest');
     Route::get('training/request/{tid}', 'TrainingController@showRequest');

@@ -1,3 +1,4 @@
+<input type="hidden" name="to" value="{{$message->from}}">
 <div class="input-group">
     <label for="cc">CC <span class="text-muted">(initials, comma separated)</span> :</label>
     <input class="form-control" type="text" name="cc" id="cc">
