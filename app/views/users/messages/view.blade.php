@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts.messages')
 @section('title')
 View Message
 @stop

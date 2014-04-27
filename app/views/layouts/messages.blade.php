@@ -1,0 +1,11 @@
+@extends('layouts.master')
+@section('title')
+@yield('title')
+@stop
+@section('header')
+@yield('header')
+@stop
+@section('content')
+@include('includes.nav._messenger')
+@yield('content')
+@stop
