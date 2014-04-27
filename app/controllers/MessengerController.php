@@ -7,7 +7,8 @@ class MessengerController extends BaseController {
     {
         $data = [
             //'messages' => MessagesRepository::all($cid),
-            'inbox' => MessagesRepository::to($cid)
+            'inbox' => MessagesRepository::to($cid, Input::get('unread')),
+            'unread' => Input::get('unread')
         ];
 
         return View::make('users.messages.inbox', $data);
@@ -21,6 +22,7 @@ class MessengerController extends BaseController {
      */
     public function view($cid, $message_id)
     {
+        MessagesRepository::markRead($message_id);
         $data = [
             'message' => MessagesRepository::withUsers($message_id),
             'users' => \Zbw\Repositories\UserRepository::allVitals(),
