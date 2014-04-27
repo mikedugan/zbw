@@ -1,5 +1,6 @@
 <?php namespace Zbw\Repositories;
 
+use Zbw\Facades\ZbwValidator;
 use Zbw\Interfaces\EloquentRepositoryInterface;
 
 class MessagesRepository implements EloquentRepositoryInterface {
@@ -19,6 +20,43 @@ class MessagesRepository implements EloquentRepositoryInterface {
     static function all($withTrash = false)
     {
         return $withTrash == true ? \PrivateMessage::withTrashed()->get() : \PrivateMessage::all();
+    }
+
+    /**
+     * @param array input
+     * @param integer cid
+     * @param integer origin message id
+     * @return boolean
+     */
+    static function reply($input, $cid, $mid)
+    {
+        $invalid = ZbwValidator::get('PrivateMessage', $input);
+        if(is_array($invalid)) return $invalid;
+
+        $m = \PrivateMessage::create([
+            'subject' => $input['subject'],
+            'content' => $input['content'],
+            'to' => $input['to']
+        ]);
+        $m->from = \Auth::user()->cid;
+        return $m->save();
+    }
+
+    /**
+     * @param array input
+     * @param array users being cc'd
+     * @param integer cid of sender
+     * @param integer message id
+     * @return void
+     */
+    static function cc($input, $to, $cid, $mid)
+    {
+        $to = explode(',', str_replace(' ', '', $to));
+        foreach($to as $user)
+        {
+            $input['to'] = $user;
+            MessagesRepository::reply($input, $cid, $mid);
+        }
     }
 
     /**

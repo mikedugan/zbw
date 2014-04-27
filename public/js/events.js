@@ -49,7 +49,10 @@ $(function() {
     });
 
     $('#pm-reply').submit(function(e) {
-        validateCC($(this));
-        e.preventDefault();
+        if(! validateCC($(this)))
+        {
+            e.preventDefault();
+        }
+
     });
 });
