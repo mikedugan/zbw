@@ -16,6 +16,14 @@ class UserRepository
     }
 
     /**
+     * @return Collection users with vital info
+     */
+    public static function allVitals()
+    {
+        return \User::all(['first_name', 'last_name', 'cid', 'initials']);
+    }
+
+    /**
      * @param string first name
      * @param string last name
      * @param string email address
