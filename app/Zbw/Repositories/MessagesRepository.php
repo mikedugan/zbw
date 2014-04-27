@@ -28,7 +28,7 @@ class MessagesRepository implements EloquentRepositoryInterface {
      * @param integer origin message id
      * @return boolean
      */
-    static function reply($input, $cid, $mid)
+    static function reply($input, $mid)
     {
         $invalid = ZbwValidator::get('PrivateMessage', $input);
         if(is_array($invalid)) return $invalid;
@@ -36,8 +36,10 @@ class MessagesRepository implements EloquentRepositoryInterface {
         $m = \PrivateMessage::create([
             'subject' => $input['subject'],
             'content' => $input['content'],
-            'to' => $input['to']
+            'to' => $input['to'],
+            'history' => $input['history']
         ]);
+        if(isset($input['forget_history']) && $input['forget_history'] === 'forget') { $m->history = '';}
         $m->from = \Auth::user()->cid;
         return $m->save();
     }
@@ -49,18 +51,19 @@ class MessagesRepository implements EloquentRepositoryInterface {
      * @param integer message id
      * @return void
      */
-    static function cc($input, $to, $cid, $mid)
+    static function cc($input, $to, $mid)
     {
         $to = explode(',', str_replace(' ', '', $to));
         foreach($to as $user)
         {
             $input['to'] = $user;
-            MessagesRepository::reply($input, $cid, $mid);
+            MessagesRepository::reply($input, $mid);
         }
     }
 
-    static function newMessageCount($cid)
+    static function newMessageCount($cid = null)
     {
+        $cid = is_null($cid) ? Auth::user()->cid : $cid;
         return \PrivateMessage::where('to', $cid)->where('is_read', 0)->get(['id'])->count();
     }
 

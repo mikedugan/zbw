@@ -7,7 +7,7 @@
         <ul class="dropdown-menu">
             <li>{{ HTML::link($me->cid."/settings", 'Settings') }}</li>
             <li>{{ HTML::link('training', 'Training Center') }}</li>
-            <li><a href="/u/{{$me->cid}}/inbox">Messages
+            <li><a href="{{ URL::route('inbox') }}">Messages
                 @if($messages > 0)
                     <span class="sans">( <b class="red">{{$messages}}</b> )</span>
                 @endif

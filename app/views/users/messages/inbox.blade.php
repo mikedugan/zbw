@@ -12,9 +12,9 @@ Inbox
             <button type="submit" class="btn btn-xs">Mark All as Read</button>
         </form>
         @if($unread == 'true')
-        <a href="/u/{{$me->cid}}/inbox" class="btn btn-xs">Show All</a>
+        <a href="{{URL::route('inbox')}}" class="btn btn-xs">Show All</a>
         @else
-        <a href="/u/{{$me->cid}}/inbox?unread=true" class="btn btn-xs">Show Unread</a>
+        <a href="{{URL::route('inbox').'?unread=true'}}" class="btn btn-xs">Show Unread</a>
         @endif
     </div>
     <div class="col-md-12">
@@ -31,7 +31,7 @@ Inbox
                         <td>{{$message->created_at->toFormattedDateString()}}</td>
                         <td>{{$message->sender->initials}}</td>
                         <td>{{$message->subject}}</td>
-                        <td><a href="/u/{{$me->cid}}/inbox/{{$message->id}}">View</a> | <a href="/u/{{$me->cid}}/inbox/{{$message->id}}/delete">Delete</a></td>
+                        <td><a href="/messages/inbox/{{$message->id}}">View</a> | <a href="/messages/inbox/{{$message->id}}/delete">Delete</a></td>
                     </tr>
                 @endforeach
             </tbody>
