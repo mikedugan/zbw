@@ -51,12 +51,16 @@ Route::get('staff/log', 'AdminController@getLog');
 //route accessible only by logged in controllers
 Route::group(array('before' => 'controller'), function() {
     //private messaging
-    Route::get('/u/{cid}/inbox', 'MessengerController@index');
-    Route::get('/u/{cid}/inbox/{mid}', 'MessengerController@view');
-    Route::get('/u/{cid}/outbox/new', 'MessengerController@create');
-    Route::post('/u/{cid}/outbox/new', 'MessengerController@store');
-    Route::post('/u/{cid}/inbox/{mid}', 'MessengerController@reply');
-
+    Route::group(['prefix' => 'messages'], function() {
+        //@inbox
+        Route::get('inbox', ['as' => 'inbox', 'uses' => 'MessengerController@index']);
+        //@pm-compose
+        Route::get('new', ['as' => 'pm-compose', 'uses' => 'MessengerController@create']);
+        Route::get('inbox/{mid}', 'MessengerController@view');
+        Route::get('inbox/{mid}', 'MessengerController@view');
+        Route::post('outbox/new', 'MessengerController@store');
+        Route::post('inbox/{mid}', 'MessengerController@reply');
+    });
     //training requests
     Route::post('/e/request/{cid}/{eid}', array('uses' => 'AjaxController@requestExam'));
     Route::post('/t/request/new', 'AjaxController@postTrainingRequest');

@@ -1,4 +1,8 @@
 <input type="hidden" name="to" value="{{$message->from}}">
+<input type="hidden" name="history" value="{{$message->content}}">
+<div class="input-group">
+    <span>Forget History? </span><input name="forget_history" value="forget" type="checkbox" class="checkbox-inline">
+</div>
 <div class="input-group">
     <label for="cc">CC <span class="text-muted">(initials, comma separated)</span> :</label>
     <input class="form-control" type="text" name="cc" id="cc">
@@ -14,5 +18,5 @@
     <label for="subject">Subject</label>
     <input class="form-control" type="text" name="subject" id="subject" value="re: {{$message->subject}}">
     <label for="message">Message</label>
-    <div class="editor"></div>
+    <textarea class="editor" name="content"></textarea>
 <button type="submit" class="btn btn-primary">Send</button>

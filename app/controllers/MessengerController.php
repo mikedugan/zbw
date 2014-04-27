@@ -3,11 +3,11 @@
 use Zbw\Repositories\MessagesRepository;
 
 class MessengerController extends BaseController {
-    public function index($cid)
+    public function index()
     {
         $data = [
             //'messages' => MessagesRepository::all($cid),
-            'inbox' => MessagesRepository::to($cid, Input::get('unread')),
+            'inbox' => MessagesRepository::to(Auth::user()->cid, Input::get('unread')),
             'unread' => Input::get('unread')
         ];
 
@@ -20,7 +20,7 @@ class MessengerController extends BaseController {
      * @param integer message id
      * @return View
      */
-    public function view($cid, $message_id)
+    public function view($message_id)
     {
         MessagesRepository::markRead($message_id);
         $data = [
@@ -52,15 +52,15 @@ class MessengerController extends BaseController {
         }
     }
 
-    public function reply($cid, $mid)
+    public function reply($mid)
     {
         $input = Input::all();
         if($input['cc'] !== '')
         {
-            MessagesRepository::cc($input, $input['cc'], $cid, $mid);
+            MessagesRepository::cc($input, $input['cc'], $mid);
         }
 
-        if(MessagesRepository::reply($input, $cid, $mid))
+        if(MessagesRepository::reply($input, $mid))
         {
             return Redirect::home()->with('flash_success', 'Message sent successfully');
         }
