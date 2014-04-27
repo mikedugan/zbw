@@ -18,7 +18,7 @@ class PrivateMessageTableSeeder extends Seeder {
             $m->subject = $faker->sentence();
             $m->content = $faker->paragraph();
             $m->has_attachments = $faker->boolean(5);
-            //$m->is_read = $faker->boolean(20);
+            $m->is_read = $faker->boolean(20);
             $m->save();
 		}
 

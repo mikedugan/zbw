@@ -59,6 +59,11 @@ class MessagesRepository implements EloquentRepositoryInterface {
         }
     }
 
+    static function newMessageCount($cid)
+    {
+        return \PrivateMessage::where('to', $cid)->where('is_read', 0)->get(['id'])->count();
+    }
+
     /**
      * @param array $input
      * @return mixed array|boolean
@@ -68,9 +73,37 @@ class MessagesRepository implements EloquentRepositoryInterface {
 
     }
 
+    /**
+     * @param integer message id
+     * @return PrivateMessage
+     */
     static function withUsers($id)
     {
         return \PrivateMessage::with(['sender', 'recipients'])->where('id', $id)->firstOrFail();
+    }
+
+    /**
+     * @param integer message id
+     * @return boolean
+     */
+    static function markRead($mid)
+    {
+        $message = \PrivateMessage::find($mid);
+        $message->is_read = 1;
+        return $message->save();
+    }
+
+    /**
+     * @param integer cid
+     * @return void
+     */
+    static function markAllRead($cid)
+    {
+        foreach(\PrivateMessage::where('to', $cid)->get() as $message)
+        {
+            $message->is_read = 1;
+        }
+
     }
 
     /**
@@ -98,7 +131,7 @@ class MessagesRepository implements EloquentRepositoryInterface {
     public static function to($user, $unread = false)
     {
         $messages = \PrivateMessage::where('to', $user);
-        return $unread ? $messages->unread()->get() : $messages->get();
+        return $unread ? $messages->where('is_read', 0)->get() : $messages->get();
     }
 
     /**

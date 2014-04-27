@@ -7,6 +7,16 @@ Inbox
 @stop
 @section('content')
     <h1>My Inbox</h1>
+    <div class="col-md-12 subnav">
+        <form action="/u/{{$me->cid}}/markallread" method="post">
+            <button type="submit" class="btn btn-xs">Mark All as Read</button>
+        </form>
+        @if($unread == 'true')
+        <a href="/u/{{$me->cid}}/inbox" class="btn btn-xs">Show All</a>
+        @else
+        <a href="/u/{{$me->cid}}/inbox?unread=true" class="btn btn-xs">Show Unread</a>
+        @endif
+    </div>
     <div class="col-md-12">
         <table class="table table-striped">
             <thead>
