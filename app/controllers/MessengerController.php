@@ -6,27 +6,36 @@ class MessengerController extends BaseController {
     public function index()
     {
         $data = [
-            'messages' => '',
-            'title' => 'Inbox'
+            //'messages' => MessagesRepository::all($cid),
+            'inbox' => MessagesRepository::to(Auth::user()->cid, Input::get('unread')),
+            'unread' => Input::get('unread')
         ];
 
-        return View::make('user.messages.inbox', $data);
+        return View::make('users.messages.inbox', $data);
     }
 
+    /**
+     *
+     * @param integer cid
+     * @param integer message id
+     * @return View
+     */
     public function view($message_id)
     {
+        MessagesRepository::markRead($message_id);
         $data = [
-            'message' => MessagesRepository::find($message_id)
+            'message' => MessagesRepository::withUsers($message_id),
+            'users' => \Zbw\Repositories\UserRepository::allVitals(),
         ];
-        return View::make('user.messages.show');
+        return View::make('users.messages.view', $data);
     }
 
     public function create()
     {
         $data = [
-            'title' => 'Send Message'
+            'users' => \Zbw\Repositories\UserRepository::allVitals()
         ];
-        return View::make('user.messages.create');
+        return View::make('users.messages.create', $data);
     }
 
     public function store($user_id)
@@ -41,7 +50,20 @@ class MessengerController extends BaseController {
         {
             return Redirect::back()->with('flash_error', 'Error sending message');
         }
+    }
 
+    public function reply($mid)
+    {
+        $input = Input::all();
+        if($input['cc'] !== '')
+        {
+            MessagesRepository::cc($input, $input['cc'], $mid);
+        }
+
+        if(MessagesRepository::reply($input, $mid))
+        {
+            return Redirect::home()->with('flash_success', 'Message sent successfully');
+        }
     }
 
     public function delete($message_id)

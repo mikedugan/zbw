@@ -2,7 +2,7 @@
 
 //share the logged in user with the view, if it exists
 View::share('me', Auth::user());
-View::share('messages', 1);
+View::share('messages', Zbw\Repositories\MessagesRepository::newMessageCount(Auth::user()->cid));
 
 //filter all staff routes, additional filters in route groups
 Route::when('staff/*', 'staff');
@@ -50,9 +50,25 @@ Route::get('staff/log', 'AdminController@getLog');
 
 //route accessible only by logged in controllers
 Route::group(array('before' => 'controller'), function() {
+    //private messaging
+    Route::group(['prefix' => 'messages'], function() {
+        //@inbox
+        Route::get('inbox', ['as' => 'inbox', 'uses' => 'MessengerController@index']);
+        //@pm-compose
+        Route::get('new', ['as' => 'pm-compose', 'uses' => 'MessengerController@create']);
+        //@outbox
+        Route::get('outbox', ['as' => 'outbox', 'uses' => 'MessengerController@outbox']);
+        //@trash
+        Route::get('trash', ['as' => 'pm-trash', 'uses' => 'MessengerController@trash']);
+        Route::get('inbox/{mid}', 'MessengerController@view');
+        Route::get('inbox/{mid}', 'MessengerController@view');
+        Route::post('outbox/new', 'MessengerController@store');
+        Route::post('inbox/{mid}', 'MessengerController@reply');
+    });
+    //training requests
     Route::post('/e/request/{cid}/{eid}', array('uses' => 'AjaxController@requestExam'));
     Route::post('/t/request/new', 'AjaxController@postTrainingRequest');
-    Route::get('training/request/{tid}', 'TrainingController@showRequest');
+    Route::get('/t/request/{tid}', 'TrainingController@showRequest');
     Route::post('/t/request/{tid}/cancel', 'AjaxController@cancelTrainingRequest');
     Route::post('/t/request/{tid}/accept', 'AjaxController@acceptTrainingRequest');
     Route::post('/f/upload/photos', 'AjaxController@photoUpload');
