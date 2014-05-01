@@ -19,7 +19,14 @@ class ControllersController extends BaseController {
 		$data = [
 			'messages' => MessagesRepository::to(Auth::user()->cid),
 		];
-		return View::make('users.me', $data);
+		return View::make('users.me.index', $data);
+	}
+
+	public function getSettings()
+	{
+		$data = [
+		];
+		return View::make('users.me.settings', $data);
 	}
 
 	public function view($cid)
