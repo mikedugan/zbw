@@ -2,17 +2,11 @@
 
 use Zbw\Helpers;
 
-class PrivateMessageZbwValidator extends ZbwValidator
+class PrivateMessageValidator extends ZbwValidator
 {
-    public $rules;
-    public function __construct()
-    {
-        $cids = Helpers::getCids(true);
-        $this->rules =
-            [
-                'from' => "in:$cids",
-                'to' => "in:$cids",
-                'subject' => 'max:60'
-            ];
-    }
+    static $rules = [
+        'from' => "integer",
+        'to' => "integer",
+        'subject' => 'max:60'
+    ];
 } 

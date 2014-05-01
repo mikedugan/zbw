@@ -1,4 +1,7 @@
 @extends('layouts.staff')
+@section('title')
+Training Session
+@stop
 @section('content')
     <h1>Training Session</h1>
     <div class="col-md-6 well">

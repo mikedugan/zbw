@@ -1,4 +1,7 @@
 @extends('layouts.staff')
+@section('title')
+Add Event
+@stop
 @section('header')
 @stop
 @section('content')

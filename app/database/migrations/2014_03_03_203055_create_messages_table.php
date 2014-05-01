@@ -20,6 +20,7 @@ class CreateMessagesTable extends Migration {
 			$table->text('content')->required();
 			$table->boolean('has_attachments')->default(0);
             $table->boolean('is_read')->default(0);
+            $table->text('history')->nullable();
 			$table->softDeletes();
 			$table->timestamps();
 		});

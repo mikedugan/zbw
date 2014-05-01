@@ -1,4 +1,4 @@
-import sys, os
+import sys
 from metar import Metar
 import string
 import getopt

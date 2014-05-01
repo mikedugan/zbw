@@ -1,4 +1,7 @@
 @extends('layouts.staff')
+@section('title')
+Exam Review
+@stop
 @section('header')
 @stop
 @section('content')
