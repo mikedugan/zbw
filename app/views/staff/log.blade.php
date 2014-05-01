@@ -1,4 +1,7 @@
 @extends('layouts.staff')
+@section('title')
+Log
+@stop
 @section('header')
 @stop
 @section('content')

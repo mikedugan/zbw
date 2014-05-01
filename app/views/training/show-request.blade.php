@@ -1,4 +1,7 @@
 @extends('layouts.training')
+@section('title')
+View Request
+@stop
 @section('header')
 @stop
 @section('content')

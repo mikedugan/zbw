@@ -136,3 +136,7 @@ ul.nav li a.small { font-size: 1em; }
 .iblock { display: inline-block;}
 .input-group .datepick { display: block;}
 .event { margin: 1% 0; }
+
+.subnav form { float: left; margin-left: 10px;}
+.subnav form:first-child { margin-left: 0;}
+.new-message td { font-weight: bold; }

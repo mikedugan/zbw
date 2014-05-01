@@ -1,4 +1,7 @@
 @extends('layouts.staff')
+@section('title')
+Exam Question Bank
+@stop
 @section('header')
 @stop
 @section('content')

@@ -1,5 +1,7 @@
 @extends('layouts.staff')
-
+@section('title')
+Training Index
+@stop
 @section('content')
 <div class="col-md-6">
  {{-- this area should contain an overview of recent training, promotions, etc --}}

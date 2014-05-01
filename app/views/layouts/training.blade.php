@@ -1,4 +1,7 @@
 @extends('layouts.master')
+@section('title')
+	@yield('title')
+@stop
 @section('header')
 <ul class="nav navbar-nav navbar-right col-md-1">
     <li class="dropdown">

@@ -1,10 +1,11 @@
 @extends('layouts.master')
 @section('title')
-	@yield('title')
+@yield('title')
 @stop
 @section('header')
-	@yield('header')
+@yield('header')
 @stop
 @section('content')
-	@yield('content')
+@include('includes.nav._messenger')
+@yield('content')
 @stop

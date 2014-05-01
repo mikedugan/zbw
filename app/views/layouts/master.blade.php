@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html>
     <head>
-    <title>{{ $title }} | vZBW ARTCC</title>
+    <title>
+    @yield('title')
+    | vZBW ARTCC</title>
     @include('includes._head')
     </head>
     <body>
     <nav class="navbar-default navbar">
-        @include('includes._header')
+        @include('includes.nav._primary')
         @if($me)
             @include('includes.nav._user')
             @if($me->is_staff)
