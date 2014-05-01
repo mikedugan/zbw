@@ -3,6 +3,8 @@
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
         @if($messages > 0)
             <span class="red">{{ $me->initials }}</span> <b class="caret"></b></a>
+        @else
+            <span>{{ $me->initials }}</span> <b class="caret"></b></a>
         @endif
         <ul class="dropdown-menu">
             <li>{{ HTML::link($me->cid."/settings", 'Settings') }}</li>

@@ -1,10 +1,10 @@
 <?php
-
+$me = Auth::user();
 //share the logged in user with the view, if it exists
-View::share('me', Auth::user());
-if(Auth::user())
+View::share('me', $me);
+if($me)
 {
-		View::share('messages', Zbw\Repositories\MessagesRepository::newMessageCount(Auth::user()->cid));
+		View::share('messages', Zbw\Repositories\MessagesRepository::newMessageCount($me->cid));
 }
 
 //filter all staff routes, additional filters in route groups
@@ -16,12 +16,10 @@ Route::post('login', 'SessionsController@postLogin');
 Route::get('logout', 'SessionsController@getLogout');
 Route::controller('password', 'RemindersController');
 
-//the main 3 pages
+//top level pages
 Route::get('/', array('as' => 'home', 'uses' => 'ZbwController@getIndex'));
 Route::get('pilots', 'ZbwController@getPilotIndex');
 Route::get('controllers', 'ZbwController@getControllerIndex');
-
-//other top-levels
 Route::get('forum', 'ForumController@getIndex');
 Route::get('staff', 'StaffController@getIndex');
 Route::get('training', 'TrainingController@getIndex');
@@ -53,6 +51,9 @@ Route::get('staff/log', 'AdminController@getLog');
 
 //route accessible only by logged in controllers
 Route::group(array('before' => 'controller'), function() {
+		$cid = is_null(Auth::user()) ? 0 : Auth::user()->cid;
+	Route::get('me', 'ControllerController@getMe');
+    Route::get('/u/' . $cid, array('as' => 'me', 'uses' => 'ControllersController@getMe'));
     //private messaging
     Route::group(['prefix' => 'messages'], function() {
         //@inbox
