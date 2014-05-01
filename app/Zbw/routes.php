@@ -51,9 +51,11 @@ Route::get('staff/log', 'AdminController@getLog');
 
 //route accessible only by logged in controllers
 Route::group(array('before' => 'controller'), function() {
-		$cid = is_null(Auth::user()) ? 0 : Auth::user()->cid;
+	$cid = is_null(Auth::user()) ? 0 : Auth::user()->cid;
+
 	Route::get('me', 'ControllerController@getMe');
     Route::get('/u/' . $cid, array('as' => 'me', 'uses' => 'ControllersController@getMe'));
+    Route::get('me/settings', 'ControllersController@getSettings');
     //private messaging
     Route::group(['prefix' => 'messages'], function() {
         //@inbox
