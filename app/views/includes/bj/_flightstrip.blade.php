@@ -13,8 +13,10 @@
 		<p>ONP V182 UBG OCITY</p>
 		<p>RMK: +VFPS+/V/NEWBIEWX REX</p>
 	</div> -->
+    <ul>
     <table class="table table-striped">
-		<tbody>
+		<li>
+        <tbody>
 			<tr>
 				<td>AAL117</td>
 				<td>KMCO</td>
@@ -28,5 +30,7 @@
                 <td>ETA: 23:32 UTC</td>
             </tr>
         </tbody>
+        </li>
     </table>
+    </ul>
 </div>
