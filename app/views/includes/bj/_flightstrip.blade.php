@@ -13,7 +13,7 @@
 		<p>ONP V182 UBG OCITY</p>
 		<p>RMK: +VFPS+/V/NEWBIEWX REX</p>
 	</div> -->
-    <ul>
+    <ol>
     <table class="table table-striped">
 		<li>
         <tbody>
@@ -32,5 +32,5 @@
         </tbody>
         </li>
     </table>
-    </ul>
+    </ol>
 </div>
