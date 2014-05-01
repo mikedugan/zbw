@@ -140,3 +140,5 @@ ul.nav li a.small { font-size: 1em; }
 .subnav form { float: left; margin-left: 10px;}
 .subnav form:first-child { margin-left: 0;}
 .new-message td { font-weight: bold; }
+
+.slidesjs-next, .slidesjs-previous { display: none;}
