@@ -2,7 +2,10 @@
 
 //share the logged in user with the view, if it exists
 View::share('me', Auth::user());
-View::share('messages', Zbw\Repositories\MessagesRepository::newMessageCount(Auth::user()->cid));
+if(Auth::user())
+{
+		View::share('messages', Zbw\Repositories\MessagesRepository::newMessageCount(Auth::user()->cid));
+}
 
 //filter all staff routes, additional filters in route groups
 Route::when('staff/*', 'staff');

@@ -15,10 +15,9 @@ $(function() {
 	$('#slideshow').slidesjs({
 		width: 900,
 		height: 400,
-		/*pagination: {
-			active: true,
-			effect: "slide"
-		},*/
+		pagination: {
+			active: false,
+		},
 		play: {
 			active: false,
 			// [boolean] Generate the play and stop buttons.
