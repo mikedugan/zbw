@@ -1,4 +1,4 @@
-<ul class="nav navbar-nav navbar-right col-md-2">
+<ul class="nav navbar-nav navbar-right col-sm-2">
     <li class="dropdown">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Staff <b class="caret"></b></a>
         <ul class="dropdown-menu">

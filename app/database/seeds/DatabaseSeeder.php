@@ -27,6 +27,7 @@ class DatabaseSeeder extends Seeder {
         $this->call('ReferenceTableSeeder');
         $this->call('ActionsTableSeeder');
         $this->call('ControllerReportsTableSeeder');
+        $this->call('PrivateMessageTableSeeder');
 	}
 
 }
