@@ -16,7 +16,7 @@ class CreateMessagesTable extends Migration {
 			$table->increments('id');
 			$table->integer('from')->required();
 			$table->integer('to')->required();
-			$table->string('subject', 60)->default('No subject');
+			$table->string('subject', 150)->default('No subject');
 			$table->text('content')->required();
 			$table->boolean('has_attachments')->default(0);
             $table->boolean('is_read')->default(0);
