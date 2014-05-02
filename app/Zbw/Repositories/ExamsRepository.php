@@ -1,36 +1,35 @@
 <?php namespace Zbw\Repositories;
 
 use Zbw\Bostonjohn\ZbwLog;
+use Zbw\Repositories\UserRepository;
+use Zbw\Helpers;
+use Zbw\Interfaces\EloquentRepositoryInterface;
 
-class ExamsRepository {
-    protected $exam;
-    protected $log;
-    public function __construct($eid = null)
-    {
-        $this->exam = $eid ? \ControllerExam::find($eid) : null;
-        $this->log = new ZbwLog();
-    }
+class ExamsRepository implements EloquentRepositoryInterface {
 
-    public function all()
+    public static function all()
     {
         return \ControllerExam::all();
     }
 
-    public function add($i)
+    public static function add($i)
     {
         $e = new \ControllerExam();
         $e->assigned_on = \Carbon::now();
         $e->exam_id = $i['exam_id'];
         $e->cert_id = $i['cert_id'];
         $e->cid = $i['cid'];
-        if($e->save())
-        {
-            $name = \User::find($i['cid']);
-            $this->log->addLog(Auth::user()->initials . " assigned exam to $name", 'exam');
-            return true;
-        }
+        return $e->save;
+    }
 
-        return false;
+    public static function find($eid)
+    {
+
+    }
+
+    public static function delete($eid)
+    {
+
     }
 
     public function completeExam($wrong_q, $wrong_a)
@@ -52,7 +51,7 @@ class ExamsRepository {
      * @param boolean training
      * @return string next available exam
      */
-    public function availableExams($cid)
+    public static function availableExams($cid)
     {
         $user = UserRepository::find($cid);
         $next = \CertType::find($user->certification->id + 1);

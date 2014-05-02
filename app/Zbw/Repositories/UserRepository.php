@@ -117,7 +117,6 @@ class UserRepository
      */
     public static function trainingProgress($id)
     {
-
         return floor(\User::find($id)->cert / 7 * 100);
     }
 
