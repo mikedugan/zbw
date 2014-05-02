@@ -57,18 +57,18 @@ class NewsRepository implements EloquentRepositoryInterface {
 
     public static function staffNews($lim, $direction = 'DESC')
     {
-        return \News::where('news_type', '=', 5)->limit($lim)->orderBy('starts', $direction)->get();
+        return \News::where('news_type_id', '=', 5)->limit($lim)->orderBy('starts', $direction)->get();
     }
 
     public static function recentNews($num, $direction = 'DESC')
     {
-        return \News::where('news_type', '!=', 5)->where('news_type', '!=', 1)
+        return \News::where('news_type_id', '!=', 5)->where('news_type_id', '!=', 1)
                 ->limit($num)->orderBy('starts', $direction)->get();
     }
 
     public static function events()
     {
-        return \News::where('news_type', '=', '1')->get();
+        return \News::where('news_type_id', '=', '1')->get();
     }
 
     public static function activeEvents()
@@ -78,7 +78,7 @@ class NewsRepository implements EloquentRepositoryInterface {
 
     public static function expiredEvents($lim, $sortBy = 'ends', $direction = 'DESC')
     {
-        return \News::where('ends', '<', \Carbon::now())->where('news_type', '=', 1)->limit($lim)->orderBy($sortBy, $direction)->get();
+        return \News::where('ends', '<', \Carbon::now())->where('news_type_id', '=', 1)->limit($lim)->orderBy($sortBy, $direction)->get();
     }
 
     public static function upcomingEvents($lim)
