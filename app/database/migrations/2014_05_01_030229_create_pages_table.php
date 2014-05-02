@@ -23,6 +23,7 @@ class CreatePagesTable extends Migration {
 				$table->boolean('is_exec_only');
 				$table->boolean('is_web_only');
 				$table->tinyInteger('template_id');
+				$table->string('route');
 				$table->softDeletes();
 		});
 	}
