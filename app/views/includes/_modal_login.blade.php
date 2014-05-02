@@ -5,7 +5,8 @@
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
         <h4 class="modal-title" id="myModalLabel">vZBW Login</h4>
       </div>
-      <div class="modal-body">
+      <div class = "col-md-6">
+        <div class="modal-body">
         <form action="/login" method="post">
         	<div class="input-group col-md-6">
         		<label for="username">Username</label>
@@ -21,6 +22,10 @@
       			</span>
       			<input value="Remember Me" type="text" class="form-control">
     		</div><!-- /input-group -->
+      </div>
+      </div>
+      <div class = "col-md-6">
+          <img src= 'images/zbw_logo.png'>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
