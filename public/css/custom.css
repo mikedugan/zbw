@@ -142,3 +142,9 @@ ul.nav li a.small { font-size: 1em; }
 .new-message td { font-weight: bold; }
 
 .slidesjs-next, .slidesjs-previous { display: none;}
+
+#loginModal .modal-header, #loginModal .modal-footer { border: none;}
+
+#loginModal img { margin: -30px 0 10px 50px;}
+#loginModal .modal-footer { text-align: left;}
+#loginModal #username, #loginModal #password { width: 249px;}
