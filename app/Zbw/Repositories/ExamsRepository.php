@@ -22,7 +22,7 @@ class ExamsRepository implements EloquentRepositoryInterface {
         return $e->save;
     }
 
-    public static function find($eid)
+    public static function find($id, $relations)
     {
 
     }

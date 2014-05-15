@@ -1,4 +1,4 @@
-<?php
+w<?php
 
 class ZbwController extends BaseController {
 
