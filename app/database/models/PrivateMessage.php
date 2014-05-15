@@ -3,7 +3,7 @@
 use Illuminate\Database\Eloquent\Builder;
 
 class PrivateMessage extends Eloquent {
-	protected $guarded = ['from'];
+	protected $guarded = [];
 	protected $table = 'zbw_messages';
 	public $rules;
 

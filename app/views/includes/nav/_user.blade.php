@@ -1,4 +1,4 @@
-<ul class="nav navbar-nav navbar-right col-sm-2">
+<ul style="width:120px;" class="nav navbar-nav navbar-right col-sm-2">
     <li class="dropdown">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
         @if($messages > 0)

@@ -38,10 +38,10 @@ class MessengerController extends BaseController {
         return View::make('users.messages.create', $data);
     }
 
-    public function store($user_id)
+    public function store($message_id)
     {
         $input = \Input::all();
-        $input['user_id'] = $user_id;
+        //$input['user_id'] = $user_id;
         if(MessagesRepository::add($input))
         {
             return Redirect::back()->with('flash_success', 'Message sent successfully');
