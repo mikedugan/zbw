@@ -3,9 +3,10 @@
 interface EloquentRepositoryInterface {
     /**
      * @param integer $id
+     * @param mixed $relations
      * @return mixed
      */
-    static function find($id);
+    static function find($id, $relations);
 
     /**
      * @return EloquentCollection

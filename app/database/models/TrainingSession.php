@@ -5,12 +5,6 @@ class TrainingSession extends Eloquent {
 	protected $table = 'controller_training_sessions';
 	public $rules;
 
-    public function __construct()
-    {
-        $cids = \Zbw\Helpers::getCids(true);
-
-    }
-
     //scopes
     /**
      * @param $query eloquent query
@@ -49,12 +43,22 @@ class TrainingSession extends Eloquent {
         return $this->belongsTo('User', 'sid', 'cid');
     }
 
+    public function trainingReport()
+    {
+        return $this->belongsTo('TrainingReport', 'training_session_id', 'id');
+    }
+
     /**
      * @return TrainingFacility
      */
     public function facility()
     {
         return $this->hasOne('TrainingFacility', 'id', 'facility_id');
+    }
+
+    public function trainingType()
+    {
+        return $this->hasOne('TrainingType', 'id', 'training_type_id');
     }
 
     /**

@@ -24,6 +24,8 @@ Route::get('forum', 'ForumController@getIndex');
 Route::get('staff', 'StaffController@getIndex');
 Route::get('training', 'TrainingController@getIndex');
 
+Route::get('controllers/{id}', 'ControllersController@getController');
+
 Route::get('training/request/new', 'TrainingController@getRequest');
 
 Route::get('news/{id}', 'NewsController@show');
