@@ -42,10 +42,10 @@ class MessagesRepository implements EloquentRepositoryInterface {
             'subject' => $input['subject'],
             'content' => $input['content'],
             'to' => $input['to'],
+            'from' => \Auth::user()->cid,
             'history' => $input['history']
         ]);
         if(isset($input['forget_history']) && $input['forget_history'] === 'forget') { $m->history = '';}
-        $m->from = \Auth::user()->cid;
         return $m->save();
     }
 
@@ -62,6 +62,7 @@ class MessagesRepository implements EloquentRepositoryInterface {
         foreach($to as $user)
         {
             $input['to'] = $user;
+            $input['from'] = \Auth::user()->cid;
             MessagesRepository::reply($input, $mid);
         }
     }
