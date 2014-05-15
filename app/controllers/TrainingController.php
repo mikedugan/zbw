@@ -14,13 +14,12 @@ class TrainingController extends BaseController {
 
     public function showAdmin($id)
     {
-        $ts = TrainingSessionRepository::findWithRelations($id);
+        $ts = TrainingSessionRepository::find($id, "all");
         $data = [
-            'title' => 'View Training Session',
             'tsession' => $ts,
             'student' => $ts->student,
             'staff' => $ts->staff,
-            'location' => $ts->location
+            'location' => $ts->facility
         ];
         return View::make('staff.training.session', $data);
     }

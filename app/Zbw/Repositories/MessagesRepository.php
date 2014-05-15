@@ -4,13 +4,18 @@ use Zbw\Facades\ZbwValidator;
 use Zbw\Interfaces\EloquentRepositoryInterface;
 
 class MessagesRepository implements EloquentRepositoryInterface {
+
     /**
-     * @param integer $id
-     * @return mixed
+     * @type static
+     * @name find
+     * @description
+     * @param int $id
+     * @param array $relations
+     * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|null|static
      */
-    static function find($id)
+    static function find($id, $relations = [])
     {
-        return \PrivateMessage::find($id);
+        return \PrivateMessage::with($relations)->find($id);
     }
 
     /**
@@ -61,6 +66,13 @@ class MessagesRepository implements EloquentRepositoryInterface {
         }
     }
 
+    /**
+     * @type static
+     * @name newMessageCount
+     * @description
+     * @param null $cid
+     * @return int
+     */
     static function newMessageCount($cid = null)
     {
         $cid = is_null($cid) ? Auth::user()->cid : $cid;

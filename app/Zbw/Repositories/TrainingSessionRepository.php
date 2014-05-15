@@ -3,13 +3,21 @@
 use Zbw\Interfaces\EloquentRepositoryInterface;
 
 class TrainingSessionRepository implements EloquentRepositoryInterface {
+
     /**
-     * @param integer $id
-     * @return \TrainingSession
+     * @type static
+     * @name find
+     * @description return a user with optional relations
+     * @param int $id
+     * @param mixed $relations
+     * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|null|static
      */
-    public static function find($id)
+    public static function find($id, $relations)
     {
-        return \TrainingSession::find($id);
+        $allRelations = ['WeatherType', 'ComplexityType', 'WorkloadType', 'Student', 'Staff',
+            'TrainingType', 'Facility', 'TrainingReport'];
+
+        return $relations === "all" ? \TrainingSession::with($allRelations)->find($id) : \TrainingSession::with($relations)->find($id);
     }
 
     /**
@@ -18,22 +26,6 @@ class TrainingSessionRepository implements EloquentRepositoryInterface {
     public static function all()
     {
         return \TrainingSession::all();
-    }
-
-    /**
-     * @param integer training session id
-     * @return \TrainingSession
-     * @todo add the relations to be eager loaded
-     */
-    public static function findWithRelations($id)
-    {
-        return \TrainingSession::with(['WeatherType', 'ComplexityType', 'WorkloadType', 'Student', 'Instructor',
-            'TrainingType', 'Facility', 'TrainingReport'])->find($id);
-    }
-
-    public static function findWith($id, $relations)
-    {
-        return \TrainingSession::with($relations)->find($id);
     }
 
     /**

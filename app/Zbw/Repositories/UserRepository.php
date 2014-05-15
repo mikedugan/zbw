@@ -1,22 +1,32 @@
 <?php  namespace Zbw\Repositories;
 
+use Illuminate\Auth\EloquentUserProvider;
 use Zbw\Bostonjohn\Emailer;
 use Zbw\Helpers;
 use Zbw\Bostonjohn\ZbwLog;
+use Zbw\Interfaces\EloquentRepositoryInterface;
 
 class UserRepository
 {
+
     /**
-     * @param integer cid
-     * @return \User
+     * @type static
+     * @name find
+     * @description
+     * @param $id
+     * @param array $relations
+     * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|null|static
      */
-    public static function find($id)
+    public static function find($id, array $relations = [])
     {
-        return \User::find($id);
+        return \User::with($relations)->find($id);
     }
 
     /**
-     * @return Collection users with vital info
+     * @type static
+     * @name allVitals
+     * @description returns vital user data
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
     public static function allVitals()
     {
@@ -55,8 +65,12 @@ class UserRepository
     }
 
     /**
-     * @param array input(post)
-     * @return boolean success
+     * @type static
+     * @name updateUser
+     * @description updates an existing user
+     * @param $input
+     * @param null $cid
+     * @return bool
      */
     public static function updateUser($input, $cid = null)
     {
@@ -85,13 +99,16 @@ class UserRepository
     }
 
     /**
-     * @param string controller first name
-     * @param string controller last name
-     * @return string suggested operating initials
+     * @type static
+     * @name createInitials
+     * @description
+     * @param $fname
+     * @param $lname
+     * @return string
      */
     public static function createInitials($fname, $lname)
     {
-        $i = -1;
+        //todo - make this check for and use inactive initials
         for($i = -1; $i >= '-'.strlen($lname); $i--)
         {
             $preferred = $lname[0] . substr($lname, $i, 1);
@@ -110,10 +127,12 @@ class UserRepository
         }
     }
 
-
     /**
-     * @param integer user id
-     * @return float training progress
+     * @type static
+     * @name trainingProgress
+     * @description
+     * @param $id
+     * @return float
      */
     public static function trainingProgress($id)
     {
@@ -121,8 +140,11 @@ class UserRepository
     }
 
     /**
-     * @param integer certification id
-     * @return string certification title
+     * @type static
+     * @name certTitle
+     * @description
+     * @param $id
+     * @return string
      */
     public static function certTitle($id)
     {
@@ -130,8 +152,11 @@ class UserRepository
     }
 
     /**
-     * @param array input data (POST/GET)
-     * @return mixed \User|Eloquent\Collection
+     * @type static
+     * @name search
+     * @description
+     * @param $input
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
     public static function search($input)
     {
@@ -168,8 +193,11 @@ class UserRepository
     }
 
     /**
-     * @param integer user id
-     * @return boolean
+     * @type static
+     * @name suspendUser
+     * @description
+     * @param $id
+     * @return bool
      */
     public static function suspendUser($id)
     {
@@ -188,8 +216,11 @@ class UserRepository
     }
 
     /**
-     * @param integer user id
-     * @return boolean
+     * @type static
+     * @name terminateUser
+     * @description
+     * @param $id
+     * @return bool
      */
     public static function terminateUser($id)
     {
@@ -208,8 +239,11 @@ class UserRepository
     }
 
     /**
-     * @param integer user id
-     * @return boolean
+     * @type static
+     * @name activateUser
+     * @description
+     * @param $id
+     * @return bool
      */
     public static function activateUser($id)
     {
@@ -228,9 +262,12 @@ class UserRepository
     }
 
     /**
-     * @param integer user id
-     * @return boolean
-     */ 
+     * @type static
+     * @name isStaff
+     * @description
+     * @param $id
+     * @return bool
+     */
     public static function isStaff($id)
     {
         $u = \User::find($id);
@@ -238,8 +275,11 @@ class UserRepository
     }
 
     /**
-     * @param integer user id
-     * @return boolean
+     * @type static
+     * @name isExecutive
+     * @description
+     * @param $id
+     * @return bool
      */
     public static function isExecutive($id)
     {
