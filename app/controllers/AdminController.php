@@ -79,7 +79,7 @@ class AdminController extends BaseController
 
     public function getTsIndex()
     {
-        $data = [ 'title' => 'ZBW TS Admin'];
+        $data = [];
         return View::make('staff.ts', $data);
     }
 

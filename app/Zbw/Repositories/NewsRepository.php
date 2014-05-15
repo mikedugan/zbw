@@ -18,9 +18,9 @@ class NewsRepository implements EloquentRepositoryInterface {
         return \News::all();
     }
 
-    public static function find($id)
+    public static function find($id, $relations)
     {
-        return \News::find($id);
+        return \News::with($relations)->find($id);
     }
 
     public static function findWithRelations($id)
@@ -35,17 +35,24 @@ class NewsRepository implements EloquentRepositoryInterface {
         //if validation fails, return the errors
         if(is_array($invalid)) return $invalid;
 
+        //just in case a user forgot to properly set the date on the news
+        $starts = '';
+        $ends = '';
+        if( ! $input['starts']) { $starts = \Carbon::now(); }
+        else { $starts = \Carbon::createFromFormat('Y/m/d H:i', $input['starts']); }
+        if( ! $input['ends']) { $ends = \Carbon::now()->addWeek(); }
+        else { $ends = \Carbon::createFromFormat('Y/m/d H:i', $input['ends']); }
+
         //create the object
         $n = \News::create([
             'title' => $input['title'],
-            'starts' => \Carbon::createFromFormat('Y/m/d H:i',$input['starts']),
-            'ends' => \Carbon::createFromFormat('Y/m/d H:i', $input['ends']),
+            'starts' => $starts,
+            'ends' => $ends,
             'news_type_id' => $input['news_type'],
             'content' => $input['content'],
             'facility_id' => $input['facility'],
-            'audience_id' => $input['audience']
+            'audience_type_id' => $input['audience']
         ]);
-        $n->audience = $input['audience'];
         //return the save result
         return $n->save();
     }

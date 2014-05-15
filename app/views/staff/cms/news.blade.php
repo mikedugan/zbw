@@ -19,7 +19,7 @@ News and Events
                     @foreach($events['active'] as $event)
                         <div class="event">
                             <h4>{{ $event->title }}<p class="small">Ends {{ $event->ends->toFormattedDateString() }}</p></h4>
-                            <p><i>Facility: </i> {{ $event->facility }}</p>
+                            <p><i>Facility: </i> {{ $event->facility->value }}</p>
                             <p>{{ $event->content }}</p>
                             <a class="" href="/news/{{ $event->id}}">View</a>
                             <a class="" href="/staff/news/{{ $event->id}}">Edit</a>
@@ -38,7 +38,7 @@ News and Events
             @foreach($events['upcoming'] as $event)
             <div class="event">
                 <h4>{{ $event->title }}<p class="small">Starts {{ $event->starts->toFormattedDateString() }}</p></h4>
-                <p><i>Facility: </i> {{ $event->facility }}</p>
+                <p><i>Facility: </i> {{ $event->facility->value }}</p>
                 <p>{{ $event->content }}</p>
                 <a class="" href="/news/{{ $event->id}}">View</a>
                 <a class="" href="/staff/news/{{ $event->id}}">Edit</a>
@@ -54,7 +54,7 @@ News and Events
             @foreach($events['expired'] as $event)
             <div class="event">
                 <h4>{{ $event->title }}<p class="small">Ended {{ $event->ends->toFormattedDateString() }}</p></h4>
-                <p><i>Facility: </i> {{ $event->facility }}</p>
+                <p><i>Facility: </i> {{ $event->facility->value }}</p>
                 <p>{{ $event->content }}</p>
                 <a class="" href="/news/{{ $event->id}}">View</a>
                 <a class="" href="/staff/news/{{ $event->id}}">Edit</a>
