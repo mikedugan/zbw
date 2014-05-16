@@ -15,8 +15,23 @@ My Profile
 			{{ Form::label('email', 'Email'); }}
 			<input type="email" name="email" id="email" value="{{$me->email}}" class="form-control">
 		</div>
-		{{ Form::checkbox('Subscribe', 'subscribe', true); }}
+		<p><b>Subscribed:</b></p>
+        @if($me->is_subscribed)
+        <form class="axform" action="path/to/subscribe" method="post">
+            <button type="submit">Subscribe</button>
+        </form>
+        @else
+        <form class="axform" action="path/to/unsubscribe" method="post">
+            <button type="submit">Unsubscribe</button>
+        </form>
+        @endif
+        <p><b>Email Hidden:</b></p>
+        {{ Form::checkbox('Hidden', 'hidded', false); }}
+        <p><b>Signature</b></p> {{ $me->signature}}
 		<button type="submit" class="btn btn-primary">Update</button>
-	    
     </form>
+    </div>
+    <div class="col-md-12">
+        <img src= 'images/zbw_logo.png'>
+    </div>         
 @stop
