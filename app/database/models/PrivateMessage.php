@@ -1,7 +1,5 @@
 <?php
 
-use Illuminate\Database\Eloquent\Builder;
-
 class PrivateMessage extends Eloquent {
 	protected $guarded = [];
 	protected $table = 'zbw_messages';

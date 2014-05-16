@@ -86,7 +86,36 @@ class MessagesRepository implements EloquentRepositoryInterface {
      */
     static function add($input)
     {
+        $errors = '';
+        $recipients = explode(',', $input['to']);
+        if(count($recipients) == 1) { return self::create($input); }
+        else
+        {
+            foreach($recipients as $r)
+            {
+                $errors .= self::create([
+                    'to' => $r,
+                    'subject' => $input['subject'],
+                    'message' => $input['message']
+                ]);
+            }
+        }
+        return $errors;
+    }
 
+    private static function create($input)
+    {
+        $message = new \PrivateMessage([
+            'to' => UserRepository::findByInitials($input['to'])->cid,
+            'subject' => $input['subject'],
+            'content' => $input['message']
+        ]);
+        $message->from = \Auth::user()->cid;
+        if( ! $message->save())
+        {
+            return 'Error sending to '.$input['to'];
+        }
+        else return '';
     }
 
     /**
