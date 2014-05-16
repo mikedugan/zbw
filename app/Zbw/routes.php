@@ -56,6 +56,7 @@ Route::group(array('before' => 'controller'), function() {
 	$cid = is_null(Auth::user()) ? 0 : Auth::user()->cid;
 
 	Route::get('me', 'ControllerController@getMe');
+    Route::post('/me/markallread', 'AjaxController@markInboxRead');
     Route::get('/u/' . $cid, array('as' => 'me', 'uses' => 'ControllersController@getMe'));
     Route::get('me/settings', 'ControllersController@getSettings');
     //private messaging
@@ -70,7 +71,7 @@ Route::group(array('before' => 'controller'), function() {
         Route::get('trash', ['as' => 'pm-trash', 'uses' => 'MessengerController@trash']);
         Route::get('inbox/{mid}', 'MessengerController@view');
         Route::get('inbox/{mid}', 'MessengerController@view');
-        Route::post('outbox/new', 'MessengerController@store');
+        Route::post('send', 'MessengerController@store');
         Route::post('inbox/{mid}', 'MessengerController@reply');
     });
     //training requests

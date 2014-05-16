@@ -82,7 +82,7 @@ nav.navbar {
 		nav form li:first-child { margin-bottom: 3px;}
 		nav form button { margin: 8px 5px 0 5px;}
 
-ul.nav.navbar-nav li a { color: #dbdbdb; font-size: 1.75em;}
+ul.nav.navbar-nav li a { color: #dbdbdb; font-size: 1.5em;}
 ul.nav.navbar-nav li a:hover { color: #f4f4f4;}
 ul.nav.navbar-nav ul.dropdown-menu li a:hover { color: #555;}
 ul.nav.navbar-nav ul.dropdown-menu a { font-size: 1.25em;}

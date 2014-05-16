@@ -162,6 +162,24 @@ class AjaxController extends BaseController
         }
     }
 
+    public function markInboxRead()
+    {
+        if(\Zbw\Repositories\MessagesRepository::markAllRead(Auth::user()->cid))
+        {
+            return json_encode([
+                'success' => true,
+                'message' => 'All messaged marked as read'
+            ]);
+        }
+        else
+        {
+            return json_encode([
+                'success' => false,
+                'message' => 'Error marking messages read'
+            ]);
+        }
+    }
+
     public function photoUpload()
     {
 

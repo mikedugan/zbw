@@ -14,9 +14,14 @@ function submitAjax(form)
             msg = JSON.parse(msg);
             if(msg.success)
             {
-                $('#flash').prepend(msg.message);
+                $('.ajax-success').removeClass('hidden');
+                $('.ajax-success .message').text(msg.message);
             }
-            else $('#flash').prepend(msg.message);
+            else
+            {
+                $('.ajax-error').removeClass('hidden');
+                $('.ajax-error .message').text(msg.message);
+            }
         });
 }
 

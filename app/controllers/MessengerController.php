@@ -38,17 +38,17 @@ class MessengerController extends BaseController {
         return View::make('users.messages.create', $data);
     }
 
-    public function store($message_id)
+    public function store()
     {
         $input = \Input::all();
-        //$input['user_id'] = $user_id;
-        if(MessagesRepository::add($input))
+        $ret = MessagesRepository::add($input);
+        if($ret === '')
         {
-            return Redirect::back()->with('flash_success', 'Message sent successfully');
+            return Redirect::home()->with('flash_success', 'Message sent successfully');
         }
         else
         {
-            return Redirect::back()->with('flash_error', 'Error sending message');
+            return Redirect::home()->with('flash_error', $ret);
         }
     }
 
