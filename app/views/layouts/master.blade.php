@@ -21,6 +21,14 @@
     </nav>
 
     <div class="logopad">
+        <div class="hidden ajax-success alert alert-success alert-dismissable"><span class="glyphicon glyphicon-thumbs-up green"></span>
+            <button type="button" class="close pull-right" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <span class="message"></span>
+        </div>
+        <div class="hidden ajax-error alert alert-danger alert-dismissable"><span class="glyphicon glyphicon-fire red"></span>
+            <button type="button" class="close pull-right" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <span class="message"></span>
+        </div>
     @if(Session::get('flash_info'))
         <div class="alert alert-info alert-dismissable"><span class="glyphicon glyphicon-info-sign blue"></span>
             <button type="button" class="close pull-right" data-dismiss="alert" aria-hidden="true">&times;</button>

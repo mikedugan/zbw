@@ -113,11 +113,12 @@ class MessagesRepository implements EloquentRepositoryInterface {
      * @param integer cid
      * @return void
      */
-    static function markAllRead($cid)
+    static function markAllRead()
     {
-        foreach(\PrivateMessage::where('to', $cid)->get() as $message)
+        foreach(\PrivateMessage::where('to', \Auth::user()->cid)->get() as $message)
         {
             $message->is_read = 1;
+            $message->save();
         }
 
     }
