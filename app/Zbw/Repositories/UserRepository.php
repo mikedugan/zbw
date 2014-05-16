@@ -1,6 +1,7 @@
 <?php  namespace Zbw\Repositories;
 
 use Illuminate\Auth\EloquentUserProvider;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Zbw\Bostonjohn\Emailer;
 use Zbw\Helpers;
 use Zbw\Bostonjohn\ZbwLog;
@@ -20,6 +21,17 @@ class UserRepository
     public static function find($id, array $relations = [])
     {
         return \User::with($relations)->find($id);
+    }
+
+    public static function findByInitials($initials)
+    {
+        $initials = str_replace(' ', '', strtoupper($initials));
+        return \User::where('initials', $initials)->first();
+    }
+
+    public static function findByCid($cid)
+    {
+        return \User::where('cid', $cid)->first();
     }
 
     /**

@@ -71,7 +71,7 @@ Route::group(array('before' => 'controller'), function() {
         Route::get('trash', ['as' => 'pm-trash', 'uses' => 'MessengerController@trash']);
         Route::get('inbox/{mid}', 'MessengerController@view');
         Route::get('inbox/{mid}', 'MessengerController@view');
-        Route::post('outbox/new', 'MessengerController@store');
+        Route::post('send', 'MessengerController@store');
         Route::post('inbox/{mid}', 'MessengerController@reply');
     });
     //training requests
