@@ -8,7 +8,7 @@ Inbox
 @section('content')
     <h1 class="text-center">My Inbox</h1>
     <div class="col-md-12 subnav">
-        <form action="/u/{{$me->cid}}/markallread" method="post">
+        <form class="axform" style="margin:0;" action="/me/markallread" method="post">
             <button type="submit" class="btn btn-xs">Mark All as Read</button>
         </form>
         @if($unread == 'true')

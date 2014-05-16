@@ -56,6 +56,7 @@ Route::group(array('before' => 'controller'), function() {
 	$cid = is_null(Auth::user()) ? 0 : Auth::user()->cid;
 
 	Route::get('me', 'ControllerController@getMe');
+    Route::post('/me/markallread', 'AjaxController@markInboxRead');
     Route::get('/u/' . $cid, array('as' => 'me', 'uses' => 'ControllersController@getMe'));
     Route::get('me/settings', 'ControllersController@getSettings');
     //private messaging
