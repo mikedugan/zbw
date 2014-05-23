@@ -57,4 +57,9 @@ class ExamsRepository implements EloquentRepositoryInterface {
         $next = \CertType::find($user->certification->id + 1);
         return [$next->id, Helpers::readableCert($next->value)];
     }
+
+    public static function lastExam($cid)
+    {
+        return \ControllerExam::where('cid', $cid)->with(['student', 'comments'])->latest()->first();
+    }
 }

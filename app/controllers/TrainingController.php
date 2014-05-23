@@ -1,6 +1,7 @@
 <?php
 
 use Zbw\Repositories\TrainingSessionRepository;
+use Zbw\Repositories\ExamsRepository;
 
 class TrainingController extends BaseController {
 
@@ -43,6 +44,16 @@ class TrainingController extends BaseController {
             'request' => $request
         ];
         return View::make('training.show-request', $data);
+    }
+
+    public function getReview()
+    {
+        $exam = ExamsRepository::lastExam(Auth::user()->cid);
+        $data = [
+            'exam' => $exam
+        ];
+        if( ! $exam) { return Redirect::back()->with('flash_info', 'No exams found'); }
+        return View::make('training.exams.review', $data);
     }
 
 }
