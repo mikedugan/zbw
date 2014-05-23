@@ -23,6 +23,11 @@ class ControllerExam extends Eloquent {
         return $this->belongsTo('User', 'cid', 'cid');
     }
 
+    public function comments()
+    {
+        return $this->hasMany('ZbwComment', 'parent_id', 'id');
+    }
+
     //scopes
     public function scopeReviewed($query)
     {

@@ -13,7 +13,7 @@
         		<input class="form-control" type="text" name="username" id="username">
         	</div>
         	<div class="input-group">
-        		<label for="password">Password</label>
+        		<label for="password">Password <a href="/password/remind">Forgot Password?</a></label>
         		<input class="form-control" type="password" name="password" id="password">
         	</div>
         	<div class="input-group">
@@ -24,7 +24,7 @@
     		</div><!-- /input-group -->
       </div>
       <div class = "col-md-6">
-          <img src= 'images/zbw_logo.png'>
+          <img src='/images/zbw_logo.png'>
       </div>
       <div class="modal-footer text-left">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
