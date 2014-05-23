@@ -98,7 +98,7 @@ Route::group(
             );
 
             Route::get('inbox/{mid}', 'MessengerController@view');
-            Route::get('inbox/{mid}', 'MessengerController@view');
+            Route::get('outbox/{mid}', 'MessengerController@view');
             Route::post('send', 'MessengerController@store');
             Route::post('inbox/{mid}', 'MessengerController@reply');
         }

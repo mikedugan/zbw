@@ -14,6 +14,14 @@ class MessengerController extends BaseController {
         return View::make('users.messages.inbox', $data);
     }
 
+    public function outbox()
+    {
+        $data = [
+            'inbox' => MessagesRepository::from(Auth::user()->cid)
+        ];
+        return View::make('users.messages.outbox', $data);
+    }
+
     /**
      *
      * @param integer cid
