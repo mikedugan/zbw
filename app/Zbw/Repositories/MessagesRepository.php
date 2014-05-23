@@ -162,7 +162,7 @@ class MessagesRepository implements EloquentRepositoryInterface {
      */
     public static function trashed()
     {
-        return \PrivateMessage::onlyTrashed();
+        return \PrivateMessage::where('cid', \Auth::user()->cid)->onlyTrashed();
     }
 
     /**
