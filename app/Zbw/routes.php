@@ -104,7 +104,9 @@ Route::group(
         }
       );
       //training requests
+      Route::get('/training/review', 'TrainingController@getReview');
       Route::post('/staff/exams/review/{eid}', 'ControllerExamsController@postComment');
+      Route::post('/training/review/{eid}', 'ControllerExamsController@postComment');
       Route::post(
         '/e/request/{cid}/{eid}',
         array('uses' => 'AjaxController@requestExam')
