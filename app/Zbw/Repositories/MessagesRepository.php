@@ -181,7 +181,7 @@ class MessagesRepository implements EloquentRepositoryInterface {
      */
     public static function to($user, $unread = false)
     {
-        $messages = \PrivateMessage::where('to', $user);
+        $messages = \PrivateMessage::where('to', $user)->orderBy('created_at', 'DESC');
         return $unread ? $messages->where('is_read', 0)->get() : $messages->get();
     }
 
