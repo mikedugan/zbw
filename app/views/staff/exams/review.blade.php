@@ -11,6 +11,9 @@ Exam Review
         <p><b>Student:</b> {{$exam->student->username}} ({{$exam->student->initials}})</p>
         <p><b>Rating: </b> {{$exam->student->rating}}</p>
         <p><b>Testing for: </b>{{ \Zbw\Helpers::readableCert($exam->exam->value)}}</p>
+        @if(in_array($me->cid, Zbw\Repositories\UserRepository::canTrain($exam->cert_id)))
+            <button class="btn btn-xs">Exam Review Complete</button>
+        @endif
     </div>
     <div class="col-md-6">
         <h3>Exam Summary</h3>
@@ -22,9 +25,22 @@ Exam Review
         <h3 class="text-center">Review &amp; Discussion</h3>
         <p>Please discuss your corrections with the staff here.</p>
     </div>
+    <div class="col-md-12 exam-comment">
+        @foreach($exam->comments()->where('comment_type', 5)->get() as $comment)
+            <div class="col-md-12 well">
+                <div class="col-md-8">
+                    <div>{{ $comment->content }}</div>
+                </div>
+                <div class="col-md-4">
+                    <p>posted by {{ $comment->user->initials }}<br>
+                    {{ $comment->created_at->diffForHumans() }}</p>
+                </div>
+            </div>
+        @endforeach
+    </div>
     <div class="col-md-12">
         <form action="/staff/exams/review/{{$exam->id}}" method="post">
-            <textarea class="form-control editor" name="comment" class="" id="comment" cols="30" rows="15"></textarea>
+            <textarea class="form-control editor" name="content" id="comment" cols="30" rows="15"></textarea>
             <button type="submit" class="btn btn-primary">Send Comment</button>
         </form>
     </div>

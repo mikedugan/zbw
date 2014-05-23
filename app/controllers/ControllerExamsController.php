@@ -13,7 +13,7 @@ class ControllerExamsController extends BaseController {
     {
         $data = [
             'title' => 'Review Exam',
-            'exam' => \ControllerExam::with(['student'])->find($eid)
+            'exam' => \ControllerExam::with(['student', 'comments'])->find($eid),
         ];
         return View::make('staff.exams.review', $data);
     }
@@ -44,6 +44,21 @@ class ControllerExamsController extends BaseController {
             'questions' => \Zbw\Repositories\QuestionsRepository::all()
         ];
         return View::make('staff.exams.view-questions', $data);
+    }
+
+    public function postComment($eid)
+    {
+        $post = \Input::all();
+        if(\Zbw\Repositories\CommentsRepository::add([
+            'content' => $post['content'],
+            'parent_id' => $eid,
+            'comment_type' => 5
+        ]))
+        {
+            return Redirect::back()->with('flash_success', 'Comment added successfully');
+        } else {
+            return Redirect::back()->with('flash_error', 'Error adding comment');
+        }
     }
 
     public function addQuestion()

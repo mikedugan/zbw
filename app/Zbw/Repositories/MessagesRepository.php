@@ -4,6 +4,11 @@ use Zbw\Facades\ZbwValidator;
 use Zbw\Interfaces\EloquentRepositoryInterface;
 
 class MessagesRepository implements EloquentRepositoryInterface {
+    const PRIVATE_MESSAGE = 1;
+    const SESSION_COMMENT = 2;
+    const EVENT_COMMENT = 3;
+    const NEWS_COMMENT = 4;
+    const EXAM_COMMENT = 5;
 
     /**
      * @type static

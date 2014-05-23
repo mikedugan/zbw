@@ -1,11 +1,8 @@
 <?php  namespace Zbw\Repositories;
 
-use Illuminate\Auth\EloquentUserProvider;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Zbw\Bostonjohn\Emailer;
 use Zbw\Helpers;
 use Zbw\Bostonjohn\ZbwLog;
-use Zbw\Interfaces\EloquentRepositoryInterface;
 
 class UserRepository
 {
@@ -297,5 +294,22 @@ class UserRepository
     {
         $u = \User::find($id);
         return $u->is_atm || $u->is_datm || $u->is_ta || $u->is_webmaster;
+    }
+
+    public static function canTrain($level)
+    {
+        if($level == 12) {
+            return \User::where('cert', '>=' ,12)->lists('cid');
+        } else {
+            return \User::where('cert', '>=', $level + 1)->lists('cid');
+        }
+
+    }
+
+    public static function canCertify($level)
+    {
+        if($level == 11) { return \User::where('cert', '>=', 12)->lists('cid'); }
+        else if ($level == 12) { return \User::where('cert', '>=', 13)->lists('cid'); }
+        return \User::where('cert', '>=', $level + 2)->lists('cid');
     }
 }

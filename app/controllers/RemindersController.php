@@ -10,7 +10,7 @@ class RemindersController extends Controller {
 	public function getRemind()
 	{
 		$data = [ 'title' => 'Forgot Password'];
-		return View::make('password.remind', $data);
+		return View::make('users.password.remind', $data);
 	}
 
 	/**
@@ -40,7 +40,7 @@ class RemindersController extends Controller {
 	{
 		if (is_null($token)) App::abort(404);
 		$data = [ 'title' => 'Reset Password'];
-		return View::make('password.reset', $data)->with('token', $token);
+		return View::make('users.password.reset', $data)->with('token', $token);
 	}
 
 	/**
