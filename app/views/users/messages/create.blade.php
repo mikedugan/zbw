@@ -3,6 +3,7 @@
 Send Message
 @stop
 @section('header')
+    @include('includes.nav._messenger')
 @stop
 @section('content')
     <h1 class="text-center">New Message</h1>
