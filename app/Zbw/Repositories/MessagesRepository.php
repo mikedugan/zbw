@@ -189,9 +189,9 @@ class MessagesRepository implements EloquentRepositoryInterface {
      * @param integer user cid
      * @return Eloquent Collection
      */
-    public static function outbox($user)
+    public static function from($user)
     {
-        return \PrivateMessage::all()->userOutbox($user)->get();
+        return \PrivateMessage::where('from', $user)->orderBy('created_at', 'DESC')->get();
     }
 
 }

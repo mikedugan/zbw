@@ -11,7 +11,7 @@ class PrivateMessage extends Eloquent {
         return $this->hasOne('User', 'cid', 'from');
     }
 
-    public function recipients()
+    public function recipient()
     {
         return $this->belongsTo('User', 'to', 'cid');
     }
