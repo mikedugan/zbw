@@ -3,6 +3,7 @@
 vZBW CMS
 @stop
 @section('header')
+    @include('includes.nav._pages')
 @stop
 @section('content')
 	<h1 class="text-center">vZBW CMS</h1>

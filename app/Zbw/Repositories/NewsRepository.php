@@ -18,9 +18,9 @@ class NewsRepository implements EloquentRepositoryInterface {
         return \News::all();
     }
 
-    public static function find($id, $relations)
+    public static function find($id, $relations = null)
     {
-        return \News::with($relations)->find($id);
+        return $relations ? \News::with($relations)->find($id) : \News::find($id);
     }
 
     public static function findWithRelations($id)
@@ -55,6 +55,16 @@ class NewsRepository implements EloquentRepositoryInterface {
         ]);
         //return the save result
         return $n->save();
+    }
+
+    public static function update($input)
+    {
+        $invalid = ZbwValidator::get('News', $input);
+        if(is_array($invalid)) return $invalid;
+        $input['starts'] = \Carbon::createFromFormat('Y-m-d H:i:s', $input['starts']);
+        $input['ends'] = \Carbon::createFromFormat('Y-m-d H:i:s', $input['ends']);
+
+        return \News::find($input['event_id'])->fill($input)->save();
     }
 
     public static function delete($id)

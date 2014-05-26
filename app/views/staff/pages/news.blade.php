@@ -41,7 +41,7 @@ News and Events
                 <p><i>Facility: </i> {{ $event->facility->value }}</p>
                 <p>{{ $event->content }}</p>
                 <a class="" href="/news/{{ $event->id}}">View</a>
-                <a class="" href="/staff/news/{{ $event->id}}">Edit</a>
+                <a class="" href="/staff/news/{{ $event->id}}/edit">Edit</a>
             </div>
             @endforeach
             @endif
@@ -57,7 +57,7 @@ News and Events
                 <p><i>Facility: </i> {{ $event->facility->value }}</p>
                 <p>{{ $event->content }}</p>
                 <a class="" href="/news/{{ $event->id}}">View</a>
-                <a class="" href="/staff/news/{{ $event->id}}">Edit</a>
+                <a class="" href="/staff/news/{{ $event->id}}/edit">Edit</a>
             </div>
             @endforeach
             </div>
@@ -74,7 +74,7 @@ News and Events
         <div class="event">
             <h4>{{ $event->title }}<p class="small"> Date: {{$event->starts->toFormattedDateString() }}</p></h4>
             <p>{{ $event->content }}<br>
-            <a href="/staff/news/{{$event->id}}">Edit</a></p>
+            <a href="/staff/news/{{$event->id}}/edit">Edit</a></p>
         </div>
         @endforeach
         </div>
@@ -89,7 +89,7 @@ News and Events
         <div class="event">
             <h4>{{ $event->title }}<p class="small"> Date: {{$event->starts->toFormattedDateString() }}</p></h4>
             <p>{{ $event->content }}<br>
-            <a href="/staff/news/{{$event->id}}">Edit</a></p>
+            <a href="/staff/news/{{$event->id}}/edit">Edit</a></p>
         </div>
         @endforeach
         </div>
