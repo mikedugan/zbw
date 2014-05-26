@@ -79,10 +79,19 @@ Route::filter('csrf', function()
 	}
 });
 
+Route::filter('controller', function() {
+    if(! Auth::user()->cid) {
+        $data = [
+            'page' => Request::url(),
+            'needed' => 'Registered User'
+        ];
+        return View::make('zbw.errors.403', $data);
+    }
+});
+
 Route::filter('staff', function() {
     if(!\Zbw\Repositories\UserRepository::isStaff(Auth::user()->cid)) {
         $data = [
-            'title' => 'Access Denied',
             'page' => Request::url(),
             'needed' => 'general staff member'
         ];
@@ -96,7 +105,6 @@ Route::filter('executive', function() {
     if(!\Zbw\Repositories\UserRepository::isExecutive(Auth::user()->cid))
     {
         $data = [
-            'title' => 'Access Denied',
             'page' => Request::url(),
             'needed' => 'executive staff member'
         ];
@@ -110,7 +118,6 @@ Route::filter('instructor', function() {
     if(! Auth::user()->is_instructor)
     {
         $data = [
-            'title' => 'Access Denied',
             'page' => Request::url(),
             'needed' => 'instructor'
         ];
@@ -120,11 +127,10 @@ Route::filter('instructor', function() {
     }
 });
 
-Route::filter('instructor', function() {
+Route::filter('mentor', function() {
     if(! Auth::user()->is_instructor && ! Auth::user()->is_mentor)
     {
         $data = [
-            'title' => 'Access Denied',
             'page' => Request::url(),
             'needed' => 'mentor'
         ];
