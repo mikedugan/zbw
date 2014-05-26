@@ -3,7 +3,7 @@
 	@yield('title')
 @stop
 @section('header')
-	@yield('header')
+	@include('includes.nav._pages')
 @stop
 @section('content')
 	@yield('content')

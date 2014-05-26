@@ -49,7 +49,7 @@ Route::post(
   'staff/roster/add-controller',
   'RosterController@postAddController'
 );
-Route::get('staff/cms', 'AdminController@getCmsIndex');
+Route::get('staff/pages', 'PagesController@getIndex');
 Route::get('staff/forum', 'AdminController@getForumIndex');
 Route::get('staff/ts', 'AdminController@getTsIndex');
 
@@ -139,7 +139,15 @@ Route::group(
   array('before' => 'staff'),
   function () {
       Route::get('staff', 'AdminController@getAdminIndex');
+      Route::get('staff/news/{id}/edit', 'NewsController@getEdit');
+      Route::post('staff/news/edit', 'NewsController@postEdit');
+
       Route::post('/a/complete/{aid}', 'AjaxController@actionCompleted');
+
+      Route::get('pages/create', 'PagesController@getCreate');
+      Route::get('pages/view', 'PagesController@getShow');
+      Route::get('pages/menus', 'PagesController@getMenus');
+      Route::get('pages/trash', 'PagesController@getTrash');
   }
 );
 

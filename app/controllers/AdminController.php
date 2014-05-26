@@ -34,14 +34,6 @@ class AdminController extends BaseController
         return View::make('staff.forum.index', $data);
     }
 
-    public function getCmsIndex()
-    {
-        $data = [
-            'title' => 'ZBW CMS Admin'
-        ];
-        return View::make('staff.cms.index', $data);
-    }
-
     public function getNewsIndex()
     {
         $data = [
@@ -52,7 +44,7 @@ class AdminController extends BaseController
             'generalnews' => NewsRepository::recentNews(5),
             'title' => 'ZBW News Admin'
         ];
-        return View::make('staff.cms.news', $data);
+        return View::make('staff.pages.news', $data);
     }
 
     public function getRosterIndex()
