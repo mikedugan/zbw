@@ -20,7 +20,7 @@ $me = Auth::user();
 View::share('me', $me);
 //allows us to display the current number of inbox messages
 if ($me)
-    View::share('messages', Zbw\Repositories\MessagesRepository::newMessageCount($me->cid));
+    View::share('messages', Zbw\Cms\MessagesRepository::newMessageCount($me->cid));
 
 //filter all staff routes, additional filters in route groups
 Route::when('staff/*', 'staff');
@@ -52,6 +52,7 @@ Route::group(
       Route::get('me/settings', 'ControllersController@getSettings');
       //training and exam routes
       Route::get('training/request/new', 'TrainingController@getRequest');
+      Route::get('training/request/{id}', 'TrainingController@showRequest');
       Route::get('/training/review', 'TrainingController@getReview');
       Route::post('/training/review/{eid}', 'ControllerExamsController@postComment');
       Route::post('/e/request/{cid}/{eid}',array('uses' => 'AjaxController@requestExam'));
@@ -63,15 +64,15 @@ Route::group(
       //private messaging
       Route::group(
         ['prefix' => 'messages'], function () {
-            Route::get('inbox', ['as' => 'inbox', 'uses' => 'MessengerController@index']);
-            Route::get('new', ['as' => 'pm-compose', 'uses' => 'MessengerController@create']);
-            Route::get('outbox',['as' => 'outbox', 'uses' => 'MessengerController@outbox']);
-            Route::get('trash',['as' => 'pm-trash', 'uses' => 'MessengerController@trash']);
+            Route::get('inbox', ['as' => 'inbox', 'uses' => 'MessagesController@index']);
+            Route::get('new', ['as' => 'pm-compose', 'uses' => 'MessagesController@create']);
+            Route::get('outbox',['as' => 'outbox', 'uses' => 'MessagesController@outbox']);
+            Route::get('trash',['as' => 'pm-trash', 'uses' => 'MessagesController@trash']);
 
-            Route::get('inbox/{mid}', 'MessengerController@view');
-            Route::get('outbox/{mid}', 'MessengerController@view');
-            Route::post('send', 'MessengerController@store');
-            Route::post('inbox/{mid}', 'MessengerController@reply');
+            Route::get('inbox/{mid}', 'MessagesController@view');
+            Route::get('outbox/{mid}', 'MessagesController@view');
+            Route::post('send', 'MessagesController@store');
+            Route::post('inbox/{mid}', 'MessagesController@reply');
         });
   });
 
@@ -104,8 +105,8 @@ Route::group(
           Route::get('roster', 'AdminController@getRosterIndex');
           Route::get('roster/results', 'AdminController@getSearchResults');
           Route::get('u/{id}', 'AdminController@showUser');
-          Route::get('staff/{id}/edit', 'RosterController@getEditUser');
-          Route::post('staff/{id}/edit', 'RosterController@postEditUser');
+          Route::get('{id}/edit', 'RosterController@getEditUser');
+          Route::post('{id}/edit', 'RosterController@postEditUser');
           Route::get('roster/add-controller', 'RosterController@getAddController');
           Route::post('roster/add-controller','RosterController@postAddController');
           Route::get('pages', 'PagesController@getIndex');

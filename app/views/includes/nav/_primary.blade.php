@@ -3,21 +3,20 @@
     <li class="dropdown">
         <a href="/controllers" class="dropdown-toggle" data-toggle="dropdown">Controllers <b class="caret"></b></a>
         <ul class="dropdown-menu">
-            <li><a href="#">Airports & Charts</a></li>
-            <li><a href="#">Link A</a></li>
-            <li><a href="#">Link B</a></li>
-            <li><a href="#">Link C</a></li>
-            <li><a href="#">Link D</a></li>
+            <li><a href="/news">NOTAMS</a></li>
+            <li><a href="/pages/staff">Staff</a></li>
+            <li><a href="/pages/sops">ZBW Resources</a></li>
+            <li><a href="/pages/resources">Other Resources</a></li>
         </ul>
     </li>
     <li class="dropdown">
         <a href="/pilots" class="dropdown-toggle" data-toggle="dropdown">Pilots <b class="caret"></b></a>
         <ul class="dropdown-menu">
+            <li><a href="/news">NOTAMS</a></li>
+            <li><a href="/pages/airports">Airports & Charts</a></li>
+            <li><a href="#">About ZBW</a></li>
             <li><a href="#">Airports</a></li>
-            <li><a href="#">Charts</a></li>
-            <li><a href="#">Events & News</a></li>
-            <li><a href="#">Resources</a></li>
-            <li><a href="#">Link</a></li>
+            <li><a href="/news">Events & News</a></li>
         </ul>
     </li>
     <li class="dropdown">

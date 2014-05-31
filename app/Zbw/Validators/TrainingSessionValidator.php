@@ -1,5 +1,5 @@
 <?php  namespace Zbw\Validators; 
-use Zbw\Helpers;
+
 class TrainingSessionValidator extends ZbwValidator {
     static $rules = [
         'cid' => "in: ",

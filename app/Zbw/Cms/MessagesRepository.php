@@ -1,4 +1,4 @@
-<?php namespace Zbw\Messages;
+<?php namespace Zbw\Cms;
 
 use Zbw\Facades\ZbwValidator;
 use Zbw\Interfaces\EloquentRepositoryInterface;

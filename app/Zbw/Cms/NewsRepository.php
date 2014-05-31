@@ -9,7 +9,7 @@ class NewsRepository implements EloquentRepositoryInterface {
 
     public static function front($lim)
     {
-        return News::where('audience_type_id', '=', '1')->where('news_type_id', '!=', '5')->limit($lim)->get();
+        return News::where('audience_type_id', '=', '1')->where('news_type_id', '!=', '5')->orderBy('created_at', 'DESC')->limit($lim)->get();
     }
 
     /** static functions */

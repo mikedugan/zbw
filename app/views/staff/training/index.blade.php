@@ -40,7 +40,7 @@ Training Index
         <h4>Requests</h4>
         @if($requests)
             @foreach($requests as $r)
-                <p class="well"><a href="/training/request/{{$r->id}}">{{$r->student->initials}} has requested training on {{Zbw\Helpers::readableCert($r->certType->value)}}</a></p>
+                <p class="well"><a href="/training/request/{{$r->id}}">{{ strtoupper($r->student->initials) }} has requested training on {{ Zbw\Helpers::readableCert($r->certType->value) }}</a></p>
             @endforeach
         @endif
     </div>
