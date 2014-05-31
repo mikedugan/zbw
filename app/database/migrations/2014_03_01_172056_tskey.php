@@ -16,8 +16,9 @@ class TsKey extends Migration {
 			$table->increments('id');
 			$table->integer('cid');
 			$table->string('ts_key', 8);
-			$table->string('computer_id', 50);
-			$table->string('created', 32);
+            $table->string('uid', 50);
+            $table->timestamp('expires');
+            $table->boolean('used');
 			$table->boolean('status');
 			$table->timestamps();
 		});
