@@ -1,7 +1,7 @@
 <?php
 
-use Zbw\Repositories\TrainingSessionRepository;
-use Zbw\Repositories\ExamsRepository;
+use Zbw\Training\TrainingSessionRepository;
+use Zbw\Training\ExamsRepository;
 
 class TrainingController extends BaseController {
 

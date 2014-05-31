@@ -1,8 +1,8 @@
 <?php
 
-use Zbw\Repositories\MessagesRepository;
+use Zbw\Cms\MessagesRepository;
 
-class MessengerController extends BaseController {
+class MessagesController extends BaseController {
     public function index()
     {
         $data = [

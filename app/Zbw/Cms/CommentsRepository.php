@@ -1,4 +1,4 @@
-<?php  namespace Zbw\Repositories; 
+<?php  namespace Zbw\Cms;
 
 class CommentsRepository
 {

@@ -5,7 +5,8 @@
 	"license": "MIT",
 	"require": {
 		"laravel/framework": "4.1.*",
-		"laracasts/utilities": "dev-master"
+		"laracasts/utilities": "dev-master",
+        "fkubis/teamspeak-php-framework": "dev-master"
 	},
 	"require-dev": {
 		"barryvdh/laravel-ide-helper": "dev-master",

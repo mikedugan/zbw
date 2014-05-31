@@ -1,4 +1,4 @@
-<?php namespace Zbw\Repositories;
+<?php namespace Zbw\Cms;
 
 use \News as News;
 use Zbw\Interfaces\EloquentRepositoryInterface;
@@ -7,7 +7,7 @@ use Zbw\Validators\ZbwValidator;
 class NewsRepository implements EloquentRepositoryInterface {
     /** methods */
 
-    public function front($lim)
+    public static function front($lim)
     {
         return News::where('audience_type_id', '=', '1')->where('news_type_id', '!=', '5')->limit($lim)->get();
     }

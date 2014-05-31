@@ -39,6 +39,7 @@ Route::get('forum', 'ForumController@getIndex');
 Route::get('training', 'TrainingController@getIndex');
 Route::get('controllers/{id}', 'ControllersController@getController');
 Route::get('news/{id}', 'NewsController@show');
+Route::get('pages/{id}', 'PagesController@getPage');
 
 //route accessible only by logged in controllers
 Route::group(
@@ -94,42 +95,42 @@ Route::group(
   array('before' => 'staff'),
   function () {
       Route::group(['prefix' => 'staff'], function() {
-          Route::post('staff/exams/review/{eid}', 'ControllerExamsController@postComment');
-          Route::get('staff/training', 'AdminController@getTrainingIndex');
-          Route::get('staff/exams/review/{eid}','ControllerExamsController@getStaffReview');
-          Route::get('staff/exams/questions', 'ControllerExamsController@getQuestions');
-          Route::post('staff/exams/questions', 'ControllerExamsController@addQuestion');
-          Route::get('staff/roster', 'AdminController@getRosterIndex');
-          Route::get('staff/roster/results', 'AdminController@getSearchResults');
-          Route::get('staff/u/{id}', 'AdminController@showUser');
+          Route::get('/', 'AdminController@getAdminIndex');
+          Route::post('exams/review/{eid}', 'ControllerExamsController@postComment');
+          Route::get('training', 'AdminController@getTrainingIndex');
+          Route::get('exams/review/{eid}','ControllerExamsController@getStaffReview');
+          Route::get('exams/questions', 'ControllerExamsController@getQuestions');
+          Route::post('exams/questions', 'ControllerExamsController@addQuestion');
+          Route::get('roster', 'AdminController@getRosterIndex');
+          Route::get('roster/results', 'AdminController@getSearchResults');
+          Route::get('u/{id}', 'AdminController@showUser');
           Route::get('staff/{id}/edit', 'RosterController@getEditUser');
           Route::post('staff/{id}/edit', 'RosterController@postEditUser');
-          Route::get('staff/roster/add-controller', 'RosterController@getAddController');
-          Route::post('staff/roster/add-controller','RosterController@postAddController');
-          Route::get('staff/pages', 'PagesController@getIndex');
-          Route::get('staff/forum', 'AdminController@getForumIndex');
-          Route::get('staff/ts', 'AdminController@getTsIndex');
+          Route::get('roster/add-controller', 'RosterController@getAddController');
+          Route::post('roster/add-controller','RosterController@postAddController');
+          Route::get('pages', 'PagesController@getIndex');
+          Route::get('forum', 'AdminController@getForumIndex');
+          Route::get('ts', 'AdminController@getTsIndex');
 
-          Route::get('staff/news', 'AdminController@getNewsIndex');
-          Route::get('staff/news/add', 'NewsController@getCreate');
-          Route::post('staff/news/add', 'NewsController@postCreate');
+          Route::get('news', 'AdminController@getNewsIndex');
+          Route::get('news/add', 'NewsController@getCreate');
+          Route::post('news/add', 'NewsController@postCreate');
 
-          Route::get('staff/log', 'AdminController@getLog');
+          Route::get('log', 'AdminController@getLog');
 
-          Route::get('staff', 'AdminController@getAdminIndex');
-          Route::get('staff/news/{id}/edit', 'NewsController@getEdit');
-          Route::post('staff/news/edit', 'NewsController@postEdit');
+          Route::get('news/{id}/edit', 'NewsController@getEdit');
+          Route::post('news/edit', 'NewsController@postEdit');
       });
       Route::post('/a/complete/{aid}', 'AjaxController@actionCompleted');
 
       Route::get('pages/create', 'PagesController@getCreate');
       Route::get('pages/view', 'PagesController@getShow');
-      Route::get('pages/menus', 'PagesController@getMenus');
       Route::get('pages/trash', 'PagesController@getTrash');
 
-      Route::get('pages/menus/create', 'MenusController@postCreate');
+      Route::post('pages/menus/create', 'MenusController@postCreate');
       Route::get('pages/menus', 'MenusController@getIndex');
-      Route::get('pages/menus/{mid}/update', 'MenusController@postUpdate');
+      Route::get('pages/menus{mid}/edit', 'MenusController@getUpdate');
+      Route::post('pages/menus/{mid}/update', 'MenusController@postUpdate');
       Route::get('pages/menus/{mid}/delete', 'MenusController@postDelete');
   }
 );

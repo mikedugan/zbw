@@ -1,4 +1,4 @@
-<?php  namespace Zbw\Repositories; 
+<?php  namespace Zbw\Cms;
 
 class MenusRepository
 {
@@ -14,11 +14,10 @@ class MenusRepository
 
     public static function add($input)
     {
-        $menu = \Menu::create([
-            'title' => $input['title'],
-            'location' => $input['location']
-        ]);
-        return $menu->id ? true : false;
+        $menu = new \Menu();
+        $menu->title = $input['title'];
+        $menu->location = json_encode($input['location']);
+        return $menu->save();
     }
 
     public static function delete($id)

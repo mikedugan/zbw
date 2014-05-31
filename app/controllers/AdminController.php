@@ -1,8 +1,8 @@
 <?php 
 
-use Zbw\Repositories\UserRepository;
-use Zbw\Repositories\NewsRepository;
-use Zbw\Repositories\TrainingSessionRepository;
+use Zbw\Users\UserRepository;
+use Zbw\Cms\NewsRepository;
+use Zbw\Training\TrainingSessionRepository;
 
 class AdminController extends BaseController
 {

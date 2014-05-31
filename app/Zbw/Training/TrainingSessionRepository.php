@@ -1,4 +1,4 @@
-<?php namespace Zbw\Repositories;
+<?php namespace Zbw\Training;
 
 use Zbw\Interfaces\EloquentRepositoryInterface;
 

@@ -1,6 +1,6 @@
 <?php 
 
-use Zbw\Repositories\UserRepository;
+use Zbw\Users\UserRepository;
 
 class AjaxController extends BaseController
 {
