@@ -15,7 +15,7 @@ class CreateMenusTable extends Migration {
 		Schema::create('zbw_menus', function(Blueprint $table) {
 				$table->increments('id');
 				$table->string('title');
-				$table->integer('location');
+				$table->string('location');
 		});
 	}
 

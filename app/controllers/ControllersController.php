@@ -1,6 +1,6 @@
 <?php
-use Zbw\Repositories\MessagesRepository;
-use Zbw\Repositories\UserRepository;
+use Zbw\Cms\MessagesRepository;
+use Zbw\Users\UserRepository;
 
 class ControllersController extends BaseController {
 

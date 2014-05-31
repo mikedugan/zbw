@@ -1,6 +1,6 @@
 <?php
 
-use Zbw\Repositories\QuestionsRepository;
+use Zbw\Training\QuestionsRepository;
 
 class ControllerExamsController extends BaseController {
 

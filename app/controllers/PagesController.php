@@ -1,5 +1,7 @@
 <?php
 
+use Zbw\Cms\PagesRepository;
+
 class PagesController extends BaseController {
     public function getIndex()
     {
@@ -7,6 +9,14 @@ class PagesController extends BaseController {
 
         ];
         return View::make('staff.pages.index', $data);
+    }
+
+    public function getPage($id)
+    {
+        $data = [
+            'page' => PagesRepository::find($id)
+        ];
+        return View::make('cms.pages.show', $data);
     }
 
     public function getCreate()

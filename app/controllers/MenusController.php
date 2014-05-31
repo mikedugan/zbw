@@ -1,6 +1,6 @@
 <?php
 
-use Zbw\Repositories\MenusRepository;
+use Zbw\Cms\MenusRepository;
 
 class MenusController extends BaseController {
     public function getIndex()
@@ -14,9 +14,17 @@ class MenusController extends BaseController {
     public function postCreate()
     {
         if(MenusRepository::add(Input::all()))
-            return Redirect::route('/staff')->with('flash_success', 'Menu created successfully');
+            return Redirect::to('/staff')->with('flash_success', 'Menu created successfully');
         else
             return Redirect::back()->with('flash_error', 'Error creating menu');
+    }
+
+    public function getUpdate($mid)
+    {
+        $data =[
+            'menu' => MenusRepository::find($mid)
+        ];
+        return View::make('staff.pages.menus.show', $data);
     }
 
     public function postUpdate($mid)

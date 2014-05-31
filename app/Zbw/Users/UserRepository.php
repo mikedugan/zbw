@@ -1,4 +1,4 @@
-<?php  namespace Zbw\Repositories;
+<?php  namespace Zbw\Users;
 
 use Zbw\Bostonjohn\Emailer;
 use Zbw\Helpers;
