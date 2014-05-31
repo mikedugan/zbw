@@ -1,7 +1,7 @@
 <?php namespace Zbw\Training;
 
 use Zbw\Bostonjohn\ZbwLog;
-use Zbw\Repositories\UserRepository;
+use Zbw\Users\UserRepository;
 use Zbw\Helpers;
 use Zbw\Interfaces\EloquentRepositoryInterface;
 

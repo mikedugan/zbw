@@ -11,7 +11,7 @@ Exam Review
         <p><b>Student:</b> {{$exam->student->username}} ({{$exam->student->initials}})</p>
         <p><b>Rating: </b> {{$exam->student->rating}}</p>
         <p><b>Testing for: </b>{{ \Zbw\Helpers::readableCert($exam->exam->value)}}</p>
-        @if(in_array($me->cid, Zbw\Repositories\UserRepository::canTrain($exam->cert_id)))
+        @if(in_array($me->cid, Zbw\Users\UserRepository::canTrain($exam->cert_id)))
             <button class="btn btn-xs">Exam Review Complete</button>
         @endif
     </div>

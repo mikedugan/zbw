@@ -1,14 +1,10 @@
 <?php
 
 use Zbw\Training\QuestionsRepository;
+use Zbw\Cms\CommentsRepository;
 
 class ControllerExamsController extends BaseController {
 
-    protected $er;
-    public function __construct()
-    {
-        $this->er = new \Zbw\Repositories\ExamsRepository();
-    }
 	public function getStaffReview($eid)
     {
         $data = [
@@ -40,7 +36,7 @@ class ControllerExamsController extends BaseController {
     {
         $data = [
             'title' => 'vZBW Question Bank',
-            'questions' => \Zbw\Repositories\QuestionsRepository::all()
+            'questions' => QuestionsRepository::all()
         ];
         return View::make('staff.exams.view-questions', $data);
     }
@@ -48,7 +44,7 @@ class ControllerExamsController extends BaseController {
     public function postComment($eid)
     {
         $post = \Input::all();
-        if(\Zbw\Repositories\CommentsRepository::add([
+        if(CommentsRepository::add([
             'content' => $post['content'],
             'parent_id' => $eid,
             'comment_type' => 5

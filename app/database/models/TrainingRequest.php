@@ -6,7 +6,7 @@ class TrainingRequest extends Eloquent
 
     public function certType()
     {
-        return $this->hasOne('CertType', 'id', 'cert');
+        return $this->hasOne('CertType', 'id', 'cert_id');
     }
 
     public function student()

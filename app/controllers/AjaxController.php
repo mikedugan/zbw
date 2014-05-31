@@ -1,6 +1,8 @@
 <?php 
 
 use Zbw\Users\UserRepository;
+use Zbw\Messages\MessagesRepository;
+use Zbw\Bostonjohn\Emailer;
 
 class AjaxController extends BaseController
 {
@@ -23,31 +25,25 @@ class AjaxController extends BaseController
         }
     }
 
-    public function actionCompleted($aid)
+/*    public function actionCompleted($aid)
     {
-        $ar = new Zbw\Repositories\ActionRepository($aid);
+        $ar = new ActionRepository($aid);
         if($ar->resolve())
             return json_encode(['success' => true, 'message' => 'Notification marked completed!']);
         else return json_encode(['success' => false, 'message' => 'Notification could not be resolved!']);
-    }
+    }*/
 
     public function sendStaffWelcome($cid)
     {
-        $ur = new UserRepository($cid);
-        $em = new \Zbw\Bostonjohn\Emailer($ur->getUser());
+        $em = new Emailer(\Auth::user()->cid);
         $em->staffWelcome();
         return json_encode(['success' => true, 'message' => "Staff welcome email sent successfully!"]);
-    }
-
-    public function postReviewComment($eid)
-    {
-        $er = new \Zbw\Repositories\ExamsRepository();
     }
 
     public function suspendUser($id)
     {
         $ur = new UserRepository();
-        if($ur->suspendUser($id))
+        if(UserRepository::suspendUser($id))
         {
             return json_encode([
                 'success' => true,
@@ -65,8 +61,7 @@ class AjaxController extends BaseController
 
     public function terminateUser($id)
     {
-        $ur = new UserRepository();
-        if($ur->terminateUser($id))
+        if(UserRepository::terminateUser($id))
         {
             return json_encode([
                 'success' => true,
@@ -83,8 +78,7 @@ class AjaxController extends BaseController
     }
     public function activateUser($id)
     {
-        $ur = new UserRepository();
-        if($ur->activateUser($id))
+        if(UserRepository::activateUser($id))
         {
             return json_encode([
                 'success' => true,
@@ -164,7 +158,7 @@ class AjaxController extends BaseController
 
     public function markInboxRead()
     {
-        if(\Zbw\Repositories\MessagesRepository::markAllRead(Auth::user()->cid))
+        if(MessagesRepository::markAllRead(Auth::user()->cid))
         {
             return json_encode([
                 'success' => true,
@@ -178,10 +172,5 @@ class AjaxController extends BaseController
                 'message' => 'Error marking messages read'
             ]);
         }
-    }
-
-    public function photoUpload()
-    {
-
     }
 }

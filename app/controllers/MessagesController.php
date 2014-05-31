@@ -1,6 +1,7 @@
 <?php
 
 use Zbw\Cms\MessagesRepository;
+use Zbw\Users\UserRepository;
 
 class MessagesController extends BaseController {
     public function index()
@@ -41,7 +42,7 @@ class MessagesController extends BaseController {
         MessagesRepository::markRead($message_id);
         $data = [
             'message' => MessagesRepository::withUsers($message_id),
-            'users' => \Zbw\Repositories\UserRepository::allVitals(),
+            'users' => UserRepository::allVitals(),
         ];
         return View::make('users.messages.view', $data);
     }
@@ -49,7 +50,7 @@ class MessagesController extends BaseController {
     public function create()
     {
         $data = [
-            'users' => \Zbw\Repositories\UserRepository::allVitals()
+            'users' => UserRepository::allVitals()
         ];
         return View::make('users.messages.create', $data);
     }
