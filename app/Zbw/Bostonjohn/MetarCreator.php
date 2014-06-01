@@ -1,0 +1,53 @@
+<?php  namespace Zbw\Bostonjohn;
+
+use Curl\Curl;
+use Zbw\Bostonjohn\MetarParser;
+
+class MetarCreator {
+
+    private $curl;
+
+    public function __construct()
+    {
+        $this->curl = new Curl();
+    }
+
+    public function updateMetars()
+    {
+        $airports = \Config::get('zbw.airports');
+        $url = \Datafeed::where('key', 'metar')->first();
+        foreach($airports as $airport)
+        {
+            $this->curl->get($url->value, ['id' => $airport]);
+            $parser = new MetarParser($this->curl->response);
+            $lastMetar = \Metar::where('facility', $airport)->latest()->get()[0];
+            if($lastMetar->raw != trim($this->curl->response)) {
+                $this->createMetar($airport, $parser);
+            }
+        }
+    }
+
+    /**
+     * @name  createMetar
+     * @description
+     * @param string $airport
+     * @param MetarParser $parser
+     * @return void
+     */
+    private function createMetar($airport, $parser)
+    {
+        $metar = new \Metar();
+        $metar->facility = $airport;
+        $metar->raw = trim($this->curl->response);
+        $metar->time = $parser->getZuluTime();
+        $metar->wind_direction = $parser->getWindDirection();
+        $metar->wind_speed = $parser->getWindSpeed();
+        $metar->wind_gusts = $parser->getWindGusts();
+        $metar->visibility = $parser->getVisibility();
+        $metar->sky = json_encode($parser->getCloudCover());
+        $metar->temp = $parser->getTemperature();
+        $metar->dewpoint = $parser->getDewpoint();
+        $metar->altimeter = $parser->getQNH();
+        $metar->save();
+}
+} 

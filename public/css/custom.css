@@ -148,3 +148,5 @@ ul.nav li a.small { font-size: 1em; }
 #loginModal img { margin: -30px 0 10px 50px;}
 #loginModal .modal-footer { text-align: left;}
 #loginModal #username, #loginModal #password { width: 249px;}
+
+.metar h4 { display: inline-block; }
