@@ -14,14 +14,16 @@ class MetarCreator {
 
     public function updateMetars()
     {
-        $airports = \Config::get('zbw.airports');
+        $airports = \Config::get('zbw.metar_airports');
         $url = \Datafeed::where('key', 'metar')->first();
         foreach($airports as $airport)
         {
             $this->curl->get($url->value, ['id' => $airport]);
             $parser = new MetarParser($this->curl->response);
-            $lastMetar = \Metar::where('facility', $airport)->latest()->get()[0];
-            if($lastMetar->raw != trim($this->curl->response)) {
+            $lastMetar = \Metar::where('facility', $airport)->latest()->first();
+            $response = $this->curl->response;
+            if(! $response || ! $lastMetar->raw) { continue; }
+            if(!empty($response) && $lastMetar->raw != $response) {
                 $this->createMetar($airport, $parser);
             }
         }
@@ -36,18 +38,20 @@ class MetarCreator {
      */
     private function createMetar($airport, $parser)
     {
-        $metar = new \Metar();
-        $metar->facility = $airport;
-        $metar->raw = trim($this->curl->response);
-        $metar->time = $parser->getZuluTime();
-        $metar->wind_direction = $parser->getWindDirection();
-        $metar->wind_speed = $parser->getWindSpeed();
-        $metar->wind_gusts = $parser->getWindGusts();
-        $metar->visibility = $parser->getVisibility();
-        $metar->sky = json_encode($parser->getCloudCover());
-        $metar->temp = $parser->getTemperature();
-        $metar->dewpoint = $parser->getDewpoint();
-        $metar->altimeter = $parser->getQNH();
-        $metar->save();
-}
+        if(! preg_match('/No METAR available/', $this->curl->response)) {
+            $metar = new \Metar();
+            $metar->facility = $airport;
+            $metar->raw = trim($this->curl->response);
+            $metar->time = $parser->getZuluTime();
+            $metar->wind_direction = $parser->getWindDirection();
+            $metar->wind_speed = $parser->getWindSpeed();
+            $metar->wind_gusts = $parser->getWindGusts();
+            $metar->visibility = $parser->getVisibility();
+            $metar->sky = json_encode($parser->getCloudCover());
+            $metar->temp = $parser->getTemperature();
+            $metar->dewpoint = $parser->getDewpoint();
+            $metar->altimeter = $parser->getQNH();
+            $metar->save();
+        }
+    }
 } 

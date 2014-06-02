@@ -11,7 +11,8 @@ class ZbwController extends BaseController {
 			'me' => Auth::user(),
 			'news' => NewsRepository::front(5),
       'metars' => \Metar::frontPage(),
-      'atcs' => \ZbwStaffing::frontPage()
+      'atcs' => \ZbwStaffing::frontPage(),
+      'flights' => \ZbwFlight::frontPage()
 		];
 		return View::make('zbw', $data);
 

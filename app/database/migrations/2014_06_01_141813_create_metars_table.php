@@ -20,11 +20,11 @@ class CreateMetarsTable extends Migration {
         $table->integer('wind_direction')->nullable();
         $table->integer('wind_speed')->nullable();
         $table->integer('wind_gusts')->nullable();
-        $table->tinyInteger('visibility');
-        $table->string('sky');
-        $table->integer('temp');
-        $table->integer('dewpoint');
-        $table->string('altimeter');
+        $table->tinyInteger('visibility')->nullable();
+        $table->string('sky')->nullable();
+        $table->integer('temp')->nullable();
+        $table->integer('dewpoint')->nullable();
+        $table->string('altimeter')->nullable();
 	      $table->timestamps();
 		});
 	}

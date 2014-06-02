@@ -25,11 +25,6 @@ class Vatsim {
         return $this->save($this->parseStatus());
     }
 
-    public function updateMetars()
-    {
-        $url = \Datafeed::where('key', 'metar')->get();
-    }
-
     /**
      * @name resetCurl
      * @description resets the curl object
