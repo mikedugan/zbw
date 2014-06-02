@@ -91,9 +91,12 @@ class Helpers {
         return \Carbon::createFromFormat('Y-m-d H:i:s', $date);
     }
 
-    public static function makeLines($text)
+    public static function makeLines($text, $r = true)
     {
-        $text = explode("\r\n", trim($text));
+        if($r)
+            $text = explode("\r\n", trim($text));
+        else
+            $text = explode("\n", trim($text));
         return array_filter($text, 'trim');
     }
 }

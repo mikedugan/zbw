@@ -3,7 +3,6 @@
 class ZbwStaffing extends Eloquent {
     protected $guarded = ['start', 'stop'];
     protected $table = 'zbw_staffing';
-    public $timestamps = false;
     public $rules = [
         'cid' => 'integer',
         'start' => 'date',
@@ -13,5 +12,10 @@ class ZbwStaffing extends Eloquent {
     public function user()
     {
         return $this->belongsTo('User', 'cid', 'cid');
+    }
+
+    public static function frontPage()
+    {
+        return ZbwStaffing::where('stop', null)->with(['user'])->get();
     }
 }
