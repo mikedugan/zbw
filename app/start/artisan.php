@@ -12,3 +12,5 @@
 */
 
 Artisan::add(new UpdateMetars);
+Artisan::add(new UpdateUrls);
+Artisan::add(new UpdateClients);

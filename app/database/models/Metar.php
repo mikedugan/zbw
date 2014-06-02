@@ -15,7 +15,7 @@ class Metar extends Eloquent {
         $ret = [];
         $airports = \Config::get('zbw.front_page_metars');
         foreach($airports as $airport) {
-            $ret[] = \Metar::where('facility', $airport)->latest()->get()[0];
+            $ret[] = \Metar::where('facility', $airport)->latest()->first();
         }
 
         return $ret;

@@ -12,7 +12,7 @@ class UpdateMetars extends Command {
 	 *
 	 * @var string
 	 */
-	protected $name = 'metars:update';
+	protected $name = 'vatsim:metars';
 
 	/**
 	 * The console command description.
@@ -41,6 +41,8 @@ class UpdateMetars extends Command {
     $metar = new MetarCreator();
     $metar->updateMetars();
     $this->info('METARs updated successfully!');
+    $deletes = \Metar::where('created_at', '<', Carbon::now()->subMinutes(2))->lists('id');
+    \Metar::destroy($deletes);
 	}
 
 	/**
