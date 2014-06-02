@@ -22,7 +22,7 @@ class MetarCreator {
             $parser = new MetarParser($this->curl->response);
             $lastMetar = \Metar::where('facility', $airport)->latest()->first();
             $response = $this->curl->response;
-            if(empty($response) || empty($lastMetar->raw)) { echo "nope"; continue; }
+            if(empty($response) || empty($lastMetar->raw)) { continue; }
             if($lastMetar->raw != $response) {
                 $this->createMetar($airport, $parser);
             }
