@@ -105,7 +105,7 @@ class MetarParser {
         }
 
         if (preg_match('#^(SKC|CLR|FEW|SCT|BKN|OVC|VV)([0-9]{3})(CB|TCU)?$#', $code, $matches)) {
-            $this->addCloudCover($matches[1], ((float) $matches[2]) * 100, $matches[3]);
+            @$this->addCloudCover($matches[1], ((float) $matches[2]) * 100, $matches[3]);
             return ;
         }
         if (preg_match('#^(R[A-Z0-9]{2,3})/([0-9]{4})(V([0-9]{4}))?(FT)?$#',$code,$matches)) {

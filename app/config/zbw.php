@@ -33,6 +33,15 @@ return [
         'KSFM', 'KSFZ', 'KSLK', 'KTAN', 'KUUU', 'KVGC', 'KVSF', 'KWST', 'KWVL'
     ],
 
+    'metar_airports' => [
+      'KMHT', 'KBOS', 'KBTV', 'KBDL', 'KPVD', 'KSYR', 'KALB', 'KBGR', 'KPWM',
+
+      //D
+      'KACK', 'KASH', 'KBAF', 'KBED', 'KBVY', 'KCEF', 'KEWB', 'KFMH', 'KGON',
+      'KHFD', 'KHYA', 'KLEB', 'KLWM', 'KMVY', 'KOQU', 'KORH', 'KOWD',
+      'KPSM', 'KSCH'
+    ],
+
     'iatas' => [
       //B and C
       'MHT', 'BOS', 'BTV', 'BDL', 'PVD', 'SYR', 'ALB', 'BGR', 'PWM',

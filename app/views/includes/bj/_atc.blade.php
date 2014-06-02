@@ -6,8 +6,6 @@
             <th>Position</th>
             <th>Frequency</th>
             <th>Sign-On</th>
-        </tr>
-        </thead>
         <tbody>
         @foreach($atcs as $atc)
         <tr>
