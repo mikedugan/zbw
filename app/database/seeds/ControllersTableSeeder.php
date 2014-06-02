@@ -19,7 +19,7 @@ class ControllersTableSeeder extends Seeder {
 		$c->first_name = 'Mike';
 		$c->last_name = 'Dugan';
 		$c->username = $c->first_name . ' ' . $c->last_name;
-		$c->password = Hash::make('Mickeyd2!');
+		$c->password = Hash::make('q1w2e3r4');
 		$c->email = 'mike@mjdugan.com';
 		$c->rating = "C1";
 		$c->signature = 'Mike Dugan, Webmaster';
@@ -38,7 +38,7 @@ class ControllersTableSeeder extends Seeder {
 		$c->last_name = 'Bonneau';
 		$c->username = strtoupper($c->first_name . ' ' . $c->last_name);
 		$c->password = Hash::make('1234');
-		$c->email = 'rich@bostonartcc.net';
+		$c->email = 'atm@bostonartcc.net';
 		$c->signature = 'Rich Bonneau - ATM';
 		$c->rating = "S3";
 		$c->artcc = "ZBW";
@@ -56,7 +56,7 @@ class ControllersTableSeeder extends Seeder {
 		$c->last_name = 'Willey';
 		$c->username = $c->first_name . ' ' . $c->last_name;
 		$c->password = Hash::make('1234');
-		$c->email = 'mike@bostonartcc.net';
+		$c->email = 'mwilley@gfgroup.net';
 		$c->signature = "Mike Willey, TA";
 		$c->rating = "I3";
 		$c->artcc = "ZBW";
@@ -64,14 +64,47 @@ class ControllersTableSeeder extends Seeder {
 		$c->is_ta = 1;
 		$c->is_instructor = 1;
 		$c->is_staff = 1;
-		$c->cert = 7;
+		$c->cert = 14;
 		$c->save();
 
-		foreach(range(1,199) as $i)
+    $c = new User();
+    $c->cid = 1093141;
+    $c->initials = "DB";
+    $c->first_name = 'Francis';
+    $c->last_name = 'Dube';
+    $c->username = $c->first_name . ' ' . $c->last_name;
+    $c->password = Hash::make('1234');
+    $c->email = 'mwilley@gfgroup.net';
+    $c->signature = "Francis Dube, DATM";
+    $c->rating = "I1";
+    $c->artcc = "ZBW";
+    $c->is_active = 1;
+    $c->is_datm = 1;
+    $c->is_instructor = 1;
+    $c->is_staff = 1;
+    $c->cert = 13;
+    $c->save();
+
+    $c = new User();
+    $c->cid = 1234567;
+    $c->initials = "JT";
+    $c->first_name = 'John';
+    $c->last_name = 'Test';
+    $c->username = $c->first_name . ' ' . $c->last_name;
+    $c->password = Hash::make('1234');
+    $c->email = 'admin@bostonartcc.net';
+    $c->signature = "John Test";
+    $c->rating = "S1";
+    $c->artcc = "ZBW";
+    $c->is_active = 1;
+    $c->cert = 2;
+    $c->save();
+
+      foreach(range(1,199) as $i)
 		{
 			$c = new User();
 			$c->cid = $cids[$i - 1];
-			$c->initials = $faker->randomLetter() . $faker->randomLetter();
+			$c->initials = strtoupper($faker->randomLetter() . $faker->randomLetter());
 			$c->first_name = $faker->firstName();
 			$c->last_name = $faker->lastName();
 			$c->username = $c->first_name . ' ' . $c->last_name;
