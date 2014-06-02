@@ -13,11 +13,13 @@ class CreateZbwStaffingTable extends Migration {
 	public function up()
 	{
 		Schema::create('zbw_staffing', function(Blueprint $table) {
-			$table->increments('id');
-			$table->integer('cid');
-            $table->string('position');
-            $table->timestamp('start');
-            $table->timestamp('stop');
+        $table->increments('id');
+        $table->integer('cid');
+        $table->string('position');
+        $table->timestamp('start');
+        $table->string('frequency');
+        $table->timestamp('stop')->nullable();
+        $table->timestamps();
 		});
 	}
 

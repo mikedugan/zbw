@@ -26,7 +26,15 @@ Welcome
         @include('includes.bj._atc')
         <h3 class="text-left">Air Traffic</h3>
         @include('includes.bj._flightstrip')
-        <h3 class="text-left">Weather</h3>
+        <h3 class="text-left col-md-6">Weather
+        <span class="small">
+            @if(\Input::get('raw') == true)
+            <a href="/">parsed</a>
+            @else
+            <a href="/?raw=true">raw</a>
+            @endif
+        </span>
+        </h3>
         @include('includes.bj._metar')
     </div>
 @stop
