@@ -1,11 +1,11 @@
 <?php  namespace Zbw\Bostonjohn;
 
 use Zbw\Helpers;
+use Curl\Curl;
 
 class DatafeedParser {
-    public $datafeed;
-    private $controllers;
-    private $pilots;
+    private $datafeed;
+    private $curl;
 
     const CALLSIGN = 0;
     const CID = 1;
@@ -50,10 +50,12 @@ class DatafeedParser {
     const QNH_MB = 40;
 
 
-    public function __construct($datafeed)
+    public function __construct()
     {
+        $this->curl = new Curl();
+        $this->setDatafeed();
         $modlines = [];
-        $lines = strstr($datafeed, '!CLIENTS:');
+        $lines = strstr($this->datafeed, '!CLIENTS:');
         $lines = Helpers::makeLines($lines, false);
         foreach($lines as $line) {
             $templine = explode(':', $line);
@@ -61,6 +63,13 @@ class DatafeedParser {
                 $modlines[] = $templine;
         }
         $this->datafeed = $modlines;
+    }
+
+    private function setDatafeed()
+    {
+        $url = \Datafeed::where('key', 'data')->first();
+        $this->curl->get($url->value);
+        $this->datafeed = $this->curl->response;
     }
 
     /**
@@ -154,7 +163,10 @@ class DatafeedParser {
      */
     private function isZbwFlight($line)
     {
-        return in_array(substr($line[11], 0, 4), \Config::get('zbw.airports'));
+        if(array_key_exists($this::DEPAIRPORT, $line) && array_key_exists($this::DESTAIRPORT, $line))
+            return in_array(substr($line[$this::DEPAIRPORT], 0, 4), \Config::get('zbw.airports'))
+                    || in_array(substr($line[$this::DESTAIRPORT], 0, 4), \Config::get('zbw.airports'));
+        else return false;
     }
 
     /**
