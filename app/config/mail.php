@@ -67,7 +67,7 @@ return array(
 	|
 	*/
 
-	'encryption' => 'tls',
+	'encryption' => '',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -80,7 +80,7 @@ return array(
 	|
 	*/
 
-	'username' => 'admin@bostonartcc.net',
+	'username' => 'bostonjohn@bostonartcc.net',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -93,7 +93,7 @@ return array(
 	|
 	*/
 
-	'password' => 'Mickeyd2!',
+	'password' => 'wzjR2lpuzOs',
 
 	/*
 	|--------------------------------------------------------------------------

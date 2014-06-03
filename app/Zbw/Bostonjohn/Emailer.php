@@ -8,27 +8,24 @@ class Emailer
     protected $from = 'bostonjohn@bostonartcc.net';
     protected $user;
     protected $log;
-    public function __construct($user = null, $data = null)
+    public function __construct()
     {
-        $this->to = $user->email != null ? $user->email : null;
-        $this->data = $data != null ? $data : null;
-        $this->user = $user != null ? $user : null;
         $this->log = new ZbwLog();
     }
 
-    public function newUser()
+    public function newUser(\User $user)
     {
         $vData = [
-            'user' => $this->user,
-            'password' => $this->data['password']
+            'user' => $user,
+            'password' => 'foobar'
         ];
-        \Mail::send('zbw.emails.new-user', $vData, function($message)
+        \Mail::send('zbw.emails.new-user', $vData, function($message) use ($user)
         {
             $message->from($this->from, $this->fromName);
-            $message->to($this->to, $this->user->first_name . ' ' . $this->user->last_name);
+            $message->to($user->email, $user->first_name . ' ' . $user->last_name);
             $message->subject('Welcome to vZBW');
         });
-        $this->log->addLog('New user email sent to ' . $this->user->initials, '');
+        //$this->log->addLog('New user email sent to ' . $this->user->initials, '');
     }
 
     public function staffWelcome()
