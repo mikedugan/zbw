@@ -12,7 +12,7 @@
             <td>{{ $atc->user->username or 'CID Not Found' }}</td>
             <td>{{ $atc->position }}</td>
             <td>{{ $atc->frequency }}</td>
-            <td>{{ $atc->start }}</td>
+            <td>{{ $atc->start->diffForHumans() }}</td>
         </tr>
         @endforeach
         </tbody>

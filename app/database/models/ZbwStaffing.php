@@ -3,6 +3,7 @@
 class ZbwStaffing extends Eloquent {
     protected $guarded = ['start', 'stop'];
     protected $table = 'zbw_staffing';
+    protected $dates = ['start', 'stop'];
     public $rules = [
         'cid' => 'integer',
         'start' => 'date',
