@@ -42,7 +42,7 @@ return array(
 	*/
 
 	'timezone' => 'UTC',
-
+	
 	/*
 	|--------------------------------------------------------------------------
 	| Application Locale Configuration
@@ -68,7 +68,7 @@ return array(
 	*/
 
 	'key' => 'LwdGH5qKB91JMoXJ1jsUAhhBp5EqOdF7',
-
+	'cipher' => MCRYPT_RIJNDAEL_256,
 	/*
 	|--------------------------------------------------------------------------
 	| Autoloaded Service Providers
