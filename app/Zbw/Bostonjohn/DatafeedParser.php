@@ -82,7 +82,7 @@ class DatafeedParser {
         $controllers = [];
         foreach($this->datafeed as $line) {
             if($this->isZbwAirport($line)) {
-                //$this->parseControllerLine($line);
+                $this->parseControllerLine($line);
             }
 
             else if($this->isZbwFlight($line)) {
