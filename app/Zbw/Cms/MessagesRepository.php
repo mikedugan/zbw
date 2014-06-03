@@ -2,6 +2,7 @@
 
 use Zbw\Facades\ZbwValidator;
 use Zbw\Interfaces\EloquentRepositoryInterface;
+use Zbw\Users\UserRepository;
 
 class MessagesRepository implements EloquentRepositoryInterface {
     const PRIVATE_MESSAGE = 1;
