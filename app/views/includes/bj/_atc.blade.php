@@ -9,7 +9,7 @@
         <tbody>
         @foreach($atcs as $atc)
         <tr>
-            <td>{{ $atc->user->username }}</td>
+            <td>{{ $atc->user->username or 'CID Not Found' }}</td>
             <td>{{ $atc->position }}</td>
             <td>{{ $atc->frequency }}</td>
             <td>{{ $atc->start }}</td>
