@@ -28,6 +28,7 @@ class ControllersController extends BaseController {
 	{
 		$data = [
 			'messages' => MessagesRepository::to(Auth::user()->cid),
+      'view' => \Input::get('v')
 		];
 		return View::make('users.me.index', $data);
 	}
@@ -35,8 +36,9 @@ class ControllersController extends BaseController {
 	public function getSettings()
 	{
 		$data = [
+      'view' => \Input::get('v')
 		];
-		return View::make('users.me.settings', $data);
+		return View::make('users.me.index', $data);
 	}
 
 	public function view($cid)
