@@ -67,6 +67,5 @@
     </footer>
 
     @include('includes._includes')
-    @yield('inc')
     </body>
 </html>
