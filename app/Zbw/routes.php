@@ -64,15 +64,11 @@ Route::group(
       //private messaging
       Route::group(
         ['prefix' => 'messages'], function () {
-            Route::get('inbox', ['as' => 'inbox', 'uses' => 'MessagesController@index']);
-            Route::get('new', ['as' => 'pm-compose', 'uses' => 'MessagesController@create']);
-            Route::get('outbox',['as' => 'outbox', 'uses' => 'MessagesController@outbox']);
-            Route::get('trash',['as' => 'pm-trash', 'uses' => 'MessagesController@trash']);
-
-            Route::get('inbox/{mid}', 'MessagesController@view');
-            Route::get('outbox/{mid}', 'MessagesController@view');
+            Route::get('/', 'MessagesController@index');
+            Route::get('m/{mid}', 'MessagesController@view');
+            Route::get('m/{mid}', 'MessagesController@view');
             Route::post('send', 'MessagesController@store');
-            Route::post('inbox/{mid}', 'MessagesController@reply');
+            Route::post('m/{mid}', 'MessagesController@reply');
         });
   });
 

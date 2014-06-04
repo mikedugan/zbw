@@ -1,11 +1,9 @@
-<ul class="nav navbar-nav navbar-right col-sm-2">
-    <li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Messages <b class="caret"></b></a>
-        <ul class="dropdown-menu">
-            <li>{{ HTML::linkRoute('inbox', 'Inbox') }}</li>
-            <li>{{ HTML::linkRoute('outbox', 'Outbox') }}</li>
-            <li>{{ HTML::linkRoute('pm-compose', 'Compose') }}</li>
-            <li>{{ HTML::linkRoute('pm-trash', 'Trash') }}</li>
-        </ul>
-    </li>
-</ul>
+<div class="row">
+    <ul class="nav nav-tabs">
+        <li class="<?php if(! $view) echo 'active'; ?>"><a href="/messages">Inbox</a></li>
+        <li class="<?php if($view == 'outbox') echo 'active'; ?>"><a href="?v=outbox">Outbox</a></li>
+        <li class="<?php if($view == 'compose') echo 'active'; ?>"><a href="?v=compose">Compose</a></li>
+        <li class="<?php if($view == 'trash') echo 'active'; ?>"><a href="?v=trash">Trash</a></li>
+    </ul>
+</div>
+

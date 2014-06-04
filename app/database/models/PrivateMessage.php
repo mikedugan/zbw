@@ -1,6 +1,11 @@
 <?php
 
+use Illuminate\Database\Eloquent\SoftDeletingTrait;
+
 class PrivateMessage extends Eloquent {
+
+  use SoftDeletingTrait;
+
 	protected $guarded = [];
 	protected $table = 'zbw_messages';
 	public $rules;

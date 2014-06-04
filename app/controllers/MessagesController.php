@@ -7,18 +7,22 @@ class MessagesController extends BaseController {
     public function index()
     {
         $data = [
+            'view' => \Input::get('v'),
             //'messages' => MessagesRepository::all($cid),
             'inbox' => MessagesRepository::to(Auth::user()->cid, Input::get('unread')),
-            'unread' => Input::get('unread')
+            'outbox' => MessagesRepository::from(Auth::user()->cid),
+            'trash' => MessagesRepository::trashed(Auth::user()->cid),
+            'unread' => Input::get('unread'),
+            'users' => UserRepository::allVitals()
         ];
 
-        return View::make('users.messages.inbox', $data);
+        return View::make('users.messages.index', $data);
     }
 
     public function outbox()
     {
         $data = [
-            'inbox' => MessagesRepository::from(Auth::user()->cid)
+
         ];
         return View::make('users.messages.outbox', $data);
     }
@@ -26,7 +30,6 @@ class MessagesController extends BaseController {
     public function trash()
     {
         $data = [
-            'inbox' => MessagesRepository::trashed(Auth::user()->cid)
         ];
         return View::make('users.messages.trash', $data);
     }
@@ -50,7 +53,7 @@ class MessagesController extends BaseController {
     public function create()
     {
         $data = [
-            'users' => UserRepository::allVitals()
+
         ];
         return View::make('users.messages.create', $data);
     }
@@ -87,7 +90,7 @@ class MessagesController extends BaseController {
     {
         if(MessagesRepository::delete($message_id))
         {
-            return Redirect::route('inbox')->with('flash_success', 'Message deleted successfully');
+            return Redirect::route('me/messages')->with('flash_success', 'Message deleted successfully');
         }
     }
 } 

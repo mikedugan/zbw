@@ -1,11 +1,3 @@
-@extends('layouts.master')
-@section('title')
-Send Message
-@stop
-@section('header')
-    @include('includes.nav._messenger')
-@stop
-@section('content')
     <h1 class="text-center">New Message</h1>
     <div class="row">
         <form class="col-md-6 col-md-offset-3" action="/messages/send" method="post">
@@ -24,5 +16,3 @@ Send Message
             </div>
         </form>
     </div>
-
-@stop

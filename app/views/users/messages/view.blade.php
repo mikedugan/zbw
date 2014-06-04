@@ -32,4 +32,3 @@ View Message
             @include('includes.user._message_reply')
         </form>
     </div>
-@stop
