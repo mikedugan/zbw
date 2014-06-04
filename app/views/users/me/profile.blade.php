@@ -27,7 +27,7 @@
     @if($me->is_mentor)
         Mentor
     @endif
-    </h4>
+    </p>
 </div>
 <div class="col-md-6">
     <h3>Recent Exams</h3>
