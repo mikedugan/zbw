@@ -152,3 +152,5 @@ ul.nav li a.small { font-size: 1em; }
 .metar h4 { display: inline-block; }
 .inline { display: inline-block; }
 .strip ul { list-style-type: none; padding-left: 0;}
+
+.nav-tabs { margin-bottom: 2%;}

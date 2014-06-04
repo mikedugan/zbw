@@ -4,27 +4,19 @@
             {{ Form::label('email', 'Email'); }}
             <input type="text" name="me[email]" id="email" value="{{$me->email}}" class="form-control">
         </div>
-        <p><b>Subscribed:</b></p>
-        @if($me->is_subscribed)
-        <form class="axform" action="path/to/subscribe" method="post">
-            <button type="submit">Subscribe</button>
-        </form>
-        @else
-        <form class="axform" action="path/to/unsubscribe" method="post">
-            <button type="submit">Unsubscribe</button>
-        </form>
-        @endif
-        <p><b>Email Hidden:</b></p> {{ Form::checkbox('Hidden', 'hidden', false); }}
-        <p><b>Signature</b></p>
-        {{ $me->signature}}
+        <div class="input-group">
+        <p><b>Email Hidden:</b> {{ Form::checkbox('Hidden', 'hidden', false); }}</p>
+        </div>
+        <div class="input-group">
+        <p><b>Signature:</b></p>
+        <textarea class="form-control" cols="40" rows="5">{{ $me->signature}}</textarea>
+        </div>
     </div>
     <div class="col-md-12">
         <div class="input-group">
             <label class="label-control" for="tskey">Teamspeak Key</label>
             <input class="form-control" name="tskey" id="tskey" type="text">
         </div>
+        <button type="submit" class="btn btn-primary">Update</button>
     </div>
-    <form class="axform" action="/users/me/settings.blade.php" method="post">
-        <button type="submit">Submit</button>
-    </form>
 </form>
