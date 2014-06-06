@@ -37,7 +37,7 @@ class ControllersTableSeeder extends Seeder {
 		$c->first_name = 'Rich';
 		$c->last_name = 'Bonneau';
 		$c->username = strtoupper($c->first_name . ' ' . $c->last_name);
-		$c->password = Hash::make('1234');
+		$c->password = Hash::make('zbwatm2o14');
 		$c->email = 'atm@bostonartcc.net';
 		$c->signature = 'Rich Bonneau - ATM';
 		$c->rating = "S3";
@@ -55,7 +55,7 @@ class ControllersTableSeeder extends Seeder {
 		$c->first_name = 'Mike';
 		$c->last_name = 'Willey';
 		$c->username = $c->first_name . ' ' . $c->last_name;
-		$c->password = Hash::make('1234');
+		$c->password = Hash::make('zbwta20!4');
 		$c->email = 'mwilley@gfgroup.net';
 		$c->signature = "Mike Willey, TA";
 		$c->rating = "I3";
@@ -73,7 +73,7 @@ class ControllersTableSeeder extends Seeder {
     $c->first_name = 'Francis';
     $c->last_name = 'Dube';
     $c->username = $c->first_name . ' ' . $c->last_name;
-    $c->password = Hash::make('1234');
+    $c->password = Hash::make('zbwdatm2O14');
     $c->email = 'mwilley@gfgroup.net';
     $c->signature = "Francis Dube, DATM";
     $c->rating = "I1";
@@ -91,7 +91,7 @@ class ControllersTableSeeder extends Seeder {
     $c->first_name = 'John';
     $c->last_name = 'Test';
     $c->username = $c->first_name . ' ' . $c->last_name;
-    $c->password = Hash::make('1234');
+    $c->password = Hash::make('zbw2014');
     $c->email = 'admin@bostonartcc.net';
     $c->signature = "John Test";
     $c->rating = "S1";
