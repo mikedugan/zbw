@@ -7,8 +7,8 @@ class ZbwFlight extends Eloquent {
         'cid' => 'integer',
     ];
 
-    public static function frontPage()
+    public static function frontPage($lim)
     {
-        return ZbwFlight::all();
+        return ZbwFlight::limit($lim)->get();
     }
 }

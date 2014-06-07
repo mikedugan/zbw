@@ -10,9 +10,9 @@ class ZbwController extends BaseController {
 			'title' => 'vZBW ARTCC',
 			'me' => Auth::user(),
 			'news' => NewsRepository::front(5),
-      'metars' => \Metar::frontPage(),
-      'atcs' => \ZbwStaffing::frontPage(),
-      'flights' => \ZbwFlight::frontPage()
+            'metars' => \Metar::frontPage(),
+            'atcs' => \ZbwStaffing::frontPage(),
+            'flights' => \ZbwFlight::frontPage(5)
 		];
 		return View::make('zbw', $data);
 
