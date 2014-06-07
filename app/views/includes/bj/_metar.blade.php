@@ -1,3 +1,4 @@
+@unless(is_null($metars[0]))
 @foreach($metars as $metar)
     <div class="metar text-left col-md-6">
         @if(\Input::get('raw') == true)
@@ -19,3 +20,4 @@
         @endif
     </div>
 @endforeach
+@endunless

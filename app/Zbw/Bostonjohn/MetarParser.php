@@ -138,7 +138,7 @@ class MetarParser {
 
             if($matches[2])
                 $text[]=$this->texts[$matches[2]];
-            if($matches[3])
+            if (isset($matches[3]))
                 $text[]=$this->texts[$matches[3]];
             $this->addWeather(implode(' ',$text));
             return;
