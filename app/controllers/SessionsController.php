@@ -1,5 +1,7 @@
 <?php
 
+use Zbw\Bostonjohn\ZbwLog;
+
 class SessionsController extends BaseController
 {
 
@@ -16,6 +18,46 @@ class SessionsController extends BaseController
 
     public function postLogin()
     {
+        $sso = new \Zbw\Bostonjohn\Sso();
+        $return = \Config::get('zbw.sso.return');
+        //vatsim redirected user
+        if(\Input::has('return')) {
+            //does the session have data saved?
+            if(\Session::has('sso.key') && \Session::has('sso.secret')) {
+                if(\Input::get('oauth_token') !== \Session::get('sso.key'))
+                {
+                    return Redirect::home()->with('flash_error', 'Token mismatch!');
+                }
+
+                if(!\Input::has('oauth_verifier')) {
+                    return Redirect::home()->with('flash_error', 'No verification code!');
+                }
+
+                $user = $sso->checkLogin(\Session::get('key'), \Session::get('secret'), \Input::get('oauth_verifier'));
+                if($user) {
+                    \Session::forget('sso.key'); \Session::forget('sso.secret');
+                    dd($user);
+                    return Redirect::intended('/')->with('flash_success', 'You have been logged in successfully');
+                }
+                else {
+                    ZbwLog::error($sso->error());
+                    return Redirect::home()->with('flash_error', $sso->error());
+                }
+            }
+        }
+
+        $token = $sso->requestToken($return, false, false);
+        if($token) {
+            \Session::put('sso.key', (string) $token->token->oauth_token);
+            \Session::put('sso.secret', (string) $token->token->oauth_token_secret);
+            $sso->sendToVatsim();
+        }
+        else {
+            ZbwLog::error($sso->error());
+            return Redirect::home()->with('flash_error', $sso->error());
+        }
+
+
         $username = Input::get('username');
         $password = Input::get('password');
         $remember = Input::get('remember');

@@ -13,3 +13,7 @@ zbw.sublime-project
 /zbw.sublime-*
 /vendor
 _ide_helper.php
+.env.local.php
+.env.production.php
+*.pub
+*.pem
