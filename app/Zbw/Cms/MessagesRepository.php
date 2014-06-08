@@ -21,7 +21,7 @@ class MessagesRepository implements EloquentRepositoryInterface {
      */
     static function find($id, $relations = [])
     {
-        return \PrivateMessage::with($relations)->find($id);
+        return \Message::with($relations)->find($id);
     }
 
     /**
@@ -30,7 +30,7 @@ class MessagesRepository implements EloquentRepositoryInterface {
      */
     static function all($withTrash = false)
     {
-        return $withTrash == true ? \PrivateMessage::withTrashed()->get() : \PrivateMessage::all();
+        return $withTrash == true ? \Message::withTrashed()->get() : \Message::all();
     }
 
     /**
@@ -41,10 +41,10 @@ class MessagesRepository implements EloquentRepositoryInterface {
      */
     static function reply($input, $mid)
     {
-        $invalid = ZbwValidator::get('PrivateMessage', $input);
+        $invalid = ZbwValidator::get('Message', $input);
         if(is_array($invalid)) return $invalid;
 
-        $m = \PrivateMessage::create([
+        $m = \Message::create([
             'subject' => $input['subject'],
             'content' => $input['content'],
             'to' => $input['to'],
@@ -83,7 +83,7 @@ class MessagesRepository implements EloquentRepositoryInterface {
     static function newMessageCount($cid = null)
     {
         $cid = is_null($cid) ? Auth::user()->cid : $cid;
-        return \PrivateMessage::where('to', $cid)->where('is_read', 0)->get(['id'])->count();
+        return \Message::where('to', $cid)->where('is_read', 0)->get(['id'])->count();
     }
 
     /**
@@ -111,7 +111,7 @@ class MessagesRepository implements EloquentRepositoryInterface {
 
     private static function create($input)
     {
-        $message = new \PrivateMessage([
+        $message = new \Message([
             'to' => UserRepository::findByInitials($input['to'])->cid,
             'subject' => $input['subject'],
             'content' => $input['message']
@@ -130,7 +130,7 @@ class MessagesRepository implements EloquentRepositoryInterface {
      */
     static function withUsers($id)
     {
-        return \PrivateMessage::with(['sender', 'recipients'])->where('id', $id)->firstOrFail();
+        return \Message::with(['sender', 'recipients'])->where('id', $id)->firstOrFail();
     }
 
     /**
@@ -139,7 +139,7 @@ class MessagesRepository implements EloquentRepositoryInterface {
      */
     static function markRead($mid)
     {
-        $message = \PrivateMessage::find($mid);
+        $message = \Message::find($mid);
         $message->is_read = 1;
         return $message->save();
     }
@@ -150,7 +150,7 @@ class MessagesRepository implements EloquentRepositoryInterface {
      */
     static function markAllRead()
     {
-        foreach(\PrivateMessage::where('to', \Auth::user()->cid)->get() as $message)
+        foreach(\Message::where('to', \Auth::user()->cid)->get() as $message)
         {
             $message->is_read = 1;
             $message->save();
@@ -163,7 +163,7 @@ class MessagesRepository implements EloquentRepositoryInterface {
      */
     public static function trashed()
     {
-        return \PrivateMessage::onlyTrashed()->where('to', \Auth::user()->cid)->get();
+        return \Message::onlyTrashed()->where('to', \Auth::user()->cid)->get();
     }
 
     /**
@@ -172,7 +172,7 @@ class MessagesRepository implements EloquentRepositoryInterface {
      */
     public static function delete($id)
     {
-        return \PrivateMessage::destroy($id);
+        return \Message::destroy($id);
     }
 
     /**
@@ -182,7 +182,7 @@ class MessagesRepository implements EloquentRepositoryInterface {
      */
     public static function to($user, $unread = false)
     {
-        $messages = \PrivateMessage::where('to', $user)->orderBy('created_at', 'DESC');
+        $messages = \Message::where('to', $user)->orderBy('created_at', 'DESC');
         return $unread ? $messages->where('is_read', 0)->get() : $messages->get();
     }
 
@@ -192,7 +192,7 @@ class MessagesRepository implements EloquentRepositoryInterface {
      */
     public static function from($user)
     {
-        return \PrivateMessage::where('from', $user)->orderBy('created_at', 'DESC')->get();
+        return \Message::where('from', $user)->orderBy('created_at', 'DESC')->get();
     }
 
 }
