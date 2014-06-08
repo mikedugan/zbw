@@ -1,6 +1,6 @@
 <?php
 
-class ZbwComment extends Eloquent {
+class Comment extends Eloquent {
     protected $guarded = ['author'];
     protected $table = 'zbw_comments';
     public $rules = [

@@ -12,16 +12,16 @@ class StaffingRepository
 
     public function recent($n = 5)
     {
-        return \ZbwStaffing::orderBy('stop')->take($n);
+        return \Staffing::orderBy('stop')->take($n);
     }
 
     public function position($pos)
     {
-        return \ZbwStaffing::where('position', '=', $pos);
+        return \Staffing::where('position', '=', $pos);
     }
 
     public function getControllerStaffings($cid)
     {
-        return \ZbwStaffing::where('cid', '=', $cid);
+        return \Staffing::where('cid', '=', $cid);
     }
 } 
