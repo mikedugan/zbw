@@ -2,12 +2,13 @@
 
 return [
     'teamspeak' => [
-        'host' => '192.241.125.73',
-        'user' => 'serveradmin',
-        'password' => 'Mickeyd2!',
-        'query_port' => '10011',
-        'port' => '9987'
+        'host' => $_ENV['ts_host'],
+        'user' => $_ENV['ts_user'],
+        'password' => $_ENV['ts_pass'],
+        'query_port' => $_ENV['ts_queryport'],
+        'port' => $_ENV['ts_port']
     ],
+
     'vatsim_status' => 'http://status.vatsim.net/status.txt',
 
     'airports' => [

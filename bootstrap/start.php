@@ -26,8 +26,8 @@ $app = new Illuminate\Foundation\Application;
 
 $env = $app->detectEnvironment(array(
 
-		'local' => array('mike-macpro'),
-		'dev'	=> array('server3.sitearray.com'),
+		'local' => array('mike-macpro', 'buntu'),
+		'production'	=> array('server3.sitearray.com', 'bostonartcc.net'),
 
 ));
 
