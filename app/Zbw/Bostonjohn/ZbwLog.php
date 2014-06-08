@@ -1,7 +1,6 @@
 <?php  namespace Zbw\Bostonjohn;
 
-class ZbwLog
-{
+class ZbwLog {
     protected $file;
     public function __construct()
     {

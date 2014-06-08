@@ -26,8 +26,9 @@ if ($me)
 Route::when('staff/*', 'staff');
 
 //auth routes
-Route::get('login', 'SessionsController@getLogin');
+Route::get('login', 'SessionsController@postLogin');
 Route::post('login', 'SessionsController@postLogin');
+Route::get('auth', 'SessionsController@postLogin');
 Route::get('logout', 'SessionsController@getLogout');
 Route::controller('password', 'RemindersController');
 

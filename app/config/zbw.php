@@ -9,6 +9,15 @@ return [
         'port' => $_ENV['ts_port']
     ],
 
+    'sso' => [
+        'key' => $_ENV['sso_key'],
+        'secret' => $_ENV['sso_secret'],
+        'cert' => $_ENV['sso_cert'],
+        'method' => 'RSA',
+        'return' => 'http://dev.bostonartcc.net/auth?return',
+        'base' => 'http://sso.hardern.net/server/'
+    ],
+
     'vatsim_status' => 'http://status.vatsim.net/status.txt',
 
     'airports' => [
