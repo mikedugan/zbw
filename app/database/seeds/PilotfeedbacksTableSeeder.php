@@ -14,7 +14,7 @@ class PilotfeedbacksTableSeeder extends Seeder {
 		{
 			$f = new PilotFeedback();
 			$f->controller = $faker->randomElement($cids);
-			$f->rating = $faker->randomNumber(1,5);
+			$f->rating = $faker->numberBetween(1,5);
 			$f->name = $faker->name();
 			$f->email = $faker->safeEmail();
 			$f->ip = $faker->ipv4();
