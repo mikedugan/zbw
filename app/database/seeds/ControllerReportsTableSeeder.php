@@ -29,8 +29,8 @@ class ControllerReportsTableSeeder extends Seeder {
             $r->markdown = $faker->sentence();
             $r->reviewed = $faker->sentence();
             $r->summary = $faker->paragraph();
-            $r->s_npoints = $faker->randomNumber(5,25);
-            $r->s_ppoints = $faker->randomNumber(100,135);
+            $r->s_npoints = $faker->numberBetween(5,25);
+            $r->s_ppoints = $faker->numberBetween(100,135);
             $r->s_modifier = $faker->randomFloat(2, 0.8, 1);
             $r->save();
         }

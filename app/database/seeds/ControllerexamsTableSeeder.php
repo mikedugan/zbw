@@ -11,27 +11,25 @@ class ControllerexamsTableSeeder extends Seeder {
         $sid = [1240047, 1544047, 1170055];
 		foreach(range(1,250) as $c)
 		{
-            //set up the number of wrong answers and generate the incorrect answers
-            $wrong = $faker->randomNumber(0,8);
-            $wronga = "";
-            $wrongq = "";
-            for($i = 0; $i <= $wrong; $i++)
-            {
-                $wronga .= $faker->randomElement($answers) . ",";
-                $wrongq .= $faker->randomNumber(0,20) . ",";
-            }
+        //set up the number of wrong answers and generate the incorrect answers
+        $wrong = $faker->numberBetween(0,8);
+        $wronga = "";
+        $wrongq = "";
+        for($i = 0; $i <= $wrong; $i++)
+        {
+            $wronga .= $faker->randomElement($answers) . ",";
+            $wrongq .= $faker->numberBetween(0,20) . ",";
+        }
 
-
-
-			$e = new ControllerExam();
-            $e->cid = $faker->randomElement($cids);
-            $e->reviewed_by = $faker->randomElement($sid);
-			$e->exam_id = $faker->randomNumber(0,6);
-            $e->reviewed = $faker->boolean(80);
-            $e->wrong_questions = $wrongq;
-            $e->wrong_answers = $wronga;
-            $e->total_questions = 20;
-			$e->save();
+			  $e = new ControllerExam();
+        $e->cid = $faker->randomElement($cids);
+        $e->reviewed_by = $faker->randomElement($sid);
+        $e->exam_id = $faker->numberBetween(0,6);
+        $e->reviewed = $faker->boolean(80);
+        $e->wrong_questions = $wrongq;
+        $e->wrong_answers = $wronga;
+        $e->total_questions = 20;
+        $e->save();
 		}
 	}
 

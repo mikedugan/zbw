@@ -73,8 +73,8 @@ class ControllersTableSeeder extends Seeder {
     $c->first_name = 'Francis';
     $c->last_name = 'Dube';
     $c->username = $c->first_name . ' ' . $c->last_name;
-    $c->password = Hash::make('zbwdatm2O14');
-    $c->email = 'mwilley@gfgroup.net';
+    $c->password = Hash::make('x');
+    $c->email = 'dubef01@gmail.com';
     $c->signature = "Francis Dube, DATM";
     $c->rating = "I1";
     $c->artcc = "ZBW";
