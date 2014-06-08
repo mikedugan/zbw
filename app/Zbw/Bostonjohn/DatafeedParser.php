@@ -146,18 +146,23 @@ class DatafeedParser {
      */
     private function closeStaffings()
     {
-        $lastUpdate = \ZbwStaffing::latest()->first()->updated_at;
-        foreach(\ZbwStaffing::all() as $row) {
-            if($row->updated_at->lt($lastUpdate->subMinutes(3)) && (! $row->stop)) {
-                $row->stop = \Carbon::now();
-                $row->save();
+        if(count(\ZbwStaffing::all()) > 0) {
+            $lastUpdate = \ZbwStaffing::latest()->first()->updated_at;
+            foreach (\ZbwStaffing::all() as $row) {
+                if ($row->updated_at->lt(
+                    $lastUpdate->subMinutes(3)
+                  ) && ( ! $row->stop)
+                ) {
+                    $row->stop = \Carbon::now();
+                    $row->save();
+                }
             }
         }
     }
 
     /**
      * @name  isZbwFlight
-     * @description
+     * @description checks a pilot line from the datafeed to determine if it is a ZBW flight
      * @param $line
      * @return bool
      */
@@ -171,7 +176,7 @@ class DatafeedParser {
 
     /**
      * @name  isZbwAirport
-     * @description
+     * @description determines if a given airport is in ZBW airspace
      * @param $line
      * @return bool
      */
