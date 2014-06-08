@@ -1,6 +1,6 @@
 <?php
 
-class ControllerExam extends Eloquent {
+class Exam extends Eloquent {
     protected $guarded = ['exam_id', 'reviewed'];
     protected $table = 'controller_exams';
     public $rules;
@@ -25,7 +25,7 @@ class ControllerExam extends Eloquent {
 
     public function comments()
     {
-        return $this->hasMany('ZbwComment', 'parent_id', 'id');
+        return $this->hasMany('Comment', 'parent_id', 'id');
     }
 
     //scopes
@@ -43,7 +43,7 @@ class ControllerExam extends Eloquent {
     //statics
     public static function recentExams($n)
     {
-        return ControllerExam::with(['student', 'reviewer', 'exam'])
+        return Exam::with(['student', 'reviewer', 'exam'])
             ->orderBy('created_at', 'desc')->where('reviewed', '=', 0)->limit($n)->get();
     }
 }

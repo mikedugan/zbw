@@ -8,7 +8,7 @@ class ControllerExamsController extends BaseController {
 	public function getStaffReview($eid)
     {
         $data = [
-            'exam' => \ControllerExam::with(['student', 'comments'])->find($eid)
+            'exam' => \Exam::with(['student', 'comments'])->find($eid)
         ];
         return View::make('staff.exams.review', $data);
     }

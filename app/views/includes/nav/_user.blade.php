@@ -8,14 +8,14 @@
             @endif
         <ul class="dropdown-menu">
             <li>{{ HTML::link("/me/settings", 'Settings') }}</li>
-            <li>{{ HTML::link('training', 'Training Center') }}</li>
-            <li><a href="{{ URL::route('inbox') }}">Messages
+            <li>{{ HTML::link('/training', 'Training Center') }}</li>
+            <li><a href="/messages">Messages
                     @if($messages > 0)
                     <span class="sans">( <b class="red">{{$messages}}</b> )</span>
                     @endif
                 </a></li>
-            <li>{{ HTML::link('schedule', 'Scheduler') }}</li>
-            <li>{{ HTML::link('logout', 'Logout') }}</li>
+            <li>{{ HTML::link('/schedule', 'Scheduler') }}</li>
+            <li>{{ HTML::link('/logout', 'Logout') }}</li>
         </ul>
     </li>
 </ul>

@@ -6,7 +6,7 @@ class CertificationRepository {
     protected $exam;
     public function __construct($eid = false)
     {
-        $this->exam = $eid ? \ControllerCert::find($eid) : null;
+        $this->exam = $eid ? \Certification::find($eid) : null;
     }
 
     public function requestExam($cid)
@@ -23,7 +23,7 @@ class CertificationRepository {
 
     public function assignExam($cid)
     {
-       $e = \ControllerExam::create();
+       $e = \Exam::create();
        $p = \PendingExam::create(['exam_id' => $e->id, 'cert_id' => $this->exam->id, 'cid' => $cid]); 
     }
 }

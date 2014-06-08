@@ -103,9 +103,9 @@ class DatafeedParser {
     {
         if(empty($line[$this::TIME_LOGON])) dd($line);
         $start = \Carbon::createFromFormat('YmdHis', $line[$this::TIME_LOGON]);
-        $online = \ZbwStaffing::where('start', $start)->where('cid', $line[$this::CID])->get();
+        $online = \Staffing::where('start', $start)->where('cid', $line[$this::CID])->get();
         if(! count($online) > 0) {
-            $staffing = new \ZbwStaffing();
+            $staffing = new \Staffing();
             $staffing->cid = $line[$this::CID];
             $staffing->start = $start;
             $staffing->position = $line[$this::CALLSIGN];
@@ -146,9 +146,9 @@ class DatafeedParser {
      */
     private function closeStaffings()
     {
-        if(count(\ZbwStaffing::all()) > 0) {
-            $lastUpdate = \ZbwStaffing::latest()->first()->updated_at;
-            foreach (\ZbwStaffing::all() as $row) {
+        if(count(\Staffing::all()) > 0) {
+            $lastUpdate = \Staffing::latest()->first()->updated_at;
+            foreach (\Staffing::all() as $row) {
                 if ($row->updated_at->lt(
                     $lastUpdate->subMinutes(3)
                   ) && ( ! $row->stop)

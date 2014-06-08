@@ -1,6 +1,6 @@
 <?php 
 
-class FileUpload extends Eloquent
+class Upload extends Eloquent
 {
     protected $table = 'zbw_uploads';
     protected $guarded = ['location', 'name'];

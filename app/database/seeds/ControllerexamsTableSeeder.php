@@ -21,7 +21,7 @@ class ControllerexamsTableSeeder extends Seeder {
             $wrongq .= $faker->numberBetween(0,20) . ",";
         }
 
-			  $e = new ControllerExam();
+			  $e = new Exam();
         $e->cid = $faker->randomElement($cids);
         $e->reviewed_by = $faker->randomElement($sid);
         $e->exam_id = $faker->numberBetween(0,6);

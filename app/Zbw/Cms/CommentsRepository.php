@@ -4,17 +4,17 @@ class CommentsRepository
 {
     public static function all()
     {
-        return \ZbwComment::all();
+        return \Comment::all();
     }
 
     public static function find($id)
     {
-        return \ZbwComment::find($id);
+        return \Comment::find($id);
     }
 
     public static function add($input)
     {
-        $comment = new \ZbwComment([
+        $comment = new \Comment([
             'content' => $input['content'],
             'parent_id' => $input['parent_id'],
             'comment_type' => $input['comment_type'],
@@ -25,6 +25,6 @@ class CommentsRepository
 
     public static function delete($id)
     {
-        return \ZbwComment::destroy($id);
+        return \Comment::destroy($id);
     }
 } 

@@ -1,6 +1,6 @@
 <?php
 
-class ZbwStaffing extends Eloquent {
+class Staffing extends Eloquent {
     protected $guarded = ['start', 'stop'];
     protected $table = 'zbw_staffing';
     protected $dates = ['start', 'stop'];
@@ -17,6 +17,6 @@ class ZbwStaffing extends Eloquent {
 
     public static function frontPage()
     {
-        return ZbwStaffing::where('stop', null)->with(['user'])->get();
+        return Staffing::where('stop', null)->with(['user'])->get();
     }
 }

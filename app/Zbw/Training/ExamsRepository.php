@@ -9,12 +9,12 @@ class ExamsRepository implements EloquentRepositoryInterface {
 
     public static function all()
     {
-        return \ControllerExam::all();
+        return \Exam::all();
     }
 
     public static function add($i)
     {
-        $e = new \ControllerExam();
+        $e = new \Exam();
         $e->assigned_on = \Carbon::now();
         $e->exam_id = $i['exam_id'];
         $e->cert_id = $i['cert_id'];
@@ -60,6 +60,6 @@ class ExamsRepository implements EloquentRepositoryInterface {
 
     public static function lastExam($cid)
     {
-        return \ControllerExam::where('cid', $cid)->with(['student', 'comments'])->latest()->first();
+        return \Exam::where('cid', $cid)->with(['student', 'comments'])->latest()->first();
     }
 }

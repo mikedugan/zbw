@@ -19,7 +19,7 @@ class AdminController extends BaseController
             'reports' => TrainingSessionRepository::recentReports(5),
             'sessions' => ['a', 'b'],
             'requests' => \TrainingRequest::with(['student', 'certType'])->get(),
-            'exams' => \ControllerExam::recentExams(5),
+            'exams' => \Exam::recentExams(5),
             'title' => 'vZBW Training Home'
         ];
         JavaScript::put(['foo' => 'mike']);
