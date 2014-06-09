@@ -24,16 +24,20 @@ class SessionsController extends BaseController
         if (\Input::has('oauth_token')) {
             //does the session have data saved?
             $status = \AuthToken::checkLogin(\Input::all(), $sso);
-            if(is_string($status))
-                    return Redirect::home()->with('flash_error', $status);
+            if (is_string($status))
+                return Redirect::home()->with('flash_error', $status);
             else
-                return Redirect::intended('/')->with('flash_success', 'You have been logged in successfully');
-        }
-        else if($status = \AuthToken::setupToken($sso)) {
+                return Redirect::intended('/')->with(
+                  'flash_success',
+                  'You have been logged in successfully'
+                );
+        } else if ($status = \AuthToken::setupToken($sso)) {
             return Redirect::home()->with('flash_error', $status);
         }
+    }
 
-
+    public function postLogin()
+    {
         $username = Input::get('username');
         $password = Input::get('password');
         $remember = Input::get('remember');
