@@ -46,7 +46,7 @@ Route::get('pages/p/{id}', 'PagesController@getPage');
 Route::group(
   array('before' => 'controller'), function () {
       $cid = is_null(Auth::user()) ? 0 : Auth::user()->cid;
-      //routes for the logged in user
+      //routes for the logged in users
       Route::get('me', 'ControllersController@getMe');
       Route::post('/me/markallread', 'AjaxController@markInboxRead');
       Route::get('/u/' . $cid,array('as' => 'me', 'uses' => 'ControllersController@getMe'));
