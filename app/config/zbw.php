@@ -14,7 +14,7 @@ return [
         'secret' => $_ENV['sso_secret'],
         'cert' => $_ENV['sso_cert'],
         'method' => 'RSA',
-        'return' => 'http://dev.bostonartcc.net/auth?return',
+        'return' => 'http://zbw.dugandev.com/auth?return',
         'base' => 'http://sso.hardern.net/server/'
     ],
 

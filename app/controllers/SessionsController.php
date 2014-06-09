@@ -21,9 +21,9 @@ class SessionsController extends BaseController
         $sso = new \Zbw\Bostonjohn\Sso();
         $return = \Config::get('zbw.sso.return');
         //vatsim redirected user
-        if(\Input::has('return')) {
+        if(\Input::has('oauth_token')) {
             //does the session have data saved?
-            $token = \AuthToken::where('key', \Input::get('oauth_token'))->get();
+            $token = \AuthToken::where('key', \Input::get('oauth_token'))->first();
             if(count($token) > 0) {
 
                 if(!\Input::has('oauth_verifier')) {
@@ -33,7 +33,8 @@ class SessionsController extends BaseController
                 $user = $sso->checkLogin($token->key, $token->secret, \Input::get('oauth_verifier'));
                 if($user) {
                     $token->delete();
-                    dd($user);
+		    $loggedinuser = \User::find($user->user->id);
+		    \Auth::login($loggedinuser);
                     return Redirect::intended('/')->with('flash_success', 'You have been logged in successfully');
                 }
                 else {
@@ -43,11 +44,11 @@ class SessionsController extends BaseController
             }
         }
 
-        $token = $sso->requestToken($return, false, false);
-        if($token) {
+        $ssotoken = $sso->requestToken($return, false, false);
+        if($ssotoken) {
             $token = new \AuthToken();
-            $token->key = $token->token->oauth_token;
-            $token->secret = $token->token->oauth_token_secret;
+            $token->key = $ssotoken->token->oauth_token;
+            $token->secret = $ssotoken->token->oauth_token_secret;
             $token->save();
             $sso->sendToVatsim();
         }
