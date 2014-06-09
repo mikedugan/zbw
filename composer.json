@@ -7,7 +7,8 @@
 		"laravel/framework": "4.2.*",
 		"laracasts/utilities": "dev-master",
     "fkubis/teamspeak-php-framework": "dev-master",
-    "curl/curl": "dev-master"
+    "curl/curl": "dev-master",
+		"way/generators": "dev-master"
 	},
 	"require-dev": {
 		"barryvdh/laravel-ide-helper": "dev-master",

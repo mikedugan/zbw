@@ -1,0 +1,13 @@
+<?php
+
+class $NAME$ extends \Eloquent {
+
+	protected $table = '';
+	protected $guarded = [];
+	protected $dates = [];
+
+	public function getDates()
+	{
+	  return $this->dates;
+	}
+}
