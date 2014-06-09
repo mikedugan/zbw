@@ -16,45 +16,21 @@ class SessionsController extends BaseController
         return View::make('users.login', $data);
     }
 
-    public function postLogin()
+    public function oauthLogin()
     {
         $sso = new \Zbw\Bostonjohn\Sso();
         $return = \Config::get('zbw.sso.return');
         //vatsim redirected user
-        if(\Input::has('oauth_token')) {
+        if (\Input::has('oauth_token')) {
             //does the session have data saved?
-            $token = \AuthToken::where('key', \Input::get('oauth_token'))->first();
-            if(count($token) > 0) {
-
-                if(!\Input::has('oauth_verifier')) {
-                    return Redirect::home()->with('flash_error', 'No verification code!');
-                }
-
-                $user = $sso->checkLogin($token->key, $token->secret, \Input::get('oauth_verifier'));
-                if($user) {
-                    $token->delete();
-		    $loggedinuser = \User::find($user->user->id);
-		    \Auth::login($loggedinuser);
-                    return Redirect::intended('/')->with('flash_success', 'You have been logged in successfully');
-                }
-                else {
-                    ZbwLog::error($sso->error());
-                    return Redirect::home()->with('flash_error', $sso->error());
-                }
-            }
+            $status = \AuthToken::checkLogin(\Input::all(), $sso);
+            if(is_string($status))
+                    return Redirect::home()->with('flash_error', $status);
+            else
+                return Redirect::intended('/')->with('flash_success', 'You have been logged in successfully');
         }
-
-        $ssotoken = $sso->requestToken($return, false, false);
-        if($ssotoken) {
-            $token = new \AuthToken();
-            $token->key = $ssotoken->token->oauth_token;
-            $token->secret = $ssotoken->token->oauth_token_secret;
-            $token->save();
-            $sso->sendToVatsim();
-        }
-        else {
-            ZbwLog::error($sso->error());
-            return Redirect::home()->with('flash_error', $sso->error());
+        else if($status = \AuthToken::setupToken($sso)) {
+            return Redirect::home()->with('flash_error', $status);
         }
 
 
