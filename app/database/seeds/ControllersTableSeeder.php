@@ -61,7 +61,7 @@ class ControllersTableSeeder extends Seeder {
 		$c->rating = "I3";
 		$c->artcc = "ZBW";
 		$c->is_active = 1;
-		$c->is_ta = 1;
+	$c->is_ta = 1;
 		$c->is_instructor = 1;
 		$c->is_staff = 1;
 		$c->cert = 14;

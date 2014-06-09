@@ -312,4 +312,15 @@ class UserRepository
         else if ($level == 12) { return \User::where('cert', '>=', 13)->lists('cid'); }
         return \User::where('cert', '>=', $level + 2)->lists('cid');
     }
+
+    public static function checkUser($user)
+    {
+        if(is_int($user)) $user = \User::find($user);
+        $status = null;
+        if(! $user->is_active)
+            $status = 'Your account is not active. Please email <a
+                   href="mailto:staff@bostonartcc.net">admin</a>';
+
+        return $status;
+    }
 }

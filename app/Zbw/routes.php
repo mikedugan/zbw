@@ -26,7 +26,7 @@ if ($me)
 Route::when('staff/*', 'staff');
 
 //auth routes
-Route::get('login', 'SessionsController@postLogin');
+Route::get('login', 'SessionsController@oauthLogin');
 Route::post('login', 'SessionsController@postLogin');
 Route::get('auth', 'SessionsController@postLogin');
 Route::get('logout', 'SessionsController@getLogout');
