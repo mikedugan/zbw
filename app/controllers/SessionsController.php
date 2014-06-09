@@ -23,19 +23,16 @@ class SessionsController extends BaseController
         //vatsim redirected user
         if(\Input::has('return')) {
             //does the session have data saved?
-            if(\Session::has('sso.key') && \Session::has('sso.secret')) {
-                if(\Input::get('oauth_token') !== \Session::get('sso.key'))
-                {
-                    return Redirect::home()->with('flash_error', 'Token mismatch!');
-                }
+            $token = \AuthToken::where('key', \Input::get('oauth_token'))->get();
+            if(count($token) > 0) {
 
                 if(!\Input::has('oauth_verifier')) {
                     return Redirect::home()->with('flash_error', 'No verification code!');
                 }
 
-                $user = $sso->checkLogin(\Session::get('key'), \Session::get('secret'), \Input::get('oauth_verifier'));
+                $user = $sso->checkLogin($token->key, $token->secret, \Input::get('oauth_verifier'));
                 if($user) {
-                    \Session::forget('sso.key'); \Session::forget('sso.secret');
+                    $token->delete();
                     dd($user);
                     return Redirect::intended('/')->with('flash_success', 'You have been logged in successfully');
                 }
@@ -48,8 +45,10 @@ class SessionsController extends BaseController
 
         $token = $sso->requestToken($return, false, false);
         if($token) {
-            \Session::put('sso.key', (string) $token->token->oauth_token);
-            \Session::put('sso.secret', (string) $token->token->oauth_token_secret);
+            $token = new \AuthToken();
+            $token->key = $token->token->oauth_token;
+            $token->secret = $token->token->oauth_token_secret;
+            $token->save();
             $sso->sendToVatsim();
         }
         else {
