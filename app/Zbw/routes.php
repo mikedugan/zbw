@@ -28,7 +28,7 @@ Route::when('staff/*', 'staff');
 //auth routes
 Route::get('login', 'SessionsController@oauthLogin');
 Route::post('login', 'SessionsController@postLogin');
-Route::get('auth', 'SessionsController@postLogin');
+Route::get('auth', 'SessionsController@oauthLogin');
 Route::get('logout', 'SessionsController@getLogout');
 Route::controller('password', 'RemindersController');
 
