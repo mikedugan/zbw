@@ -20,6 +20,8 @@ class Subscription extends \Eloquent {
 
     public function parent()
     {
-        return $this->hasOne($this->subscriptionType->value, 'id', 'type_id');
+        if(class_exists($this->subscriptionType->value))
+            return $this->hasOne($this->subscriptionType->value, 'id', 'type_id');
+        else return false;
     }
 }

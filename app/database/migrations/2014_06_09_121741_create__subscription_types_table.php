@@ -14,7 +14,7 @@ class CreateSubscriptionTypesTable extends Migration {
 	{
 		Schema::create('_subscription_types', function(Blueprint $table)
 		{
-			  $table->integer('key');
+			  $table->increments('key');
         $table->string('value');
 		});
 	}
