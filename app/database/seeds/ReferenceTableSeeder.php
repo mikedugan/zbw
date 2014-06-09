@@ -15,6 +15,7 @@ class ReferenceTableSeeder extends Seeder {
             DB::table('_file_types')->truncate();
             DB::table('_message_types')->truncate();
             DB::table('_facilities')->truncate();
+            DB::table('_subscription_types')->truncate();
 
             ComplexityType::create(['value' => 'very_easy']);
             ComplexityType::create(['value' => 'easy']);
@@ -96,6 +97,16 @@ class ReferenceTableSeeder extends Seeder {
             Facility::create(['value' => 'KBGR']);
             Facility::create(['value' => 'KSYR']);
             Facility::create(['value' => 'KALB']);
+
+            SubscriptionType::create(['value' => 'Me']);
+            SubscriptionType::create(['value' => 'Forum']);
+            SubscriptionType::create(['value' => 'ExamRequest']);
+            SubscriptionType::create(['value' => 'TrainingRequest']);
+            SubscriptionType::create(['value' => 'TrainingAvailable']);
+            SubscriptionType::create(['value' => 'ForumTopic']);
+            SubscriptionType::create(['value' => 'ForumPost']);
+            SubscriptionType::create(['value' => 'Message']);
+            SubscriptionType::create(['value' => 'News']);
 
 	}
 
