@@ -21,7 +21,7 @@ class CreateControllersTable extends Migration {
 			$table->string('last_name', 30)->required();
 			$table->string('password')->required();
 			$table->string('email', 60)->unique()->required();
-			$table->tinyInteger('rating')->required();
+			$table->tinyInteger('rating_id')->required();
       $table->tinyInteger('cert')->default(0);
 			$table->string('artcc', 3)->required()->default('ZBW');
 			$table->string('signature', 255);

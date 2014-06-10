@@ -110,7 +110,7 @@ class ControllersTableSeeder extends Seeder {
 			$c->username = $c->first_name . ' ' . $c->last_name;
 			$c->password = Hash::make($faker->word());
 			$c->email = $faker->safeEmail();
-			$c->signature = $c->first_name . ' ' . $c->last_name . '('.$c->initials.')';
+			$c->signature = $c->first_name . ' ' . $c->last_name . '('.$c->crinitials.')';
 			$c->rating = $faker->numberBetween(0,6);
 			$c->artcc = 'ZBW';
 			$c->is_active = $faker->boolean(70);

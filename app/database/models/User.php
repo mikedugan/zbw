@@ -67,6 +67,11 @@ class User extends Eloquent implements UserInterface, RemindableInterface
         return $this->hasMany('Subscription', 'cid', 'cid');
     }
 
+    public function rating()
+    {
+        return $this->hasOne('Rating', 'id', 'rating_id');
+    }
+
 
     //auth related
     public function getRememberToken()

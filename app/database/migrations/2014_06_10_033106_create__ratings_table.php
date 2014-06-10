@@ -33,3 +33,4 @@ class CreateRatingsTable extends Migration {
 	}
 
 }
+c
