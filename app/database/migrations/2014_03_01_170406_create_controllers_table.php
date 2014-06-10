@@ -21,7 +21,8 @@ class CreateControllersTable extends Migration {
 			$table->string('last_name', 30)->required();
 			$table->string('password')->required();
 			$table->string('email', 60)->unique()->required();
-			$table->string('rating', 3)->required();
+			$table->tinyInteger('rating')->required();
+      $table->tinyInteger('cert')->default(0);
 			$table->string('artcc', 3)->required()->default('ZBW');
 			$table->string('signature', 255);
 			$table->boolean('is_mentor')->default(0);
@@ -32,9 +33,10 @@ class CreateControllersTable extends Migration {
 			$table->boolean('is_datm')->default(0);
 			$table->boolean('is_ta')->default(0);
 			$table->boolean('is_emeritus')->default(0);
-			$table->boolean('is_active');
+			$table->boolean('is_active')->default(0);
+      $table->boolean('is_suspended')->default(0);
+      $table->boolean('is_terminated')->default(0);
 			$table->boolean('is_staff')->default(0);
-			$table->tinyInteger('cert')->default(0);
 			$table->timestamps();
 		});
 	}

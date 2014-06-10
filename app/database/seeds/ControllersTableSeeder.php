@@ -23,7 +23,7 @@ class ControllersTableSeeder extends Seeder {
 		$c->email = 'mike@mjdugan.com';
 		$c->rating = "C1";
 		$c->signature = 'Mike Dugan, Webmaster';
-		$c->artcc = "ZBW";
+		$c->artcc = 5;
 		$c->is_active = 1;
 		$c->is_mentor = 1;
 		$c->is_webmaster = 1;
@@ -40,7 +40,7 @@ class ControllersTableSeeder extends Seeder {
 		$c->password = Hash::make('zbwatm2o14');
 		$c->email = 'atm@bostonartcc.net';
 		$c->signature = 'Rich Bonneau - ATM';
-		$c->rating = "S3";
+		$c->rating = 3;
 		$c->artcc = "ZBW";
 		$c->is_active = 1;
 		$c->is_mentor = 1;
@@ -58,7 +58,7 @@ class ControllersTableSeeder extends Seeder {
 		$c->password = Hash::make('zbwta20!4');
 		$c->email = 'mwilley@gfgroup.net';
 		$c->signature = "Mike Willey, TA";
-		$c->rating = "I3";
+		$c->rating = 5;
 		$c->artcc = "ZBW";
 		$c->is_active = 1;
 	$c->is_ta = 1;
@@ -76,7 +76,7 @@ class ControllersTableSeeder extends Seeder {
     $c->password = Hash::make('x');
     $c->email = 'dubef01@gmail.com';
     $c->signature = "Francis Dube, DATM";
-    $c->rating = "I1";
+    $c->rating = 5;
     $c->artcc = "ZBW";
     $c->is_active = 1;
     $c->is_datm = 1;
@@ -94,7 +94,7 @@ class ControllersTableSeeder extends Seeder {
     $c->password = Hash::make('zbw2014');
     $c->email = 'admin@bostonartcc.net';
     $c->signature = "John Test";
-    $c->rating = "S1";
+    $c->rating = 1;
     $c->artcc = "ZBW";
     $c->is_active = 1;
     $c->cert = 2;
@@ -111,7 +111,7 @@ class ControllersTableSeeder extends Seeder {
 			$c->password = Hash::make($faker->word());
 			$c->email = $faker->safeEmail();
 			$c->signature = $c->first_name . ' ' . $c->last_name . '('.$c->initials.')';
-			$c->rating = $faker->randomElement($ratings);
+			$c->rating = $faker->numberBetween(0,6);
 			$c->artcc = 'ZBW';
 			$c->is_active = $faker->boolean(70);
 			$c->is_mentor = $faker->boolean(5);
