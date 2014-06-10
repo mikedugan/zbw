@@ -182,6 +182,8 @@ class DatafeedParser {
      */
     private function isZbwAirport($line)
     {
+        //filter out observers and non-ZBW callsigns off the bat
+        if($line[$this::CALLSIGN][3] !== '_' || substr($line[$this::FREQUENCY], 0, 3) == '199' ) return false;
         $itis = in_array(substr($line[0], 0, 3), \Config::get('zbw.iatas'));
         if($itis)
         {
