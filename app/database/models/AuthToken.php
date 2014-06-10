@@ -16,7 +16,10 @@ class AuthToken extends Eloquent {
             $loggedinuser = \User::find($user->user->id);
             $userStatus = UserRepository::checkUser($loggedinuser);
             if(!is_null($userStatus)) return $userStatus;
-            else \Auth::login($loggedinuser);
+            else {
+                \Auth::login($loggedinuser);
+                UserRepository::authUpdate($user);
+            }
             return true;
         } else {
             ZbwLog::error($sso->error());

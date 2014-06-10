@@ -99,6 +99,16 @@ class UserRepository
         return $user->save();
     }
 
+    public static function authUpdate($user)
+    {
+        $model = \User::find($user->user->id);
+        $model->first_name = $user->user->name_first;
+        $model->last_name = $user->user->name_last;
+        $model->rating = $user->user->rating->id;
+        $model->email = $user->user->email;
+        $model->save();
+    }
+
     /**
      * @return eloquent collection
      */
@@ -201,6 +211,13 @@ class UserRepository
         return $users->get();
     }
 
+    public static function userLoginUpdate($cid, $data)
+    {
+        $user = \User::find($cid);
+        $user->email = $data['email'];
+        return $user->save();
+    }
+
     /**
      * @type static
      * @name suspendUser
@@ -211,7 +228,8 @@ class UserRepository
     public static function suspendUser($id)
     {
         $user = \User::find($id);
-        $user->is_active = 0;
+        $user->is_active = 1;
+        $user->is_suspended = 1;
         if($user->save())
         {
             ZbwLog::override(\Auth::user()->initials . ' suspended ' . $user->initials);
@@ -226,6 +244,30 @@ class UserRepository
 
     /**
      * @type static
+     * @name unsuspendUser
+     * @description
+     * @param $id
+     * @return bool
+     */
+    public static function unsuspendUser($id)
+    {
+        $user = \User::find($id);
+        $user->is_active = true;
+        $user->is_suspended = false;
+        if($user->save())
+        {
+            ZbwLog::override(\Auth::user()->initials . ' un-suspended ' . $user->initials);
+            return true;
+        }
+        else
+        {
+            ZbwLog::error(\Auth::user()->initials . ' had an error attempting to un-suspend ' . $user->initials);
+            return false;
+        }
+    }
+
+    /**
+     * @type static
      * @name terminateUser
      * @description
      * @param $id
@@ -234,7 +276,8 @@ class UserRepository
     public static function terminateUser($id)
     {
         $user = \User::find($id);
-        $user->is_active = -1;
+        $user->is_active = false;
+        $user->is_terminated = true;
         if($user->save())
         {
             ZbwLog::log(\Auth::user()->initials . ' terminated ' . $user->initials);
@@ -246,6 +289,31 @@ class UserRepository
             return false;
         }
     }
+
+    /**
+     * @type static
+     * @name unterminateUser
+     * @description
+     * @param $id
+     * @return bool
+     */
+    public static function unterminateUser($id)
+    {
+        $user = \User::find($id);
+        $user->is_active = true;
+        $user->is_terminated = false;
+        if($user->save())
+        {
+            ZbwLog::log(\Auth::user()->initials . ' un-terminated ' . $user->initials);
+            return true;
+        }
+        else
+        {
+            ZbwLog::error(\Auth::user()->initials . ' had an error attempting to un-terminate ' . $user->initials);
+            return false;
+        }
+    }
+
 
     /**
      * @type static

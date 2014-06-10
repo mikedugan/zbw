@@ -16,6 +16,7 @@ class ReferenceTableSeeder extends Seeder {
             DB::table('_message_types')->truncate();
             DB::table('_facilities')->truncate();
             DB::table('_subscription_types')->truncate();
+            DB::table('_ratings')->truncate();
 
             ComplexityType::create(['value' => 'very_easy']);
             ComplexityType::create(['value' => 'easy']);
@@ -107,6 +108,12 @@ class ReferenceTableSeeder extends Seeder {
             SubscriptionType::create(['value' => 'ForumPost']);
             SubscriptionType::create(['value' => 'Message']);
             SubscriptionType::create(['value' => 'News']);
+
+            Rating::create([
+
+              ]);
+
+
 
 	}
 
