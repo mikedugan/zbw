@@ -62,7 +62,7 @@ class UserRepository
         $u->artcc = $artcc;
         $u->email = $email;
         $u->password = \Hash::make($tempPassword);
-        $u->rating = 'OBS';
+        $u->rating_id = -1;
         $u->initials = strtoupper(UserRepository::createInitials($fname, $lname));
         if($u->save())
         {
@@ -104,7 +104,7 @@ class UserRepository
         $model = \User::find($user->user->id);
         $model->first_name = $user->user->name_first;
         $model->last_name = $user->user->name_last;
-        $model->rating = $user->user->rating->id;
+        $model->rating_id = $user->user->rating->id;
         $model->email = $user->user->email;
         $model->save();
     }
@@ -188,7 +188,8 @@ class UserRepository
 
         if($input['rating'] != null && $input['rating'] != '')
         {
-            $users = $users->where('rating', '=', strtoupper($input['rating']));
+            $rating = \Rating::where('short', $input['rating'])->get(['short', 'id'])->toArray();
+            $users = $users->whereIn('rating_id', $rating);
         }
 
         if($input['cid'] > 0)

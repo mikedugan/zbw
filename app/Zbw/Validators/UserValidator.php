@@ -12,7 +12,7 @@ class UserZbwValidator extends ZbwValidator
                 'first_name' => 'alpha|max:30',
                 'last_name' => 'alpha|max:30',
                 'email' => 'email|max:60',
-                'rating' => 'alpha_num|max:3',
+                'rating_id' => 'alpha_num|max:3',
                 'artcc' => 'alpha|max:3'
             ];
     }

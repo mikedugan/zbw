@@ -3,6 +3,7 @@
     <p><b>Full Name:</b> {{ $me->first_name . ' ' . $me->last_name }}</p>
     <p><b>Controller ID:</b> {{ $me->cid }}</p>
     <p><b>Operating Initials:</b> {{ $me->initials }}</p>
+    <p><b>Rating: </b>{{ $me->rating->grp }}</p>
     <p><b>Email:</b> {{ $me->email }}</p>
 
     <p><b>Staff Positions:</b><br/>
