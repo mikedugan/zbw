@@ -28,7 +28,8 @@ class ControllersController extends BaseController {
 	{
 		$data = [
 			'messages' => MessagesRepository::to(Auth::user()->cid),
-      'view' => \Input::get('v')
+      'view' => \Input::get('v'),
+      'me' => \Auth::user()->with(['Exam','TrainingSession'])
 		];
 		return View::make('users.me.index', $data);
 	}
