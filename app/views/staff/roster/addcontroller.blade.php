@@ -1,10 +1,3 @@
-@extends('layouts.staff')
-@section('title')
-Add Controller
-@stop
-@section('header')
-@stop
-@section('content')
 <div class="col-md-12">
     <h1 class="text-center">Add ZBW Controller</h1>
     <form action="/staff/roster/add-controller" method="post">
@@ -35,4 +28,3 @@ Add Controller
         <p>Initial rating will be retrieved from the VATUSA system.</p>
     </form>
 </div>
-@stop

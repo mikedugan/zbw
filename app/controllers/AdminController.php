@@ -52,7 +52,9 @@ class AdminController extends BaseController
         $ur = new UserRepository();
         $data = [
             'title' => 'ZBW Roster Admin',
-            'users' => $ur->all()
+            'users' => $ur->all(),
+            'view' => \Input::get('v'),
+            'staff' => $ur->getStaff()
         ];
         return View::make('staff.roster.index', $data);
     }

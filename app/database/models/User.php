@@ -49,12 +49,12 @@ class User extends Eloquent implements UserInterface, RemindableInterface
 
     public function training()
     {
-        return $this->hasMany('ControllerTraining');
+        return $this->hasMany('TrainingSession', 'cid', 'cid');
     }
 
     public function exams()
     {
-        return $this->hasMany('Exam');
+        return $this->hasMany('Exam', 'cid', 'cid');
     }
 
     public function certification()

@@ -339,6 +339,11 @@ class UserRepository
         }
     }
 
+    public static function getStaff()
+    {
+        return \User::where('is_staff', 1)->orWhere('is_mentor', 1)->orWhere('is_instructor', 1)->get();
+    }
+
     /**
      * @type static
      * @name isStaff

@@ -50,7 +50,7 @@ Route::group(
       Route::get('me', 'ControllersController@getMe');
       Route::post('/me/markallread', 'AjaxController@markInboxRead');
       Route::get('/u/' . $cid,array('as' => 'me', 'uses' => 'ControllersController@getMe'));
-      Route::get('me/settings', 'ControllersController@getSettings');
+      Route::get('me/profile', 'ControllersController@getSettings');
       //training and exam routes
       Route::get('training/request/new', 'TrainingController@getRequest');
       Route::get('training/request/{id}', 'TrainingController@showRequest');

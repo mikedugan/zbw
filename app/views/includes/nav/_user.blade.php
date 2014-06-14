@@ -7,7 +7,7 @@
             <span>{{ $me->initials }}</span> <b class="caret"></b></a>
             @endif
         <ul class="dropdown-menu">
-            <li>{{ HTML::link("/me/settings", 'Settings') }}</li>
+            <li>{{ HTML::link("/me/profile", 'Profile') }}</li>
             <li>{{ HTML::link('/training', 'Training Center') }}</li>
             <li><a href="/messages">Messages
                     @if($messages > 0)

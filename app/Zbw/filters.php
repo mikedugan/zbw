@@ -80,7 +80,7 @@ Route::filter('csrf', function()
 });
 
 Route::filter('controller', function() {
-    if(! Auth::user()->cid) {
+    if(! Auth::user()->cid || Auth::user()->rating->id === -1) {
         $data = [
             'page' => Request::url(),
             'needed' => 'Registered User'
@@ -121,8 +121,7 @@ Route::filter('instructor', function() {
             'page' => Request::url(),
             'needed' => 'instructor'
         ];
-        $log = new Zbw\Bostonjohn\ZbwLog();
-        $log->addLog(Auth::user()->initials . ' tried to access ' . Request::url());
+        Zbw\Bostonjohn\ZbwLog::log(Auth::user()->initials . ' tried to access ' . Request::url());
         return View::make('zbw.errors.403', $data);
     }
 });
@@ -134,8 +133,29 @@ Route::filter('mentor', function() {
             'page' => Request::url(),
             'needed' => 'mentor'
         ];
-        $log = new Zbw\Bostonjohn\ZbwLog();
-        $log->addLog(Auth::user()->initials . ' tried to access ' . Request::url());
+        Zbw\Bostonjohn\ZbwLog::log(Auth::user()->initials . ' tried to access ' . Request::url());
         return View::make('zbw.errors.403', $data);
     }
 });
+
+Route::filter('suspended', function() {
+      if(! Auth::user()->rating->id === 0 || Auth::user()->is_suspended || Auth::user()->is_terminated) {
+          $data = [
+              'page' => Request::url(),
+              'needed' => 'active (your account is suspended by ZBW or VATUSA)'
+          ];
+          Zbw\Bostonjohn\ZbwLog::log(Auth::user()->initials . ' tried to access ' . Request::url() . ' but is suspended');
+          return View::make('zbw.errors.403', $data);
+      }
+  });
+
+Route::filter('terminated', function() {
+     if(Auth::user()->is_terminated) {
+         $data = [
+             'page' => Request::url(),
+             'needed' => 'active (your accout has been terminated)'
+         ];
+         Zbw\Bostonjohn\ZbwLog::log(Auth::user()->initials . ' tried to access ' . Request::url() . ' but is terminated');
+         return View::make('zbw.errors.403', $data);
+     }
+  });
