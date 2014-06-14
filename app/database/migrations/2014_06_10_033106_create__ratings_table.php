@@ -15,7 +15,8 @@ class CreateRatingsTable extends Migration {
 		Schema::create('_ratings', function(Blueprint $table)
 		{
 	      $table->integer('id');
-        $table->string('short', 2);
+        $table->string('short', 3);
+        $table->string('medium', 20);
         $table->string('long', 30);
         $table->string('grp', 30);
 		});
@@ -33,4 +34,3 @@ class CreateRatingsTable extends Migration {
 	}
 
 }
-c

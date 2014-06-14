@@ -82,6 +82,14 @@ class Helpers
           );
     }
 
+    /**
+     * @type static
+     * @name  readableRating
+     * @description returns a readable rating string
+     * @deprecated left to prevent breakage
+     * @param $rating
+     * @return string
+     */
     public static function readableRating($rating)
     {
         switch($rating) {
@@ -114,6 +122,13 @@ class Helpers
         }
     }
 
+    /**
+     * @type static
+     * @name  readableCert
+     * @description returns a readable ZBW cert string
+     * @param $cert
+     * @return string
+     */
     public static function readableCert($cert)
     {
         switch ($cert) {
