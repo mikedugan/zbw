@@ -17,3 +17,4 @@ _ide_helper.php
 .env.production.php
 *.pub
 *.pem
+node_modules/
