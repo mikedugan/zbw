@@ -31,6 +31,8 @@ Route::post('login', 'SessionsController@postLogin');
 Route::get('auth', 'SessionsController@oauthLogin');
 Route::get('logout', 'SessionsController@getLogout');
 Route::controller('password', 'RemindersController');
+Route::controller('forum', 'ForumsController');
+
 
 //top level pages
 Route::get('/', array('as' => 'home', 'uses' => 'ZbwController@getIndex'));

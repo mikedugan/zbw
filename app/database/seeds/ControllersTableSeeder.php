@@ -21,7 +21,7 @@ class ControllersTableSeeder extends Seeder {
 		$c->username = $c->first_name . ' ' . $c->last_name;
 		$c->password = Hash::make('q1w2e3r4');
 		$c->email = 'mike@mjdugan.com';
-		$c->rating_id = "C1";
+		$c->rating_id = 6;
 		$c->signature = 'Mike Dugan, Webmaster';
 		$c->artcc = 5;
 		$c->is_active = 1;
@@ -61,7 +61,7 @@ class ControllersTableSeeder extends Seeder {
 		$c->rating_id = 5;
 		$c->artcc = "ZBW";
 		$c->is_active = 1;
-	$c->is_ta = 1;
+		$c->is_ta = 1;
 		$c->is_instructor = 1;
 		$c->is_staff = 1;
 		$c->cert = 14;
