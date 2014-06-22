@@ -90,7 +90,8 @@ Route::filter('controller', function() {
 });
 
 Route::filter('staff', function() {
-    if(!\Zbw\Users\UserRepository::isStaff(Auth::user()->cid)) {
+    $users = new Zbw\Users\UserRepository();
+    if(!$users->isStaff(Auth::user()->cid)) {
         $data = [
             'page' => Request::url(),
             'needed' => 'general staff member'
@@ -102,7 +103,8 @@ Route::filter('staff', function() {
 });
 
 Route::filter('executive', function() {
-    if(!\Zbw\Users\UserRepository::isExecutive(Auth::user()->cid))
+    $users = new Zbw\Users\UserRepository();
+    if(! $users->isExecutive(Auth::user()->cid))
     {
         $data = [
             'page' => Request::url(),
