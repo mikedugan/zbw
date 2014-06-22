@@ -5,7 +5,7 @@ use Zbw\Base\EloquentRepository;
 class FeedbackRepository extends EloquentRepository
 {
 
-    protected $model = '\Feedback';
+    protected $model = '\PilotFeedback';
 
     public function update($input)
     {

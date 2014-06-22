@@ -1,6 +1,17 @@
 <?php namespace Zbw\Users;
-use Zbw\EloquentRepositoryInterface;
+use Zbw\Base\EloquentRepository;
 
-class GroupsRepository extends EloquentRepositoryInterface {
+class GroupsRepository extends EloquentRepository {
 
+    public $model = '\ControllerGroup';
+
+    public function update($input)
+    {
+
+    }
+
+    public function create($input)
+    {
+
+    }
 }

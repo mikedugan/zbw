@@ -5,6 +5,13 @@ use Zbw\Cms\NewsRepository;
 
 class NewsController extends BaseController {
 
+    private $news;
+
+    public function __construct(NewsRepository $news)
+    {
+        $this->news = $news;
+    }
+
     public function getCreate()
     {
         $data = [
@@ -17,7 +24,7 @@ class NewsController extends BaseController {
 
     public function postCreate()
     {
-        $errors = NewsRepository::add(Input::all());
+        $errors = $this->news->add(Input::all());
     	if(is_array($errors))
         {
             return Redirect::back()->with('flash_error', $errors)->withInput();
@@ -32,7 +39,7 @@ class NewsController extends BaseController {
     public function getEdit($id)
     {
         $data =[
-            'event' => NewsRepository::find($id),
+            'event' => $this->news->find($id),
             'facilities' => Facility::all(),
             'news_types' => NewsType::all(),
             'audiences' => AudienceType::all(),
@@ -42,7 +49,7 @@ class NewsController extends BaseController {
 
     public function postEdit()
     {
-        $errors = NewsRepository::update(Input::all());
+        $errors = $this->news->update(Input::all());
         if(is_array($errors))
         {
             return Redirect::back()->with('flash_error', $errors)->withInput();
@@ -53,7 +60,7 @@ class NewsController extends BaseController {
 
     public function show($id)
     {
-        $news = NewsRepository::findWithRelations($id);
+        $news = $this->news->findWithRelations($id);
         $data = [
             'title' => $news->title,
             'news'  => $news

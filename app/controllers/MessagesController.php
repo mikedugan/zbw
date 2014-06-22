@@ -4,16 +4,26 @@ use Zbw\Cms\MessagesRepository;
 use Zbw\Users\UserRepository;
 
 class MessagesController extends BaseController {
+
+    private $users;
+    private $messages;
+
+    public function __construct(UserRepository $users, MessagesRepository $messages)
+    {
+        $this->users = $users;
+        $this->messages = $messages;
+    }
+
     public function index()
     {
         $data = [
             'view' => \Input::get('v'),
-            //'messages' => MessagesRepository::all($cid),
-            'inbox' => MessagesRepository::to(Auth::user()->cid, Input::get('unread')),
-            'outbox' => MessagesRepository::from(Auth::user()->cid),
-            'trash' => MessagesRepository::trashed(Auth::user()->cid),
+            //'messages' => $this->messages->all($cid),
+            'inbox' => $this->messages->to(Auth::user()->cid, Input::get('unread')),
+            'outbox' => $this->messages->from(Auth::user()->cid),
+            'trash' => $this->messages->trashed(Auth::user()->cid),
             'unread' => Input::get('unread'),
-            'users' => UserRepository::allVitals()
+            'users' => $this->users->allVitals()
         ];
 
         return View::make('users.messages.index', $data);
@@ -42,10 +52,10 @@ class MessagesController extends BaseController {
      */
     public function view($message_id)
     {
-        MessagesRepository::markRead($message_id);
+        $this->messages->markRead($message_id);
         $data = [
-            'message' => MessagesRepository::withUsers($message_id),
-            'users' => UserRepository::allVitals(),
+            'message' => $this->messages->withUsers($message_id),
+            'users' => $this->users->allVitals(),
         ];
         return View::make('users.messages.view', $data);
     }
@@ -61,7 +71,7 @@ class MessagesController extends BaseController {
     public function store()
     {
         $input = \Input::all();
-        $ret = MessagesRepository::add($input);
+        $ret = $this->messages->add($input);
         if($ret === '')
         {
             return Redirect::home()->with('flash_success', 'Message sent successfully');
@@ -77,10 +87,10 @@ class MessagesController extends BaseController {
         $input = Input::all();
         if($input['cc'] !== '')
         {
-            MessagesRepository::cc($input, $input['cc'], $mid);
+            $this->messages->cc($input, $input['cc'], $mid);
         }
 
-        if(MessagesRepository::reply($input, $mid))
+        if($this->messages->reply($input, $mid))
         {
             return Redirect::home()->with('flash_success', 'Message sent successfully');
         }
@@ -88,7 +98,7 @@ class MessagesController extends BaseController {
 
     public function delete($message_id)
     {
-        if(MessagesRepository::delete($message_id))
+        if($this->messages->delete($message_id))
         {
             return Redirect::route('me/messages')->with('flash_success', 'Message deleted successfully');
         }

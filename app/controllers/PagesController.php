@@ -3,6 +3,14 @@
 use Zbw\Cms\PagesRepository;
 
 class PagesController extends BaseController {
+    
+    private $pages;
+    
+    public function __construct(PagesRepository $pages)
+    {
+        $this->pages = $pages;
+    }
+    
     public function getIndex()
     {
         $data =[
@@ -14,7 +22,7 @@ class PagesController extends BaseController {
     public function getPage($id)
     {
         $data = [
-            'page' => PagesRepository::find($id)
+            'page' => $this->pages->find($id)
         ];
         return View::make('cms.pages.show', $data);
     }

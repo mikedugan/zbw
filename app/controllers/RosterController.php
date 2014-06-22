@@ -4,6 +4,14 @@ use Zbw\Users\UserRepository;
 
 class RosterController extends BaseController {
 
+    private $users;
+
+    function __construct(UserRepository $users)
+    {
+        $this->users = $users;
+    }
+
+
     public function getAddController()
     {
         $data = [
@@ -14,8 +22,7 @@ class RosterController extends BaseController {
 
     public function postAddController()
     {
-        $ur = new UserRepository();
-        if($ur->add(Input::get('fname'), Input::get('lname'), Input::get('email'), Input::get('artcc'), Input::get('cid'))) {
+        if($this->users->add(Input::get('fname'), Input::get('lname'), Input::get('email'), Input::get('artcc'), Input::get('cid'))) {
             return Redirect::back()->with('flash_info', 'Controller successfully added!');
         }
 
@@ -35,8 +42,7 @@ class RosterController extends BaseController {
 
     public function postEditUser($id)
     {
-        $ur = new UserRepository($id);
-        if($ur->updateUser(Input::all()))
+        if($this->users->updateUser(Input::all()))
         {
             return Redirect::back()->with('flash_success', 'User successfully updated!');
         }

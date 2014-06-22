@@ -1,15 +1,24 @@
 <?php
 
-class PilotFeedbacksController extends BaseController {
+use Zbw\Cms\FeedbackRepository;
 
-	public function getIndex()
-	{
-		$data = [
-			'feedback' => PilotFeedback::all(),
-			'title' => 'Pilot Feedback'
-		];
+class PilotFeedbacksController extends BaseController
+{
+    private $feedbacks;
 
-		return View::make('feedback.index', $data);
-	}
+    public function __construct(FeedbackRepository $feedbacks)
+    {
+        $this->feedbacks = $feedbacks;
+    }
+
+    public function getIndex()
+    {
+        $data = [
+          'feedback' => $this->feedbacks->all(),
+          'title'    => 'Pilot Feedback'
+        ];
+
+        return View::make('feedback.index', $data);
+    }
 
 }
