@@ -20,7 +20,8 @@ class TrainingController extends BaseController
     public function getIndex()
     {
         $data = [
-          'title' => 'Training Center'
+            'availableExams' => $this->exams->availableExams(\Auth::user()->cid),
+            'progress' => $this->users->trainingProgress(\Auth::user()->cid)
         ];
         return View::make('training.index', $data);
     }

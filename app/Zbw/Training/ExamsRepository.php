@@ -60,7 +60,7 @@ class ExamsRepository extends EloquentRepository {
      */
     public function availableExams($cid)
     {
-        $user = $this->users->find($cid);
+        $user = $this->users->get($cid);
         $next = \CertType::find($user->certification->id + 1);
         return [$next->id, Helpers::readableCert($next->value)];
     }

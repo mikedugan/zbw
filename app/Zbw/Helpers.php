@@ -85,6 +85,7 @@ class Helpers
     /**
      * @type static
      * @name  readableRating
+     * @deprecated
      * @description returns a readable rating string
      * @deprecated left to prevent breakage
      * @param $rating
@@ -132,29 +133,50 @@ class Helpers
     public static function readableCert($cert)
     {
         switch ($cert) {
-            case 'C_S1':
+            case '1':
+                return 'Observer';
+                break;
+            case '2':
                 return "Class C/D Ground";
                 break;
-            case 'B_S1':
+            case '3':
+                return "Class B Ground (Off Peak)";
+                break;
+            case '4':
                 return "Class B Ground";
                 break;
-            case 'C_S2':
+            case '5':
                 return "Class C/D Tower";
                 break;
-            case 'B_S2':
+            case '6':
+                return "Class B Tower (Off Peak)";
+                break;
+            case '7':
                 return "Class B Tower";
                 break;
-            case 'C_S3':
+            case '8':
                 return "Class C Approach";
                 break;
-            case 'B_S3':
+            case '9':
+                return "Class B Approach (Off Peak)";
+                break;
+            case '10':
                 return "Class B Approach";
                 break;
-            case 'C_C1':
-                return "Off Peak Center";
+            case '11':
+                return "Center (Off Peak)";
                 break;
-            case 'B_C1':
+            case '12':
                 return "Center Controller";
+                break;
+            case '13':
+                return 'Instructor';
+                break;
+            case '14':
+                return 'Senior Instructor';
+                break;
+            case '15':
+                return 'Senior Controller';
                 break;
         }
     }
