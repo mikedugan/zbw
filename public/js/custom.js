@@ -16,7 +16,7 @@ $(function() {
 		width: 900,
 		height: 400,
 		pagination: {
-			active: false,
+			active: false
 		},
 		play: {
 			active: false,

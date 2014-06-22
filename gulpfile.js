@@ -28,7 +28,7 @@ var files = {
     jpg: paths.images + '**/*.jpg'
 }
 
-gulp.task('default', ['clean', 'jsmin', 'imgmin', 'less-compile']);
+gulp.task('default', ['clean', 'jsmin', 'imgmin', 'less-min']);
 
 gulp.task('imgmin', ['jpgmin', 'pngmin']);
 
@@ -54,7 +54,17 @@ gulp.task('jsmin', function() {
       .pipe(gulp.dest(paths.dist))
 });
 
-gulp.task('less-compile', function(){
+gulp.task('less-compile', function() {
+    gulp.src(paths.styles + 'bootstrap.less')
+      .pipe(less())
+      .pipe(rename({
+          basename: 'zbw',
+          extname: '.css'
+      }))
+      .pipe(gulp.dest(paths.dist))
+});
+
+gulp.task('less-min', function(){
     return gulp.src(paths.styles + 'bootstrap.less')
       .pipe(less())
       .pipe(prefixer("last 2 versions", "ie 10", "ie 9", "ie 11"))
