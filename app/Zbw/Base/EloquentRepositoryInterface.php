@@ -1,4 +1,4 @@
-<?php namespace Zbw\Interfaces;
+<?php namespace Zbw\Contracts;
 
 interface EloquentRepositoryInterface {
     /**
