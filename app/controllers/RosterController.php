@@ -9,7 +9,7 @@ class RosterController extends BaseController {
         $data = [
             'title' => 'Add ZBW Controller'
         ];
-        return View::make('staff.roster.add-controller', $data);
+        return View::make('staff.roster.create-controller', $data);
     }
 
     public function postAddController()

@@ -1,37 +1,17 @@
 <?php namespace Zbw\Cms;
 
+use Zbw\Base\EloquentRepository;
 use Zbw\Facades\ZbwValidator;
 use Zbw\Interfaces\EloquentRepositoryInterface;
 use Zbw\Users\UserRepository;
 
-class MessagesRepository implements EloquentRepositoryInterface {
+class MessagesRepository extends EloquentRepository {
     const PRIVATE_MESSAGE = 1;
     const SESSION_COMMENT = 2;
     const EVENT_COMMENT = 3;
     const NEWS_COMMENT = 4;
     const EXAM_COMMENT = 5;
 
-    /**
-     * @type static
-     * @name find
-     * @description
-     * @param int $id
-     * @param array $relations
-     * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|null|static
-     */
-    static function find($id, $relations = [])
-    {
-        return \Message::with($relations)->find($id);
-    }
-
-    /**
-     * @param boolean include soft-deleted?
-     * @return \Zbw\Interfaces\EloquentCollection
-     */
-    static function all($withTrash = false)
-    {
-        return $withTrash == true ? \Message::withTrashed()->get() : \Message::all();
-    }
 
     /**
      * @param array input
@@ -90,7 +70,7 @@ class MessagesRepository implements EloquentRepositoryInterface {
      * @param array $input
      * @return mixed array|boolean
      */
-    static function add($input)
+    public function add($input)
     {
         $errors = '';
         $recipients = explode(',', $input['to']);
@@ -109,7 +89,7 @@ class MessagesRepository implements EloquentRepositoryInterface {
         return $errors;
     }
 
-    private static function create($input)
+    public function create($input)
     {
         $message = new \Message([
             'to' => UserRepository::findByInitials($input['to'])->cid,
@@ -161,18 +141,9 @@ class MessagesRepository implements EloquentRepositoryInterface {
     /**
      * @return Eloquent Collection
      */
-    public static function trashed()
+    public function trashed()
     {
         return \Message::onlyTrashed()->where('to', \Auth::user()->cid)->get();
-    }
-
-    /**
-     * @param integer $id
-     * @return boolean
-     */
-    public static function delete($id)
-    {
-        return \Message::destroy($id);
     }
 
     /**
@@ -195,4 +166,8 @@ class MessagesRepository implements EloquentRepositoryInterface {
         return \Message::where('from', $user)->orderBy('created_at', 'DESC')->get();
     }
 
+    public function update($input)
+    {
+
+    }
 }

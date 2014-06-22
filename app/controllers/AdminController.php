@@ -6,6 +6,17 @@ use Zbw\Training\TrainingSessionRepository;
 
 class AdminController extends BaseController
 {
+    private $users;
+    private $news;
+    private $trainings;
+
+    public function __construct(UserRepository $users, NewsRepository $news, TrainingSessionRepository $trainings)
+    {
+        $this->users = $users;
+        $this->news = $news;
+        $this->trainings = $trainings;
+    }
+
     public function getAdminIndex()
     {
         $data = [
@@ -16,7 +27,7 @@ class AdminController extends BaseController
     public function getTrainingIndex()
     {
         $data = [
-            'reports' => TrainingSessionRepository::recentReports(5),
+            'reports' => $this->trainings->recentReports(5),
             'sessions' => ['a', 'b'],
             'requests' => \TrainingRequest::with(['student', 'certType'])->get(),
             'exams' => \Exam::recentExams(5),
@@ -37,11 +48,11 @@ class AdminController extends BaseController
     public function getNewsIndex()
     {
         $data = [
-            'events' => ['expired' => NewsRepository::expiredEvents(5) ,
-                         'upcoming' => NewsRepository::upcomingEvents(5),
-                         'active' => NewsRepository::activeEvents(5) ],
-            'staffnews' => NewsRepository::staffNews(5),
-            'generalnews' => NewsRepository::recentNews(5),
+            'events' => ['expired' => $this->news->expiredEvents(5) ,
+                         'upcoming' => $this->news->upcomingEvents(5),
+                         'active' => $this->news->activeEvents(5) ],
+            'staffnews' => $this->news->staffNews(5),
+            'generalnews' => $this->news->recentNews(5),
             'title' => 'ZBW News Admin'
         ];
         return View::make('staff.pages.news', $data);
@@ -61,8 +72,7 @@ class AdminController extends BaseController
 
     public function getSearchResults()
     {
-        $ur = new UserRepository();
-        $results = $ur->search(Input::all());
+        $results = $this->users->search(Input::all());
         $data = [
             'title' => 'Roster Search Results',
             'stype' => 'roster',
@@ -81,7 +91,7 @@ class AdminController extends BaseController
     {
         $data = [
             'title' => 'View Controller',
-            'user' => UserRepository::find($id)
+            'user' => $this->users->find($id)
         ];
         return View::make('staff.roster.view', $data);
     }

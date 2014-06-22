@@ -1915,10 +1915,10 @@ var RLANG = {
 			// empty tags
 			html = this.formattingEmptyTags(html);
 
-			// add formatting before
+			// create formatting before
 			html = this.formattingAddBefore(html);
 
-			// add formatting after
+			// create formatting after
 			html = this.formattingAddAfter(html);
 
 			// indenting

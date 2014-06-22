@@ -18,4 +18,14 @@ class TrainingRequest extends Eloquent
     {
         return $this->belongsTo('User', 'sid', 'cid');
     }
+
+    public static function create($input)
+    {
+        $tr = new TrainingRequest();
+        $tr->cid = $input['user'];
+        $tr->start = $input['start'];
+        $tr->end = $input['end'];
+        $tr->cert = $input['cert'];
+        return $tr->save();
+    }
 } 

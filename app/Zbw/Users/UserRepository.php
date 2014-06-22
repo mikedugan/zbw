@@ -1,45 +1,34 @@
 <?php  namespace Zbw\Users;
 
+use Zbw\Base\EloquentRepository;
 use Zbw\Bostonjohn\Emailer;
 use Zbw\Helpers;
 use Zbw\Bostonjohn\ZbwLog;
 
-class UserRepository
+class UserRepository extends EloquentRepository
 {
+    public $model = '\User';
 
-    /**
-     * @type static
-     * @name find
-     * @description
-     * @param $id
-     * @param array $relations
-     * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|null|static
-     */
-    public static function find($id, array $relations = [])
-    {
-        return \User::with($relations)->find($id);
-    }
-
-    public static function findByInitials($initials)
+    public function findByInitials($initials)
     {
         $initials = str_replace(' ', '', strtoupper($initials));
-        return \User::where('initials', $initials)->first();
+        return $this->make()->where('initials', $initials)->first();
     }
 
-    public static function findByCid($cid)
+    public function findByCid($cid)
     {
-        return \User::where('cid', $cid)->first();
+        return $this->make()->where('cid', $cid)->first();
     }
 
     /**
-     * @type static
+     * @type
      * @name allVitals
      * @description returns vital user data
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
-    public static function allVitals()
+    public function allVitals()
     {
-        return \User::all(['first_name', 'last_name', 'cid', 'initials']);
+        return $this->make()->all(['first_name', 'last_name', 'cid', 'initials']);
     }
 
     /**
@@ -50,7 +39,7 @@ class UserRepository
      * @param integer cid
      * @return boolean
      */
-    public static function add($fname, $lname, $email, $artcc, $cid)
+    public function add($fname, $lname, $email, $artcc, $cid)
     {
         $tempPassword = Helpers::createPassword();
 
@@ -67,23 +56,23 @@ class UserRepository
         if($u->save())
         {
             $em = new Emailer($u, ['password' => $tempPassword]);
-            $em->newUser();
+            $em->newUser($u);
             return true;
         }
         else return false;
     }
 
     /**
-     * @type static
+     * @type
      * @name updateUser
      * @description updates an existing user
      * @param $input
      * @param null $cid
      * @return bool
      */
-    public static function updateUser($input, $cid = null)
+    public function updateUser($input, $cid = null)
     {
-        $user = $cid ? \User::find($cid) : \User::find($input['cid']);
+        $user = $cid ? $this->make()->find($cid) : $this->make()->find($input['cid']);
         $user->first_name = $input['fname'];
         $user->last_name = $input['lname'];
         $user->initials = $input['initials'];
@@ -99,9 +88,9 @@ class UserRepository
         return $user->save();
     }
 
-    public static function authUpdate($user)
+    public function authUpdate($user)
     {
-        $model = \User::find($user->user->id);
+        $model = $this->make()->find($user->user->id);
         $model->first_name = $user->user->name_first;
         $model->last_name = $user->user->name_last;
         $model->rating_id = $user->user->rating->id;
@@ -110,28 +99,20 @@ class UserRepository
     }
 
     /**
-     * @return eloquent collection
-     */
-    public static function all()
-    {
-        return \User::all();
-    }
-
-    /**
-     * @type static
+     * @type
      * @name createInitials
      * @description
      * @param $fname
      * @param $lname
      * @return string
      */
-    public static function createInitials($fname, $lname)
+    public function createInitials($fname, $lname)
     {
         //todo - make this check for and use inactive initials
         for($i = -1; $i >= '-'.strlen($lname); $i--)
         {
             $preferred = $lname[0] . substr($lname, $i, 1);
-            if(count(\User::where('initials', '=', $preferred)->get()) == 0)
+            if(count($this->make()->where('initials', '=', $preferred)->get()) == 0)
             {
                 return $preferred;
             }
@@ -139,7 +120,7 @@ class UserRepository
         for($i = -1; $i >= '-'.strlen($fname); $i--)
         {
             $preferred = $lname[0] . substr($fname, $i, 1);
-            if(count(\User::where('initials', '=', $preferred)->get()) == 0)
+            if(count($this->make()->where('initials', '=', $preferred)->get()) == 0)
             {
                 return $preferred;
             }
@@ -147,39 +128,39 @@ class UserRepository
     }
 
     /**
-     * @type static
+     * @type
      * @name trainingProgress
      * @description
      * @param $id
      * @return float
      */
-    public static function trainingProgress($id)
+    public function trainingProgress($id)
     {
-        return floor(\User::find($id)->cert / 7 * 100);
+        return floor($this->make()->find($id)->cert / 7 * 100);
     }
 
     /**
-     * @type static
+     * @type
      * @name certTitle
      * @description
      * @param $id
      * @return string
      */
-    public static function certTitle($id)
+    public function certTitle($id)
     {
-        return Helpers::readableCert(\User::find($id)->certification['value']);
+        return Helpers::readableCert($this->make()->find($id)->certification['value']);
     }
 
     /**
-     * @type static
+     * @type
      * @name search
      * @description
      * @param $input
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
-    public static function search($input)
+    public function search($input)
     {
-        $users = \User::where('cid', '>', 0);
+        $users = $this->make()->where('cid', '>', 0);
         if($input['email'] != null && $input['email'] != '')
         {
             $em = $input['email'];
@@ -194,7 +175,7 @@ class UserRepository
 
         if($input['cid'] > 0)
         {
-            return \User::find($input['cid']);
+            return $this->make()->find($input['cid']);
         }
 
         if($input['fname'] != null && $input['fname'] != '')
@@ -212,23 +193,23 @@ class UserRepository
         return $users->get();
     }
 
-    public static function userLoginUpdate($cid, $data)
+    public function userLoginUpdate($cid, $data)
     {
-        $user = \User::find($cid);
+        $user = $this->make()->find($cid);
         $user->email = $data['email'];
         return $user->save();
     }
 
     /**
-     * @type static
+     * @type
      * @name suspendUser
      * @description
      * @param $id
      * @return bool
      */
-    public static function suspendUser($id)
+    public function suspendUser($id)
     {
-        $user = \User::find($id);
+        $user = $this->make()->find($id);
         $user->is_active = 1;
         $user->is_suspended = 1;
         if($user->save())
@@ -244,15 +225,15 @@ class UserRepository
     }
 
     /**
-     * @type static
+     * @type
      * @name unsuspendUser
      * @description
      * @param $id
      * @return bool
      */
-    public static function unsuspendUser($id)
+    public function unsuspendUser($id)
     {
-        $user = \User::find($id);
+        $user = $this->make()->find($id);
         $user->is_active = true;
         $user->is_suspended = false;
         if($user->save())
@@ -268,15 +249,15 @@ class UserRepository
     }
 
     /**
-     * @type static
+     * @type
      * @name terminateUser
      * @description
      * @param $id
      * @return bool
      */
-    public static function terminateUser($id)
+    public function terminateUser($id)
     {
-        $user = \User::find($id);
+        $user = $this->make()->find($id);
         $user->is_active = false;
         $user->is_terminated = true;
         if($user->save())
@@ -292,15 +273,15 @@ class UserRepository
     }
 
     /**
-     * @type static
+     * @type
      * @name unterminateUser
      * @description
      * @param $id
      * @return bool
      */
-    public static function unterminateUser($id)
+    public function unterminateUser($id)
     {
-        $user = \User::find($id);
+        $user = $this->make()->find($id);
         $user->is_active = true;
         $user->is_terminated = false;
         if($user->save())
@@ -317,15 +298,15 @@ class UserRepository
 
 
     /**
-     * @type static
+     * @type
      * @name activateUser
      * @description
      * @param $id
      * @return bool
      */
-    public static function activateUser($id)
+    public function activateUser($id)
     {
-        $user = \User::find($id);
+        $user = $this->make()->find($id);
         $user->is_active = 1;
         if($user->save())
         {
@@ -339,62 +320,72 @@ class UserRepository
         }
     }
 
-    public static function getStaff()
+    public function getStaff()
     {
-        return \User::where('is_staff', 1)->orWhere('is_mentor', 1)->orWhere('is_instructor', 1)->get();
+        return $this->make()->where('is_staff', 1)->orWhere('is_mentor', 1)->orWhere('is_instructor', 1)->get();
     }
 
     /**
-     * @type static
+     * @type
      * @name isStaff
      * @description
      * @param $id
      * @return bool
      */
-    public static function isStaff($id)
+    public function isStaff($id)
     {
-        $u = \User::find($id);
+        $u = $this->make()->find($id);
         return $u->is_atm || $u->is_datm || $u->is_ta || $u->is_mentor || $u->is_instructor || $u->is_facilities || $u->is_webmaster;
     }
 
     /**
-     * @type static
+     * @type
      * @name isExecutive
      * @description
      * @param $id
      * @return bool
      */
-    public static function isExecutive($id)
+    public function isExecutive($id)
     {
-        $u = \User::find($id);
+        $u = $this->make()->find($id);
         return $u->is_atm || $u->is_datm || $u->is_ta || $u->is_webmaster;
     }
 
-    public static function canTrain($level)
+    public function canTrain($level)
     {
         if($level == 12) {
-            return \User::where('cert', '>=' ,12)->lists('cid');
+            return $this->make()->where('cert', '>=' ,12)->lists('cid');
         } else {
-            return \User::where('cert', '>=', $level + 1)->lists('cid');
+            return $this->make()->where('cert', '>=', $level + 1)->lists('cid');
         }
 
     }
 
-    public static function canCertify($level)
+    public function canCertify($level)
     {
-        if($level == 11) { return \User::where('cert', '>=', 12)->lists('cid'); }
-        else if ($level == 12) { return \User::where('cert', '>=', 13)->lists('cid'); }
-        return \User::where('cert', '>=', $level + 2)->lists('cid');
+        if($level == 11) { return $this->make()->where('cert', '>=', 12)->lists('cid'); }
+        else if ($level == 12) { return $this->make()->where('cert', '>=', 13)->lists('cid'); }
+        return $this->make()->where('cert', '>=', $level + 2)->lists('cid');
     }
 
-    public static function checkUser($user)
+    public function checkUser($user)
     {
-        if(is_int($user)) $user = \User::find($user);
+        if(is_int($user)) $user = $this->make()->find($user);
         $status = null;
         if(! $user->is_active)
             $status = 'Your account is not active. Please email <a
                    href="mailto:staff@bostonartcc.net">admin</a>';
 
         return $status;
+    }
+
+    public function update($input)
+    {
+
+    }
+
+    public function create($input)
+    {
+
     }
 }

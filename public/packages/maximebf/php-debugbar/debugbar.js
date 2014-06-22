@@ -823,7 +823,7 @@ if (typeof(PhpDebugBar) == 'undefined') {
         },
 
         /**
-         * Resets datasets and add one set of data
+         * Resets datasets and create one set of data
          *
          * For this method to be usefull, you need to specify
          * a dataMap using setDataMap()

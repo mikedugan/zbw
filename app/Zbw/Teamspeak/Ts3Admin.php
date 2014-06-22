@@ -1267,7 +1267,7 @@ class Ts3Admin
      * @author     Par0noid Solutions
      * @access        public
      * @param        string $pattern clientName
-     * @param        boolean $uid set true to add -uid param [optional]
+     * @param        boolean $uid set true to create -uid param [optional]
      * @return     array clientList
      */
     function clientDbFind($pattern, $uid = false)
@@ -1345,7 +1345,7 @@ class Ts3Admin
      * @access        public
      * @param        integer $start offset [optional] (Default: 0)
      * @param        integer $duration limit [optional] (Default: -1)
-     * @param        boolean $count set true to add -count param [optional]
+     * @param        boolean $count set true to create -count param [optional]
      * @return     array clientdblist
      */
     function clientDbList($start = 0, $duration = -1, $count = false)
@@ -1794,7 +1794,7 @@ class Ts3Admin
      * @author     Par0noid Solutions
      * @access        public
      * @param        intege $cldbid clientDBID
-     * @param        boolean $permsid set true to add -permsid param [optional]
+     * @param        boolean $permsid set true to create -permsid param [optional]
      * @return     array clientPermList
      */
     function clientPermList($cldbid, $permsid = false)
@@ -2482,7 +2482,7 @@ class Ts3Admin
     /**
      * logAdd
      *
-     * Writes a custom entry into the servers log. Depending on your permissions, you'll be able to add entries into the server instance log and/or your virtual servers log. The loglevel parameter specifies the type of the entry.
+     * Writes a custom entry into the servers log. Depending on your permissions, you'll be able to create entries into the server instance log and/or your virtual servers log. The loglevel parameter specifies the type of the entry.
      *
      * @author     Par0noid Solutions
      * @access        public
@@ -2701,7 +2701,7 @@ class Ts3Admin
      *
      * @author     Par0noid Solutions
      * @access        public
-     * @param        boolean $new [optional] add new parameter
+     * @param        boolean $new [optional] create new parameter
      * @return     array permissionList
      */
     function permissionList($new = false)
@@ -2805,7 +2805,7 @@ class Ts3Admin
      * @access        public
      * @param        integer $value Port or ID
      * @param        string $type value type ('port', 'serverId') (default='port')
-     * @param        boolean $virtual set true to add -virtual param [optional]
+     * @param        boolean $virtual set true to create -virtual param [optional]
      * @return     boolean success
      */
     function selectServer($value, $type = 'port', $virtual = false)
@@ -3145,7 +3145,7 @@ class Ts3Admin
      * @author     Par0noid Solutions
      * @access        public
      * @param        integer $sgid groupId
-     * @param        boolean $names set true to add -names param [optional]
+     * @param        boolean $names set true to create -names param [optional]
      * @return     multidimensional-array    serverGroupClientList
      */
     function serverGroupClientList($sgid, $names = false)
@@ -3314,7 +3314,7 @@ class Ts3Admin
      * @author     Par0noid Solutions
      * @access        public
      * @param        integer $sgid serverGroupID
-     * @param        boolean $permsid set true to add -permsid param [optional]
+     * @param        boolean $permsid set true to create -permsid param [optional]
      * @return     array serverGroupPermList
      */
     function serverGroupPermList($sgid, $permsid = false)

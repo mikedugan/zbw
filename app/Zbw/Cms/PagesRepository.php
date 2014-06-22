@@ -1,25 +1,19 @@
 <?php  namespace Zbw\Cms;
 
-class PagesRepository
+use Zbw\Base\EloquentRepository;
+
+class PagesRepository extends EloquentRepository
 {
-    public static function all()
+    public $model = '\Page';
+
+    public function update($input)
     {
-        return \Page::all();
+
     }
 
-    public static function find($id)
+    public function create($input)
     {
-        return \Page::find($id);
-    }
 
-    public static function add($input)
-    {
-        //TODO implement
-    }
-
-    public static function delete($id)
-    {
-        return \Page::destroy($id);
     }
 
     public static function orphaned()

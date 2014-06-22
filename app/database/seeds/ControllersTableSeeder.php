@@ -102,20 +102,23 @@ class ControllersTableSeeder extends Seeder {
 
       foreach(range(1,199) as $i)
 		{
-			$c = new User();
-			$c->cid = $cids[$i - 1];
-			$c->initials = strtoupper($faker->randomLetter() . $faker->randomLetter());
-			$c->first_name = $faker->firstName();
-			$c->last_name = $faker->lastName();
-			$c->username = $c->first_name . ' ' . $c->last_name;
-			$c->password = Hash::make($faker->word());
-			$c->email = $faker->safeEmail();
-			$c->signature = $c->first_name . ' ' . $c->last_name . '('.$c->initials.')';
-			$c->rating_id = $faker->numberBetween(0,6);
-			$c->artcc = 'ZBW';
-			$c->is_active = $faker->boolean(70);
-			$c->is_mentor = $faker->boolean(5);
-			$c->save();
+        $first_name = $faker->firstName();
+        $last_name = $faker->lastName();
+        $initials = strtoupper($faker->randomLetter() . $faker->randomLetter());
+			  \User::create([
+            'cid' => $cids[$i - 1],
+            'initials' => $initials,
+            'first_name' => $first_name,
+            'last_name' => $last_name,
+            'username' => $first_name . ' ' . $last_name,
+            'password' => Hash::make($faker->word()),
+            'email' => $faker->safeEmail(),
+            'signature' => $first_name . ' ' . $last_name . '('.$initials.')',
+            'rating_id' => $faker->numberBetween(0,6),
+            'artcc' => 'ZBW',
+            'is_active' => $faker->boolean(70),
+            'is_mentor' => $faker->boolean(5),
+        ]);
 		}
 	}
 

@@ -3,6 +3,7 @@
 class Exam extends Eloquent {
     protected $guarded = ['exam_id', 'reviewed'];
     protected $table = 'controller_exams';
+    protected $with = ['student', 'comments'];
     public $rules;
 
 

@@ -37,10 +37,10 @@ class OAuthRequest {
 
     public function set_parameter($name, $value, $allow_duplicates = true) {
         if ($allow_duplicates && isset($this->parameters[$name])) {
-            // We have already added parameter(s) with this name, so add to the list
+            // We have already added parameter(s) with this name, so create to the list
             if (is_scalar($this->parameters[$name])) {
                 // This is the first duplicate, so transform scalar (string)
-                // into an array so we can add the duplicates
+                // into an array so we can create the duplicates
                 $this->parameters[$name] = array($this->parameters[$name]);
             }
 
