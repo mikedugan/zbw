@@ -1,30 +1,31 @@
 <?php  namespace Zbw\Cms;
 
-class CommentsRepository
+
+use Zbw\Base\EloquentRepository;
+
+class CommentsRepository extends EloquentRepository
 {
-    public static function all()
-    {
-        return \Comment::all();
-    }
-
-    public static function find($id)
-    {
-        return \Comment::find($id);
-    }
-
+    public $model = '\Comment';
     public static function add($input)
     {
-        $comment = new \Comment([
-            'content' => $input['content'],
-            'parent_id' => $input['parent_id'],
+        $comment = new \Comment(
+          [
+            'content'      => $input['content'],
+            'parent_id'    => $input['parent_id'],
             'comment_type' => $input['comment_type'],
-        ]);
+          ]
+        );
         $comment->author = \Auth::user()->cid;
         return $comment->save();
     }
 
-    public static function delete($id)
+    public function update($input)
     {
-        return \Comment::destroy($id);
+
     }
-} 
+
+    public function create($input)
+    {
+
+    }
+}

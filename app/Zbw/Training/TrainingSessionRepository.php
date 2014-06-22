@@ -1,38 +1,14 @@
 <?php namespace Zbw\Training;
 
-use Zbw\Interfaces\EloquentRepositoryInterface;
+use Zbw\Base\EloquentRepository;
 
-class TrainingSessionRepository implements EloquentRepositoryInterface {
-
-    /**
-     * @type static
-     * @name find
-     * @description return a user with optional relations
-     * @param int $id
-     * @param mixed $relations
-     * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|null|static
-     */
-    public static function find($id, $relations)
-    {
-        $allRelations = ['WeatherType', 'ComplexityType', 'WorkloadType', 'Student', 'Staff',
-            'TrainingType', 'Facility', 'TrainingReport'];
-
-        return $relations === "all" ? \TrainingSession::with($allRelations)->find($id) : \TrainingSession::with($relations)->find($id);
-    }
-
-    /**
-     * @return EloquentCollection
-     */
-    public static function all()
-    {
-        return \TrainingSession::all();
-    }
-
+class TrainingSessionRepository extends EloquentRepository {
+    public $model = '\TrainingSession';
     /**
      * @param array $input
      * @return mixed array|boolean
      */
-    public static function add($input)
+    public function create($input)
     {
         $invalid = ZbwValidator::get('TrainingSession', $input);
 
@@ -56,13 +32,9 @@ class TrainingSessionRepository implements EloquentRepositoryInterface {
         return $session->save();
     }
 
-    /**
-     * @param integer $id
-     * @return boolean
-     */
-    public static function delete($id)
+    public function update($input)
     {
-        return \TrainingSession::destroy($id);
+
     }
 
     /**

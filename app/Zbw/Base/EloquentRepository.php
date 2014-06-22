@@ -1,22 +1,59 @@
-<?php  namespace Zbw\Contracts; 
+<?php  namespace Zbw\Base;
 
 abstract class EloquentRepository {
 
-    public static function all()
+    protected function make()
     {
-        return \class_basename(self)::all();
+        return new $this->model;
     }
 
-    public static function get($id)
+    public function all()
     {
-        return \class_basename(self)::find($id);
+        return $this->make()->all();
+    }
+
+    public function get($id)
+    {
+        return $this->make()->find($id);
     }
 
     public function delete($id)
     {
-        return \class_basename(self)::find($id);
+        $item = $this->get($id);
+        if($this->hasSoftDeletes() && $item->deleted_at)
+        {
+            return $item->forceDelete();
+        }
+
+        return $item->destroy($id);
     }
 
-    abstract public static function update();
-    abstract public static function create();
+    public function trashed()
+    {
+        if($this->hasSoftDeletes()) {
+            return $this->make()->onlyTrashed()->get();
+        }
+        else return false;
+    }
+
+    public function restore($id)
+    {
+        if($this->hasSoftDeletes()) {
+            return $this->make()->restore($id);
+        }
+        else return false;
+    }
+
+    /**
+     * @name hasSoftDeletes
+     * @description determines if a model uses SoftDeletingTrait
+     * @return bool
+     */
+    protected function hasSoftDeletes()
+    {
+        return in_array('SoftDeletingTrait', class_uses($this->model));
+    }
+
+    abstract public function update($input);
+    abstract public function create($input);
 }

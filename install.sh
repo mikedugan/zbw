@@ -13,7 +13,7 @@ echo "--- Installing base packages ---"
 sudo apt-get install -y vim curl python-software-properties
 
 echo "--- We want the bleeding edge of PHP, right master? ---"
-sudo add-apt-repository -y ppa:ondrej/php5
+sudo create-apt-repository -y ppa:ondrej/php5
 
 echo "--- Updating packages list ---"
 sudo apt-get update

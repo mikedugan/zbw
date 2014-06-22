@@ -1,18 +1,10 @@
 <?php  namespace Zbw\Cms;
 
-class MenusRepository
+use Zbw\Base\EloquentRepository;
+
+class MenusRepository extends EloquentRepository
 {
-    public static function all()
-    {
-        return \Menu::all();
-    }
-
-    public static function find($id)
-    {
-        return \Menu::find($id);
-    }
-
-    public static function add($input)
+    public function create($input)
     {
         $menu = new \Menu();
         $menu->title = $input['title'];
@@ -20,8 +12,8 @@ class MenusRepository
         return $menu->save();
     }
 
-    public static function delete($id)
+    public function update($input)
     {
-        return \Menu::destroy($id);
+
     }
 } 

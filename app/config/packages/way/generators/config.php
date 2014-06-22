@@ -8,19 +8,19 @@ return [
     |--------------------------------------------------------------------------
     |
     */
-    'model_template_path' => '/Users/mdugan/Code/me/bostonartcc.net/app/templates/model.txt',
+    'model_template_path' => '/home/mdugan/Code/me/zbw/app/templates/model.txt',
 
-    'scaffold_model_template_path' => '/Users/mdugan/Code/me/bostonartcc.net/app/templates/scaffolding/model.txt',
+    'scaffold_model_template_path' => '/home/mdugan/Code/me/zbw/app/templates/scaffolding/model.txt',
 
-    'controller_template_path' => '/Users/mdugan/Code/me/bostonartcc.net/app/templates/controller.txt',
+    'controller_template_path' => '/home/mdugan/Code/me/zbw/app/templates/controller.txt',
 
-    'scaffold_controller_template_path' => '/Users/mdugan/Code/me/bostonartcc.net/app/templates/scaffolding/controller.txt',
+    'scaffold_controller_template_path' => '/home/mdugan/Code/me/zbw/app/templates/scaffolding/controller.txt',
 
-    'migration_template_path' => '/Users/mdugan/Code/me/bostonartcc.net/app/templates/migration.txt',
+    'migration_template_path' => '/home/mdugan/Code/me/zbw/app/templates/migration.txt',
 
-    'seed_template_path' => '/Users/mdugan/Code/me/bostonartcc.net/app/templates/seed.txt',
+    'seed_template_path' => '/home/mdugan/Code/me/zbw/app/templates/seed.txt',
 
-    'view_template_path' => '/Users/mdugan/Code/me/bostonartcc.net/app/templates/view.txt',
+    'view_template_path' => '/home/mdugan/Code/me/zbw/app/templates/view.txt',
 
 
     /*
@@ -29,7 +29,7 @@ return [
     |--------------------------------------------------------------------------
     |
     */
-    'model_target_path'   => app_path('database/models'),
+    'model_target_path'   => app_path('models'),
 
     'controller_target_path'   => app_path('controllers'),
 

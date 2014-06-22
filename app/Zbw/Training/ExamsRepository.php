@@ -1,18 +1,20 @@
 <?php namespace Zbw\Training;
 
-use Zbw\Bostonjohn\ZbwLog;
+use Zbw\Base\EloquentRepository;
 use Zbw\Users\UserRepository;
 use Zbw\Helpers;
-use Zbw\Interfaces\EloquentRepositoryInterface;
 
-class ExamsRepository implements EloquentRepositoryInterface {
+class ExamsRepository extends EloquentRepository {
 
-    public static function all()
+    public $model = '\Exam';
+    protected $users;
+
+    public function __construct(UserRepository $users)
     {
-        return \Exam::all();
+        $this->users = $users;
     }
 
-    public static function add($i)
+    public function create($i)
     {
         $e = new \Exam();
         $e->assigned_on = \Carbon::now();
@@ -22,12 +24,17 @@ class ExamsRepository implements EloquentRepositoryInterface {
         return $e->save;
     }
 
-    public static function find($id, $relations)
+    public function update($input)
     {
 
     }
 
-    public static function delete($eid)
+    public function get($id)
+    {
+        return $this->make()->find($id);
+    }
+
+    public function delete($eid)
     {
 
     }
@@ -51,15 +58,15 @@ class ExamsRepository implements EloquentRepositoryInterface {
      * @param boolean training
      * @return string next available exam
      */
-    public static function availableExams($cid)
+    public function availableExams($cid)
     {
-        $user = UserRepository::find($cid);
+        $user = $this->users->find($cid);
         $next = \CertType::find($user->certification->id + 1);
         return [$next->id, Helpers::readableCert($next->value)];
     }
 
-    public static function lastExam($cid)
+    public function lastExam($cid)
     {
-        return \Exam::where('cid', $cid)->with(['student', 'comments'])->latest()->first();
+        return $this->make()->where('cid', $cid)->with(['student', 'comments'])->latest()->first();
     }
 }

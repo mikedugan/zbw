@@ -3,14 +3,27 @@
 use Zbw\Users\UserRepository;
 use Zbw\Messages\MessagesRepository;
 use Zbw\Bostonjohn\Emailer;
+use Zbw\Training\CertificationRepository;
 
 class AjaxController extends BaseController
 {
+    private $users;
+    private $messages;
+    private $emailer;
+    private $certs;
+
+    public function __construct(UserRepository $users, MessagesRepository $messages, Emailer $emailer, CertificationRepository $certs)
+    {
+        $this->users = $users;
+        $this->messages = $messages;
+        $this->emailer = $emailer;
+        $this->certs = $certs;
+    }
+
     //handles an ajax request
     public function requestExam($cid, $eid)
     {
-        $cr = new \Zbw\Repositories\CertificationRepository($eid);
-        if($cr->requestExam($cid))
+        if($this->certs->requestExam($cid, $eid))
         {
             return json_encode(
                 ['success' => true,
@@ -42,8 +55,7 @@ class AjaxController extends BaseController
 
     public function suspendUser($id)
     {
-        $ur = new UserRepository();
-        if(UserRepository::suspendUser($id))
+        if($this->users->suspendUser($id))
         {
             return json_encode([
                 'success' => true,
@@ -61,7 +73,7 @@ class AjaxController extends BaseController
 
     public function terminateUser($id)
     {
-        if(UserRepository::terminateUser($id))
+        if($this->users->terminateUser($id))
         {
             return json_encode([
                 'success' => true,
@@ -78,7 +90,7 @@ class AjaxController extends BaseController
     }
     public function activateUser($id)
     {
-        if(UserRepository::activateUser($id))
+        if($this->users->activateUser($id))
         {
             return json_encode([
                 'success' => true,
@@ -96,13 +108,7 @@ class AjaxController extends BaseController
 
     public function postTrainingRequest()
     {
-        $i = Input::all();
-        $tr = new \TrainingRequest();
-        $tr->cid = $i['user'];
-        $tr->start = $i['start'];
-        $tr->end = $i['end'];
-        $tr->cert = $i['cert'];
-        if($tr->save()) {
+        if(\TrainingRequest::create(\Input::all())) {
             return json_encode([
                 'success' => true,
                 'message' => 'Training request added successfully for ' . $i['start']
@@ -119,7 +125,7 @@ class AjaxController extends BaseController
 
     public function cancelTrainingRequest($tid)
     {
-        $tr = \TrainingRequest::find($tid);
+        $tr = $this->trainings->get($tid);
         if($tr->delete())
         {
             return json_encode([
@@ -138,7 +144,7 @@ class AjaxController extends BaseController
 
     public function acceptTrainingRequest($tid)
     {
-        $tr = \TrainingRequest::find($tid);
+        $tr = $this->trainings->get($tid);
         $tr->sid = $tr->sid == null ? Auth::user()->cid : $tr->sid;
         if($tr->save() && $tr->sid == Auth::user()->cid)
         {
@@ -158,7 +164,7 @@ class AjaxController extends BaseController
 
     public function markInboxRead()
     {
-        if(MessagesRepository::markAllRead(Auth::user()->cid))
+            if($this->messages->markAllRead(Auth::user()->cid))
         {
             return json_encode([
                 'success' => true,

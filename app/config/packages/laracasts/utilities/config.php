@@ -18,7 +18,7 @@ return [
     | JavaScript Namespace
     |--------------------------------------------------------------------------
     |
-    | By default, we'll add variables to the global window object.
+    | By default, we'll create variables to the global window object.
     | It's recommended that you change this to some namespace - anything.
     | That way, from your JS, you may do something like `Laracasts.myVar`.
     |

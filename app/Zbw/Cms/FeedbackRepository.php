@@ -1,7 +1,19 @@
 <?php namespace Zbw\Cms;
 
-use Zbw\Interfaces\EloquentRepositoryInterface;
+use Zbw\Base\EloquentRepository;
 
-class FeedbackRepository extends EloquentRepositoryInterface {
+class FeedbackRepository extends EloquentRepository
+{
 
+    protected $model = '\Feedback';
+
+    public function update($input)
+    {
+
+    }
+
+    public function create($input)
+    {
+
+    }
 }

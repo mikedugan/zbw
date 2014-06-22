@@ -87,7 +87,7 @@ Route::group(
 Route::group(
     array('before' => 'instructor'),
     function() {
-        //TODO add routes
+        //TODO create routes
     });
 
 //routes accessible by any staff member
@@ -106,15 +106,15 @@ Route::group(
           Route::get('u/{id}', 'AdminController@showUser');
           Route::get('{id}/edit', 'RosterController@getEditUser');
           Route::post('{id}/edit', 'RosterController@postEditUser');
-          Route::get('roster/add-controller', 'RosterController@getAddController');
-          Route::post('roster/add-controller','RosterController@postAddController');
+          Route::get('roster/create-controller', 'RosterController@getAddController');
+          Route::post('roster/create-controller','RosterController@postAddController');
           Route::get('pages', 'PagesController@getIndex');
           Route::get('forum', 'AdminController@getForumIndex');
           Route::get('ts', 'AdminController@getTsIndex');
 
           Route::get('news', 'AdminController@getNewsIndex');
-          Route::get('news/add', 'NewsController@getCreate');
-          Route::post('news/add', 'NewsController@postCreate');
+          Route::get('news/create', 'NewsController@getCreate');
+          Route::post('news/create', 'NewsController@postCreate');
 
           Route::get('log', 'AdminController@getLog');
 

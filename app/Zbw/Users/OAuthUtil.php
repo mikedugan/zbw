@@ -111,12 +111,12 @@ class OAuthUtil
             $value = isset($split[1]) ? OAuthUtil::urldecode_rfc3986($split[1]) : '';
 
             if (isset($parsed_parameters[$parameter])) {
-                // We have already recieved parameter(s) with this name, so add to the list
+                // We have already recieved parameter(s) with this name, so create to the list
                 // of parameters with this name
 
                 if (is_scalar($parsed_parameters[$parameter])) {
                     // This is the first duplicate, so transform scalar (string) into an array
-                    // so we can add the duplicates
+                    // so we can create the duplicates
                     $parsed_parameters[$parameter] = array($parsed_parameters[$parameter]);
                 }
 

@@ -1,34 +1,33 @@
 <?php namespace Zbw\Cms;
 
-use \News as News;
-use Zbw\Interfaces\EloquentRepositoryInterface;
+use Zbw\Base\EloquentRepository;
 use Zbw\Validators\ZbwValidator;
 
-class NewsRepository implements EloquentRepositoryInterface {
-    /** methods */
+class NewsRepository extends EloquentRepository {
+    public $model = '\News';
 
-    public static function front($lim)
+    public function front($lim)
     {
-        return News::where('audience_type_id', '=', '1')->where('news_type_id', '!=', '5')->orderBy('created_at', 'DESC')->limit($lim)->get();
+        return $this->make()->where('audience_type_id', '=', '1')->where('news_type_id', '!=', '5')->orderBy('created_at', 'DESC')->limit($lim)->get();
     }
 
-    /** static functions */
-    public static function all()
+    /** functions */
+    public function all()
     {
-        return \News::all();
+        return $this->make()->all();
     }
 
-    public static function find($id, $relations = null)
+    public function find($id, $relations = null)
     {
-        return $relations ? \News::with($relations)->find($id) : \News::find($id);
+        return $relations ? $this->make()->with($relations)->find($id) : $this->make()->find($id);
     }
 
-    public static function findWithRelations($id)
+    public function findWithRelations($id)
     {
-        return \News::with(['Facility'])->find($id);
+        return $this->make()->with(['Facility'])->find($id);
     }
 
-    public static function add($input)
+    public function add($input)
     {
         $invalid = ZbwValidator::get('News', $input);
 
@@ -44,7 +43,7 @@ class NewsRepository implements EloquentRepositoryInterface {
         else { $ends = \Carbon::createFromFormat('Y/m/d H:i', $input['ends']); }
 
         //create the object
-        $n = \News::create([
+        $n = $this->make()->create([
             'title' => $input['title'],
             'starts' => $starts,
             'ends' => $ends,
@@ -57,49 +56,54 @@ class NewsRepository implements EloquentRepositoryInterface {
         return $n->save();
     }
 
-    public static function update($input)
+    public function update($input)
     {
         $invalid = ZbwValidator::get('News', $input);
         if(is_array($invalid)) return $invalid;
         $input['starts'] = \Carbon::createFromFormat('Y-m-d H:i:s', $input['starts']);
         $input['ends'] = \Carbon::createFromFormat('Y-m-d H:i:s', $input['ends']);
 
-        return \News::find($input['event_id'])->fill($input)->save();
+        return $this->make()->find($input['event_id'])->fill($input)->save();
     }
 
-    public static function delete($id)
+    public function delete($id)
     {
-        return \News::destroy($id);
+        return $this->make()->destroy($id);
     }
 
-    public static function staffNews($lim, $direction = 'DESC')
+    public function staffNews($lim, $direction = 'DESC')
     {
-        return \News::where('news_type_id', '=', 5)->limit($lim)->orderBy('starts', $direction)->get();
+        return $this->make()->where('news_type_id', '=', 5)->limit($lim)->orderBy('starts', $direction)->get();
     }
 
-    public static function recentNews($num, $direction = 'DESC')
+    public function recentNews($num, $direction = 'DESC')
     {
-        return \News::where('news_type_id', '!=', 5)->where('news_type_id', '!=', 1)
+        return $this->make()->where('news_type_id', '!=', 5)->where('news_type_id', '!=', 1)
                 ->limit($num)->orderBy('starts', $direction)->get();
     }
 
-    public static function events()
+    public function events()
     {
-        return \News::where('news_type_id', '=', '1')->get();
+        return $this->make()->where('news_type_id', '=', '1')->get();
     }
 
-    public static function activeEvents()
+    public function activeEvents()
     {
-        return \News::where('ends', '>', \Carbon::now())->where('starts', '<', \Carbon::now())->get();
+        return $this->make()->where('ends', '>', \Carbon::now())->where('starts', '<', \Carbon::now())->get();
     }
 
-    public static function expiredEvents($lim, $sortBy = 'ends', $direction = 'DESC')
+    public function expiredEvents($lim, $sortBy = 'ends', $direction = 'DESC')
     {
-        return \News::where('ends', '<', \Carbon::now())->where('news_type_id', '=', 1)->limit($lim)->orderBy($sortBy, $direction)->get();
+        return $this->make()->where('ends', '<', \Carbon::now())->where('news_type_id', '=', 1)->limit($lim)->orderBy($sortBy, $direction)->get();
     }
 
-    public static function upcomingEvents($lim)
+    public function upcomingEvents($lim)
     {
-        return \News::where('starts', '>', \Carbon::now())->orderBy('starts')->limit($lim)->get();
+        return $this->make()->where('starts', '>', \Carbon::now())->orderBy('starts')->limit($lim)->get();
+    }
+
+    public function create($input)
+    {
+
     }
 }
