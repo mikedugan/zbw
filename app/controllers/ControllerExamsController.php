@@ -56,7 +56,7 @@ class ControllerExamsController extends BaseController
     public function postComment($eid)
     {
         $post = \Input::all();
-        if (CommentsRepository::add(
+        if ($this->comments->create(
           [
             'content'      => $post['content'],
             'parent_id'    => $eid,
@@ -78,7 +78,7 @@ class ControllerExamsController extends BaseController
 
     public function addQuestion()
     {
-        if (QuestionsRepository::add(Input::all())) {
+        if ($this->questions->create(Input::all())) {
             $log = new \Zbw\Bostonjohn\ZbwLog();
             $log->addLog(Auth::user()->initials . 'added an exam question', '');
             return Redirect::back()->with(
