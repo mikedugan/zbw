@@ -7,7 +7,6 @@ Welcome
 
 @section('content')
   <div class="col-md-12 text-center">
-      <span class="glyphicons-icon wallet"></span>
   <h4>Welcome to Boston ARTCC, where excellence is served daily with a cup of MOCHA HAGoTDI</h4>
   		<div class="hidden-sm hidden-xs" id="slideshow">
     		@include('includes._slideshow')

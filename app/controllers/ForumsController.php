@@ -2,21 +2,31 @@
 
 use Zbw\Forums\ForumsRepository;
 
-class ForumsController extends BaseController {
+class ForumsController extends BaseController
+{
 
-	public function getIndex()
-	{
-		$data = [
-			'title' => 'vZBW Forums'
-		];
-		return View::make('forums.index', $data);
-	}
+    private $forums;
+    public function __construct(ForumsRepository $forums)
+    {
+        $this->forums = $forums;
+    }
+
+    public function getIndex()
+    {
+        $data = [
+          'title' => 'vZBW Forums',
+          'recent' => '',
+          'hot' => '',
+          'new' => '',
+        ];
+        return View::make('forums.index', $data);
+    }
 
     public function getForum($id)
     {
         $data = [
-            'topic' => ForumsRepository::find($id),
-            'permissions' => ''
+          'topic' => ForumsRepository::find($id),
+          'permissions' => ''
         ];
 
         return View::make('forums.show', $data);
@@ -34,18 +44,23 @@ class ForumsController extends BaseController {
     public function postCreate()
     {
         $input = \Input::all();
-        if(ForumsRepository::create($input)) {
-            return Redirect::route('forums')->with('flash_success', 'Forum successfully created!');
-        }
-        else {
-            return Redirect::back()->with('flash_error', 'Error creating forum');
+        if (ForumsRepository::create($input)) {
+            return Redirect::route('forums')->with(
+              'flash_success',
+              'Forum successfully created!'
+            );
+        } else {
+            return Redirect::back()->with(
+              'flash_error',
+              'Error creating forum'
+            );
         }
     }
 
     public function getSettings()
     {
         $data = [
-            'forums' => ForumsRepository::all(),
+          'forums' => ForumsRepository::all(),
         ];
 
         return View::make('forums.settings', $data);
@@ -54,11 +69,16 @@ class ForumsController extends BaseController {
     public function postSettings()
     {
         $input = \Input::all();
-        if(ForumsRepository::updateSettings($input)) {
-            return Redirect::route('forums/settings')->with('flash_success', 'Settings updated successfully');
-        }
-        else {
-            return Redirect::back()->with('flash_error', 'Error updating settings!');
+        if (ForumsRepository::updateSettings($input)) {
+            return Redirect::route('forums/settings')->with(
+              'flash_success',
+              'Settings updated successfully'
+            );
+        } else {
+            return Redirect::back()->with(
+              'flash_error',
+              'Error updating settings!'
+            );
         }
     }
 

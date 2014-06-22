@@ -1,3 +1,22 @@
+@font-face {
+    font-family: 'Flamenco';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Flamenco'), local('Flamenco-Regular'), url(http://themes.googleusercontent.com/static/fonts/flamenco/v4/Ih-SipknQN9xiiZItSGWE_esZW2xOQ-xsNqO47m55DA.woff) format('woff');
+    }
+@font-face {
+    font-family: 'Jacques Francois';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Jacques Francois'), local('JacquesFrancois-Regular'), url(http://fonts.gstatic.com/s/jacquesfrancois/v3/_-0XWPQIW6tOzTHg4KaJ_G0r6TzgmNhwP1bMwOoxl6o.woff2) format('woff2'), url(http://fonts.gstatic.com/s/jacquesfrancois/v3/_-0XWPQIW6tOzTHg4KaJ_JI2N7O7hhWpTtijDoir9L0.woff) format('woff');
+    }
+@font-face {
+    font-family: 'Pontano Sans';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Pontano Sans'), local('PontanoSans-Regular'), url(http://themes.googleusercontent.com/static/fonts/pontanosans/v2/gTHiwyxi6S7iiHpqAoiE3HhCUOGz7vYGh680lGh-uXM.woff) format('woff');
+    }
+
 h1 { font-size : @header-base; }
 
 h2 { font-size : @header-base * 0.875; }
@@ -10,7 +29,7 @@ h5 { font-size : @header-base * 0.55; }
 
 h6 { font-size : @header-base * 0.55; }
 
-h1, h2, h3, h4, h5, h6 { margin : 1%; }
+h1, h2, h3, h4, h5, h6 { margin : 1%; font-family: "Jacques Francois", Georgia, Times, serif; }
 
 b { font-weight : bold; }
 
@@ -205,3 +224,9 @@ ul.nav li a.small { font-size : 1em; }
 .warning td { background : #fcf8e3; }
 
 .danger td { background : #f2dede; }
+
+/** for glyphicons in alert bar **/
+.alert > span:first-child {
+    height: 25px;
+    }
+.pointer { cursor: pointer; }

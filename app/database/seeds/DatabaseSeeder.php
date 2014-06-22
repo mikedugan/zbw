@@ -29,6 +29,7 @@ class DatabaseSeeder extends Seeder {
         $this->call('ControllerReportsTableSeeder');
         $this->call('PrivateMessageTableSeeder');
         $this->call('TrainingRequestsTableSeeder');
+      $this->call('ForumsTableSeeder');
 	}
 
 }

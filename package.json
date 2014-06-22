@@ -28,6 +28,7 @@
     "imagemin-jpegtran": "^0.1.0",
     "imagemin-optipng": "^0.1.0",
     "imagemin-pngcrush": "^0.1.0",
+    "imagemin-svgo": "^0.1.0",
     "rimraf": "^2.2.8"
   }
 }

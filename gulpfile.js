@@ -11,6 +11,7 @@ var rename = require('gulp-rename');
 var imgmin = require('gulp-imagemin');
 var optipng = require('imagemin-optipng');
 var jpgtran = require('imagemin-jpegtran');
+var svgo = require('imagemin-svgo');
 
 var paths = {
     js: 'public/js/',
@@ -20,17 +21,18 @@ var paths = {
 }
 
 var files = {
-    js: paths.js + '**/*.js',
+    js: ['public/js/bootstrap.js', 'public/js/datetimepicker.js', 'public/js/redactor.js', 'public/js/slide.js', 'public/js/functions.js', 'public/js/events.js', 'public/js/custom.js'],
     images: paths.images + '**/*',
     css: paths.styles + '*.css',
     less: paths.styles + '*.less',
     png: paths.images + '**/*.png',
-    jpg: paths.images + '**/*.jpg'
+    jpg: paths.images + '**/*.jpg',
+    svg: paths.images + '**/*.svg'
 }
 
 gulp.task('default', ['clean', 'jsmin', 'imgmin', 'less-min']);
 
-gulp.task('imgmin', ['jpgmin', 'pngmin']);
+gulp.task('imgmin', ['jpgmin', 'pngmin', 'svgmin']);
 
 gulp.task('watch', function() {
     gulp.src(files.less)
@@ -79,7 +81,7 @@ gulp.task('less-min', function(){
 gulp.task('pngmin', function() {
     gulp.src(files.png)
       .pipe(imgmin({
-          use: [optipng({optimizationLevel:5})]
+          use: [optipng({optimizationLevel:3})]
       }))
       .pipe(gulp.dest(paths.dist + 'images'))
 });
@@ -91,4 +93,9 @@ gulp.task('jpgmin', function() {
           use: [jpgtran()]
       }))
       .pipe(gulp.dest(paths.dist + 'images'))
+});
+
+gulp.task('svgmin', function() {
+   gulp.src(files.svg)
+     .pipe(gulp.dest(paths.dist + 'images/glyphicons'))
 });

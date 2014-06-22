@@ -21,28 +21,28 @@
     </nav>
 
     <div class="logopad">
-        <div class="hidden ajax-success alert alert-success alert-dismissable"><span class="glyphicon glyphicon-thumbs-up green"></span>
+        <div class="hidden ajax-success alert alert-success alert-dismissable"><span class="green glyphicons ok_2"></span>
             <button type="button" class="close pull-right" data-dismiss="alert" aria-hidden="true">&times;</button>
             <span class="message"></span>
         </div>
-        <div class="hidden ajax-error alert alert-danger alert-dismissable"><span class="glyphicon glyphicon-fire red"></span>
+        <div class="hidden ajax-error alert alert-danger alert-dismissable"><span class="red glyphicons fire"></span>
             <button type="button" class="close pull-right" data-dismiss="alert" aria-hidden="true">&times;</button>
             <span class="message"></span>
         </div>
     @if(Session::get('flash_info'))
-        <div class="alert alert-info alert-dismissable"><span class="glyphicon glyphicon-info-sign blue"></span>
+        <div class="alert alert-info alert-dismissable"><span class="blue glyphicons notes_2"></span>
             <button type="button" class="close pull-right" data-dismiss="alert" aria-hidden="true">&times;</button>
               {{  Session::get('flash_info') }}
         </div>
     @endif
     @if (Session::get('flash_success'))
-        <div class="alert alert-success alert-dismissable"><span class="glyphicon glyphicon-thumbs-up green"></span>
+        <div class="alert alert-success alert-dismissable"><span class="green glyphicons ok_2"></span>
                 <button type="button" class="close pull-right" data-dismiss="alert" aria-hidden="true">&times;</button>
                 {{ Session::get('flash_success') }}
         </div>
     @endif
     @if (Session::get('flash_error'))
-        <div class="alert alert-danger alert-dismissable"><span class="glyphicon glyphicon-fire red"></span>
+        <div class="alert alert-danger alert-dismissable"><span class="red glyphicons fire"></span>
             <button type="button" class="close pull-right" data-dismiss="alert" aria-hidden="true">&times;</button>
                 @if(is_array(Session::get('flash_error')))
                     @foreach(Session::get('flash_error') as $error)
@@ -54,7 +54,7 @@
         </div>
     @endif
     @if (Session::get('flash_warning'))
-        <div class="alert alert-warning alert-dismissable"><span class="glyphicon glyphicon-warning-sign orange"></span>
+        <div class="alert alert-warning alert-dismissable"><span class="orange glyphicon warning_sign"></span>
             <button type="button" class="close pull-right" data-dismiss="alert" aria-hidden="true">&times;</button>
                 {{ Session::get('flash_warning') }}
         </div>

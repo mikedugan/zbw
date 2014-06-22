@@ -1,4 +1,4 @@
-<a class="hidden-sm hidden-xs" id="logo" href="{{ url('/') }}">{{ HTML::image('images/zbw_logo.png', 'vZBW ARTCC') }}</a>
+<a class="hidden-sm hidden-xs" id="logo" href="{{ url('/') }}"><img src="public/dist/images/zbw_logo.png" alt="ZBW ARTCC"></a>
 <ul class="col-sm-5 nav navbar-nav navbar-left">
     <li class="dropdown">
         <a href="/controllers" class="dropdown-toggle" data-toggle="dropdown">Controllers <b class="caret"></b></a>

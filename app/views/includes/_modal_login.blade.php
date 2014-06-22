@@ -20,7 +20,7 @@
       			<span class="input-group-addon">
         			<input type="checkbox">
       			</span>
-      			<input value="Remember Me" type="text" class="form-control">
+      			<input disabled value="Remember Me" type="text" class="form-control">
     		</div><!-- /input-group -->
       </div>
       <div class = "col-md-6">

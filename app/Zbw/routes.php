@@ -31,7 +31,7 @@ Route::post('login', 'SessionsController@postLogin');
 Route::get('auth', 'SessionsController@oauthLogin');
 Route::get('logout', 'SessionsController@getLogout');
 Route::controller('password', 'RemindersController');
-Route::controller('forum', 'ForumsController');
+Route::controller('forums', 'ForumsController');
 
 
 //top level pages

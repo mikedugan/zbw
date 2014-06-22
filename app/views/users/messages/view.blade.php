@@ -4,7 +4,6 @@ View Message
 @stop
 @section('header')
 @stop
-
 @section('content')
     <h1 class="text-center">View Message from {{$message->sender->initials}}</h1>
     <div class="col-md-6">
@@ -32,3 +31,4 @@ View Message
             @include('includes.user._message_reply')
         </form>
     </div>
+@stop

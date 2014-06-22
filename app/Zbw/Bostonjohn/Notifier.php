@@ -1,6 +1,8 @@
-<?php  namespace Zbw\Bostonjohn; 
+<?php  namespace Zbw\Bostonjohn;
 
-class Emailer
+use Zbw\Cms\MessagesRepository;
+
+class Notifier
 {
     protected $to;
     protected $data;
@@ -8,12 +10,14 @@ class Emailer
     protected $from = 'bostonjohn@bostonartcc.net';
     protected $user;
     protected $log;
-    public function __construct()
+    private $messages;
+    public function __construct(MessagesRepository $messages)
     {
+        $this->messages = $messages;
         $this->log = new ZbwLog();
     }
 
-    public function newUser(\User $user)
+    public function newUserEmail(\User $user)
     {
         $vData = [
             'user' => $user,
@@ -28,7 +32,7 @@ class Emailer
         //$this->log->addLog('New user email sent to ' . $this->user->initials, '');
     }
 
-    public function staffWelcome()
+    public function staffWelcomeEmail()
     {
         $vData = [
             'user' => $this->user
@@ -41,5 +45,24 @@ class Emailer
         });
         $log = new ZbwLog();
         $this->log->addLog('Staff welcome message sent to' . $this->user->initials, '');
+    }
+
+    public function newTrainingRequestMessage(\TrainingRequest $request)
+    {
+        $recipients = \User::where('rating_id', '>=', $request->student->rating_id)->where('is_mentor', true)->orWhere('is_instructor', true)->get();
+        $content = $request->student->initials . ' has requested training on ' . $request->certType->value . '. Please visit ' . \HTML::link('training/request'.$request->id) . ' to view the request.'.
+        "\r\nThis is an automated message from Boston John. Please do not reply.";
+        foreach($recipients as $recipient) {
+            if($recipient->initials) {
+                $this->messages->create(
+                  [
+                    'to'      => $recipient->initials,
+                    'subject' => 'New Training Request',
+                    'message' => $content
+                  ]
+                );
+            }
+        }
+        return $recipients;
     }
 } 

@@ -57,13 +57,6 @@ Make News
             <div class="clearfix"></div>
             <button type="submit" class="btn btn-primary">Submit</button>
             </form>
-            <form class="file-form" action="/f/upload/images" method="POST">
-                <div class="form-group">
-                    <input type="file" name="photos[]" multiple/>
-                    <p class="help-block">Use this to upload images for your event</p>
-                    <button type="submit">Upload</button>
-                </div>
-            </form>
         </div>
 
 
