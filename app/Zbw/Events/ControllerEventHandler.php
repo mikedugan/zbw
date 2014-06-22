@@ -19,6 +19,7 @@ class ControllerEventHandler {
         'controller.welcomeStaff',
         'controller.suspend',
         'controller.terminate',
+        'controller.newTrainingRequest'
         ];
 
         foreach($list as $event) {
@@ -50,5 +51,10 @@ class ControllerEventHandler {
     public function terminate($event)
     {
 
+    }
+
+    public function newTrainingRequest($tr)
+    {
+        $this->emailer->newTrainingRequestMessage($tr);
     }
 } 
