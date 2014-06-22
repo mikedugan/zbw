@@ -11,8 +11,7 @@ class UserRepository extends EloquentRepository
 
     public function findByInitials($initials)
     {
-        $initials = str_replace(' ', '', strtoupper($initials));
-        return $this->make()->where('initials', $initials)->first();
+        return $this->make()->where('initials', strtoupper($initials))->first();
     }
 
     public function findByCid($cid)

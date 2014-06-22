@@ -1,7 +1,7 @@
 <?php 
 
 use Zbw\Users\UserRepository;
-use Zbw\Messages\MessagesRepository;
+use Zbw\Cms\MessagesRepository;
 use Zbw\Bostonjohn\Emailer;
 use Zbw\Training\CertificationRepository;
 
@@ -123,9 +123,9 @@ class AjaxController extends BaseController
         }
     }
 
-    public function cancelTrainingRequest($tid)
+    public function cancelTrainingRequest($tsid)
     {
-        $tr = $this->trainings->get($tid);
+        $tr = TrainingRequest::find($tsid);
         if($tr->delete())
         {
             return json_encode([
@@ -142,12 +142,9 @@ class AjaxController extends BaseController
         }
     }
 
-    public function acceptTrainingRequest($tid)
+    public function acceptTrainingRequest($tsid)
     {
-        $tr = $this->trainings->get($tid);
-        $tr->sid = $tr->sid == null ? Auth::user()->cid : $tr->sid;
-        if($tr->save() && $tr->sid == Auth::user()->cid)
-        {
+        if(\TrainingRequest::accept($tsid, Auth::user()->cid)) {
             return json_encode([
                 'success' => true,
                 'message' => 'Training session accepted'

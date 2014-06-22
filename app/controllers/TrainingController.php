@@ -52,7 +52,6 @@ class TrainingController extends BaseController
                                    ->find($tid);
         $data = [
           'title'   => 'View Training Request',
-          'student' => Auth::user(),
           'request' => $request
         ];
         return View::make('training.show-request', $data);
