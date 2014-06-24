@@ -8,7 +8,8 @@
 		"laracasts/utilities": "dev-master",
     "fkubis/teamspeak-php-framework": "dev-master",
     "curl/curl": "dev-master",
-		"way/generators": "dev-master"
+		"way/generators": "dev-master",
+		"pda/pheanstalk": "2.0.*"
 	},
 	"require-dev": {
 		"barryvdh/laravel-ide-helper": "dev-master",
