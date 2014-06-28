@@ -54,4 +54,5 @@ $(function() {
         buttons: ['bold', 'italic', 'underline', 'unorderedlist', 'orderedlist', 'outdent', 'indent',
         'image', 'link']
     });
+    $('.raptor').raptor();
 });

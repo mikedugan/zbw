@@ -1,15 +1,23 @@
 {
-	"name": "laravel/laravel",
-	"description": "The Laravel Framework.",
-	"keywords": ["framework", "laravel"],
+	"name": "mikedugan/zbw",
+	"description": "ZBW website built with Laravel.",
+	"keywords": ["vatsim", "app"],
 	"license": "MIT",
+	"authors": [
+		{
+				"name": "Mike Dugan",
+				"email": "mike@mjdugan.com",
+				"homepage": "http://mjdugan.com"
+		}
+	],
 	"require": {
 		"laravel/framework": "4.2.*",
 		"laracasts/utilities": "dev-master",
     "fkubis/teamspeak-php-framework": "dev-master",
     "curl/curl": "dev-master",
 		"way/generators": "dev-master",
-		"pda/pheanstalk": "2.0.*"
+		"pda/pheanstalk": "2.0.*",
+		"mikedugan/sso-laravel": "dev-master"
 	},
 	"require-dev": {
 		"barryvdh/laravel-ide-helper": "dev-master",
