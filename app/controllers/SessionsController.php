@@ -59,10 +59,7 @@ class SessionsController extends BaseController
             );
         }
 
-        if (Auth::attempt(
-          array('cid' => $user->cid, 'password' => $password),
-          true
-        )
+        if (\Sentry::authenticate(['cid' => $user->cid, 'password' => $password], $remember)
         ) {
             return Redirect::intended('/')->with(
               'flash_success',
@@ -77,7 +74,7 @@ class SessionsController extends BaseController
 
     public function getLogout()
     {
-        Auth::logout();
+        \Sentry::logout();
         return Redirect::home()->with(
           'flash_success',
           'You have been successfully logged out'

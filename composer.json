@@ -15,7 +15,8 @@
 		"laracasts/utilities": "dev-master",
     "fkubis/teamspeak-php-framework": "dev-master",
     "curl/curl": "dev-master",
-		"pda/pheanstalk": "2.0.*"
+		"pda/pheanstalk": "2.0.*",
+		"cartalyst/sentry": "dev-master"
 	},
 	"require-dev": {
 		"barryvdh/laravel-ide-helper": "dev-master",
@@ -25,7 +26,6 @@
 	},
 	"autoload": {
 		"classmap": [
-			"app/commands",
 			"app/controllers",
 			"app/database/models",
 			"app/database/migrations",
