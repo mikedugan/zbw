@@ -35,7 +35,7 @@ App::after(function($request, $response)
 
 Route::filter('auth', function()
 {
-	if (Auth::guest()) return Redirect::guest('login');
+	if (!\Sentry::check()) return Redirect::guest('login');
 });
 
 
@@ -57,7 +57,7 @@ Route::filter('auth.basic', function()
 
 Route::filter('guest', function()
 {
-	if (Auth::check()) return Redirect::to('/');
+	if (\Sentry::check()) return Redirect::to('/');
 });
 
 /*
@@ -80,7 +80,7 @@ Route::filter('csrf', function()
 });
 
 Route::filter('controller', function() {
-    if(! Auth::user()->cid || Auth::user()->rating->id === -1) {
+    if(! \Sentry::getUser()->cid || \Sentry::getUser()->rating->id === -1) {
         $data = [
             'page' => Request::url(),
             'needed' => 'Registered User'
@@ -90,74 +90,73 @@ Route::filter('controller', function() {
 });
 
 Route::filter('staff', function() {
-    $users = new Zbw\Users\UserRepository();
-    if(!$users->isStaff(Auth::user()->cid)) {
+    if(! \Sentry::getUser()->is_staff) {
         $data = [
             'page' => Request::url(),
             'needed' => 'general staff member'
         ];
         $log = new Zbw\Bostonjohn\ZbwLog();
-        $log->addLog(Auth::user()->initials . ' tried to access ' . Request::url());
+        $log->addLog(\Sentry::getUser()->initials . ' tried to access ' . Request::url());
         return View::make('zbw.errors.403', $data);
     }
 });
 
 Route::filter('executive', function() {
     $users = new Zbw\Users\UserRepository();
-    if(! $users->isExecutive(Auth::user()->cid))
+    if(! $users->isExecutive(\Sentry::getUser()->cid))
     {
         $data = [
             'page' => Request::url(),
             'needed' => 'executive staff member'
         ];
         $log = new Zbw\Bostonjohn\ZbwLog();
-        $log->addLog(Auth::user()->initials . ' tried to access ' . Request::url());
+        $log->addLog(\Sentry::getUser() . ' tried to access ' . Request::url());
         return View::make('zbw.errors.403', $data);
     }
 });
 
 Route::filter('instructor', function() {
-    if(! Auth::user()->is_instructor)
+    if(! \Sentry::getUser()->is_instructor)
     {
         $data = [
             'page' => Request::url(),
             'needed' => 'instructor'
         ];
-        Zbw\Bostonjohn\ZbwLog::log(Auth::user()->initials . ' tried to access ' . Request::url());
+        Zbw\Bostonjohn\ZbwLog::log(\Sentry::getUser()->initials . ' tried to access ' . Request::url());
         return View::make('zbw.errors.403', $data);
     }
 });
 
 Route::filter('mentor', function() {
-    if(! Auth::user()->is_instructor && ! Auth::user()->is_mentor)
+    if(! \Sentry::getUser()->is_instructor && ! \Sentry::getUser()->is_mentor)
     {
         $data = [
             'page' => Request::url(),
             'needed' => 'mentor'
         ];
-        Zbw\Bostonjohn\ZbwLog::log(Auth::user()->initials . ' tried to access ' . Request::url());
+        Zbw\Bostonjohn\ZbwLog::log(\Sentry::getUser()->initials . ' tried to access ' . Request::url());
         return View::make('zbw.errors.403', $data);
     }
 });
 
 Route::filter('suspended', function() {
-      if(! Auth::user()->rating->id === 0 || Auth::user()->is_suspended || Auth::user()->is_terminated) {
+      if(\Sentry::getUser()->rating->id === 0 || \Sentry::getUser()->is_suspended || \Sentry::getUser()->is_terminated) {
           $data = [
               'page' => Request::url(),
               'needed' => 'active (your account is suspended by ZBW or VATUSA)'
           ];
-          Zbw\Bostonjohn\ZbwLog::log(Auth::user()->initials . ' tried to access ' . Request::url() . ' but is suspended');
+          Zbw\Bostonjohn\ZbwLog::log(\Sentry::getUser()->initials . ' tried to access ' . Request::url() . ' but is suspended');
           return View::make('zbw.errors.403', $data);
       }
   });
 
 Route::filter('terminated', function() {
-     if(Auth::user()->is_terminated) {
+     if(\Sentry::getUser()->is_terminated) {
          $data = [
              'page' => Request::url(),
              'needed' => 'active (your accout has been terminated)'
          ];
-         Zbw\Bostonjohn\ZbwLog::log(Auth::user()->initials . ' tried to access ' . Request::url() . ' but is terminated');
+         Zbw\Bostonjohn\ZbwLog::log(\Sentry::getUser()->initials . ' tried to access ' . Request::url() . ' but is terminated');
          return View::make('zbw.errors.403', $data);
      }
   });

@@ -3,13 +3,16 @@
 use Zbw\Cms\MessagesRepository;
 use Zbw\Users\UserRepository;
 
-class MessagesController extends BaseController {
+class MessagesController extends BaseController
+{
 
     private $users;
     private $messages;
 
-    public function __construct(UserRepository $users, MessagesRepository $messages)
-    {
+    public function __construct(
+      UserRepository $users,
+      MessagesRepository $messages
+    ) {
         $this->users = $users;
         $this->messages = $messages;
     }
@@ -17,13 +20,16 @@ class MessagesController extends BaseController {
     public function index()
     {
         $data = [
-            'view' => \Input::get('v'),
-            //'messages' => $this->messages->all($cid),
-            'inbox' => $this->messages->to(Auth::user()->cid, Input::get('unread')),
-            'outbox' => $this->messages->from(Auth::user()->cid),
-            'trash' => $this->messages->trashed(Auth::user()->cid),
-            'unread' => Input::get('unread'),
-            'users' => $this->users->allVitals()
+          'view'   => \Input::get('v'),
+          //'messages' => $this->messages->all($cid),
+          'inbox'  => $this->messages->to(
+            \Sentry::getUser()->cid,
+            Input::get('unread')
+          ),
+          'outbox' => $this->messages->from(\Sentry::getUser()->cid),
+          'trash'  => $this->messages->trashed(\Sentry::getUser()->cid),
+          'unread' => Input::get('unread'),
+          'users'  => $this->users->allVitals()
         ];
 
         return View::make('users.messages.index', $data);
@@ -48,14 +54,15 @@ class MessagesController extends BaseController {
      *
      * @param integer cid
      * @param integer message id
+     *
      * @return View
      */
     public function view($message_id)
     {
         $this->messages->markRead($message_id);
         $data = [
-            'message' => $this->messages->withUsers($message_id),
-            'users' => $this->users->allVitals(),
+          'message' => $this->messages->withUsers($message_id),
+          'users'   => $this->users->allVitals(),
         ];
         return View::make('users.messages.view', $data);
     }
@@ -72,12 +79,12 @@ class MessagesController extends BaseController {
     {
         $input = \Input::all();
         $ret = $this->messages->add($input);
-        if($ret === '')
-        {
-            return Redirect::home()->with('flash_success', 'Message sent successfully');
-        }
-        else
-        {
+        if ($ret === '') {
+            return Redirect::home()->with(
+              'flash_success',
+              'Message sent successfully'
+            );
+        } else {
             return Redirect::home()->with('flash_error', $ret);
         }
     }
@@ -85,22 +92,35 @@ class MessagesController extends BaseController {
     public function reply($mid)
     {
         $input = Input::all();
-        if($input['cc'] !== '')
-        {
+        if ($input['cc'] !== '') {
             $this->messages->cc($input, $input['cc'], $mid);
         }
 
-        if($this->messages->reply($input, $mid))
-        {
-            return Redirect::home()->with('flash_success', 'Message sent successfully');
+        if ($this->messages->reply($input, $mid)) {
+            return Redirect::home()->with(
+              'flash_success',
+              'Message sent successfully'
+            );
         }
     }
 
     public function delete($message_id)
     {
-        if($this->messages->delete($message_id))
-        {
-            return Redirect::route('me/messages')->with('flash_success', 'Message deleted successfully');
+        if ($this->messages->delete($message_id)) {
+            return Redirect::route('messages')->with(
+              'flash_success',
+              'Message deleted successfully'
+            );
+        }
+    }
+
+    public function restore($message_id)
+    {
+        if ($this->messages->restore($message_id)) {
+            return Redirect::route('messages')->with(
+              'flash_success',
+              'Message restored successfully'
+            );
         }
     }
 } 

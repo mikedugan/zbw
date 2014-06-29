@@ -4,7 +4,9 @@ use Zbw\Base\EloquentRepository;
 use Zbw\Facades\ZbwValidator;
 use Zbw\Users\UserRepository;
 
-class MessagesRepository extends EloquentRepository {
+class MessagesRepository extends EloquentRepository
+{
+
     const PRIVATE_MESSAGE = 1;
     const SESSION_COMMENT = 2;
     const EVENT_COMMENT = 3;
@@ -12,6 +14,7 @@ class MessagesRepository extends EloquentRepository {
     const EXAM_COMMENT = 5;
     private $users;
     public $model = '\Message';
+
     public function __construct(UserRepository $users)
     {
         $this->users = $users;
@@ -21,22 +24,40 @@ class MessagesRepository extends EloquentRepository {
      * @param array input
      * @param integer cid
      * @param integer origin message id
+     *
      * @return boolean
      */
     public function reply($input, $mid)
     {
         $invalid = ZbwValidator::get('Message', $input);
-        if(is_array($invalid)) return $invalid;
+        if (is_array($invalid)) {
+            return $invalid;
+        }
 
-        $m = $this->make()->create([
+        $m = $this->make()->create(
+          [
             'subject' => $input['subject'],
             'content' => $input['content'],
-            'to' => $input['to'],
-            'from' => \Auth::user()->cid,
+            'to'      => $input['to'],
+            'cid'     => $input['to'],
+            'from'    => \Sentry::getUser()->cid,
             'history' => $input['history']
-        ]);
-        if(isset($input['forget_history']) && $input['forget_history'] === 'forget') { $m->history = '';}
-        return $m->save();
+          ]
+        );
+        $mm = $this->make()->create(
+          [
+            'subject' => $input['subject'],
+            'content' => $input['content'],
+            'to'      => $input['to'],
+            'cid'     => \Sentry::getUser()->cid,
+            'from'    => \Sentry::getUser()->cid,
+            'history' => $input['history']
+          ]
+        );
+        if (isset($input['forget_history']) && $input['forget_history'] === 'forget') {
+            $m->history = '';
+        }
+        return $m->save() && $mm->save();
     }
 
     /**
@@ -44,50 +65,57 @@ class MessagesRepository extends EloquentRepository {
      * @param array users being cc'd
      * @param integer cid of sender
      * @param integer message id
+     *
      * @return void
      */
     public function cc($input, $to, $mid)
     {
         $to = explode(',', str_replace(' ', '', $to));
-        foreach($to as $user)
-        {
+        foreach ($to as $user) {
             $input['to'] = $user;
-            $input['from'] = \Auth::user()->cid;
+            $input['from'] = \Sentry::getUser()->cid;
             $this->reply($input, $mid);
         }
     }
 
     /**
      * @type static
-     * @name newMessageCount
+     * @name       newMessageCount
      * @description
+     *
      * @param null $cid
+     *
      * @return int
      */
     public static function newMessageCount($cid = null)
     {
-        $cid = is_null($cid) ? Auth::user()->cid : $cid;
-        return \Message::where('to', $cid)->where('is_read', 0)->get(['id'])->count();
+        $cid = is_null($cid) ? \Sentry::getUser()->cid : $cid;
+        return \Message::where('to', $cid)->where(
+          'cid',
+          \Sentry::getUser()->cid
+        )->where('is_read', 0)->get(['id'])->count();
     }
 
     /**
      * @param array $input
+     *
      * @return mixed array|boolean
      */
     public function add($input)
     {
         $errors = '';
         $recipients = explode(',', $input['to']);
-        if(count($recipients) == 1) { return self::create($input); }
-        else
-        {
-            foreach($recipients as $r)
-            {
-                $errors .= $this->create([
-                    'to' => $r,
+        if (count($recipients) == 1) {
+            return $this->create($input);
+        } else {
+            foreach ($recipients as $r) {
+                $errors .= $this->create(
+                  [
+                    'to'      => $r,
                     'subject' => $input['subject'],
                     'message' => $input['message']
-                ]);
+                  ]
+                );
             }
         }
         return $errors;
@@ -95,30 +123,50 @@ class MessagesRepository extends EloquentRepository {
 
     public function create($input)
     {
-        $message = new \Message([
-            'to' => $this->users->findByInitials($input['to'])->cid,
+        $from = \Sentry::check() ? \Sentry::getUser()->cid : 100;
+        $to = $this->users->findByInitials($input['to'])->cid;
+        $outbox = new \Message(
+          [
+            'to'      => $to,
             'subject' => $input['subject'],
             'content' => $input['message'],
-            'from' => isset(\Auth::user()->cid) ? \Auth::user()->cid : 100
-        ]);
-        if( ! $message->save())
-        {
-            return 'Error sending to '.$input['to'];
+            'from'    => $from,
+            'cid'     => $from
+          ]
+        );
+        if ($from !== $to) {
+            $inbox = new \Message(
+              [
+                'to'      => $to,
+                'subject' => $input['subject'],
+                'content' => $input['message'],
+                'from'    => $from,
+                'cid'     => $to
+              ]
+            );
+            if ( ! $inbox->save() || ! $outbox->save()) {
+                return 'Error sending to ' . $input['to'];
+            }
         }
-        else return '';
+        if ( ! $outbox->save()) {
+            return 'Error sending to ' . $input['to'];
+        } else return '';
     }
 
     /**
      * @param integer message id
+     *
      * @return PrivateMessage
      */
     public function withUsers($id)
     {
-        return $this->make()->with(['sender', 'recipient'])->where('id', $id)->firstOrFail();
+        return $this->make()->with(['sender', 'recipient'])->where('id', $id)
+                    ->firstOrFail();
     }
 
     /**
      * @param integer message id
+     *
      * @return boolean
      */
     public function markRead($mid)
@@ -130,12 +178,13 @@ class MessagesRepository extends EloquentRepository {
 
     /**
      * @param integer cid
+     *
      * @return void
      */
     public function markAllRead()
     {
-        foreach($this->make()->where('to', \Auth::user()->cid)->get() as $message)
-        {
+        foreach ($this->make()->where('to', \Sentry::getUser()->cid)->get(
+        ) as $message) {
             $message->is_read = 1;
             $message->save();
         }
@@ -147,27 +196,35 @@ class MessagesRepository extends EloquentRepository {
      */
     public function trashed()
     {
-        return $this->make()->onlyTrashed()->where('to', \Auth::user()->cid)->get();
+        return $this->make()->onlyTrashed()->where(
+          'to',
+          \Sentry::getUser()->cid
+        )->where('cid', \Sentry::getUser()->cid)->get();
     }
 
     /**
      * @param integer user cid
      * @param boolean unread messages only
+     *
      * @return Eloquent Collection
      */
     public function to($user, $unread = false)
     {
-        $messages = $this->make()->where('to', $user)->orderBy('created_at', 'DESC');
-        return $unread ? $messages->where('is_read', 0)->get() : $messages->get();
+        $messages = $this->make()->where('to', $user)->where('cid', $user)
+                         ->orderBy('created_at', 'DESC');
+        return $unread ? $messages->where('is_read', 0)->get() : $messages->get(
+        );
     }
 
     /**
      * @param integer user cid
+     *
      * @return Eloquent Collection
      */
     public function from($user)
     {
-        return $this->make()->where('from', $user)->orderBy('created_at', 'DESC')->get();
+        return $this->make()->where('from', $user)->where('cid', $user)
+                    ->orderBy('created_at', 'DESC')->get();
     }
 
     public function update($input)

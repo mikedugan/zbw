@@ -28,7 +28,7 @@
                         <td>{{$message->created_at->toFormattedDateString()}}</td>
                         <td>{{$message->sender->initials}}</td>
                         <td>{{$message->subject}}</td>
-                        <td><a href="/messages/m/{{$message->id}}">View</a> | <a href="/messages/m/{{$message->id}}/delete">Delete</a></td>
+                        <td>{{HTML::linkRoute('messages/{mid}', 'View', [$message->id])}} | {{HTML::linkRoute('messages/{mid}/delete', 'Delete', [$message->id])}}</td>
                     </tr>
                 @endforeach
             </tbody>
