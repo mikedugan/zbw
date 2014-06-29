@@ -3,8 +3,9 @@
 class UserSettings extends \Eloquent
 {
     protected $table = 'user_settings';
-    protected $guarded = 'cid';
+    protected $guarded = ['cid'];
     public $timestamps = false;
+    protected $primaryKey = 'cid';
 
     public function user()
     {

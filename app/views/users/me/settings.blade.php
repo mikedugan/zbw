@@ -1,9 +1,9 @@
 <form action="/me/profile" method="post">
-    <input type="hidden" name="update_type" value="settings">
+    {{ Form::hidden('update', 'settings') }}
     <div class="col-md-6">
         <h3 class="text-center">Profile Settings</h3>
         <div class="form-group">
-            {{ Form::label('email', 'Email'); }}
+            {{ Form::label('email', 'Email') }}
             <span title="Email is synced with VATUSA, please go to vatusa.net to change it!" class="pointer pull-right blue glyphicons circle_info"></span>
             <input disabled type="text" name="email" id="email" value="{{$me->email}}" class="form-control">
         </div>
@@ -18,12 +18,24 @@
             <label class="label-control" for="tskey">Teamspeak Key</label>
             <input class="form-control" name="tskey" id="tskey" type="text">
         </div>
+        <div class="form-group col-md-6">
+            {{ Form::label('avatar', 'Avatar') }}
+            {{ Form::file('avatar', ['class' => 'file-control btn btn-default', 'title' => 'Browse for Avatar']) }}
+        </div>
+        <div class="col-md-6">
+            @if($me->settings->avatar)
+            <img src="{{ $me->settings->avatar }}">
+            @else
+            <p>No avatar!</p>
+            @endif
+        </div>
         <br>
         <button type="submit" class="btn btn-block btn-primary">Update</button>
-        </form>
     </div>
+    </form>
     <div class="col-md-6">
         <form action="/me/profile" method="post">
+            {{ Form::hidden('update', 'notifications') }}
         <h3 class="text-center">Global Notifications</h3>
         <table class="table table-striped">
             <thead>
