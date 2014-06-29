@@ -24,7 +24,7 @@ Exam Question Bank
         </select>
         @foreach($questions as $q)
             <div class="col-md-12 well">
-            <p><b>Exam: </b> {{ Zbw\Helpers::readableCert($q->exam->value) }}</p>
+            <p><b>Exam: </b> {{ Zbw\Base\Helpers::readableCert($q->exam->value) }}</p>
             <p><b>Question:</b> {{$q->question}}</p>
             <p><b>Answers:</b></p>
             <input type="hidden" value="{{$q->correct}}" class="correct-answer">

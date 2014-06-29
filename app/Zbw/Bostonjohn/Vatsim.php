@@ -1,7 +1,7 @@
 <?php  namespace Zbw\Bostonjohn;
 
 use Curl\Curl;
-use Zbw\Helpers;
+use Zbw\Base\Helpers;
 use Carbon\Carbon;
 
 class Vatsim {

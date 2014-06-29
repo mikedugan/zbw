@@ -2,7 +2,7 @@
 
 use Zbw\Base\EloquentRepository;
 use Zbw\Users\UserRepository;
-use Zbw\Helpers;
+use Zbw\Base\Helpers;
 
 class ExamsRepository extends EloquentRepository {
 

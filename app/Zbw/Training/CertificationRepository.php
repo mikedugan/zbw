@@ -1,6 +1,6 @@
 <?php namespace Zbw\Training;
 
-use Zbw\Helpers;
+use Zbw\Base\Helpers;
 use Zbw\Base\EloquentRepository;
 
 class CertificationRepository extends EloquentRepository

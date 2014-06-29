@@ -1,6 +1,6 @@
 <?php
 
-use \Zbw\Helpers as Helpers;
+use \Zbw\Base\Helpers as Helpers;
 
 class ActionRequired extends Eloquent
 {

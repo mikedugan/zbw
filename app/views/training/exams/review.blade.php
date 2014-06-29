@@ -10,7 +10,7 @@ Exam Review
     <h3>Student Info</h3>
     <p><b>Student:</b> {{$exam->student->username}} ({{$exam->student->initials}})</p>
     <p><b>Rating: </b> {{$exam->student->rating->short}}</p>
-    <p><b>Testing for: </b>{{ \Zbw\Helpers::readableCert($exam->exam->value)}}</p>
+    <p><b>Testing for: </b>{{ \Zbw\Base\Helpers::readableCert($exam->exam->value)}}</p>
 </div>
 <div class="col-md-6">
     <h3>Exam Summary</h3>

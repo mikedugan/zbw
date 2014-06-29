@@ -10,7 +10,7 @@ View Request
     <div class="well col-md-6">
         <p><b>Student: </b>{{$request->student->username . " (" . $request->student->initials . ")"}}</p>
         <p><b>Staff: </b>{{$request->staff->initials or 'Not accepted yet'}}</p>
-        <p><b>Position: </b>{{Zbw\Helpers::readableCert($request->certType->value)}}</p>
+        <p><b>Position: </b>{{Zbw\Base\Helpers::readableCert($request->certType->value)}}</p>
         <p><b>Completed? </b>
         @if($request->is_completed)
             Yes

@@ -2,7 +2,7 @@
 
 use Zbw\Base\EloquentRepository;
 use Zbw\Bostonjohn\Emailer;
-use Zbw\Helpers;
+use Zbw\Base\Helpers;
 use Zbw\Bostonjohn\ZbwLog;
 
 class UserRepository extends EloquentRepository
