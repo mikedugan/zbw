@@ -1,6 +1,6 @@
-<form action="/me/profile" method="post">
-    {{ Form::hidden('update', 'settings') }}
-    <div class="col-md-6">
+<div class="col-md-6">
+    <form action="/me/profile" method="post" enctype="multipart/form-data">
+        {{ Form::hidden('update', 'settings') }}
         <h3 class="text-center">Profile Settings</h3>
         <div class="form-group">
             {{ Form::label('email', 'Email') }}
@@ -8,26 +8,23 @@
             <input disabled type="text" name="email" id="email" value="{{$me->email}}" class="form-control">
         </div>
         <div class="form-group">
-        <p><b>Email Hidden:</b> {{ Form::checkbox('Hidden', 'hidden', false); }}</p>
+        <p><b>Email Hidden:</b> {{ Form::checkbox('email_hidden', 'true', $me->settings->email_hidden ? 'true': ''); }}</p>
         </div>
         <div class="form-group">
         <p><b>Signature:</b></p>
-        <textarea name="signature" id="signature" class="form-control" cols="40" rows="5">{{$me->signature}}</textarea>
+        <textarea name="signature" id="signature" class="form-control" cols="40" rows="5">{{$me->settings->signature}}</textarea>
         </div>
         <div class="form-group">
-            <label class="label-control" for="tskey">Teamspeak Key</label>
-            <input class="form-control" name="tskey" id="tskey" type="text">
+            <label class="label-control" for="ts_key">Teamspeak Key</label>
+            <input class="form-control" name="ts_key" id="ts_key" type="text">
         </div>
         <div class="form-group col-md-6">
             {{ Form::label('avatar', 'Avatar') }}
             {{ Form::file('avatar', ['class' => 'file-control btn btn-default', 'title' => 'Browse for Avatar']) }}
+            <p class="small">We will use <a href="http://gravatar.com">Gravatar</a> by default</p>
         </div>
         <div class="col-md-6">
-            @if($me->settings->avatar)
-            <img src="{{ $me->settings->avatar }}">
-            @else
-            <p>No avatar!</p>
-            @endif
+            <img src="{{ $me->avatar() }}" class="avatar pull-right">
         </div>
         <br>
         <button type="submit" class="btn btn-block btn-primary">Update</button>

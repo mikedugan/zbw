@@ -56,7 +56,14 @@ class ControllersController extends BaseController
     {
         $update_type = \Input::get('update');
         if($update_type === 'settings') {
-            return Redirect::back()->with('flash_error', 'Unable to update settings!');
+            if ($this->users->updateSettings(\Input::except('update'))) {
+                return Redirect::back()->with('flash_success','Settings updated successfully');
+            } else {
+                return Redirect::back()->with(
+                  'flash_error',
+                  'Unable to update settings!'
+                );
+            }
         }
 
         else if ($update_type === 'notifications') {

@@ -1,5 +1,5 @@
 $(function() {
-    $('.file-control').bootstrapFileInput();
+    $('.file-control').bootstrapFileInput({'data-filename-placement': 'inside'});
     //$('input[type=file]').bootstrapFileInput();
     highlightCorrect();
     $('.datepick').datetimepicker({
