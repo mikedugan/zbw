@@ -76,6 +76,10 @@ Route::group(
         ]
       );
       Route::post(
+        '/t/request/{tid}/drop',
+        ['as' => 'training/drop-request/{tid}', 'uses' => 'AjaxController@dropTrainingRequest']
+      );
+      Route::post(
         '/t/request/{tid}/accept',
         [
           'as'   => 'training/accept-request/{tid}',

@@ -29,7 +29,7 @@ class ExamsRepository extends EloquentRepository {
 
     }
 
-    public function get($id)
+    public function get($id, $withTrashed = false)
     {
         return $this->make()->find($id);
     }

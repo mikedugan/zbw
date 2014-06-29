@@ -2,7 +2,7 @@
 
 use Zbw\Users\UserRepository;
 use Zbw\Cms\MessagesRepository;
-use Zbw\Bostonjohn\Emailer;
+use Zbw\Bostonjohn\Notifier;
 use Zbw\Training\CertificationRepository;
 
 class AjaxController extends BaseController
@@ -12,7 +12,7 @@ class AjaxController extends BaseController
     private $emailer;
     private $certs;
 
-    public function __construct(UserRepository $users, MessagesRepository $messages, Emailer $emailer, CertificationRepository $certs)
+    public function __construct(UserRepository $users, MessagesRepository $messages, Notifier $emailer, CertificationRepository $certs)
     {
         $this->users = $users;
         $this->messages = $messages;
@@ -48,7 +48,7 @@ class AjaxController extends BaseController
 
     public function sendStaffWelcome($cid)
     {
-        $em = new Emailer(\Auth::user()->cid);
+        $em = new Notifier(\Sentry::getUser()->cid);
         $em->staffWelcome();
         return json_encode(['success' => true, 'message' => "Staff welcome email sent successfully!"]);
     }
@@ -128,23 +128,17 @@ class AjaxController extends BaseController
         $tr = TrainingRequest::find($tsid);
         if($tr->delete())
         {
-            return json_encode([
-                'success' => true,
-                'message' => 'Training request cancelled'
-            ]);
+            return Redirect::home()->with('flash_success', 'Training session cancelled');
         }
         else
         {
-            return json_encode([
-                'success' => false,
-                'message' => 'Error cancelling training request'
-            ]);
+            return Redirect::back()->with('flash_error', 'Unable to cancel session');
         }
     }
 
     public function acceptTrainingRequest($tsid)
     {
-        if(\TrainingRequest::accept($tsid, Auth::user()->cid)) {
+        if(\TrainingRequest::accept($tsid, \Sentry::getUser()->cid)) {
             return json_encode([
                 'success' => true,
                 'message' => 'Training session accepted'
@@ -159,9 +153,26 @@ class AjaxController extends BaseController
         }
     }
 
+    public function dropTrainingRequest($tid)
+    {
+        if(\TrainingRequest::drop($tid, \Sentry::getUser()->cid)) {
+            return json_encode(
+              [
+                'success' => true,
+                'message' => 'Training session droppedr'
+              ]
+            );
+        } else {
+                return json_encode([
+                      'success' => false,
+                      'message' => 'Unable to drop training session'
+                  ]);
+            }
+        }
+
     public function markInboxRead()
     {
-            if($this->messages->markAllRead(Auth::user()->cid))
+            if($this->messages->markAllRead(\Sentry::getUser()->cid))
         {
             return json_encode([
                 'success' => true,

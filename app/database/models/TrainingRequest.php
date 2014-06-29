@@ -38,6 +38,18 @@ class TrainingRequest extends Eloquent
         return $tr->save();
     }
 
+    public static function drop($tsid, $cid)
+    {
+        $tr = TrainingRequest::find($tsid);
+        if($tr->sid === $cid) {
+            $tr->sid = null;
+            $tr->accepted_at = null;
+            return $tr->save();
+        }
+        else return false;
+
+    }
+
     public static function complete($tsid, $cid)
     {
         $tr = TrainingRequest::find($tsid);
