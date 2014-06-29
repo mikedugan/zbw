@@ -3,7 +3,7 @@
         <form class="col-md-6 col-md-offset-3" action="/messages/send" method="post">
             <div class="form-group">
                 {{ Form::label('to', 'To (Initials, Comma separated)') }}
-                <input class="form-control" name="to" id="to">
+                <input class="form-control" name="to" id="to" value="{{ $to }}">
             </div>
             <div class="form-group">
                 {{ Form::label('subject', 'Subject') }}

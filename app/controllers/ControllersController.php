@@ -24,7 +24,7 @@ class ControllersController extends BaseController
     public function getController($id)
     {
         $data = [
-          'controller' => $this->users->find($id, ['certification'])
+          'controller' => $this->users->get($id)
         ];
 
         return View::make('users.show', $data);
@@ -39,7 +39,7 @@ class ControllersController extends BaseController
         $data = [
           'messages' => $this->messages->to(Auth::user()->cid),
           'view'     => \Input::get('v'),
-          'me'       => \Auth::user()->with(['Exam', 'TrainingSession'])
+          'me'       => \Sentry::getUser()->with(['Exam', 'TrainingSession'])
         ];
         return View::make('users.me.index', $data);
     }

@@ -64,7 +64,9 @@ $messages = $me ? MessagesRepository::newMessageCount($me->cid) : 0;
         </div>
     @endif
     </div>
+    <div class="col-md-10 col-md-offset-1">
     @yield('content')
+        </div>
 
     <footer class="clear text-center">
         @include('includes._footer')
