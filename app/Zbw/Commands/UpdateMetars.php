@@ -1,25 +1,25 @@
-<?php
+<?php namespace Zbw\Commands;
 
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
-use Zbw\Bostonjohn\Vatsim;
+use Zbw\Bostonjohn\MetarCreator;
 
-class UpdateUrls extends Command {
+class UpdateMetars extends Command {
 
 	/**
 	 * The console command name.
 	 *
 	 * @var string
 	 */
-	protected $name = 'vatsim:urls';
+	protected $name = 'vatsim:metars';
 
 	/**
 	 * The console command description.
 	 *
 	 * @var string
 	 */
-	protected $description = 'Updates the VATSIM server URLs.';
+	protected $description = 'Update the METARs from the VATSIM server';
 
 	/**
 	 * Create a new command instance.
@@ -38,8 +38,11 @@ class UpdateUrls extends Command {
 	 */
 	public function fire()
 	{
-		$vatsim = new Vatsim();
-    $vatsim->updateStatus();
+    $metar = new MetarCreator();
+    $metar->updateMetars();
+    $this->info('METARs updated successfully!');
+    $deletes = \Metar::where('created_at', '<', Carbon::now()->subMinutes(2))->lists('id');
+    \Metar::destroy($deletes);
 	}
 
 	/**
@@ -50,7 +53,6 @@ class UpdateUrls extends Command {
 	protected function getArguments()
 	{
 		return array(
-
 		);
 	}
 

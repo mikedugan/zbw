@@ -11,14 +11,11 @@
 |
 */
 
-ClassLoader::addDirectories(array(
-
-	app_path().'/commands',
+ClassLoader::addDirectories([
 	app_path().'/controllers',
 	app_path().'/database/models',
-	app_path().'/database/seeds',
-
-));
+	app_path().'/database/seeds'
+]);
 
 /*
 |--------------------------------------------------------------------------
@@ -82,5 +79,5 @@ App::down(function()
 |
 */
 
-require app_path().'/Zbw/filters.php';
-require app_path().'/Zbw/events.php';
+require app_path().'/Zbw/Start/filters.php';
+require app_path().'/Zbw/Start/events.php';
