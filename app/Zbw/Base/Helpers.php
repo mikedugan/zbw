@@ -44,8 +44,8 @@ class Helpers
     {
         return $csv ? implode(
           ',',
-          array_values(\DB::table('controllers')->lists('cid'))
-        ) : array_values(\DB::table('controllers')->lists('cid'));
+          array_values(\DB::table('users')->lists('cid'))
+        ) : array_values(\DB::table('users')->lists('cid'));
     }
 
     public static function getSids($csv = false)
@@ -53,11 +53,11 @@ class Helpers
         return $csv ? implode(
           ',',
           array_values(
-            \DB::table('controllers')->where('is_staff', '=', 1)->pluck('cid')
+            \DB::table('users')->where('is_staff', '=', 1)->pluck('cid')
           )
         ) :
           array_values(
-            \DB::table('controllers')->where('is_staff', '=', 1)->pluck('cid')
+            \DB::table('users')->where('is_staff', '=', 1)->pluck('cid')
           );
     }
 
@@ -66,7 +66,7 @@ class Helpers
         return $csv ? implode(
           ',',
           array_values(
-            \DB::table('controllers')->where('is_mentor', '=', 1)->orWhere(
+            \DB::table('users')->where('is_mentor', '=', 1)->orWhere(
               'is_instructor',
               '=',
               1
@@ -74,7 +74,7 @@ class Helpers
           )
         )
           : array_values(
-            \DB::table('controllers')->where('is_mentor', '=', 1)->orWhere(
+            \DB::table('users')->where('is_mentor', '=', 1)->orWhere(
               'is_instructor',
               '=',
               1

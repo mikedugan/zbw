@@ -350,12 +350,12 @@ class UserRepository extends EloquentRepository
         return $u->is_atm || $u->is_datm || $u->is_ta || $u->is_webmaster;
     }
 
-    public function canTrain($level)
+    public static function canTrain($level)
     {
         if($level == 12) {
-            return $this->make()->where('cert', '>=' ,12)->lists('cid');
+            return \User::where('cert', '>=', 12)->lists('cid');
         } else {
-            return $this->make()->where('cert', '>=', $level + 1)->lists('cid');
+            return \User::where('cert', '>=', $level + 1)->lists('cid');
         }
 
     }

@@ -110,6 +110,7 @@ return array(
       'Zbw\Validators\ZbwValidatorServiceProvider',
       'Way\Generators\GeneratorsServiceProvider',
       'Cartalyst\Sentry\SentryServiceProvider',
+      'McCool\LaravelAutoPresenter\LaravelAutoPresenterServiceProvider',
     ),
     /*
     |--------------------------------------------------------------------------

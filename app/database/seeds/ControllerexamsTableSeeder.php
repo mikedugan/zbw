@@ -29,6 +29,7 @@ class ControllerexamsTableSeeder extends Seeder {
         $e->wrong_questions = $wrongq;
         $e->wrong_answers = $wronga;
         $e->total_questions = 20;
+        $e->cert_id = $faker->numberBetween(1,5);
         $e->save();
 		}
 	}

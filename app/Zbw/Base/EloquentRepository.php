@@ -12,17 +12,22 @@ abstract class EloquentRepository {
         return $this->make()->all();
     }
 
-    public function get($id)
+    public function get($id, $withTrash = true)
     {
-        return $this->make()->find($id);
+        if($withTrash) {
+            return $this->make()->withTrashed()->find($id);
+        } else {
+            return $this->make()->find($id);
+        }
     }
 
     public function delete($id)
     {
-        $item = $this->get($id);
-        if($this->hasSoftDeletes() && $item->deleted_at)
+        $item = $this->get($id, true);
+        if($item->trashed())
         {
-            return $item->forceDelete();
+            $item->forceDelete();
+            return true;
         }
 
         return $item->destroy($id);

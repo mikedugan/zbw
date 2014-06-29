@@ -1,3 +1,7 @@
+<?php use Zbw\Cms\MessagesRepository;
+$me = Sentry::getUser();
+$messages = $me ? MessagesRepository::newMessageCount($me->cid) : 0;
+?>
 <!DOCTYPE html>
 <html>
     <head>

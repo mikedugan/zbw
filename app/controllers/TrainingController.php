@@ -20,15 +20,15 @@ class TrainingController extends BaseController
     public function getIndex()
     {
         $data = [
-            'availableExams' => $this->exams->availableExams(\Auth::user()->cid),
-            'progress' => $this->users->trainingProgress(\Auth::user()->cid)
+            'availableExams' => $this->exams->availableExams(\Sentry::getUser()->cid),
+            'progress' => $this->users->trainingProgress(\Sentry::getUser()->cid)
         ];
         return View::make('training.index', $data);
     }
 
     public function showAdmin($id)
     {
-        $ts = $this->trainings->find($id, "all");
+        $ts = $this->trainings->get($id);
         $data = [
           'tsession' => $ts,
           'student'  => $ts->student,
@@ -42,7 +42,7 @@ class TrainingController extends BaseController
     {
         $data = [
           'title'     => 'Request Training Session',
-          'available' => $this->exams->availableExams(Auth::user()->cid)
+          'available' => $this->exams->availableExams(\Sentry::getUser()->cid)
         ];
         return View::make('training.request', $data);
     }
@@ -60,7 +60,7 @@ class TrainingController extends BaseController
 
     public function getReview()
     {
-        $exam = $this->exams->lastExam(Auth::user()->cid);
+        $exam = $this->exams->lastExam(\Sentry::getUser()->cid);
         $data = [
           'exam' => $exam
         ];

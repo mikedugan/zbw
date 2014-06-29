@@ -90,10 +90,6 @@ Route::group(
               '/',
               ['as' => 'messages', 'uses' => 'MessagesController@index']
             );
-            Route::get(
-              'm/{mid}',
-              ['as' => 'messages/{mid}', 'uses' => 'MessagesController@view']
-            );
             Route::post(
               'send',
               ['as' => 'messages/send', 'uses' => 'MessagesController@store']
@@ -104,6 +100,20 @@ Route::group(
                 'as'   => 'messages/reply/{mid}',
                 'uses' => 'MessagesController@reply'
               ]
+            );
+            Route::get(
+              'm/{mid}/delete',
+              ['as' => 'messages/{mid}/delete', 'uses' => 'MessagesController@delete']
+            );
+            Route::get(
+              'm/{mid}/restore',
+              ['as'   => 'messages/{mid}/restore',
+               'uses' => 'MessagesController@restore'
+              ]
+            );
+            Route::get(
+              'm/{mid}',
+              ['as' => 'messages/{mid}', 'uses' => 'MessagesController@view']
             );
         }
       );
