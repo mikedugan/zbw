@@ -5,6 +5,8 @@ Route::group(
       Route::group(
         ['prefix' => 'staff'],
         function () {
+            Route::get('live/{tsid}', 'TrainingController@testLiveSession');
+
             Route::get(
               '/',
               ['as' => 'staff', 'uses' => 'AdminController@getAdminIndex']

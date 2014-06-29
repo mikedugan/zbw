@@ -77,7 +77,16 @@ class TrainingController extends BaseController
             'staff' => \Sentry::getUser(),
             'student' => \Sentry::getUser($session->cid)
         ];
-        return View::make('training.live', $data);
+        return View::make('staff.training.live', $data);
+    }
+
+    public function testLiveSession($tsid)
+    {
+        $data = [
+            'staff' => \Sentry::getUser(),
+            'student' => \Sentry::findUserById(1093141)
+        ];
+        return View::make('staff.training.live', $data);
     }
 
     public function postLiveSession()
