@@ -2,66 +2,210 @@
 Route::group(
   array('before' => 'staff'),
   function () {
-      Route::group(['prefix' => 'staff'], function() {
-            Route::get('/', 'AdminController@getAdminIndex');
-            Route::post('exams/review/{eid}', 'ControllerExamsController@postComment');
-            Route::get('training', 'AdminController@getTrainingIndex');
-            Route::get('exams/review/{eid}','ControllerExamsController@getStaffReview');
-            Route::get('exams/questions', 'ControllerExamsController@getQuestions');
-            Route::post('exams/questions', 'ControllerExamsController@addQuestion');
-            Route::get('roster', 'AdminController@getRosterIndex');
-            Route::get('roster/results', 'AdminController@getSearchResults');
-            Route::get('u/{id}', 'AdminController@showUser');
-            Route::get('{id}/edit', 'RosterController@getEditUser');
-            Route::post('{id}/edit', 'RosterController@postEditUser');
-            Route::get('roster/create-controller', 'RosterController@getAddController');
-            Route::post('roster/create-controller','RosterController@postAddController');
-            Route::get('pages', 'PagesController@getIndex');
-            Route::get('forum', 'AdminController@getForumIndex');
-            Route::get('ts', 'AdminController@getTsIndex');
+      Route::group(
+        ['prefix' => 'staff'],
+        function () {
+            Route::get(
+              '/',
+              ['as' => 'staff', 'uses' => 'AdminController@getAdminIndex']
+            );
+            Route::post(
+              'exams/review/{eid}',
+              [
+                'as'   => 'exams/review/{eid}',
+                'uses' => 'ControllerExamsController@postComment'
+              ]
+            );
+            Route::get(
+              'training',
+              [
+                'as'   => 'staff/training',
+                'uses' => 'AdminController@getTrainingIndex'
+              ]
+            );
+            Route::get(
+              'exams/review/{eid}',
+              [
+                'as'   => 'exams/review/{eid}',
+                'uses' => 'ControllerExamsController@getStaffReview'
+              ]
+            );
+            Route::get(
+              'exams/questions',
+              'ControllerExamsController@getQuestions'
+            );
+            Route::post(
+              'exams/questions',
+              [
+                'as'   => 'exams/add-question',
+                'uses' => 'ControllerExamsController@addQuestion'
+              ]
+            );
+            Route::get(
+              'roster',
+              ['as' => 'roster', 'uses' => 'AdminController@getRosterIndex']
+            );
+            Route::get(
+              'roster/results',
+              ['roster/search', 'uses' => 'AdminController@getSearchResults']
+            );
+            Route::get(
+              'u/{id}',
+              ['roster/user/{id}', 'uses' => 'AdminController@showUser']
+            );
+            Route::get(
+              '{id}/edit',
+              [
+                'as'   => 'roster/user/{id}/edit',
+                'uses' => 'RosterController@getEditUser'
+              ]
+            );
+            Route::post(
+              '{id}/edit',
+              [
+                'as'   => 'roster/user/{id}/edit',
+                'uses' => 'RosterController@postEditUser'
+              ]
+            );
+            Route::get(
+              'roster/create-controller',
+              [
+                'as'   => 'roster/add',
+                'uses' => 'RosterController@getAddController'
+              ]
+            );
+            Route::post(
+              'roster/create-controller',
+              [
+                'as'   => 'roster/add',
+                'uses' => 'RosterController@postAddController'
+              ]
+            );
+            Route::get(
+              'pages',
+              ['as' => 'staff/pages', 'uses' => 'PagesController@getIndex']
+            );
+            Route::get(
+              'forum',
+              ['as' => 'staff/forum', 'uses' => 'AdminController@getForumIndex']
+            );
+            Route::get(
+              'ts',
+              ['as' => 'staff/ts', 'uses' => 'AdminController@getTsIndex']
+            );
 
-            Route::get('news', 'AdminController@getNewsIndex');
-            Route::get('news/create', 'NewsController@getCreate');
-            Route::post('news/create', 'NewsController@postCreate');
+            Route::get(
+              'news',
+              ['as' => 'staff/news', 'uses' => 'AdminController@getNewsIndex']
+            );
+            Route::get(
+              'news/create',
+              ['as' => 'news/create', 'uses' => 'NewsController@getCreate']
+            );
+            Route::post(
+              'news/create',
+              ['as' => 'news/create', 'uses' => 'NewsController@postCreate']
+            );
 
-            Route::get('log', 'AdminController@getLog');
+            Route::get(
+              'log',
+              ['as' => 'log', 'uses' => 'AdminController@getLog']
+            );
 
-            Route::get('news/{id}/edit', 'NewsController@getEdit');
-            Route::post('news/edit', 'NewsController@postEdit');
-        });
+            Route::get(
+              'news/{id}/edit',
+              ['as' => 'news/{id}/edit', 'uses' => 'NewsController@getEdit']
+            );
+            Route::post(
+              'news/edit',
+              ['as' => 'news/{id}/edit', 'uses' => 'NewsController@postEdit']
+            );
+        }
+      );
+      //this route is deprecated
       Route::post('/a/complete/{aid}', 'AjaxController@actionCompleted');
 
-      Route::get('pages/create', 'PagesController@getCreate');
-      Route::get('pages/view', 'PagesController@getShow');
-      Route::get('pages/trash', 'PagesController@getTrash');
+      Route::get(
+        'pages/create',
+        ['as' => 'pages/create', 'uses' => 'PagesController@getCreate']
+      );
+      Route::get(
+        'pages/view',
+        ['as' => 'pages/view', 'uses' => 'PagesController@getShow']
+      );
+      Route::get(
+        'pages/trash',
+        ['as' => 'pages/trash', 'uses' => 'PagesController@getTrash']
+      );
 
-      Route::post('pages/menus/create', 'MenusController@postCreate');
-      Route::get('pages/menus', 'MenusController@getIndex');
-      Route::get('pages/menus{mid}/edit', 'MenusController@getUpdate');
-      Route::post('pages/menus/{mid}/update', 'MenusController@postUpdate');
-      Route::get('pages/menus/{mid}/delete', 'MenusController@postDelete');
+      Route::post(
+        'pages/menus/create',
+        ['as' => 'menus/create', 'uses' => 'MenusController@postCreate']
+      );
+      Route::get(
+        'pages/menus',
+        ['as' => 'menus', 'uses' => 'MenusController@getIndex']
+      );
+      Route::get(
+        'pages/menus{mid}/edit',
+        ['as' => 'menus/{mid}/edit', 'uses' => 'MenusController@getUpdate']
+      );
+      Route::post(
+        'pages/menus/{mid}/update',
+        ['as' => 'menus/{mid}/edit', 'uses' => 'MenusController@postUpdate']
+      );
+      Route::get(
+        'pages/menus/{mid}/delete',
+        ['as' => 'menus/{mid}/delete', 'uses' => 'MenusController@postDelete']
+      );
   }
 );
 
 Route::group(
   array('before' => 'executive'),
   function () {
-      Route::post('/r/activate/{cid}', 'AjaxController@activateUser');
-      Route::post('/r/suspend/{cid}', 'AjaxController@suspendUser');
-      Route::post('/r/terminate/{cid}', 'AjaxController@terminateUser');
-      Route::post('/m/staff-welcome/{cid}', 'AjaxController@sendStaffWelcome');
+      Route::post(
+        '/r/activate/{cid}',
+        [
+          'as'   => 'controllers/{cid}/active',
+          'uses' => 'AjaxController@activateUser'
+        ]
+      );
+      Route::post(
+        '/r/suspend/{cid}',
+        [
+          'as'   => 'controllers/{cid}/suspend',
+          'uses' => 'AjaxController@suspendUser'
+        ]
+      );
+      Route::post(
+        '/r/terminate/{cid}',
+        [
+          'as'   => 'controllers/{cid}/terminate',
+          'uses' => 'AjaxController@terminateUser'
+        ]
+      );
+      Route::post(
+        '/m/staff-welcome/{cid}',
+        [
+          'as'   => 'controllers/{cid}/staff-welcome',
+          'uses' => 'AjaxController@sendStaffWelcome'
+        ]
+      );
   }
 );
 
 Route::group(
   array('before' => 'instructor'),
-  function() {
+  function () {
       //TODO create routes
-  });
+  }
+);
 
 Route::group(
   array('before' => 'mentor'),
   function () {
       Route::post('/e/review/{eid}', 'AjaxController@postReviewComment');
       Route::get('staff/training/{id}', 'TrainingController@showAdmin');
-  });
+  }
+);
