@@ -387,4 +387,12 @@ class UserRepository extends EloquentRepository
     {
 
     }
+
+    public function updateSettings($input)
+    {
+        $u = $this->get(\Auth::user()->cid);
+        $u->signature = $input['signature'];
+        $u->email = $input['email'];
+        return $u->save();
+    }
 }

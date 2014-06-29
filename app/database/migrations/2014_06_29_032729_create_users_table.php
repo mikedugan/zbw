@@ -19,8 +19,9 @@
  */
 
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
-class MigrationCartalystSentryInstallUsers extends Migration {
+class CreateUsersTable extends Migration {
 
     /**
      * Run the migrations.

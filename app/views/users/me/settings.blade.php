@@ -1,15 +1,16 @@
-<form action="/u/{{$me->cid}}/settings/update" method="post">
+<form action="/me/profile" method="post">
+    <input type="hidden" name="update_type" value="settings">
     <div class="col-md-12">
         <div class="input-group">
             {{ Form::label('email', 'Email'); }}
-            <input type="text" name="me[email]" id="email" value="{{$me->email}}" class="form-control">
+            <input type="text" name="email" id="email" value="{{$me->email}}" class="form-control">
         </div>
         <div class="input-group">
         <p><b>Email Hidden:</b> {{ Form::checkbox('Hidden', 'hidden', false); }}</p>
         </div>
         <div class="input-group">
         <p><b>Signature:</b></p>
-        <textarea class="form-control" cols="40" rows="5">{{ $me->signature}}</textarea>
+        <textarea name="signature" id="signature" class="form-control" cols="40" rows="5">{{$me->signature}}</textarea>
         </div>
     </div>
     <div class="col-md-12">

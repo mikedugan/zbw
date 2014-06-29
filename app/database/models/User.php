@@ -2,14 +2,20 @@
 
 use Illuminate\Auth\UserInterface;
 use Illuminate\Auth\Reminders\RemindableInterface;
+use Cartalyst\Sentry\Users\Eloquent\User as SentryUser;
 
-class User extends Eloquent implements UserInterface, RemindableInterface
+
+class User extends SentryUser implements UserInterface, RemindableInterface
 {
 
-    protected $table = 'controllers';
     protected $guarded = ['cid', 'email', 'rating', 'is_webmaster', 'is_staff'];
     protected $primaryKey = 'cid';
     protected $positions;
+    protected static $hasher;
+    public function __construct()
+    {
+        static::$hasher = new Cartalyst\Sentry\Hashing\NativeHasher();
+    }
 
     //scopes
 

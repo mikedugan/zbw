@@ -11,7 +11,7 @@ class Exam extends Eloquent {
     //relations
     public function exam()
     {
-        return $this->hasOne('CertType', 'id', 'exam_id');
+        return $this->hasOne('CertType', 'id', 'cert_id');
     }
 
     public function reviewer()

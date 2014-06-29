@@ -52,6 +52,25 @@ class ControllersController extends BaseController
         return View::make('users.me.index', $data);
     }
 
+    public function postSettings()
+    {
+        $update_type = \Input::get('update_type');
+        if($update_type === 'profile') {
+            return Redirect::back()->with('flash_error', 'Unable to update settings!');
+        }
+
+        else if ($update_type === 'settings') {
+            if($this->users->updateSettings(\Input::all())) {
+                return Redirect::back()->with('flash_success', 'Settings updated');
+            } else {
+                return Redirect::back()->with('flash_error', 'Unable to update settings!');
+            }
+        } else {
+            return Redirect::back()->with('flash_error', 'Unable to update settings!');
+        }
+
+    }
+
     public function view($cid)
     {
 
