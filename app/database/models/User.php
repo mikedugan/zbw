@@ -48,6 +48,11 @@ class User extends SentryUser implements UserInterface, RemindableInterface
     }
 
     //relations
+    public function settings()
+    {
+        return $this->hasOne('UserSettings', 'cid', 'cid');
+    }
+
     public function group()
     {
         return $this->hasMany('ControllerGroup');

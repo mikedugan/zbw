@@ -30,6 +30,7 @@ class DatabaseSeeder extends Seeder {
         $this->call('PrivateMessageTableSeeder');
         $this->call('TrainingRequestsTableSeeder');
       $this->call('ForumsTableSeeder');
+      $this->call('UserSettingsTableSeeder');
 	}
 
 }

@@ -37,6 +37,7 @@ class UserRepository extends EloquentRepository
      * @param string home artcc
      * @param integer cid
      * @return boolean
+     * @deprecated
      */
     public function add($fname, $lname, $email, $artcc, $cid)
     {
@@ -52,7 +53,11 @@ class UserRepository extends EloquentRepository
         $u->password = \Hash::make($tempPassword);
         $u->rating_id = -1;
         $u->initials = strtoupper(UserRepository::createInitials($fname, $lname));
-        if($u->save())
+
+        $s = new \UserSettings();
+        $s->cid = $u->cid;
+
+        if($u->save() && $s->save())
         {
             $em = new Emailer($u, ['password' => $tempPassword]);
             $em->newUser($u);
@@ -71,7 +76,7 @@ class UserRepository extends EloquentRepository
      */
     public function updateUser($input, $cid = null)
     {
-        $user = $cid ? $this->make()->find($cid) : $this->make()->find($input['cid']);
+        $user = $cid ? \Sentry::findUserById($cid) :\Sentry::findUserById($input['cid']);
         $user->first_name = $input['fname'];
         $user->last_name = $input['lname'];
         $user->initials = $input['initials'];
@@ -89,7 +94,7 @@ class UserRepository extends EloquentRepository
 
     public function authUpdate($user)
     {
-        $model = $this->make()->find($user->user->id);
+        $model = \Sentry::findUserById($user->user->id);
         $model->first_name = $user->user->name_first;
         $model->last_name = $user->user->name_last;
         $model->rating_id = $user->user->rating->id;
@@ -390,9 +395,10 @@ class UserRepository extends EloquentRepository
 
     public function updateSettings($input)
     {
-        $u = $this->get(\Auth::user()->cid);
+        $u = \Sentry::getUser();
         $u->signature = $input['signature'];
         $u->email = $input['email'];
-        return $u->save();
+        $u->settings->fill($input);
+        return $u->save() && $u->settings->save();
     }
 }
