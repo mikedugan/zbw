@@ -54,13 +54,13 @@ class ControllersController extends BaseController
 
     public function postSettings()
     {
-        $update_type = \Input::get('update_type');
-        if($update_type === 'profile') {
+        $update_type = \Input::get('update');
+        if($update_type === 'settings') {
             return Redirect::back()->with('flash_error', 'Unable to update settings!');
         }
 
-        else if ($update_type === 'settings') {
-            if($this->users->updateSettings(\Input::all())) {
+        else if ($update_type === 'notifications') {
+            if($this->users->updateNotifications(\Input::except('update'))) {
                 return Redirect::back()->with('flash_success', 'Settings updated');
             } else {
                 return Redirect::back()->with('flash_error', 'Unable to update settings!');

@@ -1,4 +1,6 @@
 $(function() {
+    $('.file-control').bootstrapFileInput();
+    //$('input[type=file]').bootstrapFileInput();
     highlightCorrect();
     $('.datepick').datetimepicker({
         language: 'en',

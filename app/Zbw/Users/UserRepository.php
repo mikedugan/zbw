@@ -401,4 +401,11 @@ class UserRepository extends EloquentRepository
         $u->settings->fill($input);
         return $u->save() && $u->settings->save();
     }
+
+    public function updateNotifications($input)
+    {
+        $settings = \UserSettings::where('cid', \Sentry::getUser()->cid)->firstOrFail();
+        $settings->fill($input);
+        return $settings->save();
+    }
 }
