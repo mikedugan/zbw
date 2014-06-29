@@ -12,7 +12,7 @@ abstract class EloquentRepository {
         return $this->make()->all();
     }
 
-    public function get($id, $withTrash = true)
+    public function get($id, $withTrash = false)
     {
         if($withTrash) {
             return $this->make()->withTrashed()->find($id);

@@ -21,6 +21,7 @@ class MessagesController extends BaseController
     {
         $data = [
           'view'   => \Input::get('v'),
+          'to' => \Input::get('to'),
           //'messages' => $this->messages->all($cid),
           'inbox'  => $this->messages->to(
             \Sentry::getUser()->cid,
