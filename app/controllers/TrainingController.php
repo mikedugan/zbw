@@ -70,4 +70,19 @@ class TrainingController extends BaseController
         return View::make('training.exams.review', $data);
     }
 
+    public function getLiveSession($tsid)
+    {
+        $session = \TrainingRequest::find($tsid);
+        $data = [
+            'staff' => \Sentry::getUser(),
+            'student' => \Sentry::getUser($session->cid)
+        ];
+        return View::make('training.live', $data);
+    }
+
+    public function postLiveSession()
+    {
+        return Redirect::route('training')->with('flash_success', 'Training session complete!');
+    }
+
 }
