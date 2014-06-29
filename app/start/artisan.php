@@ -11,6 +11,6 @@
 |
 */
 
-Artisan::add(new UpdateMetars);
-Artisan::add(new UpdateUrls);
-Artisan::add(new UpdateClients);
+Artisan::add(new Zbw\Commands\UpdateMetars);
+Artisan::add(new Zbw\Commands\UpdateUrls);
+Artisan::add(new Zbw\Commands\UpdateClients);

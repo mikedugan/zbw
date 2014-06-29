@@ -1,5 +1,5 @@
 <?php
-namespace Zbw;
+namespace Zbw\Base;
 
 use Carbon\Carbon;
 
