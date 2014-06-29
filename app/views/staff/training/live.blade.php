@@ -17,10 +17,10 @@ Training Session
     <div class="row form-horizontal">
         <label class="control-label col-md-4">Sign-On Brief</label>
         <div class="col-md-2 checkbox">
-            <label><input type="checkbox" value="true" name="review-brief"> Reviewed</label>
+            <label><input type="checkbox" value="true" id="review-brief" name="review-brief"> Reviewed</label>
         </div>
         <div class="form-group col-md-6">
-            <select class="form-control" name="brief">
+            <select class="form-control" id="brief" name="brief">
                 <option value="na">NA or Not Observed</option>
                 <option value="u">Unsatisfactory</option>
                 <option value="n">Needs Improvement</option>
@@ -31,10 +31,10 @@ Training Session
     <div class="row form-horizontal">
         <label class="control-label col-md-4">Runway Selection</label>
         <div class="col-md-2 checkbox">
-            <label><input type="checkbox" value="true" name="review-runway"> Reviewed</label>
+            <label><input type="checkbox" value="true" id="review-runway" name="review-runway"> Reviewed</label>
         </div>
         <div class="form-group col-md-6">
-            <select class="form-control" name="runway">
+            <select class="form-control" name="runway" id="runway">
                 <option value="na">NA or Not Observed</option>
                 <option value="u">Unsatisfactory</option>
                 <option value="n">Needs Improvement</option>
@@ -45,10 +45,10 @@ Training Session
     <div class="row form-horizontal">
         <label class="control-label col-md-4">Weather Conditions</label>
         <div class="col-md-2 checkbox">
-            <label><input type="checkbox" value="true" name="review-weather"> Reviewed</label>
+            <label><input type="checkbox" value="true" name="review-weather" id="review-weather"> Reviewed</label>
         </div>
         <div class="form-group col-md-6">
-            <select class="form-control" name="weather">
+            <select class="form-control" name="weather" id="weather">
                 <option value="na">NA or Not Observed</option>
                 <option value="u">Unsatisfactory</option>
                 <option value="n">Needs Improvement</option>
@@ -59,10 +59,10 @@ Training Session
     <div class="row form-horizontal">
         <label class="control-label col-md-4">Controller Coordination</label>
         <div class="col-md-2 checkbox">
-            <label><input type="checkbox" value="true" name="review-coordination"> Reviewed</label>
+            <label><input type="checkbox" value="true" name="review-coordination" id="review-coordination"> Reviewed</label>
         </div>
         <div class="form-group col-md-6">
-            <select class="form-control" name="coordination">
+            <select class="form-control" name="coordination" id="coordination">
                 <option value="na">NA or Not Observed</option>
                 <option value="u">Unsatisfactory</option>
                 <option value="n">Needs Improvement</option>
@@ -73,10 +73,10 @@ Training Session
     <div class="row form-horizontal">
         <label class="control-label col-md-4">Traffic Flow & Delays</label>
         <div class="col-md-2 checkbox">
-            <label><input type="checkbox" value="true" name="review-flow"> Reviewed</label>
+            <label><input type="checkbox" value="true" name="review-flow" id="review-flow"> Reviewed</label>
         </div>
         <div class="form-group col-md-6">
-            <select class="form-control" name="flow">
+            <select class="form-control" name="flow" id="flow">
                 <option value="na">NA or Not Observed</option>
                 <option value="u">Unsatisfactory</option>
                 <option value="n">Needs Improvement</option>
@@ -87,10 +87,10 @@ Training Session
     <div class="row form-horizontal">
         <label class="control-label col-md-4">Aircraft Identity</label>
         <div class="col-md-2 checkbox">
-            <label><input type="checkbox" value="true" name="review-identity"> Reviewed</label>
+            <label><input type="checkbox" value="true" name="review-identity" id="review-identity"> Reviewed</label>
         </div>
         <div class="form-group col-md-6">
-            <select class="form-control" name="identity">
+            <select class="form-control" name="identity" id="identity">
                 <option value="na">NA or Not Observed</option>
                 <option value="u">Unsatisfactory</option>
                 <option value="n">Needs Improvement</option>
@@ -101,10 +101,10 @@ Training Session
     <div class="row form-horizontal">
         <label class="control-label col-md-4">Separation</label>
         <div class="col-md-2 checkbox">
-            <label><input type="checkbox" value="true" name="review-separation"> Reviewed</label>
+            <label><input type="checkbox" value="true" name="review-separation" id="review-separation"> Reviewed</label>
         </div>
         <div class="form-group col-md-6">
-            <select class="form-control" name="separation">
+            <select class="form-control" name="separation" id="separation">
                 <option value="na">NA or Not Observed</option>
                 <option value="u">Unsatisfactory</option>
                 <option value="n">Needs Improvement</option>
@@ -115,10 +115,10 @@ Training Session
     <div class="row form-horizontal">
         <label class="control-label col-md-4">Pointouts & Alerts</label>
         <div class="col-md-2 checkbox">
-            <label><input type="checkbox" value="true" name="review-pointouts"> Reviewed</label>
+            <label><input type="checkbox" value="true" name="review-pointouts" id="review-pointouts"> Reviewed</label>
         </div>
         <div class="form-group col-md-6">
-            <select class="form-control" name="pointouts">
+            <select class="form-control" name="pointouts" id='pointouts'>
                 <option value="na">NA or Not Observed</option>
                 <option value="u">Unsatisfactory</option>
                 <option value="n">Needs Improvement</option>
@@ -129,10 +129,10 @@ Training Session
     <div class="row form-horizontal">
         <label class="control-label col-md-4">Airspace Knowledge</label>
         <div class="col-md-2 checkbox">
-            <label><input type="checkbox" value="true" name="review-airspace"> Reviewed</label>
+            <label><input type="checkbox" value="true" name="review-airspace" id="review-airspace"> Reviewed</label>
         </div>
         <div class="form-group col-md-6">
-            <select class="form-control" name="airspace">
+            <select class="form-control" name="airspace" id="airspace">
                 <option value="na">NA or Not Observed</option>
                 <option value="u">Unsatisfactory</option>
                 <option value="n">Needs Improvement</option>
@@ -143,10 +143,10 @@ Training Session
     <div class="row form-horizontal">
         <label class="control-label col-md-4">LOA Knowledge</label>
         <div class="col-md-2 checkbox">
-            <label><input type="checkbox" value="true" name="review-loa"> Reviewed</label>
+            <label><input type="checkbox" value="true" name="review-loa" id="review-loa"> Reviewed</label>
         </div>
         <div class="form-group col-md-6">
-            <select class="form-control" name="loa">
+            <select class="form-control" name="loa" id="loa">
                 <option value="na">NA or Not Observed</option>
                 <option value="u">Unsatisfactory</option>
                 <option value="n">Needs Improvement</option>
@@ -157,10 +157,10 @@ Training Session
     <div class="row form-horizontal">
         <label class="control-label col-md-4">Phraseology</label>
         <div class="col-md-2 checkbox">
-            <label><input type="checkbox" value="true" name="review-phraseology"> Reviewed</label>
+            <label><input type="checkbox" value="true" name="review-phraseology" id="review-phraseology"> Reviewed</label>
         </div>
         <div class="form-group col-md-6">
-            <select class="form-control" name="phraseology">
+            <select class="form-control" name="phraseology" id="phraseology">
                 <option value="na">NA or Not Observed</option>
                 <option value="u">Unsatisfactory</option>
                 <option value="n">Needs Improvement</option>
@@ -171,10 +171,10 @@ Training Session
     <div class="row form-horizontal">
         <label class="control-label col-md-4">Duty Priority</label>
         <div class="col-md-2 checkbox">
-            <label><input type="checkbox" value="true" name="review-priority"> Reviewed</label>
+            <label><input type="checkbox" value="true" name="review-priority" id="review-priority"> Reviewed</label>
         </div>
         <div class="form-group col-md-6">
-            <select class="form-control" name="priority">
+            <select class="form-control" name="priority" id="priority">
                 <option value="na">NA or Not Observed</option>
                 <option value="u">Unsatisfactory</option>
                 <option value="n">Needs Improvement</option>
@@ -213,6 +213,7 @@ Training Session
     <br>
     <div class="row">
         <div class="col-md-4">
+            <h5 class="text-center">Conditions</h5>
             <div class="row">
                 <label class="control-label">Weather</label>
                 <div class="form-group">
@@ -251,6 +252,7 @@ Training Session
             <button class="btn btn-block  btn-warning" id="md-other">Other Markdown</button>
         </div>
         <div class="col-md-4">
+            <h5 class="text-center">Markups</h5>
             <button class="btn btn-block btn-success" id="mu-flow">Traffic Flow</button>
             <button class="btn btn-block btn-success" id="mu-separation">Separation</button>
             <button class="btn btn-block btn-success" id="mu-phraseology">Phraseology</button>
@@ -259,6 +261,7 @@ Training Session
             <button class="btn btn-block btn-success" id="mu-sequencing">Speed & Sequencing</button>
         </div>
         <div class="col-md-4">
+            <h5 class="text-center">Other Markdows</h5>
             <button class="btn btn-block btn-warning" id="md-flow">Slow Traffic Flow</button>
             <button class="btn btn-block btn-warning" id="md-separation">Loss of Separation</button>
             <button class="btn btn-block btn-warning" id="md-phraseology">Incorrect Phraseology</button>
