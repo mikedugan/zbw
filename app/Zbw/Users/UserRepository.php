@@ -396,9 +396,16 @@ class UserRepository extends EloquentRepository
     public function updateSettings($input)
     {
         $u = \Sentry::getUser();
-        $u->signature = $input['signature'];
-        $u->email = $input['email'];
+        if(isset($input['email_hidden']) && $input['email_hidden'] === 'true') $input['email_hidden'] = 1;
+        else $input['email_hidden'] = 0;
+        unset($input['avatar']);
         $u->settings->fill($input);
+        if(\Input::hasFile('avatar')) {
+            $path = public_path().'/uploads/avatars/';
+            $avatar = \Input::file('avatar');
+            $avatar->move($path, $u->cid . '.' . $avatar->getClientOriginalExtension());
+            $u->settings->avatar = '/uploads/avatars/'.$u->cid.'.'.$avatar->getClientOriginalExtension();
+        }
         return $u->save() && $u->settings->save();
     }
 
