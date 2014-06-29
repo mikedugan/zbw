@@ -12,7 +12,7 @@ Training Index
                 <a href="/staff/training/{{$r->id}}">
                 {{ strtoupper($r->student['initials']) }} was trained by
                 {{ strtoupper($r->staff['initials']) }}
-                {{ \Zbw\Helpers::timeAgo($r->session_date) }} on
+                {{ \Zbw\Base\Helpers::timeAgo($r->session_date) }} on
                 {{ $r->facility->value }}
                 </a>
             </p>
@@ -40,7 +40,7 @@ Training Index
         <h4>Requests</h4>
         @if($requests)
             @foreach($requests as $r)
-                <p class="well"><a href="/training/request/{{$r->id}}">{{ strtoupper($r->student->initials) }} has requested training on {{ Zbw\Helpers::readableCert($r->certType->value) }}</a></p>
+                <p class="well"><a href="/training/request/{{$r->id}}">{{ strtoupper($r->student->initials) }} has requested training on {{ Zbw\Base\Helpers::readableCert($r->certType->value) }}</a></p>
             @endforeach
         @endif
     </div>
@@ -51,7 +51,7 @@ Training Index
                 <p class="well">
                     <a href="/staff/exams/review/{{$e->id}}">
                     {{ strtoupper($e->student['initials']) }} took {{ $e->exam['value'] }}
-                    , scored {{ \Zbw\Helpers::getScore($e) }}%
+                    , scored {{ \Zbw\Base\Helpers::getScore($e) }}%
                     </a>
                 </p>
             @endforeach

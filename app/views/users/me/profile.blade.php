@@ -33,7 +33,7 @@
 <div class="col-md-6">
     <h3>Recent Exams</h3>
     @foreach($me->exams as $exam)
-        <p>{{ Zbw\Helpers::readableCert($exam->exam->value) . ' on ' . $exam->created_at->toFormattedDateString() }}</p>
+        <p>{{ Zbw\Base\Helpers::readableCert($exam->exam->value) . ' on ' . $exam->created_at->toFormattedDateString() }}</p>
     @endforeach
     <h3>Recent Training</h3>
     @foreach($me->training as $session)

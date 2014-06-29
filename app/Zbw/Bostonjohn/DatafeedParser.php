@@ -1,6 +1,6 @@
 <?php  namespace Zbw\Bostonjohn;
 
-use Zbw\Helpers;
+use Zbw\Base\Helpers;
 use Curl\Curl;
 
 class DatafeedParser {

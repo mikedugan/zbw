@@ -5,7 +5,7 @@ class FeedbackZbwValidator extends ZbwValidator
     protected $rules;
     public function __construct()
     {
-        $cids = \Zbw\Helpers::getCids(true);
+        $cids = \Zbw\Base\Helpers::getCids(true);
         $this->rules = [
             'controller' => 'in:' . $cids,
             'rating' => 'integer|max:5',

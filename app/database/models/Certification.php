@@ -6,7 +6,7 @@ class Certification extends Eloquent {
 	public $rules;
     public function __construct()
     {
-        $cids = \Zbw\Helpers::getCids(true);
+        $cids = \Zbw\Base\Helpers::getCids(true);
         $this->rules = [
         'cid' => 'in:' . $cids,
         'exam_id' => 'between:1,10',
