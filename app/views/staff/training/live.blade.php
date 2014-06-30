@@ -300,10 +300,10 @@ Training Session
                   rows="10"></textarea>
     </div>
     <div class="col-md-6">
-        <button data-timer="debrief" id="debrief" class="btn btn-primary btn-block">Start Debrief/Review</button>
+        <button data-timer="debrief" id="debrief" class="timer btn btn-primary btn-block">Start Debrief/Review</button>
     </div>
     <div class="col-md-6">
-        <button data-timer="complete" id="complete" class="btn btn-primary btn-block">Complete Session</button>
+        <button data-timer="complete" id="complete" class="timer btn btn-primary btn-block">Complete Session</button>
     </div>
 </div>
 @stop

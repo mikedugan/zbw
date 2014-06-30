@@ -150,7 +150,7 @@ $('#start').click(
   function (e)
   {
       e.preventDefault();
-      console.log(trainingSession);
+      console.log(trainingSession.timer);
   }
 );
 
@@ -166,7 +166,7 @@ $('#update-score').click(function(e) {
     e.preventDefault();
     var score = getPerformanceScore();
     var marks = getMarkDifferential();
-    $('.score').replaceWith('<div class="score"><button class="btn btn-block">'+adjustScore(score, marks)+'</button></div>');
+    $('.score').replaceWith('<div class="score"><button class="btn btn-block">'+adjustScore(score, marks)+' - '+runningTime()+' minutes</button></div>');
 });
 
 function adjustScore(score)
@@ -217,6 +217,14 @@ function checkGrade()
     else if (trainingSession.score < 85) { $('.score button').addClass('btn-warning'); }
     else if (trainingSession.score > 95) { $('.score button').addClass('btn-success'); }
 
+}
+
+function runningTime()
+{
+    if(trainingSession.timer.start === 0) { return 0; }
+    var now = new Date();
+    var diff = (now - trainingSession.timer.start);
+    return Math.round(((diff % 86400000) % 3600000) / 60000);
 }
 
 function update()
