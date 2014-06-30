@@ -6,10 +6,10 @@ Training Session
 <h1 class="text-center">Training Session</h1>
 <div class="row">
     <div class="col-md-6">
-        <button class="btn btn-primary btn-block">Start Brief/Review</button>
+        <button data-timer="start" id="start" class="timer btn btn-primary btn-block">Start Brief/Review</button>
     </div>
     <div class="col-md-6">
-        <button class="btn btn-primary btn-block">Start Live Session</button>
+        <button data-timer="live" id="live" class="timer btn btn-primary btn-block">Start Live Session</button>
     </div>
 </div>
 <div class="col-md-6">
@@ -17,10 +17,10 @@ Training Session
     <div class="row form-horizontal">
         <label class="control-label col-md-4">Sign-On Brief</label>
         <div class="col-md-2 checkbox">
-            <label><input type="checkbox" value="true" id="review-brief" name="review-brief"> Reviewed</label>
+            <label><input type="checkbox" value="true" class="reviewbox" data-subject="sign on briefs" id="review-brief" name="review-brief"> Reviewed</label>
         </div>
         <div class="form-group col-md-6">
-            <select class="form-control" id="brief" name="brief">
+            <select class="form-control performance" id="brief" name="brief">
                 <option value="na">NA or Not Observed</option>
                 <option value="u">Unsatisfactory</option>
                 <option value="n">Needs Improvement</option>
@@ -31,10 +31,10 @@ Training Session
     <div class="row form-horizontal">
         <label class="control-label col-md-4">Runway Selection</label>
         <div class="col-md-2 checkbox">
-            <label><input type="checkbox" value="true" id="review-runway" name="review-runway"> Reviewed</label>
+            <label><input type="checkbox" value="true" class="reviewbox" data-subject="runway selection" id="review-runway" name="review-runway"> Reviewed</label>
         </div>
         <div class="form-group col-md-6">
-            <select class="form-control" name="runway" id="runway">
+            <select class="form-control performance" name="runway" id="runway">
                 <option value="na">NA or Not Observed</option>
                 <option value="u">Unsatisfactory</option>
                 <option value="n">Needs Improvement</option>
@@ -45,10 +45,10 @@ Training Session
     <div class="row form-horizontal">
         <label class="control-label col-md-4">Weather Conditions</label>
         <div class="col-md-2 checkbox">
-            <label><input type="checkbox" value="true" name="review-weather" id="review-weather"> Reviewed</label>
+            <label><input type="checkbox" value="true" name="review-weather" class="reviewbox" data-subject="weather conditions" id="review-weather"> Reviewed</label>
         </div>
         <div class="form-group col-md-6">
-            <select class="form-control" name="weather" id="weather">
+            <select class="form-control performance" name="weather" id="weather">
                 <option value="na">NA or Not Observed</option>
                 <option value="u">Unsatisfactory</option>
                 <option value="n">Needs Improvement</option>
@@ -59,10 +59,10 @@ Training Session
     <div class="row form-horizontal">
         <label class="control-label col-md-4">Controller Coordination</label>
         <div class="col-md-2 checkbox">
-            <label><input type="checkbox" value="true" name="review-coordination" id="review-coordination"> Reviewed</label>
+            <label><input type="checkbox" value="true" name="review-coordination" class="reviewbox" data-subject="controller coordiation" id="review-coordination"> Reviewed</label>
         </div>
         <div class="form-group col-md-6">
-            <select class="form-control" name="coordination" id="coordination">
+            <select class="form-control performance" name="coordination" id="coordination">
                 <option value="na">NA or Not Observed</option>
                 <option value="u">Unsatisfactory</option>
                 <option value="n">Needs Improvement</option>
@@ -73,10 +73,10 @@ Training Session
     <div class="row form-horizontal">
         <label class="control-label col-md-4">Traffic Flow & Delays</label>
         <div class="col-md-2 checkbox">
-            <label><input type="checkbox" value="true" name="review-flow" id="review-flow"> Reviewed</label>
+            <label><input type="checkbox" value="true" name="review-flow" class="reviewbox" data-subject="traffic flow" id="review-flow"> Reviewed</label>
         </div>
         <div class="form-group col-md-6">
-            <select class="form-control" name="flow" id="flow">
+            <select class="form-control performance" name="flow" id="flow">
                 <option value="na">NA or Not Observed</option>
                 <option value="u">Unsatisfactory</option>
                 <option value="n">Needs Improvement</option>
@@ -87,10 +87,10 @@ Training Session
     <div class="row form-horizontal">
         <label class="control-label col-md-4">Aircraft Identity</label>
         <div class="col-md-2 checkbox">
-            <label><input type="checkbox" value="true" name="review-identity" id="review-identity"> Reviewed</label>
+            <label><input type="checkbox" value="true" name="review-identity" class="reviewbox" data-subject="maintaining aircraft identity" id="review-identity"> Reviewed</label>
         </div>
         <div class="form-group col-md-6">
-            <select class="form-control" name="identity" id="identity">
+            <select class="form-control performance" name="identity" id="identity">
                 <option value="na">NA or Not Observed</option>
                 <option value="u">Unsatisfactory</option>
                 <option value="n">Needs Improvement</option>
@@ -101,10 +101,10 @@ Training Session
     <div class="row form-horizontal">
         <label class="control-label col-md-4">Separation</label>
         <div class="col-md-2 checkbox">
-            <label><input type="checkbox" value="true" name="review-separation" id="review-separation"> Reviewed</label>
+            <label><input type="checkbox" value="true" name="review-separation" class="reviewbox" data-subject="aircraft separation" id="review-separation"> Reviewed</label>
         </div>
         <div class="form-group col-md-6">
-            <select class="form-control" name="separation" id="separation">
+            <select class="form-control performance" name="separation" id="separation">
                 <option value="na">NA or Not Observed</option>
                 <option value="u">Unsatisfactory</option>
                 <option value="n">Needs Improvement</option>
@@ -115,10 +115,10 @@ Training Session
     <div class="row form-horizontal">
         <label class="control-label col-md-4">Pointouts & Alerts</label>
         <div class="col-md-2 checkbox">
-            <label><input type="checkbox" value="true" name="review-pointouts" id="review-pointouts"> Reviewed</label>
+            <label><input type="checkbox" value="true" name="review-pointouts" class="reviewbox" data-subject="pointouts and alerts" id="review-pointouts"> Reviewed</label>
         </div>
         <div class="form-group col-md-6">
-            <select class="form-control" name="pointouts" id='pointouts'>
+            <select class="form-control performance" name="pointouts" id='pointouts'>
                 <option value="na">NA or Not Observed</option>
                 <option value="u">Unsatisfactory</option>
                 <option value="n">Needs Improvement</option>
@@ -129,10 +129,10 @@ Training Session
     <div class="row form-horizontal">
         <label class="control-label col-md-4">Airspace Knowledge</label>
         <div class="col-md-2 checkbox">
-            <label><input type="checkbox" value="true" name="review-airspace" id="review-airspace"> Reviewed</label>
+            <label><input type="checkbox" value="true" name="review-airspace" class="reviewbox" data-subject="airspace knowledge" id="review-airspace"> Reviewed</label>
         </div>
         <div class="form-group col-md-6">
-            <select class="form-control" name="airspace" id="airspace">
+            <select class="form-control performance" name="airspace" id="airspace">
                 <option value="na">NA or Not Observed</option>
                 <option value="u">Unsatisfactory</option>
                 <option value="n">Needs Improvement</option>
@@ -143,10 +143,10 @@ Training Session
     <div class="row form-horizontal">
         <label class="control-label col-md-4">LOA Knowledge</label>
         <div class="col-md-2 checkbox">
-            <label><input type="checkbox" value="true" name="review-loa" id="review-loa"> Reviewed</label>
+            <label><input type="checkbox" value="true" name="review-loa" class="reviewbox" data-subject="SOP and LOA knowledge" id="review-loa"> Reviewed</label>
         </div>
         <div class="form-group col-md-6">
-            <select class="form-control" name="loa" id="loa">
+            <select class="form-control performance" name="loa" id="loa">
                 <option value="na">NA or Not Observed</option>
                 <option value="u">Unsatisfactory</option>
                 <option value="n">Needs Improvement</option>
@@ -157,10 +157,10 @@ Training Session
     <div class="row form-horizontal">
         <label class="control-label col-md-4">Phraseology</label>
         <div class="col-md-2 checkbox">
-            <label><input type="checkbox" value="true" name="review-phraseology" id="review-phraseology"> Reviewed</label>
+            <label><input type="checkbox" value="true" name="review-phraseology" class="reviewbox" data-subject="controller phraseology" id="review-phraseology"> Reviewed</label>
         </div>
         <div class="form-group col-md-6">
-            <select class="form-control" name="phraseology" id="phraseology">
+            <select class="form-control performance" name="phraseology" id="phraseology">
                 <option value="na">NA or Not Observed</option>
                 <option value="u">Unsatisfactory</option>
                 <option value="n">Needs Improvement</option>
@@ -171,15 +171,23 @@ Training Session
     <div class="row form-horizontal">
         <label class="control-label col-md-4">Duty Priority</label>
         <div class="col-md-2 checkbox">
-            <label><input type="checkbox" value="true" name="review-priority" id="review-priority"> Reviewed</label>
+            <label><input type="checkbox" value="true" name="review-priority" class="reviewbox" data-subject="duty priorities" id="review-priority"> Reviewed</label>
         </div>
         <div class="form-group col-md-6">
-            <select class="form-control" name="priority" id="priority">
+            <select class="form-control performance" name="priority" id="priority">
                 <option value="na">NA or Not Observed</option>
                 <option value="u">Unsatisfactory</option>
                 <option value="n">Needs Improvement</option>
                 <option value="s">Satisfactory</option>
             </select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <button class="btn btn-default btn-block" id="update-score">Update Score</button>
+        </div>
+        <div class="col-md-8">
+            <div class="score"></div>
         </div>
     </div>
 </div>
@@ -188,26 +196,26 @@ Training Session
     <div class="row">
         <div class="col-md-4">
         <h5 class="text-center">DEL/GND</h5>
-            <button class="btn btn-block btn-warning" id="md-wafdof">WAFDOF</button>
-            <button class="btn btn-block btn-warning" id="md-squawk">Missed Squawk</button>
-            <button class="btn btn-block btn-warning" id="md-cl-late">Delayed Clrnc</button>
-            <button class="btn btn-block btn-warning" id="md-cl-wrong">Incorrect Clrnc</button>
-            <button class="btn btn-block btn-warning" id="md-taxi">Invalid Taxi</button>
+            <button data-points="2" class="markdown btn btn-block btn-warning" id="md-wafdof">WAFDOF</button>
+            <button data-points="2" class="markdown btn btn-block btn-warning" id="md-squawk">Missed Squawk</button>
+            <button data-points="1" class="markdown btn btn-block btn-warning" id="md-cl_late">Delayed Clrnc</button>
+            <button data-points="2" class="markdown btn btn-block btn-warning" id="md-cl_wrong">Incorrect Clrnc</button>
+            <button data-points="3" class="markdown btn btn-block btn-warning" id="md-taxi">Invalid Taxi</button>
         </div>
         <div class="col-md-4">
             <h5 class="text-center">Local</h5>
-            <button class="btn btn-block btn-warning" id="md-landing">Invalid Landing</button>
-            <button class="btn btn-block btn-warning" id="md-takeoff">Invalid Takeoff</button>
-            <button class="btn btn-block btn-warning" id="md-luaw">LUAW While Landing</button>
-            <button class="btn btn-block btn-warning" id="md-waketurb">Wake Turbulence</button>
+            <button data-points="2" class="markdown btn btn-block btn-warning" id="md-landing">Invalid Landing</button>
+            <button data-points="2" class="markdown btn btn-block btn-warning" id="md-takeoff">Invalid Takeoff</button>
+            <button data-points="4" class="markdown btn btn-block btn-warning" id="md-luaw">LUAW While Landing</button>
+            <button data-points="3" class="markdown btn btn-block btn-warning" id="md-waketurb">Wake Turbulence</button>
         </div>
         <div class="col-md-4">
             <h5 class="text-center">Tracon</h5>
-            <button class="btn btn-block btn-warning" id="md-cl-approach">Approach Clearance</button>
-            <button class="btn btn-block btn-warning" id="md-taxi">Vector Below MVA</button>
-            <button class="btn btn-block btn-warning" id="md-sop">LOA/SOP Violation</button>
-            <button class="btn btn-block btn-warning" id="md-fix">Incorrect Fix/VOR</button>
-            <button class="btn btn-block btn-warning" id="md-final">Late Final Vectors</button>
+            <button data-points="2" class="markdown btn btn-block btn-warning" id="md-cl_approach">Approach Clearance</button>
+            <button data-points="4" class="markdown btn btn-block btn-warning" id="md-mva">Vector Below MVA</button>
+            <button data-points="1" class="markdown btn btn-block btn-warning" id="md-sop">LOA/SOP Violation</button>
+            <button data-points="2" class="markdown btn btn-block btn-warning" id="md-fix">Incorrect Fix/VOR</button>
+            <button data-points="1" class="markdown btn btn-block btn-warning" id="md-final">Late Final Vectors</button>
         </div>
     </div>
     <br>
@@ -217,34 +225,34 @@ Training Session
             <div class="row">
                 <label class="control-label">Weather</label>
                 <div class="form-group">
-                    <select class="form-control" name="cond-weather" id="cond-weather">
-                        <option value="vfr">VFR</option>
-                        <option value="mvfr">MVFR</option>
-                        <option value="ifr">IFR</option>
+                    <select class="form-control condition" name="cond-weather" id="cond-weather">
+                        <option data-points="0" value="vfr">VFR</option>
+                        <option data-points="1" value="mvfr">MVFR</option>
+                        <option data-points="2" value="ifr">IFR</option>
                     </select>
                 </div>
             </div>
             <div class="row">
                 <label class="control-label">Complexity</label>
                 <div class="form-group">
-                    <select class="form-control" name="cond-complexity" id="cond-complexity">
-                        <option value="ve">Very Easy</option>
-                        <option value="e">Easy</option>
-                        <option value="m">Moderate</option>
-                        <option value="d">Difficult</option>
-                        <option value="vd">Very Difficult</option>
+                    <select class="form-control condition" name="cond-complexity" id="cond-complexity">
+                        <option data-points="0" value="ve">Very Easy</option>
+                        <option data-points="2" value="e">Easy</option>
+                        <option data-points="4" value="m">Moderate</option>
+                        <option data-points="6" value="d">Difficult</option>
+                        <option data-points="9" value="vd">Very Difficult</option>
                     </select>
                 </div>
             </div>
             <div class="row">
                 <label class="control-label">Traffic</label>
                 <div class="form-group">
-                    <select class="form-control" name="cond-traffic" id="cond-traffic">
-                        <option value="vl">Very Light</option>
-                        <option value="l">Light</option>
-                        <option value="m">Moderate</option>
-                        <option value="h">Heavy</option>
-                        <option value="vh">CTP (Very Heavy)</option>
+                    <select class="form-control condition" name="cond-traffic" id="cond-traffic">
+                        <option data-points="0" value="vl">Very Light</option>
+                        <option data-points="2" value="l">Light</option>
+                        <option data-points="4" value="m">Moderate</option>
+                        <option data-points="6" value="h">Heavy</option>
+                        <option data-points="9" value="vh">CTP (Very Heavy)</option>
                     </select>
                 </div>
             </div>
@@ -253,22 +261,22 @@ Training Session
         </div>
         <div class="col-md-4">
             <h5 class="text-center">Markups</h5>
-            <button class="btn btn-block btn-success" id="mu-flow">Traffic Flow</button>
-            <button class="btn btn-block btn-success" id="mu-separation">Separation</button>
-            <button class="btn btn-block btn-success" id="mu-phraseology">Phraseology</button>
-            <button class="btn btn-block btn-success" id="mu-situation">Situation Handling</button>
-            <button class="btn btn-block btn-success" id="mu-pointouts">Alerts & Pointouts</button>
-            <button class="btn btn-block btn-success" id="mu-sequencing">Speed & Sequencing</button>
+            <button data-points="2" class="markup btn btn-block btn-success" id="mu-flow">Traffic Flow</button>
+            <button data-points="3" class="markup btn btn-block btn-success" id="mu-separation">Separation</button>
+            <button data-points="2" class="markup btn btn-block btn-success" id="mu-phraseology">Phraseology</button>
+            <button data-points="2" class="markup btn btn-block btn-success" id="mu-situation">Situation Handling</button>
+            <button data-points="3" class="markup btn btn-block btn-success" id="mu-pointouts">Alerts & Pointouts</button>
+            <button data-points="2" class="markup btn btn-block btn-success" id="mu-sequencing">Speed & Sequencing</button>
         </div>
         <div class="col-md-4">
             <h5 class="text-center">Other Markdows</h5>
-            <button class="btn btn-block btn-warning" id="md-flow">Slow Traffic Flow</button>
-            <button class="btn btn-block btn-warning" id="md-separation">Loss of Separation</button>
-            <button class="btn btn-block btn-warning" id="md-phraseology">Incorrect Phraseology</button>
-            <button class="btn btn-block btn-danger" id="md-near-incident">Near Incident</button>
-            <button class="btn btn-block btn-danger" id="md-incident">Crashed Planes</button>
-            <button class="btn btn-block btn-warning" id="md-coordination">Missed Coordination</button>
-            <button class="btn btn-block btn-warning" id="md-readback">Incorrect Readback</button>
+            <button data-points="1" class="markdown btn btn-block btn-warning" id="md-flow">Slow Traffic Flow</button>
+            <button data-points="2" class="markdown btn btn-block btn-warning" id="md-separation">Loss of Separation</button>
+            <button data-points="1" class="markdown btn btn-block btn-warning" id="md-phraseology">Incorrect Phraseology</button>
+            <button data-points="4" class="markdown btn btn-block btn-danger" id="md-near_incident">Near Incident</button>
+            <button data-points="7" class="markdown btn btn-block btn-danger" id="md-incident">Crashed Planes</button>
+            <button data-points="2" class="markdown btn btn-block btn-warning" id="md-coordination">Missed Coordination</button>
+            <button data-points="1" class="markdown btn btn-block btn-warning" id="md-readback">Incorrect Readback</button>
         </div>
     </div>
     <div class="row">
@@ -292,10 +300,10 @@ Training Session
                   rows="10"></textarea>
     </div>
     <div class="col-md-6">
-        <button class="btn btn-primary btn-block">Start Debrief/Review</button>
+        <button data-timer="debrief" id="debrief" class="btn btn-primary btn-block">Start Debrief/Review</button>
     </div>
     <div class="col-md-6">
-        <button class="btn btn-primary btn-block">Complete Session</button>
+        <button data-timer="complete" id="complete" class="btn btn-primary btn-block">Complete Session</button>
     </div>
 </div>
 @stop
