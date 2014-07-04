@@ -93,28 +93,35 @@ class UserRepository extends EloquentRepository
         $user->is_atm = isset($input['isatm']) ? $input['isatm'] : 0;
         $user->is_datm = isset($input['isdatm']) ? $input['isdatm'] : 0;
         $user->is_emeritus = isset($input['isemeritus']) ? $input['isemeritus'] : 0;
-        $old_groups = $user->getGroups();
+        $old_groups = $user->groups->lists('id');
         $new_groups = [];
+        $counter = 0;
         if(!empty($input['groups'])) {
             foreach ($input['groups'] as $id) {
                 $new_groups[] = \Sentry::findGroupById($id);
+                $counter++;
             }
             foreach ($new_groups as $group) {
                 $user->addGroup($group);
+                $counter++;
             }
             if(!empty($old_groups)) {
-                foreach (array_diff(
-                           $old_groups,
-                           $new_groups
-                         ) as $remove_group) {
-                    $user->removeGroup($remove_group);
+                foreach($old_groups as $old) {
+                    $delete = true;
+                    foreach($new_groups as $new) {
+                        if($new->id == $old) { $delete = false; }
+                        $counter++;
+                    }
+                    if($delete) { $user->removeGroup(\Sentry::findGroupById($old)); }
                 }
             }
-        } else if(!empty($old_groups)) {
+        } else if(empty($new_groups)) {
             foreach($old_groups as $group) {
-                $user->removeGroup($group);
+                $user->removeGroup(\Sentry::findGroupById($group));
+                $counter++;
             }
         }
+        dd($counter);
         return $user->save();
     }
 
