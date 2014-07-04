@@ -9,6 +9,10 @@ class UserRepository extends EloquentRepository
 {
     public $model = '\User';
 
+    public function __construct()
+    {
+    }
+
     public function findByInitials($initials)
     {
         return $this->make()->where('initials', strtoupper($initials))->first();
@@ -74,7 +78,7 @@ class UserRepository extends EloquentRepository
      * @param null $cid
      * @return bool
      */
-    public function updateUser($input, $cid = null)
+    public function updateUser($cid, $input)
     {
         $user = $cid ? \Sentry::findUserById($cid) :\Sentry::findUserById($input['cid']);
         $user->first_name = $input['fname'];
@@ -89,6 +93,28 @@ class UserRepository extends EloquentRepository
         $user->is_atm = isset($input['isatm']) ? $input['isatm'] : 0;
         $user->is_datm = isset($input['isdatm']) ? $input['isdatm'] : 0;
         $user->is_emeritus = isset($input['isemeritus']) ? $input['isemeritus'] : 0;
+        $old_groups = $user->getGroups();
+        $new_groups = [];
+        if(!empty($input['groups'])) {
+            foreach ($input['groups'] as $id) {
+                $new_groups[] = \Sentry::findGroupById($id);
+            }
+            foreach ($new_groups as $group) {
+                $user->addGroup($group);
+            }
+            if(!empty($old_groups)) {
+                foreach (array_diff(
+                           $old_groups,
+                           $new_groups
+                         ) as $remove_group) {
+                    $user->removeGroup($remove_group);
+                }
+            }
+        } else if(!empty($old_groups)) {
+            foreach($old_groups as $group) {
+                $user->removeGroup($group);
+            }
+        }
         return $user->save();
     }
 
