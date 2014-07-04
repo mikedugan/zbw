@@ -62,4 +62,13 @@ class RosterController extends BaseController {
         else return Redirect::back()->with('flash_error', 'Error creating group')->withInput();
 
     }
+
+    public function updateGroup()
+    {
+        if($this->groups->updateGroup(\Input::all())) {
+            return Redirect::back()->with('flash_success', 'Group updated');
+        } else {
+            return Redirect::back()->with('flash_error', 'Unable to update group');
+        }
+    }
 }

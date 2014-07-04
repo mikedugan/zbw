@@ -6,6 +6,11 @@ $(function() {
 		e.preventDefault();
 	});
 
+    $('.confirm').submit(function(e) {
+        var message = 'Are you sure?\n'+$(this).data('warning');
+        return window.confirm(message);
+    })
+
     $('.file-form').submit(function(e) {
         e.preventDefault();
         $(this).children('button').innerHTML = 'Uploading...';

@@ -22,6 +22,21 @@ return [
         'roster', 'news', 'sops', 'pages', 'reports', 'sessions', 'files'
     ],
 
+    'permission_sets' => [
+        'cvuda' => [0 => 'none', 1 => 'view', 2 => 'create', 3 => 'update', 4 => 'update', 5 => 'manage'],
+        'files' => [0 => 'none', 1 => 'forum', 2 => 'sector', 3 => 'uploads', 4 => 'delete', 5=> 'manage'],
+        'sessions' => [0 => 'none', 1 => 'view', 2 => 'accept', 3 => 'cancel']
+    ],
+
+    'permission_group_info' => [
+        'roster' => ['roster', 'Roster', 'cvuda'],
+        'news' => ['news', 'News & Events', 'cvuda'],
+        'sops' => ['sops', 'SOPs', 'cvuda'],
+        'reports' => ['reports', 'Training Reports', 'cvuda'],
+        'sessions' => ['sessions', 'Training Sessions', 'sessions'],
+        'files' => ['files', 'Files', 'files']
+    ],
+
     'vatsim_status' => 'http://status.vatsim.net/status.txt',
 
     'airports' => [

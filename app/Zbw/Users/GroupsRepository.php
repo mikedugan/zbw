@@ -144,4 +144,41 @@ class GroupsRepository extends EloquentRepository {
         return $ret;
     }
 
+    public function updateGroup($input)
+    {
+        $group = \Sentry::findGroupById($input['group_id']);
+        $remove_initials = null;
+        $new_initials = null;
+        if(!empty($input['remove_users'])) {
+            $remove_initials = explode(
+              ',',
+              str_replace(' ', '', $input['remove_users'])
+            );
+        }
+        if(!empty($input['new_users'])) {
+            $new_initials = explode(
+              ',',
+              str_replace(' ', '', $input['new_users'])
+            );
+        }
+        if($remove_initials || $new_initials) {
+            $max = count($new_initials) >= count(
+              $remove_initials
+            ) ? count($new_initials) : count($remove_initials);
+            for ($i = 0; $i <= $max; $i++) {
+                if (isset($new_initials[$i])) {
+                    $user = $this->users->findByInitials($new_initials[$i]);
+                    $user->addGroup($group);
+                }
+                if (isset($remove_initials[$i])) {
+                    $user = $this->users->findByInitials($remove_initials[$i]);
+                    $user->removeGroup($group);
+                }
+            }
+        }
+
+        $group->name = $input['name'];
+        return $group->save();
+    }
+
 }

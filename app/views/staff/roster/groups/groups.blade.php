@@ -43,12 +43,10 @@
         </div>
         <hr/>
         <div class="row">
-            <?php $perms = ['roster' => ['roster', 'Roster', 'cvuda'], 'news' => ['news', 'News', 'cvuda'], 'sops' => ['sops', 'SOPs', 'cvuda'], 'pages' => ['pages', 'Pages', 'cvuda'],
-                            'reports' => ['reports', 'Training Reports', 'cvuda'], 'files' => ['files','Files', 'files'], 'sessions' => ['sessions', 'Training Sessions', 'sessions']]; ?>
-            @foreach($perms as $perm)
+            @foreach(\Config::get('zbw.permission_group_info') as $perm)
             <div class="form-group col-sm-4">
                 {{ Form::label($perm[0], $perm[1], ['class' => 'control-label']) }}
-                @include('includes._group_perms_select', ['selecttitle' => $perm[0], 'options' => $perm[2]])
+                @include('includes._group_perms_select', ['selecttitle' => $perm[0], 'options' => \Config::get('zbw.permission_sets')[$perm[2]]])
             </div>
             @endforeach
         </div>
