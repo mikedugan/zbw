@@ -47,6 +47,10 @@ Route::group(
               'roster',
               ['as' => 'roster', 'uses' => 'AdminController@getRosterIndex']
             );
+            Route::post(
+              'roster/groups/add',
+              ['as' => 'staff/roster/add-group', 'uses' => 'RosterController@postGroup']
+            );
             Route::get(
               'roster/results',
               ['roster/search', 'uses' => 'AdminController@getSearchResults']

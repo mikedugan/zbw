@@ -20,7 +20,6 @@ class AdminController extends BaseController
     public function getAdminIndex()
     {
         $data = [
-            'title' => 'vZBW Staff Area'
         ];
         return View::make('staff.index', $data);
     }
@@ -31,7 +30,6 @@ class AdminController extends BaseController
             'sessions' => ['a', 'b'],
             'requests' => \TrainingRequest::with(['student', 'certType'])->get(),
             'exams' => \Exam::recentExams(5),
-            'title' => 'vZBW Training Home'
         ];
         JavaScript::put(['foo' => 'mike']);
         return View::make('staff.training.index', $data);
@@ -40,7 +38,6 @@ class AdminController extends BaseController
     public function getForumIndex()
     {
         $data = [
-            'title' => 'ZBW Forum Admin'
         ];
         return View::make('staff.forum.index', $data);
     }
@@ -61,12 +58,24 @@ class AdminController extends BaseController
     public function getRosterIndex()
     {
         $ur = new UserRepository();
+        $view = \Input::get('v');
+        $action = \Input::get('action');
+        $id = \Input::get('id');
         $data = [
-            'title' => 'ZBW Roster Admin',
             'users' => $ur->all(),
-            'view' => \Input::get('v'),
+            'view' => $view,
+            'action' => $action,
             'staff' => $ur->getStaff()
         ];
+        if($view === 'groups') {
+            if(!empty($id) && $action === 'edit') {
+                $data['group'] = \Sentry::findGroupById($id);
+                $data['members'] = \Sentry::findAllUsersInGroup($data['group']);
+            } else {
+                $data['groups'] = \Sentry::findAllGroups();
+            }
+        }
+
         return View::make('staff.roster.index', $data);
     }
 
@@ -74,7 +83,6 @@ class AdminController extends BaseController
     {
         $results = $this->users->search(Input::all());
         $data = [
-            'title' => 'Roster Search Results',
             'stype' => 'roster',
             'results' => $results
         ];
@@ -90,7 +98,6 @@ class AdminController extends BaseController
     public function showUser($id)
     {
         $data = [
-            'title' => 'View Controller',
             'user' => $this->users->find($id)
         ];
         return View::make('staff.roster.view', $data);

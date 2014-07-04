@@ -1,14 +1,17 @@
 <?php
 
 use Zbw\Users\UserRepository;
+use Zbw\Users\GroupsRepository;
 
 class RosterController extends BaseController {
 
     private $users;
+    private $groups;
 
-    function __construct(UserRepository $users)
+    function __construct(UserRepository $users, GroupsRepository $groups)
     {
         $this->users = $users;
+        $this->groups = $groups;
     }
 
 
@@ -22,7 +25,7 @@ class RosterController extends BaseController {
 
     public function postAddController()
     {
-        if($this->users->add(Input::get('fname'), Input::get('lname'), Input::get('email'), Input::get('artcc'), Input::get('cid'))) {
+        if($this->users->create(Input::get('fname'), Input::get('lname'), Input::get('email'), Input::get('artcc'), Input::get('cid'))) {
             return Redirect::back()->with('flash_info', 'Controller successfully added!');
         }
 
@@ -47,5 +50,15 @@ class RosterController extends BaseController {
             return Redirect::back()->with('flash_success', 'User successfully updated!');
         }
         else return Redirect::back()->with('flash_error', 'There was an error - postEditUser');
+    }
+
+    public function postGroup()
+    {
+        $input = \Input::all();
+        if($this->groups->create($input)) {
+            return Redirect::route('roster')->with('flash_success', 'Group created successfully');
+        }
+        else return Redirect::back()->with('flash_error', 'Error creating group')->withInput();
+
     }
 }
