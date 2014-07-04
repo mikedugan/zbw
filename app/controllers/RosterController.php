@@ -38,6 +38,7 @@ class RosterController extends BaseController {
     {
         $data = [
             'user' => \User::find($id),
+            'groups' => $this->groups->all(),
             'title' => 'Edit Controller'
         ];
         return View::make('staff.roster.edit', $data);
@@ -45,7 +46,7 @@ class RosterController extends BaseController {
 
     public function postEditUser($id)
     {
-        if($this->users->updateUser(Input::all()))
+        if($this->users->updateUser($id, Input::all()))
         {
             return Redirect::back()->with('flash_success', 'User successfully updated!');
         }
