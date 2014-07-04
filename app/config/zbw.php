@@ -18,6 +18,10 @@ return [
         'base' => 'http://sso.hardern.net/server/'
     ],
 
+    'permission_groups' => [
+        'roster', 'news', 'sops', 'pages', 'reports', 'sessions', 'files'
+    ],
+
     'vatsim_status' => 'http://status.vatsim.net/status.txt',
 
     'airports' => [

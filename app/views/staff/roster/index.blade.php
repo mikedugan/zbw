@@ -12,6 +12,8 @@ Roster Admin
     @include('staff.roster.addcontroller')
     @elseif($view === 'staff')
     @include('staff.roster.addstaff')
+    @elseif($view === 'groups')
+    @include('staff.roster.groups.index')
     @elseif($view === 'remove')
     @include('staff.roster.remove')
     @endif
