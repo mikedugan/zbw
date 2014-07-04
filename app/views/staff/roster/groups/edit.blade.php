@@ -22,6 +22,14 @@
                 {{ Form::text('remove_users', '', ['class' => 'form-control'])
                 }}
             </div>
+            <div class="row">
+                @foreach(\Config::get('zbw.permission_group_info') as $perm)
+                <div class="form-group col-sm-4">
+                    {{ Form::label($perm[0], $perm[1], ['class' => 'control-label']) }}
+                    @include('includes._group_perms_select', ['selecttitle' => $perm[0], 'existing' => $group->truePermissions(), 'options' => \Config::get('zbw.permission_sets')[$perm[2]]])
+                </div>
+                @endforeach
+            </div>
             {{ Form::submit('Update', ['class' => 'btn btn-primary']) }}
         {{ Form::close() }}
     </div>
