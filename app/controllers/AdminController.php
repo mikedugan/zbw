@@ -31,7 +31,6 @@ class AdminController extends BaseController
             'requests' => \TrainingRequest::with(['student', 'certType'])->get(),
             'exams' => \Exam::recentExams(5),
         ];
-        JavaScript::put(['foo' => 'mike']);
         return View::make('staff.training.index', $data);
     }
 
@@ -69,7 +68,7 @@ class AdminController extends BaseController
         ];
         if($view === 'groups') {
             if(!empty($id) && $action === 'edit') {
-                $data['group'] = \Sentry::findGroupById($id);
+                $data['group'] = \Group::find($id);
                 $data['members'] = \Sentry::findAllUsersInGroup($data['group']);
             } else {
                 $data['groups'] = \Sentry::findAllGroups();

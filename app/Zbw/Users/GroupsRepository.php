@@ -3,7 +3,7 @@ use Zbw\Base\EloquentRepository;
 
 class GroupsRepository extends EloquentRepository {
 
-    public $model = '\Cartalyst\Sentry\Groups\Eloquent\Group';
+    public $model = '\Group';
     private $permission_groups;
     private $users;
 
@@ -16,14 +16,15 @@ class GroupsRepository extends EloquentRepository {
     public function update($input)
     {
         $new_permissions = [];
-        $group = \Sentry::findGroupByName('group_id');
+        $group = \Sentry::findGroupByName($input['group_id']);
         $group->name = $input['name'];
         foreach($this->permission_groups as $perm) {
             if(isset($input[$perm])) {
                 array_push($new_permissions, $this->convertInputValueToPermissionsArray($input[$perm], $perm));
             }
         }
-        $group->permissions = $new_permissions;
+        $group->permissions = $this->flattenPermissions($new_permissions);
+        dd($group->permissions);
         return $group->save();
     }
 
@@ -176,7 +177,13 @@ class GroupsRepository extends EloquentRepository {
                 }
             }
         }
-
+        $new_permissions = [];
+        foreach($this->permission_groups as $perm) {
+            if(isset($input[$perm])) {
+                array_push($new_permissions, $this->convertInputValueToPermissionsArray($input[$perm], $perm));
+            }
+        }
+        $group->permissions = $this->flattenPermissions($new_permissions);
         $group->name = $input['name'];
         return $group->save();
     }
