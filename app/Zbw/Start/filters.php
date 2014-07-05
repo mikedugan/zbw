@@ -63,7 +63,7 @@ Route::filter('guest', function()
 /*
 |--------------------------------------------------------------------------
 | CSRF Protection Filter
-|--------------------------------------------------------------------------
+|-------------------------s-------------------------------------------------
 |
 | The CSRF filter is responsible for protecting your application against
 | cross-site request forgery attacks. If this special token in a user
@@ -79,8 +79,11 @@ Route::filter('csrf', function()
 	}
 });
 
+Route::filter('cache.fetch', 'Zbw\Start\CacheFilter@fetch');
+Route::filter('cache.put', 'Zbw\Start\CacheFilter@put');
+
 Route::filter('controller', function() {
-    if(! \Sentry::getUser()->cid || \Sentry::getUser()->rating->id === -1) {
+    if(! \Sentry::check()) {
         $data = [
             'page' => Request::url(),
             'needed' => 'Registered User'
@@ -90,7 +93,7 @@ Route::filter('controller', function() {
 });
 
 Route::filter('staff', function() {
-    if(! \Sentry::getUser()->is_staff) {
+    if(! \Sentry::check() || ! \Sentry::getUser()->is('Staff')) {
         $data = [
             'page' => Request::url(),
             'needed' => 'general staff member'
@@ -102,8 +105,7 @@ Route::filter('staff', function() {
 });
 
 Route::filter('executive', function() {
-    $users = new Zbw\Users\UserRepository();
-    if(! $users->isExecutive(\Sentry::getUser()->cid))
+    if(! \Sentry::check() || ! \Sentry::getUser()->is('Executive Staff'))
     {
         $data = [
             'page' => Request::url(),
@@ -116,7 +118,7 @@ Route::filter('executive', function() {
 });
 
 Route::filter('instructor', function() {
-    if(! \Sentry::getUser()->is_instructor)
+    if(! \Sentry::check() || ! \Sentry::getUser()->is('Instructors'))
     {
         $data = [
             'page' => Request::url(),
@@ -128,7 +130,7 @@ Route::filter('instructor', function() {
 });
 
 Route::filter('mentor', function() {
-    if(! \Sentry::getUser()->is_instructor && ! \Sentry::getUser()->is_mentor)
+    if(! \Sentry::check() || ! \Sentry::getUser()->is('Mentors'))
     {
         $data = [
             'page' => Request::url(),

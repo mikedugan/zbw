@@ -15,7 +15,7 @@ return array(
 	|
 	*/
 
-	'driver' => 'file',
+	'driver' => 'memcached',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -85,5 +85,9 @@ return array(
 	*/
 
 	'prefix' => 'laravel',
+
+  'times' => [
+      'page' => 120
+  ]
 
 );

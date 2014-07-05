@@ -22,7 +22,9 @@ Route::group(
               'training',
               [
                 'as'   => 'staff/training',
-                'uses' => 'AdminController@getTrainingIndex'
+                'uses' => 'AdminController@getTrainingIndex',
+                'before' => 'cache.fetch',
+                'after' => 'cache.put'
               ]
             );
             Route::get(

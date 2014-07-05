@@ -56,15 +56,16 @@ class AdminController extends BaseController
 
     public function getRosterIndex()
     {
-        $ur = new UserRepository();
         $view = \Input::get('v');
         $action = \Input::get('action');
         $id = \Input::get('id');
+        $pag = 10;
+        if(\Input::has('num')) $pag = \Input::get('num');
         $data = [
-            'users' => $ur->all(),
+            'users' => $this->users->with(['rating'], $pag),
             'view' => $view,
             'action' => $action,
-            'staff' => $ur->getStaff()
+            'staff' =>  $this->users->getStaff()
         ];
         if($view === 'groups') {
             if(!empty($id) && $action === 'edit') {

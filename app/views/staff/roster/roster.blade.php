@@ -1,6 +1,11 @@
 <h1 class="text-center">Roster Admin</h1>
 <div class="col-md-8">
     <h3>Current Roster</h3>
+    <span>Results per page:
+        <a href="/staff/roster?num=10">10</a>
+        <a href="/staff/roster?num=25">25</a>
+        <a href="/staff/roster?num=50">50</a>
+    </span>
     <table class="full table-bordered">
         <thead>
         <th>Name</th>
@@ -43,6 +48,7 @@
         </tr>
         @endforeach
     </table>
+    {{ $users->links() }}
 </div>
 <div class="col-md-4">
     <h3>Search Controllers</h3>
