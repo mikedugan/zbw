@@ -1,5 +1,6 @@
 <?php
 
+use Zbw\Bostonjohn\ZbwLog;
 use Zbw\Users\UserRepository;
 
 class AuthToken extends Eloquent {
@@ -10,15 +11,16 @@ class AuthToken extends Eloquent {
     {
         if(! \Input::has('oauth_verifier')) return 'No verification code!';
         $token = \AuthToken::where('key', $input['oauth_token'])->first();
+        $users = new UserRepository();
         $user = $sso->checkLogin($token->key, $token->secret, $input['oauth_verifier']);
         if ($user) {
             $token->delete();
-            $loggedinuser = \User::find($user->user->id);
-            $userStatus = UserRepository::checkUser($loggedinuser);
+            $loggedinuser = \Sentry::findUserById($user->user->id);
+            $userStatus = $users->checkUser($loggedinuser);
             if(!is_null($userStatus)) return $userStatus;
             else {
-                \Auth::login($loggedinuser);
-                UserRepository::authUpdate($user);
+                \Sentry::login($loggedinuser, true);
+                $users->authUpdate($user);
             }
             return true;
         } else {
