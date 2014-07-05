@@ -12,4 +12,5 @@ Access Denied
     <p><b>User:</b> Not Logged In</p>
     <p><b>Requested Page: </b>{{$page}}</p>
     <p><b>Access Level Needed: </b>{{$needed}}</p>
+    @endif
 @stop

@@ -98,8 +98,7 @@ Route::filter('staff', function() {
             'page' => Request::url(),
             'needed' => 'general staff member'
         ];
-        $log = new Zbw\Bostonjohn\ZbwLog();
-        $log->addLog(\Sentry::getUser()->initials . ' tried to access ' . Request::url());
+        Zbw\Bostonjohn\ZbwLog::log(\Sentry::getUser()->initials . ' tried to access ' . Request::url());
         return View::make('zbw.errors.403', $data);
     }
 });
@@ -111,8 +110,7 @@ Route::filter('executive', function() {
             'page' => Request::url(),
             'needed' => 'executive staff member'
         ];
-        $log = new Zbw\Bostonjohn\ZbwLog();
-        $log->addLog(\Sentry::getUser() . ' tried to access ' . Request::url());
+        Zbw\Bostonjohn\ZbwLog::log(\Sentry::getUser() . ' tried to access ' . Request::url());
         return View::make('zbw.errors.403', $data);
     }
 });

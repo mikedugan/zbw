@@ -206,8 +206,7 @@ class UserRepository extends EloquentRepository
 
         if($input['rating'] != null && $input['rating'] != '')
         {
-            $rating = \Rating::where('short', $input['rating'])->get(['short', 'id'])->toArray();
-            $users = $users->whereIn('rating_id', $rating);
+            $users = $users->where('rating_id', $input['rating']);
         }
 
         if($input['cid'] > 0)
