@@ -84,7 +84,25 @@ class User extends SentryUser implements UserInterface, RemindableInterface
     }
 
 
-    //auth related
+    //auth related -- mostly deprecated sine we switched to Sentry
+    public function is($group)
+    {
+        return $this->inGroup(\Sentry::findGroupByName($group));
+    }
+
+    public function has($permission)
+    {
+        $has = false;
+        foreach($this->groups as $group) {
+            $perms = $group->getPermissions();
+            if(isset($perms[$permission]) && $perms[$permission] == 1) {
+                $has = true;
+            }
+        }
+        return $has;
+    }
+
+
     public function getRememberToken()
     {
         return $this->remember_token;
