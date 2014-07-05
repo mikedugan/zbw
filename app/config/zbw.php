@@ -10,12 +10,7 @@ return [
     ],
 
     'sso' => [
-        'key' => $_ENV['sso_key'],
-        'secret' => $_ENV['sso_secret'],
-        'cert' => $_ENV['sso_cert'],
-        'method' => 'RSA',
-        'return' => 'http://zbw.dugandev.com/auth?return',
-        'base' => 'http://sso.hardern.net/server/'
+        'base' => 'http://sso.vatsim.net/sso/'
     ],
 
     'permission_groups' => [

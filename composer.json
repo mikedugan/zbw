@@ -1,5 +1,6 @@
 {
 	"name": "mikedugan/zbw",
+
 	"description": "ZBW website built with Laravel.",
 	"keywords": ["vatsim", "app"],
 	"license": "MIT",
@@ -17,7 +18,8 @@
     "curl/curl": "dev-master",
 		"pda/pheanstalk": "2.0.*",
 		"cartalyst/sentry": "dev-master",
-		"mccool/laravel-auto-presenter": "*"
+		"mccool/laravel-auto-presenter": "*",
+		"vatsim/sso": "1.0.1"
 	},
 	"require-dev": {
 		"barryvdh/laravel-ide-helper": "dev-master",
