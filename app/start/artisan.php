@@ -14,3 +14,4 @@
 Artisan::add(new Zbw\Commands\UpdateMetars);
 Artisan::add(new Zbw\Commands\UpdateUrls);
 Artisan::add(new Zbw\Commands\UpdateClients);
+Artisan::add(new Zbw\Commands\UpdateRoster);
