@@ -34,6 +34,11 @@ class UserRepository extends EloquentRepository
         return $this->make()->all(['first_name', 'last_name', 'cid', 'initials']);
     }
 
+    public function exists($cid)
+    {
+        return (count($this->make()->find($cid)) === 1);
+    }
+
     /**
      * @param string first name
      * @param string last name
@@ -43,7 +48,7 @@ class UserRepository extends EloquentRepository
      * @return boolean
      * @deprecated
      */
-    public function add($fname, $lname, $email, $artcc, $cid)
+    public function add($fname, $lname, $email, $artcc, $cid, $rating, $notify = true)
     {
         $tempPassword = Helpers::createPassword();
 
@@ -55,7 +60,7 @@ class UserRepository extends EloquentRepository
         $u->artcc = $artcc;
         $u->email = $email;
         $u->password = \Hash::make($tempPassword);
-        $u->rating_id = -1;
+        $u->rating_id = $rating;
         $u->initials = strtoupper(UserRepository::createInitials($fname, $lname));
 
         $s = new \UserSettings();
@@ -63,9 +68,12 @@ class UserRepository extends EloquentRepository
 
         if($u->save() && $s->save())
         {
-            $em = new Emailer($u, ['password' => $tempPassword]);
-            $em->newUser($u);
-            return true;
+            if($notify) {
+                $em = new Emailer($u, ['password' => $tempPassword]);
+                $em->newUser($u);
+                return true;
+            }
+            else return true;
         }
         else return false;
     }

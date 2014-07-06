@@ -25,9 +25,8 @@ return array(
     |
     */
 
-    'url'       => 'http://zbw.mjdugan.com',
-    'vatid'     => 4,
-    'vatkey'    => 'ahwwSh8N0BlobHcuzcozmbZ2me5TCs',
+
+    'url' => 'http://dev.bostonartcc.net',
     /*
     |--------------------------------------------------------------------------
     | Application Timezone
