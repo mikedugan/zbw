@@ -44,7 +44,7 @@ class TrainingSessionRepository extends EloquentRepository {
     public static function recentReports($n)
     {
         return \TrainingSession::with(['student', 'staff', 'facility'])
-            ->orderBy('created_at')->limit($n)->get();
+            ->orderBy('created_at', 'DESC')->limit($n)->get();
     }
 
 }

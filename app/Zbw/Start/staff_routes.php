@@ -3,6 +3,7 @@
 Route::group(['before' => 'auth|staff'],function () {
       Route::group(['prefix' => 'staff'], function () {
             Route::get('live/{tsid}', 'TrainingController@testLiveSession');
+            Route::post('live/{tsid}', 'TrainingController@postLiveSession');
 
             Route::get(
               '/',

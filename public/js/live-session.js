@@ -158,8 +158,11 @@ $('.timer').click(function(e) {
     e.preventDefault();
     var $this = $(this);
     var timer = $this.data('timer');
-    time = new Date();
+    var time = new Date();
+    time = time.valueOf(); //timestamp
     trainingSession.timer[timer] = time;
+    $(this).attr('disabled', true)
+      .switchClass('btn-info','btn-success', 500);
 });
 
 $('#update-score').click(function(e) {
@@ -169,6 +172,20 @@ $('#update-score').click(function(e) {
     $('.score').replaceWith('<div class="score"><button class="btn btn-block">'+adjustScore(score, marks)+' - '+runningTime()+' minutes</button></div>');
 });
 
+$('#complete').click(function(e) {
+    e.preventDefault();
+    $('#update-score').trigger('click');
+    $('#final_markdowns').val(JSON.stringify(trainingSession.markdowns));
+    $('#final_markups').val(JSON.stringify(trainingSession.markups));
+    $('#final_score').val(JSON.stringify(trainingSession.score));
+    $('#final_timers').val(JSON.stringify(trainingSession.timer));
+    $('#final_conditions').val(JSON.stringify(trainingSession.conditions));
+    $('#final_reviews').val(JSON.stringify(trainingSession.reviewTopic));
+    $('#final_performance').val(JSON.stringify(trainingSession.performanceTopics));
+    $('#training_session').submit();
+});
+
+
 function adjustScore(score)
 {
     var markup = getMarkDifferential();
@@ -177,10 +194,11 @@ function adjustScore(score)
         adjustment += trainingSession.conditions[adj];
     }
     adjustment = 1 - (adjustment * 0.01);
+    $('#modifier').val(adjustment);
     newMax = score[1] * adjustment;
     newScore = score[0] + markup[0] + markup[1];
-    if(newMax <= 0) newMax = 1;
-    if(newScore <= 0) newScore = 0;
+    if(newMax <= 0) newMax = 60;
+    if(newScore < 0) newScore = 60;
     trainingSession.score = Math.round((newScore / newMax * 100) * 100) / 100;
     if(trainingSession.score > 100) { trainingSession.score = 100; }
     return trainingSession.score + '%';
@@ -208,6 +226,8 @@ function getMarkDifferential()
     for(var mark in trainingSession.markdowns) {
         down -= trainingSession.markdowns[mark];
     }
+    $('#pos_points').val(up);
+    $('#neg_points').val(down);
     return [up, down];
 }
 
@@ -231,6 +251,10 @@ function update()
 {
     $('#update-score').trigger('click');
     checkGrade();
+    if(trainingSession.timer.start !== 0 && trainingSession.timer.debrief !== 0
+      && trainingSession.timer.live !== 0) {
+        $('#complete').removeAttr('disabled');
+    }
 }
 
 $(function()
