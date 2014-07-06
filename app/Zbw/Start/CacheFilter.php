@@ -10,13 +10,13 @@ class CacheFilter {
     {
         $key = $this->makeCacheKey($request->url());
 
-        if(\Cache::has($key)) return \Cache::get($key);
+        //if(\Cache::has($key)) return \Cache::get($key);
     }
 
     public function put(Route $route, Request $request, Response $response)
     {
         $key = $this->makeCacheKey($request->url());
-        if(! \Cache::has($key)) \Cache::put($key, $response->getContent(), \Config::get('cache.times.page'));
+        //if(! \Cache::has($key)) \Cache::put($key, $response->getContent(), \Config::get('cache.times.page'));
     }
 
     private function makeCacheKey($url)

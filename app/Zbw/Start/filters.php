@@ -35,7 +35,7 @@ App::after(function($request, $response)
 
 Route::filter('auth', function()
 {
-	if (!\Sentry::check()) return Redirect::guest('login');
+	if (!\Sentry::check()) return Redirect::guest('auth');
 });
 
 
@@ -93,7 +93,7 @@ Route::filter('controller', function() {
 });
 
 Route::filter('staff', function() {
-    if(! \Sentry::check() || ! \Sentry::getUser()->is('Staff')) {
+    if(! \Sentry::getUser()->is('Staff')) {
         $data = [
             'page' => Request::url(),
             'needed' => 'general staff member'

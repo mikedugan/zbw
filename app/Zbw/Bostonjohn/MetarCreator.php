@@ -1,7 +1,6 @@
 <?php  namespace Zbw\Bostonjohn;
 
 use Curl\Curl;
-use Zbw\Bostonjohn\MetarParser;
 
 class MetarCreator {
 
@@ -22,8 +21,9 @@ class MetarCreator {
             $parser = new MetarParser($this->curl->response);
             $lastMetar = \Metar::where('facility', $airport)->latest()->first();
             $response = $this->curl->response;
-            if(empty($response) || empty($lastMetar->raw)) { continue; }
+            if(empty($response) || empty($lastMetar->raw)) { echo "empty"; continue; }
             if($lastMetar->raw != $response) {
+                echo "not empty";
                 $this->createMetar($airport, $parser);
             }
         }

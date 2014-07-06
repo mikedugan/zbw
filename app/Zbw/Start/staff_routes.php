@@ -1,10 +1,7 @@
 <?php
-Route::group(
-  array('before' => 'staff'),
-  function () {
-      Route::group(
-        ['prefix' => 'staff'],
-        function () {
+//
+Route::group(['before' => 'auth|staff'],function () {
+      Route::group(['prefix' => 'staff'], function () {
             Route::get('live/{tsid}', 'TrainingController@testLiveSession');
 
             Route::get(
@@ -21,10 +18,10 @@ Route::group(
             Route::get(
               'training',
               [
-                'as'   => 'staff/training',
-                'uses' => 'AdminController@getTrainingIndex',
+                'as'     => 'staff/training',
+                'uses'   => 'AdminController@getTrainingIndex',
                 'before' => 'cache.fetch',
-                'after' => 'cache.put'
+                'after'  => 'cache.put'
               ]
             );
             Route::get(
@@ -132,49 +129,49 @@ Route::group(
               'news/edit',
               ['as' => 'news/{id}/edit', 'uses' => 'NewsController@postEdit']
             );
+            //this route is deprecated
+            Route::post('/a/complete/{aid}', 'AjaxController@actionCompleted');
+
+            Route::get(
+              'pages/create',
+              ['as' => 'pages/create', 'uses' => 'PagesController@getCreate']
+            );
+            Route::get(
+              'pages/view',
+              ['as' => 'pages/view', 'uses' => 'PagesController@getShow']
+            );
+            Route::get(
+              'pages/trash',
+              ['as' => 'pages/trash', 'uses' => 'PagesController@getTrash']
+            );
+
+            Route::post(
+              'pages/menus/create',
+              ['as' => 'menus/create', 'uses' => 'MenusController@postCreate']
+            );
+            Route::get(
+              'pages/menus',
+              ['as' => 'menus', 'uses' => 'MenusController@getIndex']
+            );
+            Route::get(
+              'pages/menus{mid}/edit',
+              ['as' => 'menus/{mid}/edit', 'uses' => 'MenusController@getUpdate']
+            );
+            Route::post(
+              'pages/menus/{mid}/update',
+              ['as' => 'menus/{mid}/edit', 'uses' => 'MenusController@postUpdate']
+            );
+            Route::get(
+              'pages/menus/{mid}/delete',
+              ['as' => 'menus/{mid}/delete', 'uses' => 'MenusController@postDelete']
+            );
         }
-      );
-      //this route is deprecated
-      Route::post('/a/complete/{aid}', 'AjaxController@actionCompleted');
-
-      Route::get(
-        'pages/create',
-        ['as' => 'pages/create', 'uses' => 'PagesController@getCreate']
-      );
-      Route::get(
-        'pages/view',
-        ['as' => 'pages/view', 'uses' => 'PagesController@getShow']
-      );
-      Route::get(
-        'pages/trash',
-        ['as' => 'pages/trash', 'uses' => 'PagesController@getTrash']
-      );
-
-      Route::post(
-        'pages/menus/create',
-        ['as' => 'menus/create', 'uses' => 'MenusController@postCreate']
-      );
-      Route::get(
-        'pages/menus',
-        ['as' => 'menus', 'uses' => 'MenusController@getIndex']
-      );
-      Route::get(
-        'pages/menus{mid}/edit',
-        ['as' => 'menus/{mid}/edit', 'uses' => 'MenusController@getUpdate']
-      );
-      Route::post(
-        'pages/menus/{mid}/update',
-        ['as' => 'menus/{mid}/edit', 'uses' => 'MenusController@postUpdate']
-      );
-      Route::get(
-        'pages/menus/{mid}/delete',
-        ['as' => 'menus/{mid}/delete', 'uses' => 'MenusController@postDelete']
       );
   }
 );
 
 Route::group(
-  array('before' => 'executive'),
+  ['before' => 'executive'],
   function () {
       Route::post(
         '/r/activate/{cid}',
@@ -208,14 +205,14 @@ Route::group(
 );
 
 Route::group(
-  array('before' => 'instructor'),
+  ['before' => 'instructor'],
   function () {
       //TODO create routes
   }
 );
 
 Route::group(
-  array('before' => 'mentor'),
+  ['before' => 'mentor'],
   function () {
       Route::post('/e/review/{eid}', 'AjaxController@postReviewComment');
       Route::get('staff/training/{id}', 'TrainingController@showAdmin');

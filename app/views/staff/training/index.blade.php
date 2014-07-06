@@ -40,7 +40,11 @@ Training Index
         <h4>Requests</h4>
         @if($requests)
             @foreach($requests as $r)
-                <p class="well"><a href="/training/request/{{$r->id}}">{{ strtoupper($r->student->initials) }} has requested training on {{ Zbw\Base\Helpers::readableCert($r->certType->value) }}</a></p>
+                @if(!empty($r->sid))
+                <p class="bg-success"><a href="/training/request/{{$r->id}}">{{ $r->student->initials }} has requested training on {{ Zbw\Base\Helpers::readableCert($r->certType->id) }}</a></p>
+                @else
+                <p class="bg-warning"><a href="/training/request/{{$r->id}}">{{ $r->student->initials }} has requested training on {{ Zbw\Base\Helpers::readableCert($r->certType->id) }}</a></p>
+                @endif
             @endforeach
         @endif
     </div>
@@ -50,8 +54,12 @@ Training Index
             @foreach($exams as $e)
                 <p class="well">
                     <a href="/staff/exams/review/{{$e->id}}">
-                    {{ strtoupper($e->student['initials']) }} took {{ $e->exam['value'] }}
-                    , scored {{ \Zbw\Base\Helpers::getScore($e) }}%
+                    {{ strtoupper($e->student['initials']) }}
+                        took
+                        {{ Zbw\Base\Helpers::readableCert($e->exam['value']) }}
+                    , scored
+                        {{ \Zbw\Base\Helpers::getScore($e) }}
+                        %
                     </a>
                 </p>
             @endforeach
