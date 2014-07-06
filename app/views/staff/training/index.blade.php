@@ -40,11 +40,14 @@ Training Index
         <h4>Requests</h4>
         @if($requests)
             @foreach($requests as $r)
-                @if(!empty($r->sid))
-                <p class="bg-success"><a href="/training/request/{{$r->id}}">{{ $r->student->initials }} has requested training on {{ Zbw\Base\Helpers::readableCert($r->certType->id) }}</a></p>
+                @if($r->is_completed)
+                <p class="well">
+                @elseif(!empty($r->sid))
+                <p class="well well-warning">
                 @else
-                <p class="bg-warning"><a href="/training/request/{{$r->id}}">{{ $r->student->initials }} has requested training on {{ Zbw\Base\Helpers::readableCert($r->certType->id) }}</a></p>
+                <p class="well well-danger">
                 @endif
+                <a href="/training/request/{{$r->id}}">{{ $r->student->initials }} has requested training on {{ Zbw\Base\Helpers::readableCert($r->certType->id) }}</a></p>
             @endforeach
         @endif
     </div>

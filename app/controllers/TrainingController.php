@@ -1,5 +1,6 @@
 <?php
 
+use Zbw\Training\TrainingSessionGrader;
 use Zbw\Training\TrainingSessionRepository;
 use Zbw\Training\ExamsRepository;
 use Zbw\Users\UserRepository;
@@ -82,16 +83,25 @@ class TrainingController extends BaseController
 
     public function testLiveSession($tsid)
     {
+        $request = \TrainingRequest::find($tsid);
         $data = [
             'staff' => \Sentry::getUser(),
-            'student' => \Sentry::findUserById(1093141)
+            'student' => \Sentry::findUserById($request->cid),
+            'facilities' => \TrainingFacility::all(),
+            'types' => \TrainingType::all()
         ];
         return View::make('staff.training.live', $data);
     }
 
-    public function postLiveSession()
+    public function postLiveSession($tsid)
     {
-        return Redirect::route('training')->with('flash_success', 'Training session complete!');
+        $report = (new TrainingSessionGrader(\Input::all()))->fileReport();
+        if($report instanceof \TrainingSession) {
+            \TrainingRequest::complete($tsid);
+            return Redirect::route('staff/training')->with('flash_success','Training session completed');
+        } else {
+            return Redirect::back()->with('flash_error', 'Error submitting training session! Please email admin@bostonartcc.net immediately');
+        }
     }
 
 }

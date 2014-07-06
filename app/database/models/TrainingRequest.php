@@ -50,7 +50,7 @@ class TrainingRequest extends Eloquent
 
     }
 
-    public static function complete($tsid, $cid)
+    public static function complete($tsid)
     {
         $tr = TrainingRequest::find($tsid);
         if($tr->is_completed) { return false; }

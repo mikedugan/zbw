@@ -3,6 +3,7 @@
 Training Session
 @stop
 @section('content')
+<form id="training_session" action="" method="post">
 <h1 class="text-center">Training Session</h1>
 <div class="row">
     <div class="col-md-6">
@@ -12,176 +13,32 @@ Training Session
         <button data-timer="live" id="live" class="timer btn btn-primary btn-block">Start Live Session</button>
     </div>
 </div>
+    <div class="row">
 <div class="col-md-6">
+    <div class="row form-horizontal">
+        <label class="control-label col-md-6">Training Facility</label>
+        <div class="form-group col-md-6">
+            <select class="form-control" name="facility" id="facility">
+                @foreach($facilities as $facility)
+                <option value="{{$facility->id}}">{{$facility->value}}</option>
+                @endforeach
+            </select>
+        </div>
+    </div>
+    <div class="row form-horizontal">
+        <label class="control-label col-md-6">Training Type</label>
+        <div class="form-group col-md-6">
+            <select class="form-control" name="training_type" id="training_type">
+                @foreach($types as $type)
+                <option value="{{$type->id}}">{{$type->value}}</option>
+                @endforeach
+            </select>
+        </div>
+    </div>
     <h3 class="text-center">General Performance</h3>
-    <div class="row form-horizontal">
-        <label class="control-label col-md-4">Sign-On Brief</label>
-        <div class="col-md-2 checkbox">
-            <label><input type="checkbox" value="true" class="reviewbox" data-subject="sign on briefs" id="review-brief" name="review-brief"> Reviewed</label>
-        </div>
-        <div class="form-group col-md-6">
-            <select class="form-control performance" id="brief" name="brief">
-                <option value="na">NA or Not Observed</option>
-                <option value="u">Unsatisfactory</option>
-                <option value="n">Needs Improvement</option>
-                <option value="s">Satisfactory</option>
-            </select>
-        </div>
-    </div>
-    <div class="row form-horizontal">
-        <label class="control-label col-md-4">Runway Selection</label>
-        <div class="col-md-2 checkbox">
-            <label><input type="checkbox" value="true" class="reviewbox" data-subject="runway selection" id="review-runway" name="review-runway"> Reviewed</label>
-        </div>
-        <div class="form-group col-md-6">
-            <select class="form-control performance" name="runway" id="runway">
-                <option value="na">NA or Not Observed</option>
-                <option value="u">Unsatisfactory</option>
-                <option value="n">Needs Improvement</option>
-                <option value="s">Satisfactory</option>
-            </select>
-        </div>
-    </div>
-    <div class="row form-horizontal">
-        <label class="control-label col-md-4">Weather Conditions</label>
-        <div class="col-md-2 checkbox">
-            <label><input type="checkbox" value="true" name="review-weather" class="reviewbox" data-subject="weather conditions" id="review-weather"> Reviewed</label>
-        </div>
-        <div class="form-group col-md-6">
-            <select class="form-control performance" name="weather" id="weather">
-                <option value="na">NA or Not Observed</option>
-                <option value="u">Unsatisfactory</option>
-                <option value="n">Needs Improvement</option>
-                <option value="s">Satisfactory</option>
-            </select>
-        </div>
-    </div>
-    <div class="row form-horizontal">
-        <label class="control-label col-md-4">Controller Coordination</label>
-        <div class="col-md-2 checkbox">
-            <label><input type="checkbox" value="true" name="review-coordination" class="reviewbox" data-subject="controller coordiation" id="review-coordination"> Reviewed</label>
-        </div>
-        <div class="form-group col-md-6">
-            <select class="form-control performance" name="coordination" id="coordination">
-                <option value="na">NA or Not Observed</option>
-                <option value="u">Unsatisfactory</option>
-                <option value="n">Needs Improvement</option>
-                <option value="s">Satisfactory</option>
-            </select>
-        </div>
-    </div>
-    <div class="row form-horizontal">
-        <label class="control-label col-md-4">Traffic Flow & Delays</label>
-        <div class="col-md-2 checkbox">
-            <label><input type="checkbox" value="true" name="review-flow" class="reviewbox" data-subject="traffic flow" id="review-flow"> Reviewed</label>
-        </div>
-        <div class="form-group col-md-6">
-            <select class="form-control performance" name="flow" id="flow">
-                <option value="na">NA or Not Observed</option>
-                <option value="u">Unsatisfactory</option>
-                <option value="n">Needs Improvement</option>
-                <option value="s">Satisfactory</option>
-            </select>
-        </div>
-    </div>
-    <div class="row form-horizontal">
-        <label class="control-label col-md-4">Aircraft Identity</label>
-        <div class="col-md-2 checkbox">
-            <label><input type="checkbox" value="true" name="review-identity" class="reviewbox" data-subject="maintaining aircraft identity" id="review-identity"> Reviewed</label>
-        </div>
-        <div class="form-group col-md-6">
-            <select class="form-control performance" name="identity" id="identity">
-                <option value="na">NA or Not Observed</option>
-                <option value="u">Unsatisfactory</option>
-                <option value="n">Needs Improvement</option>
-                <option value="s">Satisfactory</option>
-            </select>
-        </div>
-    </div>
-    <div class="row form-horizontal">
-        <label class="control-label col-md-4">Separation</label>
-        <div class="col-md-2 checkbox">
-            <label><input type="checkbox" value="true" name="review-separation" class="reviewbox" data-subject="aircraft separation" id="review-separation"> Reviewed</label>
-        </div>
-        <div class="form-group col-md-6">
-            <select class="form-control performance" name="separation" id="separation">
-                <option value="na">NA or Not Observed</option>
-                <option value="u">Unsatisfactory</option>
-                <option value="n">Needs Improvement</option>
-                <option value="s">Satisfactory</option>
-            </select>
-        </div>
-    </div>
-    <div class="row form-horizontal">
-        <label class="control-label col-md-4">Pointouts & Alerts</label>
-        <div class="col-md-2 checkbox">
-            <label><input type="checkbox" value="true" name="review-pointouts" class="reviewbox" data-subject="pointouts and alerts" id="review-pointouts"> Reviewed</label>
-        </div>
-        <div class="form-group col-md-6">
-            <select class="form-control performance" name="pointouts" id='pointouts'>
-                <option value="na">NA or Not Observed</option>
-                <option value="u">Unsatisfactory</option>
-                <option value="n">Needs Improvement</option>
-                <option value="s">Satisfactory</option>
-            </select>
-        </div>
-    </div>
-    <div class="row form-horizontal">
-        <label class="control-label col-md-4">Airspace Knowledge</label>
-        <div class="col-md-2 checkbox">
-            <label><input type="checkbox" value="true" name="review-airspace" class="reviewbox" data-subject="airspace knowledge" id="review-airspace"> Reviewed</label>
-        </div>
-        <div class="form-group col-md-6">
-            <select class="form-control performance" name="airspace" id="airspace">
-                <option value="na">NA or Not Observed</option>
-                <option value="u">Unsatisfactory</option>
-                <option value="n">Needs Improvement</option>
-                <option value="s">Satisfactory</option>
-            </select>
-        </div>
-    </div>
-    <div class="row form-horizontal">
-        <label class="control-label col-md-4">LOA Knowledge</label>
-        <div class="col-md-2 checkbox">
-            <label><input type="checkbox" value="true" name="review-loa" class="reviewbox" data-subject="SOP and LOA knowledge" id="review-loa"> Reviewed</label>
-        </div>
-        <div class="form-group col-md-6">
-            <select class="form-control performance" name="loa" id="loa">
-                <option value="na">NA or Not Observed</option>
-                <option value="u">Unsatisfactory</option>
-                <option value="n">Needs Improvement</option>
-                <option value="s">Satisfactory</option>
-            </select>
-        </div>
-    </div>
-    <div class="row form-horizontal">
-        <label class="control-label col-md-4">Phraseology</label>
-        <div class="col-md-2 checkbox">
-            <label><input type="checkbox" value="true" name="review-phraseology" class="reviewbox" data-subject="controller phraseology" id="review-phraseology"> Reviewed</label>
-        </div>
-        <div class="form-group col-md-6">
-            <select class="form-control performance" name="phraseology" id="phraseology">
-                <option value="na">NA or Not Observed</option>
-                <option value="u">Unsatisfactory</option>
-                <option value="n">Needs Improvement</option>
-                <option value="s">Satisfactory</option>
-            </select>
-        </div>
-    </div>
-    <div class="row form-horizontal">
-        <label class="control-label col-md-4">Duty Priority</label>
-        <div class="col-md-2 checkbox">
-            <label><input type="checkbox" value="true" name="review-priority" class="reviewbox" data-subject="duty priorities" id="review-priority"> Reviewed</label>
-        </div>
-        <div class="form-group col-md-6">
-            <select class="form-control performance" name="priority" id="priority">
-                <option value="na">NA or Not Observed</option>
-                <option value="u">Unsatisfactory</option>
-                <option value="n">Needs Improvement</option>
-                <option value="s">Satisfactory</option>
-            </select>
-        </div>
-    </div>
+    @foreach(\Config::get('zbw.live_training_performance') as $options)
+        @include('includes.options._live_performance', ['options' => $options])
+    @endforeach
     <div class="row">
         <div class="col-md-4">
             <button class="btn btn-default btn-block" id="update-score">Update Score</button>
@@ -192,6 +49,7 @@ Training Session
     </div>
 </div>
 <div class="col-md-6">
+
     <h3 class="text-center">Markups & Markdowns</h3>
     <div class="row">
         <div class="col-md-4">
@@ -288,6 +146,7 @@ Training Session
         </tr></tbody></table>
     </div>
 </div>
+    </div>
 <div class="row">
     <div class="col-md-6">
         <h3 class="text-center">Staff Comment</h3>
@@ -303,7 +162,19 @@ Training Session
         <button data-timer="debrief" id="debrief" class="timer btn btn-primary btn-block">Start Debrief/Review</button>
     </div>
     <div class="col-md-6">
-        <button data-timer="complete" id="complete" class="timer btn btn-primary btn-block">Complete Session</button>
+        <input type="hidden" name="pos_points" id="pos_points" value="0">
+        <input type="hidden" name="neg_points" id="neg_points" value="0">
+        <input type="hidden" name="modifier" id="modifier" value="1">
+        <input type="hidden" name="student" id="student" value="{{$student->cid}}">
+        <input type="hidden" name="final_markdowns" id="final_markdowns">
+        <input type="hidden" name="final_markups" id="final_markups">
+        <input type="hidden" name="final_score" id="final_score">
+        <input type="hidden" name="final_timers" id="final_timers">
+        <input type="hidden" name="final_conditions" id="final_conditions">
+        <input type="hidden" name="final_reviews" id="final_reviews">
+        <input type="hidden" name="final_performance" id="final_performance">
+        <button disabled data-timer="complete" id="complete" class="timer btn btn-primary btn-block">Complete Session</button>
     </div>
 </div>
+</form>
 @stop

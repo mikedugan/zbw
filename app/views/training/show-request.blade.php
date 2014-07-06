@@ -26,17 +26,17 @@ View Request
         <p><b>Training Session Completed: </b>{{$request->completed_at or 'Not Yet'}}</p>
     </div>
     <div class="col-md-6">
-    @if($me == $request->student || $me->is_atm || $me->is_datm || $me->is_ta || $me->is_webmaster)
+    @if(($me == $request->student || $me->is_atm || $me->is_datm || $me->is_ta || $me->is_webmaster) && !$request->is_completed)
     <form action="/t/request/{{$request->id}}/cancel" method="post">
         <button type="submit" class="btn btn-sm btn-danger">Cancel Request</button>
     </form>
     @endif
     @if($me->is_mentor || $me->is_instructor)
-        @if($request->sid === $me->cid)
+        @if(($request->sid === $me->cid) && !$request->is_completed)
         <form class="axform" action="/t/request/{{$request->id}}/drop" method="post">
             <button type="submit" class="btn btn-sm btn-warning">Drop Request</button>
         </form>
-        @elseif(!$request->sid)
+        @elseif(!$request->sid && !$request->is_completed)
         <form class="axform" action="/t/request/{{$request->id}}/accept" method="post">
             <button type="submit" class="btn btn-sm btn-success">Accept Request</button>
         </form>
@@ -44,8 +44,8 @@ View Request
     @endif
     </div>
     <div class="col-md-6">
-        @if($request->sid === $me->cid)
-        <a href="#" class="btn btn-success">Start Session</a>
+        @if($request->sid === $me->cid && !$request->is_completed)
+        <a href="/staff/live/{{$request->id}}" class="btn btn-success">Start Session</a>
         @endif
     </div>
 @stop

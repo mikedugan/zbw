@@ -90,5 +90,20 @@ return [
     ],
 
 
-    'front_page_metars' => ['KBOS', 'KMHT', 'KBDL', 'KPVD']
+    'front_page_metars' => ['KBOS', 'KMHT', 'KBDL', 'KPVD'],
+
+    'live_training_performance' => [
+      ['label' => 'Sign-On Brief', 'review_name' => 'brief', 'grade_name' => 'brief', 'subject' => 'sign on briefs'],
+      ['label' => 'Runway Selection', 'review_name' => 'runway', 'grade_name' => 'runway', 'subject' => 'runway selection'],
+      ['label' => 'Weather Conditions', 'review_name' => 'weather', 'grade_name' => 'weather', 'subject' => 'weather conditions'],
+      ['label' => 'Controller Coordination', 'review_name' => 'coordination', 'grade_name' => 'coordination', 'subject' => 'controller coordination'],
+      ['label' => 'Traffic Flow & Delays', 'review_name' => 'flow', 'grade_name' => 'flow', 'subject' => 'traffic flow'],
+      ['label' => 'Aircraft Identity', 'review_name' => 'identity', 'grade_name' => 'identity', 'subject' => 'maintaining aircraft identity'],
+      ['label' => 'Separation', 'review_name' => 'separation', 'grade_name' => 'separation', 'subject' => 'aircraft separation'],
+      ['label' => 'Pointouts & Alerts', 'review_name' => 'pointouts', 'grade_name' => 'pointouts', 'subject' => 'pointouts and alerts'],
+      ['label' => 'Airspace Knowledge', 'review_name' => 'airspace', 'grade_name' => 'airspace', 'subject' => 'airspace knowledge'],
+      ['label' => 'LOA Knowledge', 'review_name' => 'loa', 'grade_name' => 'loa', 'subject' => 'SOP and LOA knowledge'],
+      ['label' => 'Phraseology', 'review_name' => 'phraseology', 'grade_name' => 'phraseology', 'subject' => 'controller phraseology'],
+      ['label' => 'Duty Priority', 'review_name' => 'priority', 'grade_name' => 'priority', 'subject' => 'duty priorities'],
+    ]
 ];
