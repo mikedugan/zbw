@@ -9,6 +9,8 @@ return [
         'port' => $_ENV['ts_port']
     ],
 
+    'roster_migrate' => 'http://bostonartcc.net/roster/export.php',
+
     'vatusa' => [
         'roster' => 'http://www.vatusa.net/feeds/roster.php?a=VATID&key=VATKEY',
         'controller' => 'http://www.vatusa.net/feeds/cidlookup.php?a=VATID&key=VATKEY&cid=CCID',
