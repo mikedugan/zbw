@@ -61,7 +61,7 @@ class UserRepository extends EloquentRepository
         $u->email = $email;
         $u->password = \Hash::make($tempPassword);
         $u->rating_id = $rating;
-        $u->initials = strtoupper(UserRepository::createInitials($fname, $lname));
+        $u->initials = strtoupper($this->createInitials($fname, $lname));
 
         $s = new \UserSettings();
         $s->cid = $u->cid;
