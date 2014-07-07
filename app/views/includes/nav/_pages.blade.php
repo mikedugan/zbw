@@ -1,11 +1,8 @@
-<ul class="nav navbar-nav navbar-right col-sm-2">
-    <li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Pages <b class="caret"></b></a>
-        <ul class="dropdown-menu">
-            <li><a href="/pages/create">Add</a></li>
-            <li><a href="/pages/view">View</a></li>
-            <li><a href="/pages/menus">Menus</a></li>
-            <li><a href="/pages/trash">Trash</a></li>
-        </ul>
-    </li>
-</ul>
+<div class="row">
+    <ul class="nav nav-tabs">
+        <li class="<?php if (!$v) {echo 'active';}?>"><a href="/staff/pages">Pages</a></li>
+        <li class="<?php if ($v == 'create') {echo 'active';}?>"><a href="?v=create">Create</a></li>
+        <li class="<?php if ($v == 'edit') {echo 'active';}?>"><a href="?v=edit">Edit</a></li>
+        <li class="<?php if ($v == 'trash') {echo 'active';}?>"><a href="?v=trash">Trash</a></li>
+	</ul>
+</div>
