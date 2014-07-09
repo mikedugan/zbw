@@ -14,18 +14,18 @@ class NewsRepository extends EloquentRepository {
     public function controllers($lim = null)
     {
         if($lim) {
-            return $this->make()->where('audience_type_id', '!=', '1')->where('news_type_id', '!=', '5')->orderBy('created_at', 'DESC')->limit($lim)->get();
+            return $this->make()->with(['facility'])->where('audience_type_id', '!=', '1')->where('news_type_id', '!=', '5')->orderBy('created_at', 'DESC')->limit($lim)->get();
         } else {
-            return $this->make()->where('audience_type_id', '!=', '1')->where('news_type_id', '!=', '5')->orderBy('created_at', 'DESC')->get();
+            return $this->make()->with(['facility'])->where('audience_type_id', '!=', '1')->where('news_type_id', '!=', '5')->orderBy('created_at', 'DESC')->get();
         }
     }
 
     public function pilots($lim = null)
     {
         if($lim) {
-            return $this->make()->where('audience_type_id', '=', '2')->where('news_type_id', '!=', '5')->orderBy('created_at', 'DESC')->limit($lim)->get();
+            return $this->make()->with(['facility'])->where('audience_type_id', '=', '2')->where('news_type_id', '!=', '5')->orderBy('created_at', 'DESC')->limit($lim)->get();
         } else {
-            return $this->make()->where('audience_type_id', '!=', '2')->where('news_type_id', '!=', '5')->orderBy('created_at', 'DESC')->get();
+            return $this->make()->with(['facility'])->where('audience_type_id', '!=', '2')->where('news_type_id', '!=', '5')->orderBy('created_at', 'DESC')->get();
         }
     }
 

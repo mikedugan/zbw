@@ -12,6 +12,11 @@ abstract class EloquentRepository {
         return $this->make()->all();
     }
 
+    public function eWith($with)
+    {
+        return $this->make()->with($with);
+    }
+
     public function with($with, $id = null, $pk = 'id', $pagination = null)
     {
         if($pagination) {

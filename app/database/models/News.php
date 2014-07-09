@@ -95,7 +95,7 @@ class News extends Eloquent {
 
     /**
      * @param Query $query
-     * @param Carbon $date
+     * @param \Carbon $date
      * @return Eloquent
      */
     public function scopeStartsAfter($query, \Carbon\Carbon $date)
