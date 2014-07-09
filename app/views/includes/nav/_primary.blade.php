@@ -4,7 +4,7 @@
         <a href="/controllers" class="dropdown-toggle" data-toggle="dropdown">Controllers <b class="caret"></b></a>
         <ul class="dropdown-menu">
             <li><a href="/roster">Roster</a></li>
-            <li><a href="/news">NOTAMS</a></li>
+            <li>{{ HTML::linkRoute('news', 'NOTAMS') }}</li>
             <li><a href="/pages/sops">ZBW Resources</a></li>
             <li><a href="/pages/resources">Other Resources</a></li>
         </ul>
@@ -12,7 +12,7 @@
     <li class="dropdown">
         <a href="/pilots" class="dropdown-toggle" data-toggle="dropdown">Pilots <b class="caret"></b></a>
         <ul class="dropdown-menu">
-            <li><a href="/news">NOTAMS</a></li>
+            <li>{{ HTML::linkRoute('pilot-news', 'NOTAMS') }}</li>
             <li><a href="/pages/airports">Airports & Charts</a></li>
             <li><a href="#">About ZBW</a></li>
             <li><a href="#">Airports</a></li>
