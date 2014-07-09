@@ -32,9 +32,9 @@ class ReferenceTableSeeder extends Seeder {
             WorkloadType::create(['value' => 'medium']);
             WorkloadType::create(['value' => 'heavy']);
 
-            TrainingType::create(['value' => 'sb_training']);
-            TrainingType::create(['value' => 'sb_familiarization']);
-            TrainingType::create(['value' => 'network_training']);
+            TrainingType::create(['value' => 'sb_training', 'display' => 'Sweatbox Training']);
+            TrainingType::create(['value' => 'sb_familiarization', 'display' => 'Sweatbox Familiarization']);
+            TrainingType::create(['value' => 'network_training', 'display' => 'Network/OJT Training']);
 
             AudienceType::create(['value' => 'both']);
             AudienceType::create(['value' => 'pilots']);

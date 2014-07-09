@@ -61,8 +61,8 @@ class UserRepository extends EloquentRepository
         $u->email = $email;
         $u->password = \Hash::make($tempPassword);
         $u->rating_id = $rating;
-        $u->initials = strtoupper($this->createInitials($fname, $lname));
-
+        $u->initials = substr($fname, 0, 1) . substr($lname[0], 0, 1);
+        if(strlen($u->initials) > 2) { dd($u->initials); }
         $s = new \UserSettings();
         $s->cid = $u->cid;
 
@@ -366,7 +366,9 @@ class UserRepository extends EloquentRepository
 
     public function getStaff()
     {
-        return $this->make()->where('is_staff', 1)->orWhere('is_mentor', 1)->orWhere('is_instructor', 1)->get();
+        $staff = \Sentry::findGroupByName('Staff');
+
+        return \Sentry::findAllUsersInGroup($staff);
     }
 
     /**
@@ -379,7 +381,8 @@ class UserRepository extends EloquentRepository
     public function isStaff($id)
     {
         $u = $this->make()->find($id);
-        return $u->is_atm || $u->is_datm || $u->is_ta || $u->is_mentor || $u->is_instructor || $u->is_facilities || $u->is_webmaster;
+        $staff = \Sentry::findGroupByName('Staff');
+        return $u->inGroup($staff);
     }
 
     /**
@@ -392,7 +395,8 @@ class UserRepository extends EloquentRepository
     public function isExecutive($id)
     {
         $u = $this->make()->find($id);
-        return $u->is_atm || $u->is_datm || $u->is_ta || $u->is_webmaster;
+        $exec = \Sentry::findGroupByName('Executive Staff');
+        return $u->inGroup($exec);
     }
 
     public static function canTrain($level)
@@ -416,7 +420,7 @@ class UserRepository extends EloquentRepository
     {
         if(is_int($user)) $user = $this->make()->find($user);
         $status = null;
-        if(! $user->is_active)
+        if(! $user->activated)
             $status = 'Your account is not active. Please email <a
                    href="mailto:staff@bostonartcc.net">admin</a>';
 

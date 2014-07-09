@@ -15,7 +15,7 @@ $messages = $me ? MessagesRepository::newMessageCount($me->cid) : 0;
         @include('includes.nav._primary')
         @if($me)
             @include('includes.nav._user')
-            @if($me->is_staff)
+            @if($me->inGroup(\Sentry::findGroupByName('Staff')))
             @include('includes.nav._staff')
             @endif
         @else
