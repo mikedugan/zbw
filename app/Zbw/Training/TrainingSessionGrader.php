@@ -62,6 +62,7 @@ class TrainingSessionGrader
         $report->modifier = is_null($this->modifier) ? 0 : $this->modifier;
         $report->positive_points = $this->pos_points;
         $report->negative_points = $this->neg_points;
+        $report->ots = $this->ots;
         $report->save();
         return $session;
     }
@@ -100,8 +101,8 @@ class TrainingSessionGrader
     {
         $this->score = $this->raw['final_score'];
         if(! isset($this->raw['ots'])) { $this->ots = -1; }
-        else if($this->raw['ots'] === 'f') { $this->ots = 0; }
-        else if ($this->raw['ots'] === 'p') { $this->ots = 1; }
+        else if($this->raw['ots'] == 'f') { $this->ots = 0; }
+        else if ($this->raw['ots'] == 'p') { $this->ots = 1; }
         else $this->ots = -1;
     }
 
@@ -109,9 +110,9 @@ class TrainingSessionGrader
     {
         $this->facility = $this->raw['facility'];
         $this->type = $this->raw['training_type'];
-        $this->conditions['weather'] = $this->raw['cond-weather'];
-        $this->conditions['complexity'] = $this->raw['cond-complexity'];
-        $this->conditions['workload'] = $this->raw['cond-traffic'];
+        $this->conditions['weather'] = $this->raw['cond-weather'] +1;
+        $this->conditions['complexity'] = $this->raw['cond-complexity'] +1;
+        $this->conditions['workload'] = $this->raw['cond-traffic'] +1;
     }
 
     private function parseMarkups()

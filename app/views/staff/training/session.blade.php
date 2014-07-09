@@ -36,23 +36,27 @@ Training Session
         @endforeach
         <div class="col-md-6">
         <h5>Markups</h5>
+        @unless(is_null($tsession->trainingReport->markups))
         @foreach(json_decode($tsession->trainingReport->markups, true) as $markup)
             @unless($markup[1] == 0)
                 <p><b>{{$markup[0]}}:</b> <span class="badge alert-success">+{{$markup[1]}}</span></p>
             @endunless
         @endforeach
+        @endunless
         </div>
         <div class="col-md-6">
         <h5>Markdowns</h5>
+            @unless(is_null($tsession->trainingReport->markdown))
         @foreach(json_decode($tsession->trainingReport->markdown, true) as $markdown)
             @unless($markdown[1] == 0)
                 <p><b>{{ucfirst($markdown[0])}}:</b> <span class="badge alert-danger">-{{$markdown[1]}}</span></p>
             @endunless
         @endforeach
+            @endunless
         </div>
         <div class="col-md-6">
         <h5>Reviews</h5>
-        @if($tsession->trainingReport->reviewed)
+        @if($tsession->trainingReport->reviewed != 'null')
             <p><b>Reviewed:</b>
                 @foreach(json_decode($tsession->trainingReport->reviewed, true) as $review)
                 {{$review}},
