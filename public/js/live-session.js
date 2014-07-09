@@ -88,9 +88,36 @@ $('.markup').click(
       var points = $this.data('points');
       var attr = $this.attr('id');
       attr = attr.split('-')[1];
-      trainingSession.markups[attr] = points;
+      trainingSession.markups[attr] += points;
   }
 );
+
+$('#mu-other-add').click(function(e) {
+    e.preventDefault();
+    var points = parseInt($('#mu-other-points').val(), 10);
+    var comment = $('#mu-other').val().replace(/ /g,"_");
+    $('#mu-other-points').val(0);
+    $('#mu-other').val('');
+    if(typeof trainingSession.markups[comment] === 'undefined') {
+        trainingSession.markups[comment] = points;
+    } else {
+        trainingSession.markups[comment] += points;
+    }
+
+});
+$('#md-other-add').click(function(e) {
+    e.preventDefault();
+    var points = parseInt($('#md-other-points').val(), 10);
+    var comment = $('#md-other').val().replace(/ /g,"_");
+    $('#md-other-points').val(0);
+    $('#md-other').val('');
+    if(typeof trainingSession.markups[comment] === 'undefined') {
+        trainingSession.markdowns[comment] = points;
+    } else {
+        trainingSession.markdowns[comment] += points;
+    }
+
+});
 
 $('.reviewbox').click(
   function (e)
@@ -169,7 +196,7 @@ $('#update-score').click(function(e) {
     e.preventDefault();
     var score = getPerformanceScore();
     var marks = getMarkDifferential();
-    $('.score').replaceWith('<div class="score"><button class="btn btn-block">'+adjustScore(score, marks)+' - '+runningTime()+' minutes</button></div>');
+    $('.score').replaceWith('<div class="score"><button type="button" class="btn btn-block">'+adjustScore(score, marks)+' - '+runningTime()+' minutes</button></div>');
 });
 
 $('#complete').click(function(e) {

@@ -114,8 +114,6 @@ Training Session
                     </select>
                 </div>
             </div>
-            <button class="btn btn-block btn-success" id="mu-other">Other Markup</button>
-            <button class="btn btn-block  btn-warning" id="md-other">Other Markdown</button>
         </div>
         <div class="col-md-4">
             <h5 class="text-center">Markups</h5>
@@ -135,6 +133,18 @@ Training Session
             <button data-points="7" class="markdown btn btn-block btn-danger" id="md-incident">Crashed Planes</button>
             <button data-points="2" class="markdown btn btn-block btn-warning" id="md-coordination">Missed Coordination</button>
             <button data-points="1" class="markdown btn btn-block btn-warning" id="md-readback">Incorrect Readback</button>
+        </div>
+    </div>
+    <div style="margin-top:10px" class="row form-horizontal">
+        <div class="col-sm-12 form-inline">
+            <label style="padding-top:7px" class="col-sm-2">Comment:</label><input class="col-sm-5 form-control" type="text" name="mu-other" id="mu-other">
+            <label style="padding-top:7px" class="col-sm-1">Points</label><input class="col-sm-1 form-control" type="number" name="mu-other-points" id="mu-other-points">
+            <button class="col-sm-2 col-sm-offset-1 btn btn-success" id="mu-other-add">Add Markup</button>
+        </div>
+        <div style="margin-top:5px" class="col-sm-12 form-inline">
+            <label style="padding-top:7px" class="col-sm-2">Comment:</label><input class="col-sm-5 form-control" type="text" name="md-other" id="md-other">
+            <label style="padding-top:7px" class="col-sm-1">Points</label><input class="col-sm-1 form-control" type="number" name="md-other-points" id="md-other-points">
+            <button class="col-sm-2 col-md-offset-1 btn btn-danger" id="md-other-add">Add Markdown</button>
         </div>
     </div>
     <div class="row">
