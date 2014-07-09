@@ -28,8 +28,21 @@ class ControllersController extends BaseController
         ];
 
         return View::make('users.show', $data);
-
     }
+
+    public function getSearchResults()
+    {
+        $results = $this->users->search(Input::all());
+        $data = [
+          'stype' => 'roster',
+          'results' => $results
+        ];
+        if(empty($results[0])) {
+            return Redirect::back()->with('flash_info', 'No results found');
+        }
+        return View::make('zbw.roster.results', $data);
+    }
+
 
     /**
      * this route specifically handles when the logged in user navigates to their own profile

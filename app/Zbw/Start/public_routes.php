@@ -37,6 +37,10 @@ Route::get(
   'controllers/{id}',
   ['as' => 'controllers/{id}', 'uses' => 'ControllersController@getController']
 );
+Route::get(
+  'roster/results',
+  ['roster/search', 'uses' => 'ControllersController@getSearchResults']
+);
 Route::get('news/{id}', ['as' => 'news/{id}', 'uses' => 'NewsController@show']);
 Route::get(
   'pages/p/{id}',

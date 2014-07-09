@@ -15,7 +15,7 @@ class MigrateOldRoster extends Command {
      *
      * @var string
      */
-    protected $description = 'Updates ARTCC roster from VATUSA.';
+    protected $description = 'Updates ARTCC roster from ZBW website.';
 
     public function __construct()
     {

@@ -16,18 +16,18 @@
         <th>Training</th>
         </thead>
         @foreach($users as $u)
-        @if($u->is_ta || $u->is_atm || $u->is_datm || $u->is_webmaster)
+        @if($u->is_exec())
         <tr class="danger">
-        @elseif($u->is_instructor)
+        @elseif($u->is_instructor())
         <tr class="warning">
-        @elseif($u->is_staff || $u->is_mentor)
+        @elseif($u->is_staff() || $u->is_mentor())
         <tr class="info">
         @elseif($u->artcc !== 'ZBW')
         <tr class="success">
         @else
         <tr>
         @endif
-            @if($u->is_suspended)
+            @if(!$u->activated)
             <td>
                 <a style="color: #999" href="/controllers/{{$u->cid}}">{{ $u->username }}</a>
                 &nbsp;<span class="orange glyph-sm glyphicons circle_exclamation_mark pointer" title="User is suspended"></span>

@@ -177,4 +177,28 @@ class User extends SentryUser implements UserInterface, RemindableInterface
         }
         else return $this->settings->avatar;
     }
+
+    public function is_exec()
+    {
+        $exec = \Sentry::findGroupByName('Executive Staff');
+        return $this->inGroup($exec);
+    }
+
+    public function is_instructor()
+    {
+        $ins = \Sentry::findGroupByName('Instructors');
+        return $this->inGroup($ins);
+    }
+
+    public function is_staff()
+    {
+        $staff = \Sentry::findGroupByName('Staff');
+        return $this->inGroup($staff);
+    }
+
+    public function is_mentor()
+    {
+        $mtr = \Sentry::findGroupByName('Mentors');
+        return $this->inGroup($mtr);
+    }
 }

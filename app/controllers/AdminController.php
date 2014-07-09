@@ -62,7 +62,7 @@ class AdminController extends BaseController
         $pag = 10;
         if(\Input::has('num')) $pag = \Input::get('num');
         $data = [
-            'users' => $this->users->with(['rating'], $pag),
+            'users' => $this->users->with(['rating'], null, 'cid', $pag),
             'view' => $view,
             'action' => $action,
             'staff' =>  $this->users->getStaff()
@@ -101,7 +101,7 @@ class AdminController extends BaseController
     public function showUser($id)
     {
         $data = [
-            'user' => $this->users->find($id)
+            'user' => $this->users->get($id)
         ];
         return View::make('staff.roster.view', $data);
     }

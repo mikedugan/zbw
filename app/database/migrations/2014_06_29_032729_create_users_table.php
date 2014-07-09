@@ -50,19 +50,6 @@ class CreateUsersTable extends Migration {
               $table->tinyInteger('rating_id')->required();
               $table->tinyInteger('cert')->default(0);
               $table->string('artcc', 3)->required()->default('ZBW');
-              $table->string('signature', 255);
-              $table->boolean('is_mentor')->default(0);
-              $table->boolean('is_instructor')->default(0);
-              $table->boolean('is_facilities')->default(0);
-              $table->boolean('is_webmaster')->default(0);
-              $table->boolean('is_atm')->default(0);
-              $table->boolean('is_datm')->default(0);
-              $table->boolean('is_ta')->default(0);
-              $table->boolean('is_emeritus')->default(0);
-              $table->boolean('is_active')->default(0);
-              $table->boolean('is_suspended')->default(0);
-              $table->boolean('is_terminated')->default(0);
-              $table->boolean('is_staff')->default(0);
               $table->timestamps();
 
               // We'll need to ensure that MySQL uses the InnoDB engine to
