@@ -3,6 +3,7 @@
     <li class="dropdown">
         <a href="/controllers" class="dropdown-toggle" data-toggle="dropdown">Controllers <b class="caret"></b></a>
         <ul class="dropdown-menu">
+            <li><a href="/roster">Roster</a></li>
             <li><a href="/news">NOTAMS</a></li>
             <li><a href="/pages/staff">Staff</a></li>
             <li><a href="/pages/sops">ZBW Resources</a></li>
