@@ -5,6 +5,8 @@ Route::group(
   function () {
       $cid = is_null(Auth::user()) ? 0 : Auth::user()->cid;
       //routes for the logged in users
+      Route::get('news', ['as' => 'news', 'uses' => 'NewsController@getIndex']);
+
       Route::post(
         '/me/markallread',
         ['as' => '/me/markallread', 'uses' => 'AjaxController@markInboxRead']

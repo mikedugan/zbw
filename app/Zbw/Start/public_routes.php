@@ -24,6 +24,7 @@ Route::get(
   'pilots',
   ['as' => 'pilots', 'uses' => 'ZbwController@getPilotIndex']
 );
+Route::get('pilots/news', ['as' => 'pilot-news', 'uses' => 'NewsController@getPilotNews']);
 Route::get(
   'controllers',
   ['as' => 'controllers', 'uses' => 'ZbwController@getControllerIndex']
