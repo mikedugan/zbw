@@ -11,6 +11,24 @@ class NewsController extends BaseController {
     {
         $this->news = $news;
     }
+    
+    public function getIndex()
+    {
+        $data = [
+            'news' => $this->news->controllers()
+        ];
+
+        return View::make('cms.news.index', $data);
+    }
+    
+    public function getPilotNews()
+    {
+        $data = [
+            'news' => $this->news->pilots()
+        ];
+
+        return View::make('cms.news.pilots', $data);
+    }
 
     public function getCreate()
     {

@@ -5,7 +5,6 @@
         <ul class="dropdown-menu">
             <li><a href="/roster">Roster</a></li>
             <li><a href="/news">NOTAMS</a></li>
-            <li><a href="/pages/staff">Staff</a></li>
             <li><a href="/pages/sops">ZBW Resources</a></li>
             <li><a href="/pages/resources">Other Resources</a></li>
         </ul>
