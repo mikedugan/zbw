@@ -29,12 +29,9 @@ class TrainingController extends BaseController
 
     public function showAdmin($id)
     {
-        $ts = $this->trainings->get($id);
+        $ts = $this->trainings->with(['student', 'staff', 'facility', 'weatherType', 'trainingReport'], $id);
         $data = [
-          'tsession' => $ts,
-          'student'  => $ts->student,
-          'staff'    => $ts->staff,
-          'location' => $ts->facility
+          'tsession' => $ts
         ];
         return View::make('staff.training.session', $data);
     }

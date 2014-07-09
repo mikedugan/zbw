@@ -12,10 +12,12 @@ abstract class EloquentRepository {
         return $this->make()->all();
     }
 
-    public function with($with, $pagination = null)
+    public function with($with, $id = null, $pk = 'id', $pagination = null)
     {
         if($pagination) {
             return $this->make()->with($with)->paginate($pagination);
+        } else if($id) {
+            return $this->make()->where($pk, $id)->with($with)->first();
         }
         return $this->make()->with($with)->get();
     }

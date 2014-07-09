@@ -45,7 +45,7 @@ class TrainingSession extends Eloquent {
 
     public function trainingReport()
     {
-        return $this->belongsTo('TrainingReport', 'training_session_id', 'id');
+        return $this->hasOne('TrainingReport', 'training_session_id', 'id');
     }
 
     /**
