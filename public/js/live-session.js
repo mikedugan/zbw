@@ -76,7 +76,7 @@ $('.markdown').click(
       var points = $this.data('points');
       var attr = $this.attr('id');
       attr = attr.split('-')[1];
-      trainingSession.markdowns[attr] = points;
+      trainingSession.markdowns[attr] += points;
   }
 );
 
