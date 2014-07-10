@@ -27,6 +27,17 @@ class TrainingController extends BaseController
         return View::make('training.index', $data);
     }
 
+    public function getAdminIndex()
+    {
+        $data = [
+          'reports' => $this->trainings->recentReports(5),
+          'sessions' => ['a', 'b'],
+          'requests' => \TrainingRequest::with(['student', 'certType'])->get(),
+          'exams' => \Exam::recentExams(5),
+        ];
+        return View::make('staff.training.index', $data);
+    }
+
     public function showAdmin($id)
     {
         $ts = $this->trainings->with(['student', 'staff', 'facility', 'weatherType', 'trainingReport'], $id);

@@ -39,6 +39,32 @@ class RosterController extends BaseController {
         return View::make('zbw.roster.index', $data);
     }
 
+    public function getAdminIndex()
+    {
+        $view = \Input::get('v');
+        $action = \Input::get('action');
+        $id = \Input::get('id');
+        $pag = 15;
+        if(\Input::has('num')) { $pag = 999; }
+        $data = [
+          'users' => $this->users->with(['rating'], null, 'cid', $pag),
+          'view' => $view,
+          'action' => $action,
+          'staff' =>  $this->users->getStaff()
+        ];
+        if($view === 'groups') {
+            if(!empty($id) && $action === 'edit') {
+                $data['group'] = \Group::find($id);
+                $data['members'] = \Sentry::findAllUsersInGroup($data['group']);
+            } else {
+                $data['groups'] = \Sentry::findAllGroups();
+            }
+        }
+
+        return View::make('staff.roster.index', $data);
+    }
+
+
     public function getAddController()
     {
         $data = [

@@ -20,7 +20,20 @@ class NewsController extends BaseController {
 
         return View::make('cms.news.index', $data);
     }
-    
+
+    public function getAdminIndex()
+    {
+        $data = [
+          'events' => ['expired' => $this->news->expiredEvents(5) ,
+                       'upcoming' => $this->news->upcomingEvents(5),
+                       'active' => $this->news->activeEvents(5) ],
+          'staffnews' => $this->news->staffNews(5),
+          'generalnews' => $this->news->recentNews(5),
+          'title' => 'ZBW News Admin'
+        ];
+        return View::make('staff.pages.news', $data);
+    }
+
     public function getPilotNews()
     {
         $data = [

@@ -35,11 +35,11 @@ Route::get(
 );
 Route::get(
   'controllers/{id}',
-  ['as' => 'controllers/{id}', 'uses' => 'ControllersController@getController']
+  ['as' => 'controllers/{id}', 'uses' => 'UsersController@getController']
 );
 Route::get(
   'roster/results',
-  ['roster/search', 'uses' => 'ControllersController@getSearchResults']
+  ['roster/search', 'uses' => 'UsersController@getSearchResults']
 );
 Route::get('news/{id}', ['as' => 'news/{id}', 'uses' => 'NewsController@show']);
 Route::get(

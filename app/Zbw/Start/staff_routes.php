@@ -20,7 +20,7 @@ Route::group(['before'   => 'auth|staff'], function () {
 					'training',
 					[
 						'as'     => 'staff/training',
-						'uses'   => 'AdminController@getTrainingIndex',
+						'uses'   => 'TrainingController@getAdminIndex',
 						'before' => 'cache.fetch',
 						'after'  => 'cache.put'
 					]
@@ -45,7 +45,7 @@ Route::group(['before'   => 'auth|staff'], function () {
 				);
 				Route::get(
 					'roster',
-					['as' => 'roster', 'uses' => 'AdminController@getRosterIndex']
+					['as' => 'roster', 'uses' => 'RosterController@getAdminIndex']
 				);
 				Route::post(
 					'roster/groups/add',
@@ -61,7 +61,7 @@ Route::group(['before'   => 'auth|staff'], function () {
 				);
 				Route::get(
 					'u/{id}',
-					['roster/user/{id}', 'uses' => 'AdminController@showUser']
+					['roster/user/{id}', 'uses' => 'UsersController@showUser']
 				);
 				Route::get(
 					'{id}/edit',
@@ -108,7 +108,7 @@ Route::group(['before'   => 'auth|staff'], function () {
 
 				Route::get(
 					'news',
-					['as' => 'staff/news', 'uses' => 'AdminController@getNewsIndex']
+					['as' => 'staff/news', 'uses' => 'NewsController@getAdminIndex']
 				);
 				Route::get(
 					'news/create',
