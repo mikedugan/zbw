@@ -1,8 +1,9 @@
 <?php  namespace Zbw\Cms;
 
 use Zbw\Base\EloquentRepository;
+use Zbw\Cms\Contracts\PagesRepositoryInterface;
 
-class PagesRepository extends EloquentRepository
+class PagesRepository extends EloquentRepository implements PagesRepositoryInterface
 {
     public $model = '\Page';
 

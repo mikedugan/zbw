@@ -1,13 +1,16 @@
 <?php namespace Zbw\Users;
 use Zbw\Base\EloquentRepository;
+use Zbw\Users\Contracts\GroupsRepositoryInterface;
+use Zbw\Users\Contracts\UserRepositoryInterface;
 
-class GroupsRepository extends EloquentRepository {
+class GroupsRepository extends EloquentRepository implements GroupsRepositoryInterface
+{
 
     public $model = '\Group';
     private $permission_groups;
     private $users;
 
-    public function __construct(UserRepository $users)
+    public function __construct(UserRepositoryInterface $users)
     {
         $this->permission_groups = \Config::get('zbw.permission_groups');
         $this->users = $users;
@@ -54,7 +57,7 @@ class GroupsRepository extends EloquentRepository {
 
     private function flattenPermissions($array, $prefix = '')
     {
-        $result = array();
+        $result = [];
 
         foreach ($array as $key => $value)
         {

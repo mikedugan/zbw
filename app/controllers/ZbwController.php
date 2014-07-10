@@ -1,13 +1,13 @@
 <?php
 
-use Zbw\Cms\NewsRepository;
+use Zbw\Cms\Contracts\NewsRepositoryInterface;
 
 class ZbwController extends BaseController
 {
 
     private $news;
 
-    public function __construct(NewsRepository $news)
+    public function __construct(NewsRepositoryInterface $news)
     {
         $this->news = $news;
     }

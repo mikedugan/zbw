@@ -4,8 +4,9 @@ use Zbw\Base\EloquentRepository;
 use Zbw\Bostonjohn\Emailer;
 use Zbw\Base\Helpers;
 use Zbw\Bostonjohn\ZbwLog;
+use Zbw\Users\Contracts\UserRepositoryInterface;
 
-class UserRepository extends EloquentRepository
+class UserRepository extends EloquentRepository implements UserRepositoryInterface
 {
     public $model = '\User';
 
@@ -17,12 +18,6 @@ class UserRepository extends EloquentRepository
     {
         return $this->make()->where('initials', strtoupper($initials))->first();
     }
-
-    public function findByCid($cid)
-    {
-        return $this->make()->where('cid', $cid)->first();
-    }
-
     /**
      * @type
      * @name allVitals
@@ -186,18 +181,6 @@ class UserRepository extends EloquentRepository
 
     /**
      * @type
-     * @name certTitle
-     * @description
-     * @param $id
-     * @return string
-     */
-    public function certTitle($id)
-    {
-        return Helpers::readableCert($this->make()->find($id)->certification['value']);
-    }
-
-    /**
-     * @type
      * @name search
      * @description
      * @param $input
@@ -235,13 +218,6 @@ class UserRepository extends EloquentRepository
         }
 
         return $users->get();
-    }
-
-    public function userLoginUpdate($cid, $data)
-    {
-        $user = $this->make()->find($cid);
-        $user->email = $data['email'];
-        return $user->save();
     }
 
     /**
@@ -374,6 +350,7 @@ class UserRepository extends EloquentRepository
     /**
      * @type
      * @name isStaff
+     * @deprecated
      * @description
      * @param $id
      * @return bool
@@ -388,6 +365,7 @@ class UserRepository extends EloquentRepository
     /**
      * @type
      * @name isExecutive
+     * @deprecated
      * @description
      * @param $id
      * @return bool
@@ -406,9 +384,11 @@ class UserRepository extends EloquentRepository
         } else {
             return \User::where('cert', '>=', $level + 1)->lists('cid');
         }
-
     }
 
+    /**
+     * @deprecated
+     */
     public function canCertify($level)
     {
         if($level == 11) { return $this->make()->where('cert', '>=', 12)->lists('cid'); }
@@ -425,16 +405,6 @@ class UserRepository extends EloquentRepository
                    href="mailto:staff@bostonartcc.net">admin</a>';
 
         return $status;
-    }
-
-    public function update($input)
-    {
-
-    }
-
-    public function create($input)
-    {
-
     }
 
     public function updateSettings($input)
@@ -459,4 +429,7 @@ class UserRepository extends EloquentRepository
         $settings->fill($input);
         return $settings->save();
     }
+
+    public function update($input) {}
+    public function create($input) {}
 }

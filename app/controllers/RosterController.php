@@ -1,14 +1,14 @@
 <?php
 
-use Zbw\Users\UserRepository;
-use Zbw\Users\GroupsRepository;
+use Zbw\Users\Contracts\GroupsRepositoryInterface;
+use Zbw\Users\Contracts\UserRepositoryInterface;
 
 class RosterController extends BaseController {
 
     private $users;
     private $groups;
 
-    function __construct(UserRepository $users, GroupsRepository $groups)
+    function __construct(UserRepositoryInterface $users, GroupsRepositoryInterface $groups)
     {
         $this->users = $users;
         $this->groups = $groups;

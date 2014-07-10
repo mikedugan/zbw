@@ -2,12 +2,13 @@
 
 use Zbw\Base\Helpers;
 use Zbw\Base\EloquentRepository;
+use Zbw\Training\Contracts\CertificationRepositoryInterface;
 
-class CertificationRepository extends EloquentRepository
+class CertificationRepository extends EloquentRepository implements CertificationRepositoryInterface
 {
     protected $exams;
     public $model = 'Certification';
-    public function __construct(ExamsRepository $exams)
+    public function __construct(ExamsRepositoryInterface $exams)
     {
         $this->exams = $exams;
     }

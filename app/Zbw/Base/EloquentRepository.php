@@ -2,7 +2,7 @@
 
 abstract class EloquentRepository {
 
-    protected function make()
+    public function make()
     {
         return new $this->model;
     }

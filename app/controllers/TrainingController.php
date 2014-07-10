@@ -1,9 +1,9 @@
 <?php
 
+use Zbw\Training\Contracts\ExamsRepositoryInterface;
 use Zbw\Training\TrainingSessionGrader;
-use Zbw\Training\TrainingSessionRepository;
-use Zbw\Training\ExamsRepository;
-use Zbw\Users\UserRepository;
+use Zbw\Training\Contracts\TrainingSessionRepositoryInterface;
+use Zbw\Users\Contracts\UserRepositoryInterface;
 
 class TrainingController extends BaseController
 {
@@ -11,7 +11,7 @@ class TrainingController extends BaseController
     private $exams;
     private $users;
 
-    function __construct(ExamsRepository $exams, TrainingSessionRepository $trainings, UserRepository $users)
+    function __construct(ExamsRepositoryInterface $exams, TrainingSessionRepositoryInterface $trainings, UserRepositoryInterface $users)
     {
         $this->exams = $exams;
         $this->trainings = $trainings;

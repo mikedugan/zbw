@@ -1,12 +1,12 @@
 <?php 
 
-use Zbw\Users\UserRepository;
+use Zbw\Users\Contracts\UserRepositoryInterface;
 
 class AdminController extends BaseController
 {
     private $users;
 
-    public function __construct(UserRepository $users)
+    public function __construct(UserRepositoryInterface $users)
     {
         $this->users = $users;
     }

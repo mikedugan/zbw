@@ -1,6 +1,6 @@
 <?php  namespace Zbw\Bostonjohn;
 
-use Zbw\Cms\MessagesRepository;
+use Zbw\Cms\Contracts\MessagesRepositoryInterface;
 
 class Notifier
 {
@@ -11,7 +11,7 @@ class Notifier
     protected $user;
     protected $log;
     private $messages;
-    public function __construct(MessagesRepository $messages)
+    public function __construct(MessagesRepositoryInterface $messages)
     {
         $this->messages = $messages;
         $this->log = new ZbwLog();

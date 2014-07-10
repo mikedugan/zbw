@@ -1,4 +1,4 @@
-<?php  namespace Zbw\Users;
+<?php  namespace Zbw\Users\Auth;
 
 abstract class OAuthSignatureMethod_RSA_SHA1 extends OAuthSignatureMethod
 {

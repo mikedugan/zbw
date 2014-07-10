@@ -13,7 +13,7 @@ Route::group(['before'   => 'auth|staff'], function () {
 					'exams/review/{eid}',
 					[
 						'as'   => 'exams/review/{eid}',
-						'uses' => 'ControllerExamsController@postComment'
+						'uses' => 'ExamsController@postComment'
 					]
 				);
 				Route::get(
@@ -29,18 +29,18 @@ Route::group(['before'   => 'auth|staff'], function () {
 					'exams/review/{eid}',
 					[
 						'as'   => 'exams/review/{eid}',
-						'uses' => 'ControllerExamsController@getStaffReview'
+						'uses' => 'ExamsController@getStaffReview'
 					]
 				);
 				Route::get(
 					'exams/questions',
-					'ControllerExamsController@getQuestions'
+					'ExamsController@getQuestions'
 				);
 				Route::post(
 					'exams/questions',
 					[
 						'as'   => 'exams/add-question',
-						'uses' => 'ControllerExamsController@addQuestion'
+						'uses' => 'ExamsController@addQuestion'
 					]
 				);
 				Route::get(

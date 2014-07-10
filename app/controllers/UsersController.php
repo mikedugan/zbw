@@ -1,6 +1,6 @@
 <?php
-use Zbw\Cms\MessagesRepository;
-use Zbw\Users\UserRepository;
+use Zbw\Cms\Contracts\MessagesRepositoryInterface;
+use Zbw\Users\Contracts\UserRepositoryInterface;
 
 class UsersController extends BaseController
 {
@@ -8,7 +8,7 @@ class UsersController extends BaseController
     private $users;
     private $messages;
 
-    public function __construct(UserRepository $users, MessagesRepository $messages)
+    public function __construct(UserRepositoryInterface $users, MessagesRepositoryInterface $messages)
     {
         $this->users = $users;
         $this->messages = $messages;

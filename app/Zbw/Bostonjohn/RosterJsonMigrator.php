@@ -1,6 +1,6 @@
 <?php  namespace Zbw\Bostonjohn; 
 
-use Zbw\Users\UserRepository;
+use Zbw\Users\UserRepositoryInterface;
 use Curl\Curl;
 use Zbw\Base\Helpers;
 
@@ -11,7 +11,7 @@ class RosterJsonMigrator {
     private $staff;
 
 
-    public function __construct(UserRepository $users, Curl $curl)
+    public function __construct(UserRepositoryInterface $users, Curl $curl)
     {
         $this->users = $users;
         $this->curl= $curl;

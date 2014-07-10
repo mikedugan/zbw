@@ -2,8 +2,10 @@
 
 use Zbw\Base\EloquentRepository;
 use Zbw\Validators\ZbwValidator;
+use Zbw\Cms\Contracts\NewsRepositoryInterface;
 
-class NewsRepository extends EloquentRepository {
+class NewsRepository extends EloquentRepository implements NewsRepositoryInterface
+{
     public $model = '\News';
 
     public function front($lim)
