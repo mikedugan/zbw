@@ -1,7 +1,5 @@
 <?php namespace Zbw\Validators;
 
-use Zbw\Base\Helpers;
-
 class ZbwValidator {
     protected $errors;
     protected $cids;

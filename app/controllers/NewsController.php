@@ -1,6 +1,5 @@
 <?php
 
-use Zbw\Validators\NewsValidator;
 use Zbw\Cms\Contracts\NewsRepositoryInterface;
 
 class NewsController extends BaseController {

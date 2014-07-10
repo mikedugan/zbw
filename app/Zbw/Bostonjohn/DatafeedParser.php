@@ -79,7 +79,6 @@ class DatafeedParser {
      */
     public function parseDatafeed()
     {
-        $controllers = [];
         foreach($this->datafeed as $line) {
             if($this->isZbwAirport($line)) {
                 $this->parseControllerLine($line);

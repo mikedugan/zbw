@@ -61,7 +61,6 @@ class GroupsRepository extends EloquentRepository implements GroupsRepositoryInt
 
         foreach ($array as $key => $value)
         {
-            $new_key = '';
             if(! is_int($key)) {
                 $new_key = $prefix . (empty($prefix) ? '' : '.') . $key;
             }

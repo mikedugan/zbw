@@ -1,7 +1,5 @@
 <?php
 
-use Zbw\Bostonjohn\ZbwLog;
-
 class SessionsController extends BaseController
 {
 
@@ -34,6 +32,7 @@ class SessionsController extends BaseController
         } else if ($status = \AuthToken::setupToken($sso)) {
             return Redirect::home()->with('flash_error', $status);
         }
+        else return Redirect::back()->with('flash_error', 'Unable to log you in!');
     }
 
     public function postLogin()

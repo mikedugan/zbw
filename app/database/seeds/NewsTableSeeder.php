@@ -8,7 +8,6 @@ class NewsTableSeeder extends Seeder {
     public function run()
     {
 	      DB::table('zbw_news')->truncate();
-	      $facility = ['ZBW', 'A90', 'G90', 'Y90', 'PWM', 'ZNY', 'CYUL', 'CYYZ'];
         $faker = Faker::create();
         foreach(range(1, 50) as $index)
         {

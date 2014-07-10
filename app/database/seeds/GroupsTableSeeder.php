@@ -1,14 +1,13 @@
 <?php
 
 // Composer: "fzaninotto/faker": "v1.3.0"
-use Faker\Factory as Faker;
 
 class GroupsTableSeeder extends Seeder {
 
     public function run()
     {
 	      DB::table('groups')->truncate();
-        $group = \Sentry::createGroup([
+        \Sentry::createGroup([
               'name' => 'Executive Staff',
               'permissions' => [
                   'roster.all' => 1,
@@ -21,7 +20,7 @@ class GroupsTableSeeder extends Seeder {
                   'staff.all' => 1
               ]
           ]);
-        $group = \Sentry::createGroup([
+        \Sentry::createGroup([
               'name' => 'Facilities Team',
               'permissions' => [
                   'roster.view' => 1,
@@ -29,7 +28,7 @@ class GroupsTableSeeder extends Seeder {
                   'files.sector' => 1
               ]
           ]);
-        $group = \Sentry::createGroup([
+        \Sentry::createGroup([
               'name' => 'Instructors',
               'permissions' => [
                 'reports.create' => 1,
@@ -41,7 +40,7 @@ class GroupsTableSeeder extends Seeder {
                 'sessions.cancel' => 1
               ]
           ]);
-        $group = \Sentry::createGroup([
+        \Sentry::createGroup([
               'name' => 'Mentors',
               'permissions' => [
                   'reports.create' => 1,
@@ -53,13 +52,13 @@ class GroupsTableSeeder extends Seeder {
                   'sessions.cancel' => 0
               ]
           ]);
-        $group = \Sentry::createGroup([
+        \Sentry::createGroup([
               'name' => 'Events',
               'permissions' => [
                   'events.all' => 1
               ]
           ]);
-        $group = \Sentry::createGroup([
+        \Sentry::createGroup([
               'name' => 'Staff',
               'permissions' => [
                   'news.view' => 1

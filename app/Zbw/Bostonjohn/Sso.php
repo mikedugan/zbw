@@ -2,11 +2,7 @@
 
 use Zbw\Users\Auth\OAuthConsumer;
 use Zbw\Users\Auth\OAuthRequest;
-use Zbw\Users\Auth\OAuthSignatureMethod;
-use Zbw\Users\Auth\OAuthSignatureMethod_RSA_SHA1;
 use Zbw\Users\Auth\SSO_OAuthSignatureMethod_RSA_SHA1;
-use Zbw\Users\Auth\OAuthToken;
-use Zbw\Users\Auth\OAuthUtil;
 
 class Sso
 {

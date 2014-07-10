@@ -1,76 +1,83 @@
 <?php
 
-class RemindersController extends Controller {
+class RemindersController extends Controller
+{
 
-	/**
-	 * Display the password reminder view.
-	 *
-	 * @return Response
-	 */
-	public function getRemind()
-	{
-		$data = [ 'title' => 'Forgot Password'];
-		return View::make('users.password.remind', $data);
-	}
+    /**
+     * Display the password reminder view.
+     *
+     * @return Response
+     */
+    public function getRemind()
+    {
+        $data = ['title' => 'Forgot Password'];
 
-	/**
-	 * Handle a POST request to remind a user of their password.
-	 *
-	 * @return Response
-	 */
-	public function postRemind()
-	{
-		switch ($response = Password::remind(Input::only('email')))
-		{
-			case Password::INVALID_USER:
-				return Redirect::back()->with('error', Lang::get($response));
+        return View::make('users.password.remind', $data);
+    }
 
-			case Password::REMINDER_SENT:
-				return Redirect::back()->with('status', Lang::get($response));
-		}
-	}
+    /**
+     * Handle a POST request to remind a user of their password.
+     *
+     * @return Response
+     */
+    public function postRemind()
+    {
+        switch ($response = Password::remind(Input::only('email'))) {
+            case Password::INVALID_USER:
+                return Redirect::back()->with('error', Lang::get($response));
 
-	/**
-	 * Display the password reset view for the given token.
-	 *
-	 * @param  string  $token
-	 * @return Response
-	 */
-	public function getReset($token = null)
-	{
-		if (is_null($token)) App::abort(404);
-		$data = [ 'title' => 'Reset Password'];
-		return View::make('users.password.reset', $data)->with('token', $token);
-	}
+            case Password::REMINDER_SENT:
+            default:
+                return Redirect::back()->with('status', Lang::get($response));
+        }
+    }
 
-	/**
-	 * Handle a POST request to reset a user's password.
-	 *
-	 * @return Response
-	 */
-	public function postReset()
-	{
-		$credentials = Input::only(
-			'email', 'password', 'password_confirmation', 'token'
-		);
+    /**
+     * Display the password reset view for the given token.
+     *
+     * @param  string $token
+     *
+     * @return Response
+     */
+    public function getReset($token = null)
+    {
+        if (is_null($token)) {
+            App::abort(404);
+        }
+        $data = ['title' => 'Reset Password'];
 
-		$response = Password::reset($credentials, function($user, $password)
-		{
-			$user->password = Hash::make($password);
+        return View::make('users.password.reset', $data)->with('token', $token);
+    }
 
-			$user->save();
-		});
+    /**
+     * Handle a POST request to reset a user's password.
+     *
+     * @return Response
+     */
+    public function postReset()
+    {
+        $credentials = Input::only(
+          'email', 'password', 'password_confirmation', 'token'
+        );
 
-		switch ($response)
-		{
-			case Password::INVALID_PASSWORD:
-			case Password::INVALID_TOKEN:
-			case Password::INVALID_USER:
-				return Redirect::back()->with('error', Lang::get($response));
+        $response = Password::reset(
+          $credentials, function ($user, $password) {
+              $user->password = Hash::make($password);
 
-			case Password::PASSWORD_RESET:
-				return Redirect::to('/login')->with('flash_success', 'Password reset successfully');
-		}
-	}
+              $user->save();
+          }
+        );
+
+        switch ($response) {
+            case Password::INVALID_PASSWORD:
+            case Password::INVALID_TOKEN:
+            case Password::INVALID_USER:
+                return Redirect::back()->with('error', Lang::get($response));
+
+            case Password::PASSWORD_RESET:
+                return Redirect::to('/login')
+                               ->with('flash_success', 'Password reset successfully');
+        }
+    }
 
 }
