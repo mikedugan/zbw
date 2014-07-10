@@ -1,8 +1,6 @@
 <?php  namespace Zbw\Commands;
 
 use Illuminate\Console\Command;
-use Curl\Curl;
-use Zbw\Bostonjohn\RosterXmlParser;
 
 class UpdateRoster extends Command {
     /**

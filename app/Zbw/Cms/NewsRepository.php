@@ -55,8 +55,6 @@ class NewsRepository extends EloquentRepository implements NewsRepositoryInterfa
         if(is_array($invalid)) return $invalid;
 
         //just in case a user forgot to properly set the date on the news
-        $starts = '';
-        $ends = '';
         if( ! $input['starts']) { $starts = \Carbon::now(); }
         else { $starts = \Carbon::createFromFormat('Y/m/d H:i', $input['starts']); }
         if( ! $input['ends']) { $ends = \Carbon::now()->addWeek(); }

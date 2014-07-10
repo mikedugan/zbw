@@ -189,7 +189,7 @@ class MessagesRepository extends EloquentRepository implements MessagesRepositor
             $message->is_read = 1;
             $message->save();
         }
-
+        return true;
     }
 
     /**

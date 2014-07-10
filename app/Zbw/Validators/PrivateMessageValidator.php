@@ -1,6 +1,4 @@
-<?php  namespace Zbw\Validators; 
-
-use Zbw\Base\Helpers;
+<?php  namespace Zbw\Validators;
 
 class PrivateMessageValidator extends ZbwValidator
 {

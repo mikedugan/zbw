@@ -1,7 +1,18 @@
 <?php namespace Zbw\Users\Contracts;
 
+/**
+ *
+ */
 interface UserRepositoryInterface
 {
+    /**
+     * @name  findByInitials
+     * @description
+     *
+     * @param $initials
+     *
+     * @return mixed
+     */
     public function findByInitials($initials);
 
     /**
@@ -13,14 +24,18 @@ interface UserRepositoryInterface
     public function allVitals();
 
     /**
-     * @param string  first name
-     * @param string  last name
-     * @param string  email address
-     * @param string  home artcc
-     * @param integer cid
+     * @name       add
+     * @description
      *
-     * @return boolean
-     * @deprecated
+     * @param      $fname
+     * @param      $lname
+     * @param      $email
+     * @param      $artcc
+     * @param      $cid
+     * @param      $rating
+     * @param bool $notify
+     *
+     * @return mixed
      */
     public function add($fname, $lname, $email, $artcc, $cid, $rating, $notify = true);
 
@@ -36,6 +51,14 @@ interface UserRepositoryInterface
      */
     public function updateUser($cid, $input);
 
+    /**
+     * @name  authUpdate
+     * @description
+     *
+     * @param $user
+     *
+     * @return mixed
+     */
     public function authUpdate($user);
 
     /**
@@ -116,8 +139,22 @@ interface UserRepositoryInterface
      */
     public function activateUser($id);
 
+    /**
+     * @name getStaff
+     * @description
+     * @return mixed
+     */
     public function getStaff();
 
+    /**
+     * @type static
+     * @name  canTrain
+     * @description
+     *
+     * @param $level
+     *
+     * @return mixed
+     */
     public static function canTrain($level);
 
     /**
@@ -125,9 +162,33 @@ interface UserRepositoryInterface
      */
     public function canCertify($level);
 
+    /**
+     * @name  checkUser
+     * @description
+     *
+     * @param $user
+     *
+     * @return mixed
+     */
     public function checkUser($user);
 
+    /**
+     * @name  updateSettings
+     * @description
+     *
+     * @param $input
+     *
+     * @return mixed
+     */
     public function updateSettings($input);
 
+    /**
+     * @name  updateNotifications
+     * @description
+     *
+     * @param $input
+     *
+     * @return mixed
+     */
     public function updateNotifications($input);
 }

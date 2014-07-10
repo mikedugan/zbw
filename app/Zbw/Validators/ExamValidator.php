@@ -1,6 +1,4 @@
-<?php  namespace Zbw\Validators; 
-
-use Illuminate\Routing\Matching\ValidatorInterface;
+<?php  namespace Zbw\Validators;
 
 class ExamZbwValidator extends ZbwValidator
 {

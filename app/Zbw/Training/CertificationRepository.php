@@ -40,7 +40,7 @@ class CertificationRepository extends EloquentRepository implements Certificatio
     public function assignExam($cid)
     {
         $e = $this->exams->create($cid);
-        $p = \PendingExam::create(
+        \PendingExam::create(
           ['exam_id' => $e->id, 'cert_id' => $this->exam->id, 'cid' => $cid]
         );
     }

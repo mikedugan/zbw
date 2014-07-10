@@ -44,7 +44,7 @@ class ForumsController extends BaseController
     public function postCreate()
     {
         $input = \Input::all();
-        if (ForumsRepository::create($input)) {
+        if ($this->forums->create($input)) {
             return Redirect::route('forums')->with(
               'flash_success',
               'Forum successfully created!'
@@ -60,7 +60,7 @@ class ForumsController extends BaseController
     public function getSettings()
     {
         $data = [
-          'forums' => ForumsRepository::all(),
+          'forums' => $this->forums->all(),
         ];
 
         return View::make('forums.settings', $data);
