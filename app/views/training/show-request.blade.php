@@ -26,12 +26,12 @@ View Request
         <p><b>Training Session Completed: </b>{{$request->completed_at or 'Not Yet'}}</p>
     </div>
     <div class="col-md-6">
-    @if(($me == $request->student || $me->is_atm || $me->is_datm || $me->is_ta || $me->is_webmaster) && !$request->is_completed)
+    @if(($me->is_exec()) && !$request->is_completed)
     <form action="/t/request/{{$request->id}}/cancel" method="post">
         <button type="submit" class="btn btn-sm btn-danger">Cancel Request</button>
     </form>
     @endif
-    @if($me->is_mentor || $me->is_instructor)
+    @if($me->is_mentor() || $me->is_instructor())
         @if(($request->sid === $me->cid) && !$request->is_completed)
         <form class="axform" action="/t/request/{{$request->id}}/drop" method="post">
             <button type="submit" class="btn btn-sm btn-warning">Drop Request</button>
