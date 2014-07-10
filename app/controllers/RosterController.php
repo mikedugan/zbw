@@ -19,8 +19,8 @@ class RosterController extends BaseController {
         $view = \Input::get('v');
         $action = \Input::get('action');
         $id = \Input::get('id');
-        $pag = 10;
-        if(\Input::has('num')) $pag = \Input::get('num');
+        $pag = 15;
+        if(\Input::has('num')) $pag = 999;
         $data = [
           'users' => $this->users->with(['rating'], null, 'cid', $pag),
           'view' => $view,
