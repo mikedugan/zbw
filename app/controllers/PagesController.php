@@ -1,12 +1,12 @@
 <?php
 
-use Zbw\Cms\PagesRepository;
+use Zbw\Cms\Contracts\PagesRepositoryInterface;
 
 class PagesController extends BaseController {
 
 	private $pages;
 
-	public function __construct(PagesRepository $pages) {
+	public function __construct(PagesRepositoryInterface $pages) {
 		$this->pages = $pages;
 	}
 

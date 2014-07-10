@@ -1,12 +1,12 @@
 <?php  namespace Zbw\Bostonjohn;
 
-use Zbw\Users\OAuthConsumer;
-use Zbw\Users\OAuthRequest;
-use Zbw\Users\OAuthSignatureMethod;
-use Zbw\Users\OAuthSignatureMethod_RSA_SHA1;
-use Zbw\Users\SSO_OAuthSignatureMethod_RSA_SHA1;
-use Zbw\Users\OAuthToken;
-use Zbw\Users\OAuthUtil;
+use Zbw\Users\Auth\OAuthConsumer;
+use Zbw\Users\Auth\OAuthRequest;
+use Zbw\Users\Auth\OAuthSignatureMethod;
+use Zbw\Users\Auth\OAuthSignatureMethod_RSA_SHA1;
+use Zbw\Users\Auth\SSO_OAuthSignatureMethod_RSA_SHA1;
+use Zbw\Users\Auth\OAuthToken;
+use Zbw\Users\Auth\OAuthUtil;
 
 class Sso
 {

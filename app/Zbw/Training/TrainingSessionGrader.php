@@ -2,7 +2,7 @@
 
 use Carbon\Carbon;
 
-class TrainingSessionGrader
+class TrainingSessionGrader implements TrainingGraderInterface
 {
     private $raw;
     private $reviews;

@@ -1,6 +1,8 @@
-<?php  namespace Zbw\Repositories; 
+<?php  namespace Zbw\Users;
 
-class StaffingRepository
+use Zbw\Users\Contracts\StaffingRepositoryInterface;
+
+class StaffingRepository implements StaffingRepositoryInterface
 {
     protected $staffing;
     public function __construct($staffing = null)

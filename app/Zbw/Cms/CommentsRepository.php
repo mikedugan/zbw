@@ -2,8 +2,9 @@
 
 
 use Zbw\Base\EloquentRepository;
+use Zbw\Cms\Contracts\CommentsRepositoryInterface;
 
-class CommentsRepository extends EloquentRepository
+class CommentsRepository extends EloquentRepository implements CommentsRepositoryInterface
 {
     public $model = '\Comment';
     public static function add($input)
@@ -15,7 +16,7 @@ class CommentsRepository extends EloquentRepository
             'comment_type' => $input['comment_type'],
           ]
         );
-        $comment->author = \Auth::user()->cid;
+        $comment->author = \Sentry::getUser()->cid;
         return $comment->save();
     }
 

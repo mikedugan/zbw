@@ -1,15 +1,17 @@
 <?php namespace Zbw\Training;
 
 use Zbw\Base\EloquentRepository;
-use Zbw\Users\UserRepository;
 use Zbw\Base\Helpers;
+use Zbw\Users\Contracts\UserRepositoryInterface;
+use Zbw\Training\Contracts\ExamsRepositoryInterface;
 
-class ExamsRepository extends EloquentRepository {
+class ExamsRepository extends EloquentRepository implements ExamsRepositoryInterface
+{
 
     public $model = '\Exam';
     protected $users;
 
-    public function __construct(UserRepository $users)
+    public function __construct(UserRepositoryInterface $users)
     {
         $this->users = $users;
     }

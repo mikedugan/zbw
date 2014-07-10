@@ -2,9 +2,10 @@
 
 use Zbw\Base\EloquentRepository;
 use Zbw\Facades\ZbwValidator;
-use Zbw\Users\UserRepository;
+use Zbw\Users\Contracts\UserRepositoryInterface;
+use Zbw\Cms\Contracts\MessagesRepositoryInterface;
 
-class MessagesRepository extends EloquentRepository
+class MessagesRepository extends EloquentRepository implements MessagesRepositoryInterface
 {
 
     const PRIVATE_MESSAGE = 1;
@@ -15,7 +16,7 @@ class MessagesRepository extends EloquentRepository
     private $users;
     public $model = '\Message';
 
-    public function __construct(UserRepository $users)
+    public function __construct(UserRepositoryInterface $users)
     {
         $this->users = $users;
     }

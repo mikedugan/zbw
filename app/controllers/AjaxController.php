@@ -1,6 +1,6 @@
 <?php 
 
-use Zbw\Users\UserRepository;
+use Zbw\Users\UserRepositoryInterface;
 use Zbw\Cms\MessagesRepository;
 use Zbw\Bostonjohn\Notifier;
 use Zbw\Training\CertificationRepository;
@@ -12,7 +12,7 @@ class AjaxController extends BaseController
     private $emailer;
     private $certs;
 
-    public function __construct(UserRepository $users, MessagesRepository $messages, Notifier $emailer, CertificationRepository $certs)
+    public function __construct(UserRepositoryInterface $users, MessagesRepository $messages, Notifier $emailer, CertificationRepository $certs)
     {
         $this->users = $users;
         $this->messages = $messages;

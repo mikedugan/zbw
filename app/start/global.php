@@ -78,6 +78,6 @@ App::down(function()
 | definitions instead of putting them all in the main routes file.
 |
 */
-
+require app_path().'/Zbw/Start/zbw.php';
 require app_path().'/Zbw/Start/filters.php';
 require app_path().'/Zbw/Start/events.php';

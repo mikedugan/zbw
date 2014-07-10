@@ -1,7 +1,7 @@
 <?php  namespace Zbw\Bostonjohn;
 
-use Zbw\Users\UserRepository;
 use Curl\Curl;
+use Zbw\Users\UserRepositoryInterface;
 
 class RosterXmlParser
 {
@@ -9,7 +9,7 @@ class RosterXmlParser
     private $roster_url;
     private $curl;
 
-    public function __construct(UserRepository $users, Curl $curl)
+    public function __construct(UserRepositoryInterface $users, Curl $curl)
     {
         $this->users = $users;
         $this->curl = $curl;

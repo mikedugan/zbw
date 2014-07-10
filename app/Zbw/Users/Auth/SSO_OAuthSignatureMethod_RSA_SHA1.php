@@ -1,4 +1,4 @@
-<?php  namespace Zbw\Users; 
+<?php  namespace Zbw\Users\Auth;
 
 class SSO_OAuthSignatureMethod_RSA_SHA1 extends OAuthSignatureMethod_RSA_SHA1 {
     private $cert = false;

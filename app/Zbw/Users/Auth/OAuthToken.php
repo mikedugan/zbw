@@ -1,4 +1,4 @@
-<?php  namespace Zbw\Users; 
+<?php  namespace Zbw\Users\Auth;
 
 class OAuthToken {
     // access tokens and request tokens

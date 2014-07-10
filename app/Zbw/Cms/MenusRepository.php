@@ -1,8 +1,9 @@
 <?php  namespace Zbw\Cms;
 
 use Zbw\Base\EloquentRepository;
+use Zbw\Cms\Contracts\MenusRepositoryInterface;
 
-class MenusRepository extends EloquentRepository
+class MenusRepository extends EloquentRepository implements MenusRepositoryInterface
 {
     public function create($input)
     {

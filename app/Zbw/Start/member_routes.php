@@ -46,7 +46,7 @@ Route::group(
         '/training/review/{eid}',
         [
           'as'   => 'training/review-session',
-          'uses' => 'ControllerExamsController@postComment'
+          'uses' => 'ExamsController@postComment'
         ]
       );
       Route::post(

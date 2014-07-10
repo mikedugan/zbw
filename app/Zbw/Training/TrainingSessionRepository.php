@@ -1,8 +1,10 @@
 <?php namespace Zbw\Training;
 
 use Zbw\Base\EloquentRepository;
+use Zbw\Training\Contracts\TrainingSessionRepositoryInterface;
 
-class TrainingSessionRepository extends EloquentRepository {
+class TrainingSessionRepository extends EloquentRepository implements TrainingSessionRepositoryInterface
+{
     public $model = '\TrainingSession';
     /**
      * @param array $input
