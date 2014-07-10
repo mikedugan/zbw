@@ -13,15 +13,15 @@ Route::group(
       );
       Route::get(
         '/u/' . $cid,
-        array('as' => 'me', 'uses' => 'ControllersController@getMe')
+        array('as' => 'me', 'uses' => 'UsersController@getMe')
       );
       Route::get(
         'me/profile',
-        ['as' => 'profile', 'uses' => 'ControllersController@getSettings']
+        ['as' => 'profile', 'uses' => 'UsersController@getSettings']
       );
       Route::post(
         'me/profile',
-        ['as' => 'profile', 'uses' => 'ControllersController@postSettings']
+        ['as' => 'profile', 'uses' => 'UsersController@postSettings']
       );
       //training and exam routes
       Route::get(

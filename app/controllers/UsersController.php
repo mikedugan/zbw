@@ -2,7 +2,7 @@
 use Zbw\Cms\MessagesRepository;
 use Zbw\Users\UserRepository;
 
-class ControllersController extends BaseController
+class UsersController extends BaseController
 {
 
     private $users;
@@ -14,11 +14,22 @@ class ControllersController extends BaseController
         $this->messages = $messages;
     }
 
+
+
     public function getIndex()
     {
         $data = [
         ];
         return View::make('zbw.controllers');
+    }
+
+    //staff
+    public function showUser($id)
+    {
+        $data = [
+          'user' => $this->users->get($id)
+        ];
+        return View::make('staff.roster.view', $data);
     }
 
     public function getController($id)
