@@ -8,7 +8,20 @@ ZBW Airport Poker
     <div class="col-md-6">
         <h3 class="text-center">Current Standings</h3>
         <div class="col-md-12">
-
+            <ol>
+                <?php $names = \Config::get('zbw.poker.card_names'); ?>
+            @foreach($standings as $hand)
+                <li>
+                    <p>Pilot: {{$hand[0]}}, Hand: {{$hand[1][0]}}</p>
+                    <p>Hand:
+                        <?php $cards = $hand[1][4]; ?>
+                    @foreach($cards as $card)
+                        {{ $names[$card[0]] }},
+                        @endforeach
+                    </p>
+                </li>
+            @endforeach
+            </ol>
         </div>
     </div>
     <div class="col-md-6">
@@ -31,7 +44,7 @@ ZBW Airport Poker
         <div class="col-md-12">
             <h3 class="text-center">Pilots</h3>
             @foreach($pilots as $pilot)
-            <p class="col-md-6 text-center"><a href="{{$pilot}}">{{$pilot}}</a></p>
+            <p class="col-md-6 text-center"><a href="/staff/poker/{{$pilot}}">{{$pilot}}</a></p>
             @endforeach
         </div>
     </div>

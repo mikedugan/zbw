@@ -1,15 +1,41 @@
 <?php  namespace Zbw\Poker; 
 
 class PokerHandAnalyzer {
-    public function analyze_hand($cards) {
+
+    public function sortHands(Array $hands)
+    {
+        usort($hands, function($a, $b) {
+              return $a[1][3] < $b[1][3];
+          });
+        return $hands;
+    }
+
+    public function analyzeHands(Array $hands)
+    {
+        $ret = [];
+        foreach($hands as $hand) {
+            $ret[] = [$hand[0],$this->analyzeHand($hand[1]),$hand[1][1]];
+        }
+        return $ret;
+    }
+
+    /**
+     * written by Ross Carlson (vatsim@metacraft.net)
+     * @name  analyze_hand
+     * @description analyzes a poker hand
+     * @param array $cards
+     * @return array
+     */
+
+    private function analyzeHand($cards) {
 
         $card_weight = \Config::get('zbw.poker.card_weights');
         // Build array representing the relative value of each card.
         $card_weights = [];
         $card_suits = [];
         foreach ($cards as $card) {
-            $c = substr ($card, 0, 1);
-            $s = substr ($card, strlen ($card) - 1, 1);
+            $c = substr ($card[0], 0, 1);
+            $s = substr ($card[0], strlen ($card[0]) - 1, 1);
             array_push ($card_suits, $s);
             array_push ($card_weights, $card_weight[$c]);
         }
@@ -41,12 +67,12 @@ class PokerHandAnalyzer {
                 $relative_weight = $card_weights[0] + ($card_weights[1] * 10) + ($card_weights[2] * 100) + ($card_weights[3] * 1000) + ($card_weights[4] * 10000);
                 if ($is_flush) {
                     if ($total_weight == 110) {
-                        return array ('Royal Flush', 10, $total_weight, $relative_weight);
+                        return ['Royal Flush', 10, $total_weight, $relative_weight, $cards];
                     } else {
-                        return array ('Straight Flush', 9, $total_weight, $relative_weight);
+                        return ['Straight Flush', 9, $total_weight, $relative_weight, $cards];
                     }
                 } else {
-                    return array ('Straight', 5, $total_weight, $relative_weight);
+                    return ['Straight', 5, $total_weight, $relative_weight, $cards];
                 }
             }
         }
@@ -65,7 +91,7 @@ class PokerHandAnalyzer {
                 $relative_weight = $card_weights[1] * 40;
                 $relative_weight += $card_weights[0];
             }
-            return array ('Four of a Kind', 8, $total_weight, $relative_weight);
+            return ['Four of a Kind', 8, $total_weight, $relative_weight, $cards];
         }
 
         // Detect a full house.
@@ -80,13 +106,13 @@ class PokerHandAnalyzer {
             } else {
                 $relative_weight = (($card_weights[2] * 100) * 3) + ($card_weights[0] * 2);
             }
-            return array ('Full House', 7, $total_weight, $relative_weight);
+            return ['Full House', 7, $total_weight, $relative_weight, $cards];
         }
 
         // At this point, a flush is higher than any as-yet undetected hand.
         if ($is_flush) {
             $relative_weight = $card_weights[0] + ($card_weights[1] * 10) + ($card_weights[2] * 100) + ($card_weights[3] * 1000) + ($card_weights[4] * 10000);
-            return array ('Flush', 6, $total_weight, $relative_weight);
+            return ['Flush', 6, $total_weight, $relative_weight, $cards];
         }
 
         // Detect three of a kind.
@@ -109,7 +135,7 @@ class PokerHandAnalyzer {
                 $relative_weight += $card_weights[0];
                 $relative_weight += $card_weights[1];
             }
-            return array ('Three of a Kind', 4, $total_weight, $relative_weight);
+            return ['Three of a Kind', 4, $total_weight, $relative_weight, $cards];
         }
 
         // Detect two pair.
@@ -119,7 +145,7 @@ class PokerHandAnalyzer {
             ($card_weights[3] == $card_weights[4])) ||
           (($card_weights[1] == $card_weights[2]) &&
             ($card_weights[3] == $card_weights[4]))) {
-            $unused = array ();
+            $unused = [];
             $unused[0] = true;
             $unused[1] = true;
             $unused[2] = true;
@@ -150,7 +176,7 @@ class PokerHandAnalyzer {
             if ($unused[2]) { $relative_weight += $card_weights[2]; }
             if ($unused[3]) { $relative_weight += $card_weights[3]; }
             if ($unused[4]) { $relative_weight += $card_weights[4]; }
-            return array ('Two Pair', 3, $total_weight, $relative_weight);
+            return ['Two Pair', 3, $total_weight, $relative_weight, $cards];
         }
 
         // Detect one pair.
@@ -182,11 +208,11 @@ class PokerHandAnalyzer {
                 $relative_weight += $card_weights[1];
                 $relative_weight += $card_weights[2];
             }
-            return array ('One Pair', 2, $total_weight, $relative_weight);
+            return ['One Pair', 2, $total_weight, $relative_weight, $cards];
         }
 
         // Crappy hand.
-        $relative_weight = $card_weights[0] + ($card_weights[1] * 10) + ($card_weights[2] * 100) + ($card_weights[3] * 1000) + ($card_weights[4] * 10000);
-        return array ('Nothing', 1, $total_weight, $relative_weight);
+        $relative_weight = $card_weights[0] + ($card_weights[1]) + ($card_weights[2]) + ($card_weights[3]) + ($card_weights[4]);
+        return ['Nothing', 1, $total_weight, $relative_weight, $cards];
     }
 } 
