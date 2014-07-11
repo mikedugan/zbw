@@ -6,6 +6,7 @@
             <li>{{ HTML::link('staff/training', 'Training') }}</li>
             <li>{{ HTML::link('staff/ts', 'Teamspeak') }}</li>
             <li>{{ HTML::link('staff/news', 'News & Events') }}</li>
+            <li>{{ HTML::linkRoute('poker', 'Poker') }}</li>
             <li>{{ HTML::link('staff/pages', 'Pages') }}</li>
         </ul>
     </li>

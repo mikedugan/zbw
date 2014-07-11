@@ -1,13 +1,15 @@
 <?php  namespace Zbw\Poker; 
 
-use Zbw\Poker\PokerRepository;
+use Zbw\Poker\Contracts\PokerServiceInterface;
+use Zbw\Poker\Contracts\PokerRepositoryInterface;
 
-class PokerService {
+class PokerService implements PokerServiceInterface
+{
 
     private $cards;
     private $analyzer;
 
-    public function __construct(PokerRepository $cards, PokerHandAnalyzer $analyzer)
+    public function __construct(PokerRepositoryInterface $cards, PokerHandAnalyzer $analyzer)
     {
         $this->cards = $cards;
         $this->analyzer = $analyzer;
@@ -15,6 +17,7 @@ class PokerService {
 
     public function draw($input)
     {
+        if($this->cards->countCardsInHand($input['pid']) > 5) { return false; }
         $card = $this->cards->create([
               'pid' => $input['pid'],
               'card' => !empty($input['card']) ? $input['card'] : $this->generateCard()
@@ -73,6 +76,14 @@ class PokerService {
     public function getPilots()
     {
         return $this->cards->getPilotsList();
+    }
+
+    public function getStandings()
+    {
+        //$hands[pid, array [card, id]]
+        $hands = $this->cards->getValidHands();
+        $graded_hands = $this->analyzer->analyzeHands($hands);
+        return $this->analyzer->sortHands($graded_hands);
     }
 }
 

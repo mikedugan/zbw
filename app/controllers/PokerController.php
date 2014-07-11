@@ -1,12 +1,12 @@
 <?php
 
-use Zbw\Poker\PokerService;
+use Zbw\Poker\Contracts\PokerServiceInterface;
 
 class PokerController extends \BaseController {
 
     private $service;
 
-    public function __construct(PokerService $service)
+    public function __construct(PokerServiceInterface $service)
     {
         $this->service = $service;
     }
@@ -14,7 +14,8 @@ class PokerController extends \BaseController {
     public function getIndex()
     {
         $data = [
-            'pilots' => $this->service->getPilots()
+            'pilots' => $this->service->getPilots(),
+            'standings' => $this->service->getStandings()
         ];
         return View::make('staff.poker.index', $data);
     }
@@ -22,8 +23,15 @@ class PokerController extends \BaseController {
     public function postIndex()
     {
         $draw = $this->service->draw(\Input::all());
-        return Redirect::back()->with('flash_success',
-          $draw['card'] . " drawn for pilot " . $draw['pid']);
+        if($draw) {
+            return Redirect::back()->with(
+              'flash_success',
+              $draw['card'] . " drawn for pilot " . $draw['pid']
+            );
+        }
+        else {
+            return Redirect::back()->with('flash_error', \Input::get('pid') . ' must discard before they can draw a new card');
+        }
     }
 
     public function getPilot($pid)
