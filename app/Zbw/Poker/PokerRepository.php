@@ -8,11 +8,27 @@ class PokerRepository extends EloquentRepository implements PokerRepositoryInter
 
     public $model = '\PokerCard';
 
+    /**
+     * @name  update
+     * @description
+     *
+     * @param $input
+     *
+     * @return void
+     */
     public function update($input)
     {
 
     }
 
+    /**
+     * @name  create
+     * @description
+     *
+     * @param $input
+     *
+     * @return \Illuminate\Database\Eloquent\Model|static
+     */
     public function create($input)
     {
         $card = \PokerCard::create([
@@ -23,6 +39,11 @@ class PokerRepository extends EloquentRepository implements PokerRepositoryInter
         return $card;
     }
 
+    /**
+     * @name getValidHands
+     * @description
+     * @return array
+     */
     public function getValidHands()
     {
         $pilots = $this->getPilotsList();
@@ -41,16 +62,40 @@ class PokerRepository extends EloquentRepository implements PokerRepositoryInter
         return $hands;
     }
 
+    /**
+     * @name  countCardsInHand
+     * @description
+     *
+     * @param $pid
+     *
+     * @return mixed
+     */
     public function countCardsInHand($pid)
     {
         return $this->make()->where('pid', $pid)->where('discarded', null)->count();
     }
 
+    /**
+     * @name  getDiscarded
+     * @description
+     *
+     * @param $pid
+     *
+     * @return mixed
+     */
     public function getDiscarded($pid)
     {
         return $this->make()->where('pid', $pid)->where('discarded', '!=', null)->get();
     }
 
+    /**
+     * @name  discard
+     * @description
+     *
+     * @param $cardId
+     *
+     * @return void
+     */
     public function discard($cardId)
     {
         $card = $this->make()->find($cardId);
@@ -58,11 +103,24 @@ class PokerRepository extends EloquentRepository implements PokerRepositoryInter
         $card->save();
     }
 
+    /**
+     * @name getPilotsList
+     * @description
+     * @return mixed
+     */
     public function getPilotsList()
     {
         return $this->make()->distinct('pid')->lists('pid');
     }
 
+    /**
+     * @name  getHandsByPilot
+     * @description
+     *
+     * @param $pid
+     *
+     * @return mixed
+     */
     public function getHandsByPilot($pid)
     {
         return $this->make()->where('pid', $pid)->where('discarded', null)->get();

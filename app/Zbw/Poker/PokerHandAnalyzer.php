@@ -2,6 +2,14 @@
 
 class PokerHandAnalyzer {
 
+    /**
+     * @name        sortHands
+     * @description
+     *
+     * @param array $hands
+     *
+     * @return array
+     */
     public function sortHands(Array $hands)
     {
         usort($hands, function($a, $b) {
@@ -10,6 +18,14 @@ class PokerHandAnalyzer {
         return $hands;
     }
 
+    /**
+     * @name        analyzeHands
+     * @description
+     *
+     * @param array $hands
+     *
+     * @return array
+     */
     public function analyzeHands(Array $hands)
     {
         $ret = [];
