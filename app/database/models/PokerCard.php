@@ -1,7 +1,8 @@
 <?php
 
 class PokerCard extends Eloquent {
-	protected $guarded = array();
+	protected $guarded = [];
 	protected $table = 'zbw_pokercards';
-	public $rules = array();
+	public $rules = [];
+    public $dates = ['discarded'];
 }
