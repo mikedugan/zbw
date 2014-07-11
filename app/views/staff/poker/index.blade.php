@@ -12,14 +12,16 @@ ZBW Airport Poker
                 <?php $names = \Config::get('zbw.poker.card_names'); ?>
             @foreach($standings as $hand)
                 <li>
-                    <p>Pilot: {{$hand[0]}}, Hand: {{$hand[1][0]}}</p>
-                    <p>Hand:
+                    <p>Pilot: {{$hand[0]}}</p>
+                    <h5 class="text-left">{{ $hand[1][0] }}</h5>
+                    <p>
                         <?php $cards = $hand[1][4]; ?>
                     @foreach($cards as $card)
-                        {{ $names[$card[0]] }},
+                        <img src="/images/cards/{{$card[0]}}.gif">
                         @endforeach
                     </p>
                 </li>
+                <hr>
             @endforeach
             </ol>
         </div>

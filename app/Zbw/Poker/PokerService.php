@@ -15,6 +15,14 @@ class PokerService implements PokerServiceInterface
         $this->analyzer = $analyzer;
     }
 
+    /**
+     * @name  draw
+     * @description
+     *
+     * @param $input
+     *
+     * @return bool
+     */
     public function draw($input)
     {
         if($this->cards->countCardsInHand($input['pid']) > 5) { return false; }
@@ -25,11 +33,24 @@ class PokerService implements PokerServiceInterface
         return $card;
     }
 
+    /**
+     * @name  discard
+     * @description
+     *
+     * @param $cardId
+     *
+     * @return mixed
+     */
     public function discard($cardId)
     {
         return $this->cards->discard($cardId);
     }
 
+    /**
+     * @name generateCard
+     * @description
+     * @return string
+     */
     private function generateCard()
     {
         $suite = mt_rand(1,4);
@@ -68,16 +89,34 @@ class PokerService implements PokerServiceInterface
         return $card.$suite;
     }
 
+    /**
+     * @name  getPilotCards
+     * @description
+     *
+     * @param $pid
+     *
+     * @return mixed
+     */
     public function getPilotCards($pid)
     {
         return $this->cards->getHandsByPilot($pid);
     }
 
+    /**
+     * @name getPilots
+     * @description
+     * @return mixed
+     */
     public function getPilots()
     {
         return $this->cards->getPilotsList();
     }
 
+    /**
+     * @name getStandings
+     * @description
+     * @return array
+     */
     public function getStandings()
     {
         //$hands[pid, array [card, id]]
