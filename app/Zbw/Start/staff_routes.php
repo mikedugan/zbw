@@ -106,6 +106,11 @@ Route::group(['before'   => 'auth|staff'], function () {
 					['as' => 'staff/ts', 'uses' => 'AdminController@getTsIndex']
 				);
 
+          Route::get('poker', ['as' => 'poker','uses' => 'PokerController@getIndex']);
+          Route::post('poker', ['as' => 'poker', 'uses' => 'PokerController@postIndex']);
+          Route::get('poker/{id}', ['as' => 'poker/{id}', 'uses' => 'PokerController@getPilot']);
+          Route::post('poker/{id}', ['as' => 'poker/{id}', 'uses' => 'PokerController@postDiscard']);
+
 				Route::get(
 					'news',
 					['as' => 'staff/news', 'uses' => 'NewsController@getAdminIndex']
