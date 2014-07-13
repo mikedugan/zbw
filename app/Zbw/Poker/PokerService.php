@@ -2,17 +2,20 @@
 
 use Zbw\Poker\Contracts\PokerServiceInterface;
 use Zbw\Poker\Contracts\PokerRepositoryInterface;
+use Curl\Curl;
 
 class PokerService implements PokerServiceInterface
 {
 
     private $cards;
     private $analyzer;
+    private $curl;
 
-    public function __construct(PokerRepositoryInterface $cards, PokerHandAnalyzer $analyzer)
+    public function __construct(PokerRepositoryInterface $cards, PokerHandAnalyzer $analyzer, Curl $curl)
     {
         $this->cards = $cards;
         $this->analyzer = $analyzer;
+        $this->curl = $curl;
     }
 
     /**
@@ -30,6 +33,15 @@ class PokerService implements PokerServiceInterface
               'pid' => $input['pid'],
               'card' => !empty($input['card']) ? $input['card'] : $this->generateCard()
           ]);
+        if(\PokerPilot::where('pid', $card->pid)->count() === 0) {
+            $pilot = $this->getPilot($card->pid);
+            \PokerPilot::create([
+                'pid' => $card->pid,
+                'first_name' => $pilot['user']['name_first'],
+                'last_name' => $pilot['user']['name_last'],
+                'country' => $pilot['user']['country']
+            ]);
+        }
         return $card;
     }
 
@@ -123,6 +135,13 @@ class PokerService implements PokerServiceInterface
         $hands = $this->cards->getValidHands();
         $graded_hands = $this->analyzer->analyzeHands($hands);
         return $this->analyzer->sortHands($graded_hands);
+    }
+
+    public function getPilot($pid)
+    {
+        $this->curl->get(\Config::get('zbw.controller_status').$pid);
+        $pilot = simplexml_load_string($this->curl->response);
+        return json_decode(json_encode((array)$pilot), 1);
     }
 }
 

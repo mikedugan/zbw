@@ -43,6 +43,8 @@ return [
 
     'vatsim_status' => 'http://status.vatsim.net/status.txt',
 
+    'controller_status' => 'https://cert.vatsim.net/cert/vatsimnet/idstatus.php?cid=',
+
     'airports' => [
         //B and C
         'KMHT', 'KBOS', 'KBTV', 'KBDL', 'KPVD', 'KSYR', 'KALB', 'KBGR', 'KPWM',
