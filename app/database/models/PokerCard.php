@@ -5,4 +5,9 @@ class PokerCard extends Eloquent {
 	protected $table = 'zbw_pokercards';
 	public $rules = [];
     public $dates = ['discarded'];
+
+    public function pilot()
+    {
+        return $this->belongsTo('PokerPilot', 'pid', 'pid');
+    }
 }
