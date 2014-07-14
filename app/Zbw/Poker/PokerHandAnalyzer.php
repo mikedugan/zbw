@@ -3,27 +3,22 @@
 class PokerHandAnalyzer {
 
     /**
-     * @name        sortHands
-     * @description
-     *
+     * @description do a little low-level usort magic on the total weight of the hands
      * @param array $hands
-     *
      * @return array
      */
     public function sortHands(Array $hands)
     {
         usort($hands, function($a, $b) {
+            //wtf is this going to be now?
               return $a[1][3] < $b[1][3];
           });
         return $hands;
     }
 
     /**
-     * @name        analyzeHands
-     * @description
-     *
+     * @description array wrapper for the hand analyzer
      * @param array $hands
-     *
      * @return array
      */
     public function analyzeHands(Array $hands)
@@ -37,10 +32,9 @@ class PokerHandAnalyzer {
 
     /**
      * written by Ross Carlson (vatsim@metacraft.net)
-     * @name  analyze_hand
      * @description analyzes a poker hand
      * @param array $cards
-     * @return array
+     * @return indexed_array('name', 'rank', 'total_weight', 'relative_weight', array('cards'))
      */
 
     private function analyzeHand($cards) {
@@ -50,8 +44,9 @@ class PokerHandAnalyzer {
         $card_weights = [];
         $card_suits = [];
         foreach ($cards as $card) {
-            $c = substr ($card[0], 0, 1);
-            $s = substr ($card[0], strlen ($card[0]) - 1, 1);
+            //$card->card
+            $c = substr ($card->card, 0, 1);
+            $s = substr ($card->card, strlen ($card[0]) - 1, 1);
             array_push ($card_suits, $s);
             array_push ($card_weights, $card_weight[$c]);
         }

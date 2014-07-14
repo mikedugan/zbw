@@ -8,66 +8,67 @@ class PokerRepository extends EloquentRepository implements PokerRepositoryInter
 
     public $model = '\PokerCard';
 
-    /**
-     * @name  update
-     * @description
-     *
-     * @param $input
-     *
-     * @return void
-     */
-    public function update($input)
-    {
-
-    }
+    //we don't really need these functions, but interface
+    public function update($input) {}
+    public function create($input) {}
 
     /**
-     * @name  create
-     * @description
-     *
-     * @param $input
-     *
+     * @description creates a poker card, and the associated pilot if necessary
+     * @param array $input
      * @return \Illuminate\Database\Eloquent\Model|static
      */
-    public function create($input)
+    public function createCard($input)
     {
         $card = \PokerCard::create([
               'card' => $input['card'],
               'pid' => $input['pid'],
               'discarded' => null
           ]);
+        if($this->pilotExists($input['pid'])) {
+            $pilot = $this->getVatsimInfo($input['pid']);
+            $pilot['user']['pid'] = $input['pid'];
+            $this->createPilot($pilot);
+        }
         return $card;
     }
 
     /**
-     * @name getValidHands
-     * @description
-     * @return array
+     * @description helper function for creating the pilot above
+     * @param $input
+     * @return \PokerPilot
      */
-    public function getValidHands()
+    private function createPilot($input)
     {
-        $pilots = $this->getPilotsList();
-        $hands = [];
-        foreach($pilots as $pilot) {
-            $hand = $this->getHandsByPilot($pilot);
-            $hand_array = [];
-            foreach($hand as $card) {
-                $hand_array[] = [$card->card, $card->id];
-            }
-            if(count($hand) !== 5) continue;
-            else {
-                $hands[] = [$pilot, $hand_array];
-            }
-        }
-        return $hands;
+        $pilot = new \PokerPilot([
+            'first_name' => $input['first_name'],
+            'last_name' => $input['last_name'],
+            'pid' => $input['pid'],
+            'country' => $input['country']
+        ]);
+
+        return $pilot;
     }
 
     /**
-     * @name  countCardsInHand
-     * @description
-     *
+     * @description returns pilots with a valid (5 card) hand
+     * @return array
+     */
+    public function getPilotsWithValidHands()
+    {
+        $pilots = \PokerPilot::all();
+        $ret = [];
+        foreach($pilots as $pilot) {
+            if(count($pilot->cards) === 5) {
+                $ret[] = $pilot;
+            }
+        }
+
+        return $ret;
+    }
+
+    /**
+     * @description @deprecated
      * @param $pid
-     *
      * @return mixed
      */
     public function countCardsInHand($pid)
@@ -76,11 +77,8 @@ class PokerRepository extends EloquentRepository implements PokerRepositoryInter
     }
 
     /**
-     * @name  getDiscarded
-     * @description
-     *
+     * @description returns a pilots discarded cards
      * @param $pid
-     *
      * @return mixed
      */
     public function getDiscarded($pid)
@@ -89,23 +87,18 @@ class PokerRepository extends EloquentRepository implements PokerRepositoryInter
     }
 
     /**
-     * @name  discard
-     * @description
-     *
+     * @description discard a poker card
      * @param $cardId
-     *
      * @return void
      */
     public function discard($cardId)
     {
-        $card = $this->make()->find($cardId);
-        $card->discarded = \Carbon::now();
-        $card->save();
+        return \PokerCard::discard($cardId);
     }
 
     /**
      * @name getPilotsList
-     * @description
+     * @description returns a list of pilots by cid
      * @return mixed
      */
     public function getPilotsList()
@@ -114,15 +107,24 @@ class PokerRepository extends EloquentRepository implements PokerRepositoryInter
     }
 
     /**
-     * @name  getHandsByPilot
-     * @description
-     *
      * @param $pid
-     *
+     * @deprecated use $pilot->cards instead
      * @return mixed
      */
     public function getHandsByPilot($pid)
     {
         return $this->make()->where('pid', $pid)->where('discarded', null)->get();
+    }
+
+    /**
+     * @description returns array of pilot information from vatsim
+     * @param integer $pid
+     * @return array
+     */
+    private function getVatsimInfo($pid)
+    {
+        $this->curl->get(\Config::get('zbw.controller_status').$pid);
+        $pilot = simplexml_load_string($this->curl->response);
+        return json_decode(json_encode((array)$pilot), 1);
     }
 }

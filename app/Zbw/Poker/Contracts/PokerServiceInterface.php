@@ -6,7 +6,7 @@ interface PokerServiceInterface
 
     public function discard($cardId);
 
-    public function getPilotCards($pid);
-
     public function getPilots();
+
+    public function getStandings();
 }
