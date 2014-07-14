@@ -3,6 +3,7 @@
 use Zbw\Poker\Contracts\PokerRepositoryInterface;
 use Zbw\Base\EloquentRepository;
 use Curl\Curl;
+use Zbw\Poker\Exceptions\PilotNotFoundException;
 
 class PokerRepository extends EloquentRepository implements PokerRepositoryInterface
 {
@@ -24,6 +25,7 @@ class PokerRepository extends EloquentRepository implements PokerRepositoryInter
      * @description creates a poker card, and the associated pilot if necessary
      * @param array $input
      * @return \Illuminate\Database\Eloquent\Model|static
+     * @throws PilotNotFoundException
      */
     public function createCard($input)
     {
@@ -33,7 +35,12 @@ class PokerRepository extends EloquentRepository implements PokerRepositoryInter
               'discarded' => null
           ]);
         if(!\PokerPilot::exists($input['pid'])) {
-            $pilot = $this->getVatsimInfo($input['pid']);
+            try {
+                $pilot = $this->getVatsimInfo($input['pid']);
+            } catch (PilotNotFoundException $e) {
+                $card->delete();
+                throw new PilotNotFoundException;
+            }
             $pilot['user']['pid'] = $input['pid'];
             $this->createPilot($pilot['user']);
         }
@@ -128,11 +135,13 @@ class PokerRepository extends EloquentRepository implements PokerRepositoryInter
      * @description returns array of pilot information from vatsim
      * @param integer $pid
      * @return array
+     * @throws PilotNotFoundException
      */
     private function getVatsimInfo($pid)
     {
         $this->curl->get(\Config::get('zbw.controller_status').$pid);
         $pilot = simplexml_load_string($this->curl->response);
+        if(empty($pilot->name_last)) { throw new PilotNotFoundException; }
         return json_decode(json_encode((array)$pilot), 1);
     }
 }

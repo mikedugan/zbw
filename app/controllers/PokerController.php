@@ -1,6 +1,7 @@
 <?php
 
 use Zbw\Poker\Contracts\PokerServiceInterface;
+use Zbw\Poker\Exceptions\PilotNotFoundException;
 
 class PokerController extends \BaseController {
 
@@ -22,7 +23,12 @@ class PokerController extends \BaseController {
 
     public function postIndex()
     {
-        $draw = $this->service->draw(\Input::all());
+        try {
+            $draw = $this->service->draw(\Input::all());
+        } catch (PilotNotFoundException $e) {
+            return Redirect::back()->with('flash_error', 'Pilot not found!');
+        }
+
         if($draw) {
             return Redirect::back()->with(
               'flash_success',
