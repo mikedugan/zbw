@@ -1,6 +1,6 @@
 <?php  namespace Zbw\Bostonjohn; 
 
-use Zbw\Users\UserRepositoryInterface;
+use Zbw\Users\Contracts\UserRepositoryInterface;
 use Curl\Curl;
 use Zbw\Base\Helpers;
 

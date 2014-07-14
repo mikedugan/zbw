@@ -24,8 +24,8 @@ class PokerHandAnalyzer {
     public function analyzeHands(Array $hands)
     {
         $ret = [];
-        foreach($hands as $hand) {
-            $ret[] = [$hand[0],$this->analyzeHand($hand[1]),$hand[1][1]];
+        foreach($hands as $pid => $hand) {
+            $ret[] = [$pid, $this->analyzeHand($hand)];
         }
         return $ret;
     }
@@ -38,7 +38,6 @@ class PokerHandAnalyzer {
      */
 
     private function analyzeHand($cards) {
-
         $card_weight = \Config::get('zbw.poker.card_weights');
         // Build array representing the relative value of each card.
         $card_weights = [];
