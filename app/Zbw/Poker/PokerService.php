@@ -4,7 +4,7 @@ use Zbw\Poker\Contracts\PokerServiceInterface;
 use Zbw\Poker\Contracts\PokerRepositoryInterface;
 use Curl\Curl;
 
-class PokerService implements PokerServiceInterface, PokerServiceInterface
+class PokerService implements PokerServiceInterface
 {
 
     private $cards;

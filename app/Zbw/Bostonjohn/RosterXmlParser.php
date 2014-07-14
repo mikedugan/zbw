@@ -1,7 +1,7 @@
 <?php  namespace Zbw\Bostonjohn;
 
 use Curl\Curl;
-use Zbw\Users\UserRepositoryInterface;
+use Zbw\Users\Contracts\UserRepositoryInterface;
 
 class RosterXmlParser
 {

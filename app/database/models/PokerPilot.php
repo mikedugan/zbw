@@ -20,7 +20,7 @@ class PokerPilot extends Eloquent {
         return \PokerPilot::where('pid', $pid)->get();
     }
 
-    public static function pilotExists($pid)
+    public static function exists($pid)
     {
         return \PokerPilot::where('pid', $pid)->count() > 0;
     }
