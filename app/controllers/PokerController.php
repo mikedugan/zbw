@@ -37,7 +37,7 @@ class PokerController extends \BaseController {
     public function getPilot($pid)
     {
         $data = [
-            'cards' => $this->service->getPilotCards($pid)
+            'pilot' => \PokerPilot::where('pid', $pid)->with(['cards'])->first()
         ];
         return View::make('staff.poker.pilot', $data);
     }

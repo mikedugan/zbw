@@ -2,11 +2,19 @@
 
 use Zbw\Poker\Contracts\PokerRepositoryInterface;
 use Zbw\Base\EloquentRepository;
+use Curl\Curl;
 
 class PokerRepository extends EloquentRepository implements PokerRepositoryInterface
 {
 
     public $model = '\PokerCard';
+    private $curl;
+
+    public function __construct(Curl $curl)
+    {
+        $this->curl = $curl;
+    }
+
 
     //we don't really need these functions, but interface
     public function update($input) {}
@@ -24,10 +32,10 @@ class PokerRepository extends EloquentRepository implements PokerRepositoryInter
               'pid' => $input['pid'],
               'discarded' => null
           ]);
-        if(\PokerPilot::exists($input['pid'])) {
+        if(!\PokerPilot::exists($input['pid'])) {
             $pilot = $this->getVatsimInfo($input['pid']);
             $pilot['user']['pid'] = $input['pid'];
-            $this->createPilot($pilot);
+            $this->createPilot($pilot['user']);
         }
         return $card;
     }
@@ -40,13 +48,13 @@ class PokerRepository extends EloquentRepository implements PokerRepositoryInter
     private function createPilot($input)
     {
         $pilot = new \PokerPilot([
-            'first_name' => $input['first_name'],
-            'last_name' => $input['last_name'],
+            'first_name' => $input['name_first'],
+            'last_name' => $input['name_last'],
             'pid' => $input['pid'],
             'country' => $input['country']
         ]);
 
-        return $pilot;
+        return $pilot->save();
     }
 
     /**

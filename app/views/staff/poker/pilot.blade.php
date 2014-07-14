@@ -7,7 +7,7 @@ View Pilot
 <div class="row">
     <div class="col-md-6">
         <?php $card_names = \Config::get('zbw.poker.card_names'); ?>
-        @foreach($cards as $card)
+        @foreach($pilot->cards as $card)
             <div style="margin-top:10px" class="row">
                 <p style="font-size:18px" class="col-sm-5">{{$card_names[$card->card]}}, dealt at {{$card->created_at->toTimeString()}}</p>
                 @unless($card->discarded)

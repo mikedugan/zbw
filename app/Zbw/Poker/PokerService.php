@@ -2,20 +2,17 @@
 
 use Zbw\Poker\Contracts\PokerServiceInterface;
 use Zbw\Poker\Contracts\PokerRepositoryInterface;
-use Curl\Curl;
 
 class PokerService implements PokerServiceInterface
 {
 
     private $cards;
     private $analyzer;
-    private $curl;
 
-    public function __construct(PokerRepositoryInterface $cards, PokerHandAnalyzer $analyzer, Curl $curl)
+    public function __construct(PokerRepositoryInterface $cards, PokerHandAnalyzer $analyzer)
     {
         $this->cards = $cards;
         $this->analyzer = $analyzer;
-        $this->curl = $curl;
     }
 
     /**
@@ -28,7 +25,7 @@ class PokerService implements PokerServiceInterface
      */
     public function draw($input)
     {
-        if($this->cards->countCardsInHand($input['pid']) > 5) { return false; }
+        if($this->cards->countCardsInHand($input['pid']) >= 5) { return false; }
         $card = $this->cards->createCard([
               'pid' => $input['pid'],
               'card' => ! empty($input['card']) ? $input['card'] : $this->generateCard()
@@ -99,7 +96,7 @@ class PokerService implements PokerServiceInterface
      */
     public function getPilots()
     {
-        return \PokerPilot::with(['cards']);
+        return \PokerPilot::with(['cards'])->get();
     }
 
     /**
@@ -111,6 +108,7 @@ class PokerService implements PokerServiceInterface
     {
         //$hands[pid, array [card, id]]
         $pilots = $this->cards->getPilotsWithValidHands();
+        if(!$pilots > 0) { return []; }
         $hands = [];
         foreach($pilots as $pilot) {
             $hands[$pilot->pid] = $pilot->cards;
