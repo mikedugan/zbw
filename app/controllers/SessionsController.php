@@ -50,7 +50,7 @@ class SessionsController extends BaseController
             }
         }
 
-        if ( ! $user->is_active) {
+        if ( ! $user->activated) {
             return Redirect::back()->with(
               'flash_error',
               'Your account is not active. Please email <a

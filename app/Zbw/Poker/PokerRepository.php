@@ -24,7 +24,7 @@ class PokerRepository extends EloquentRepository implements PokerRepositoryInter
               'pid' => $input['pid'],
               'discarded' => null
           ]);
-        if($this->pilotExists($input['pid'])) {
+        if(\PokerPilot::exists($input['pid'])) {
             $pilot = $this->getVatsimInfo($input['pid']);
             $pilot['user']['pid'] = $input['pid'];
             $this->createPilot($pilot);
