@@ -10,4 +10,11 @@ class PokerCard extends Eloquent {
     {
         return $this->belongsTo('PokerPilot', 'pid', 'pid');
     }
+
+    public static function discard($id)
+    {
+        $card = \PokerCard::find($id);
+        $card->discarded = \Carbon::now();
+        return $card->save();
+    }
 }
