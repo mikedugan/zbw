@@ -39,6 +39,7 @@ class ReferenceTableSeeder extends Seeder {
             AudienceType::create(['value' => 'both']);
             AudienceType::create(['value' => 'pilots']);
             AudienceType::create(['value' => 'controllers']);
+            AudienceType::create(['value' => 'staff']);
 
             NewsType::create(['value' => 'event']);
             NewsType::create(['value' => 'news']);

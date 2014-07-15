@@ -3,11 +3,8 @@
     Menu Management
 @stop
 @section('header')
-    @include('includes.nav._pages')
 @stop
 @section('content')
-
-{{-- PAGE --}}
 
 <div class="row">
     <h1 class="text-center">CMS Menus</h1>

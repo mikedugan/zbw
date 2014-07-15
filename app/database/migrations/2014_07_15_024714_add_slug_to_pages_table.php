@@ -14,7 +14,7 @@ class AddSlugToPagesTable extends Migration {
 	{
 		Schema::table('zbw_pages', function(Blueprint $table)
 		{
-			$table->string('slug');
+			$table->string('slug')->unique();
 		});
 	}
 
