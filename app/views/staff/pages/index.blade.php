@@ -10,6 +10,8 @@ vZBW CMS
 	@include('staff.pages.edit')
 @elseif($v == 'trash')
 	@include('staff.pages.trash')
+@elseif($v == 'menus')
+    @include('staff.pages.menus.index')
 @else
 	@include('staff.pages.pages')
 @endif

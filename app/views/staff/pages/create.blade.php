@@ -20,12 +20,12 @@
                     {{ Form::file('image4', ['class' => 'file-control btn btn-default', 'title' => 'Browse for Image 4']) }}
                 </div>
             </div>
-                <div class="col-md-6 checkbox">
+                <div class="col-md-2 checkbox">
                     <label>
                         <input type="checkbox" name="staff_only" value="true"> Staff Only
                     </label>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-5">
                     <table class="table">
                         <thead>
                         <tr class="text-center">
@@ -37,6 +37,22 @@
                             @foreach(\AudienceType::all() as $type)
                                 <td><input type="radio" value="{{$type->id}}" name="audience_type"> {{ucfirst($type->value)}}</td>
                             @endforeach
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-md-5">
+                    <table class="table">
+                        <thead>
+                        <tr class="text-center">
+                            <td colspan="3">Menus</td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr class="text-center">
+                            <td><input type="radio" name="menu" value="pilots"> Pilots</td>
+                            <td><input type="radio" name="menu" value="controllers"> Controllers</td>
+                            <td><input type="radio" name="menu" value="staff"> Staff</td>
                         </tr>
                         </tbody>
                     </table>

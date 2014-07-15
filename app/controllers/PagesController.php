@@ -1,26 +1,39 @@
 <?php
 
 use Zbw\Cms\Contracts\PagesRepositoryInterface;
+use Zbw\Cms\Contracts\MenusRepositoryInterface;
 
 class PagesController extends BaseController {
 
 	private $pages;
+    private $menus;
 
-	public function __construct(PagesRepositoryInterface $pages) {
+	public function __construct(PagesRepositoryInterface $pages, MenusRepositoryInterface $menus) {
 		$this->pages = $pages;
+      $this->menus = $menus;
 	}
 
 	public function getIndex() {
 		$v    = \Input::get('v');
 		$data = [
 			'v' => $v,
+      'pages' => $this->pages->all(),
+      'menus' => $this->menus->all()
 		];
 		return View::make('staff.pages.index', $data);
 	}
 
 	public function getPage($slug) {
+      $page = $this->pages->slug($slug);
+      if($page->audience_type_id == 4 && ! \Sentry::getUser()->inGroup(\Sentry::findGroupByName('Staff'))) {
+          $data = [
+              'page' => \Request::url(),
+              'needed' => 'Staff'
+          ];
+          return View::make('zbw.errors.403', $data);
+      }
 		$data = [
-			'page' => $this->pages->slug($slug)
+			'page' => $page
 		];
 		return View::make('cms.pages.show', $data);
 	}

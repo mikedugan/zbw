@@ -5,6 +5,7 @@ use Zbw\Cms\Contracts\MenusRepositoryInterface;
 
 class MenusRepository extends EloquentRepository implements MenusRepositoryInterface
 {
+    public $model = '\Menu';
     public function create($input)
     {
         $menu = new \Menu();
