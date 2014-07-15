@@ -8,6 +8,15 @@
             <li>{{ HTML::link('staff/news', 'News & Events') }}</li>
             <li>{{ HTML::linkRoute('poker', 'Poker') }}</li>
             <li>{{ HTML::link('staff/pages', 'Pages') }}</li>
+            <li><a href="#">Staff Pages</a>
+                <ul>
+                    @foreach($pages as $page)
+                    @if($page->audience_type_id === 4)
+                    <li><a href="/pages/{{$page->slug}}">{{$page->title}}</a></li>
+                    @endif
+                    @endforeach
+                </ul>
+            </li>
         </ul>
     </li>
 </ul>

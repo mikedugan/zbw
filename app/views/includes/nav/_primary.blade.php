@@ -7,6 +7,15 @@
             <li>{{ HTML::linkRoute('news', 'NOTAMS') }}</li>
             <li><a href="/pages/sops">ZBW Resources</a></li>
             <li><a href="/pages/resources">Other Resources</a></li>
+            <li><a href="#">ATC Pages</a>
+                <ul>
+                    @foreach($pages as $page)
+                        @if($page->audience_type_id === 1 || $page->audience_type_id === 3)
+                        <li><a href="/pages/{{$page->slug}}">{{$page->title}}</a></li>
+                        @endif
+                    @endforeach
+                </ul>
+            </li>
         </ul>
     </li>
     <li class="dropdown">
@@ -17,6 +26,15 @@
             <li><a href="#">About ZBW</a></li>
             <li><a href="#">Airports</a></li>
             <li><a href="/news">Events & News</a></li>
+            <li><a href="#">Pilot Pages</a>
+                <ul>
+                    @foreach($pages as $page)
+                    @if($page->audience_type_id === 1 || $page->audience_type_id === 2)
+                    <li><a href="/pages/{{$page->slug}}">{{$page->title}}</a></li>
+                    @endif
+                    @endforeach
+                </ul>
+            </li>
         </ul>
     </li>
     <li class="dropdown">
