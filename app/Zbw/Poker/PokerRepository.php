@@ -141,7 +141,8 @@ class PokerRepository extends EloquentRepository implements PokerRepositoryInter
     {
         $this->curl->get(\Config::get('zbw.controller_status').$pid);
         $pilot = simplexml_load_string($this->curl->response);
-        if(empty($pilot->name_last)) { throw new PilotNotFoundException; }
-        return json_decode(json_encode((array)$pilot), 1);
+        $pilot = json_decode(json_encode((array)$pilot), 1);
+        if(empty($pilot['user']['name_last'])) { throw new PilotNotFoundException; }
+        else return $pilot;
     }
 }
