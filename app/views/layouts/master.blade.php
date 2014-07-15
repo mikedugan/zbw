@@ -12,6 +12,7 @@ $messages = $me ? MessagesRepository::newMessageCount($me->cid) : 0;
     </head>
     <body>
     <nav class="navbar-default navbar">
+        <?php $pages = \Page::all(); ?>
         @include('includes.nav._primary')
         @if($me)
             @include('includes.nav._user')
