@@ -8,7 +8,7 @@ class Page extends Eloquent
     //relations
     public function menu()
     {
-        return $this->belongsTo('Menu', 'id', 'menu_id');
+        return $this->belongsToMany('Menu', 'zbw_menus_pages', 'page_id', 'menu_id');
     }
     //scopes
 

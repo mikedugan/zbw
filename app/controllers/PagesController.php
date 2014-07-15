@@ -18,9 +18,9 @@ class PagesController extends BaseController {
 		return View::make('staff.pages.index', $data);
 	}
 
-	public function getPage($id) {
+	public function getPage($slug) {
 		$data = [
-			'page' => $this->pages->find($id)
+			'page' => $this->pages->slug($slug)
 		];
 		return View::make('cms.pages.show', $data);
 	}
@@ -30,7 +30,11 @@ class PagesController extends BaseController {
 	}
 
 	public function postCreate() {
-		return Redirect::back()->withInput();
+		if($this->pages->create(\Input::all())) {
+        return Redirect::route('staff/pages')->with('flash_success', 'Page created successfully');
+    } else {
+        return Redirect::back()->with('flash_error', 'Error creating page');
+    }
 	}
 
 	public function getMenus() {

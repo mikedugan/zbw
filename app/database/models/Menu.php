@@ -9,7 +9,7 @@ class Menu extends Eloquent
     //relations
     public function pages()
     {
-        return $this->hasMany('Page', 'menu_id', 'id');
+        return $this->belongsToMany('Page', 'zbw_menus_pages', 'menu_id', 'page_id');
     }
 
     public function getUrlTitle()
