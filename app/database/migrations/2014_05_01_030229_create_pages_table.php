@@ -17,13 +17,13 @@ class CreatePagesTable extends Migration {
 				$table->string('title');
 				$table->integer('author');
 				$table->text('content');
-				$table->boolean('is_official');
+				$table->boolean('is_official')->nullable();
 				$table->tinyInteger('menu_id');
 				$table->boolean('is_staff_only');
 				$table->boolean('is_exec_only');
 				$table->boolean('is_web_only');
-				$table->tinyInteger('template_id');
-				$table->string('route');
+				$table->tinyInteger('template_id')->nullable();
+				$table->string('route')->nullable();
 				$table->softDeletes();
 		});
 	}

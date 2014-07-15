@@ -56,4 +56,11 @@ $(function() {
         }
 
     });
+
+    $('#page-create').click(function() {
+        $('#published').val('1');
+    })
+    $('#page-draft').click(function() {
+        $('#published').val('0');
+    })
 });

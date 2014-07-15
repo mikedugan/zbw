@@ -46,5 +46,5 @@ Route::get(
   'pages/p/{id}',
   ['as' => 'p/{id}', 'uses' => 'PagesController@getPage']
 );
-
+Route::get('pages/{slug}', ['as' => 'pages/{slug}', 'uses' => 'PagesController@getPage']);
 Route::get('roster', ['as' => 'roster', 'uses' => 'RosterController@getPublicRoster']);
