@@ -108,8 +108,8 @@ return array(
       'Laracasts\Utilities\UtilitiesServiceProvider',
       'Zbw\Validators\ZbwValidatorServiceProvider',
       'Way\Generators\GeneratorsServiceProvider',
-      'Cartalyst\Sentry\SentryServiceProvider',
-      'McCool\LaravelAutoPresenter\LaravelAutoPresenterServiceProvider',
+	  'Cartalyst\Sentry\SentryServiceProvider',
+	  'Bugsnag\BugsnagLaravel\BugsnagLaravelServiceProvider',
     ),
     /*
     |--------------------------------------------------------------------------
@@ -176,7 +176,8 @@ return array(
       'Carbon'       => 'Carbon\Carbon',
       'JavaScript'   => 'Laracasts\Utlities\JavaScript\Facades\JavaScript',
       'ZbwValidator' => 'Zbw\Facades\ZbwValidator',
-      'Sentry'       => 'Cartalyst\Sentry\Facades\Laravel\Sentry',
+	  'Sentry'       => 'Cartalyst\Sentry\Facades\Laravel\Sentry',
+	  'Bugsnag'		 => 'Bugsnag\BugsnagLaravel\BugsnagFacade',
     ),
 
 );
