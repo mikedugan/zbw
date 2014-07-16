@@ -46,5 +46,9 @@ Route::get(
   'pages/p/{id}',
   ['as' => 'p/{id}', 'uses' => 'PagesController@getPage']
 );
+
+Route::post('feedback', ['as' => 'feedback', 'uses' => 'ZbwController@postFeedback']);
+Route::post('error', ['as' => 'error', 'uses' => 'ZbwController@postError']);
+
 Route::get('pages/{slug}', ['as' => 'pages/{slug}', 'uses' => 'PagesController@getPage']);
 Route::get('roster', ['as' => 'roster', 'uses' => 'RosterController@getPublicRoster']);

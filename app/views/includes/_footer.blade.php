@@ -1,2 +1,6 @@
-_<p><span class="left">Content &copy; 2014 vZBW ARTCC</span>
-    <span class="right"><a href="#">VATSIM Disclaimer</a></span></p>
+_<p><a style="cursor:pointer" data-toggle="modal" data-target="#errorModal">Report Error</a> | <span class="left">Content &copy; 2014 vZBW ARTCC</span>
+    <span class="right"><a href="#">VATSIM Disclaimer</a></span>
+| <a style="cursor:pointer" data-toggle="modal" data-target="#feedbackModal">Feedback</a>
+    @include('includes.forms.feedback')
+    @include('includes.forms.error')
+</p>
