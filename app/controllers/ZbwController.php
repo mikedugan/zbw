@@ -41,6 +41,40 @@ class ZbwController extends BaseController
         return View::make('zbw.pilots', $data);
     }
 
+    public function postFeedback()
+    {
+        $input = \Input::all();
+        if(!empty($input['poobear'])) { return Redirect::home(); }
+        $data = [
+            'to' => 'mike@mjdugan.com',
+            'from' => $input['email'],
+            'subject' => $input['subject'],
+            'content' => $input['content']
+        ];
 
+        Mail::send('zbw.emails.feedback', $data, function($message) use ($data) {
+            $message->to($data['to'])->subject('ZBW Feedback');
+        });
+        return Redirect::back()->with('flash_success', 'Feedback sent successfully');
+    }
+
+    public function postError()
+    {
+        $input = \Input::all();
+        if(!empty($input['poobear'])) { return Redirect::home(); }
+        $data = [
+          'to' => 'mike@mjdugan.com',
+          'name' => $input['name'],
+          'email' => $input['email'],
+          'page' => $input['page'],
+          'error' => $input['error'],
+          'action' => $input['action']
+        ];
+
+        Mail::send('zbw.emails.error', $data, function($message) use ($data) {
+              $message->to($data['to'])->subject('ZBW Error Report');
+          });
+        return Redirect::back()->with('flash_success', 'Feedback sent successfully');
+    }
 
 }
