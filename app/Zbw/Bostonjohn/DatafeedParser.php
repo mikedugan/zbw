@@ -182,12 +182,22 @@ class DatafeedParser {
     private function isZbwAirport($line)
     {
         //filter out observers and non-ZBW callsigns off the bat
-        if($line[$this::CALLSIGN][3] !== '_' || substr($line[$this::FREQUENCY], 0, 3) == '199' ) return false;
+        if($this->positionInvalid($line)) return false;
         $itis = in_array(substr($line[0], 0, 3), \Config::get('zbw.iatas'));
         if($itis)
         {
             return $line[0][3] == '_' || $line[0][4] == '_';
         }
         else return false;
+    }
+
+    /**
+     * @name  positionIsValid
+     * @param $line
+     * @return bool
+     */
+    private function positionInvalid($line)
+    {
+        return (isset($line[$this::CALLSIGN][3]) && $line[$this::CALLSIGN][3] !== '_') || (isset($line[$this::CALLSIGN][3]) && substr($line[$this::FREQUENCY], 0, 3) == '199');
     }
 } 
