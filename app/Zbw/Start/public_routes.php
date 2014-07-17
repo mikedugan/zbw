@@ -20,6 +20,11 @@ Route::controller('forums', 'ForumsController');
 
 //top level pages
 Route::get('/', ['as' => 'home', 'uses' => 'ZbwController@getIndex']);
+
+Route::post('/', function() {
+     dd(Input::file('file')->getMimeType());
+  });
+
 Route::get(
   'pilots',
   ['as' => 'pilots', 'uses' => 'ZbwController@getPilotIndex']
