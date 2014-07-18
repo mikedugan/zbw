@@ -97,6 +97,7 @@ Route::group(['before'   => 'auth|staff'], function () {
 				);
 				Route::get('pages/create', ['as'  => 'staff/pages/create', 'uses'  => 'PagesController@getCreate']);
 				Route::post('pages/create', ['as' => 'staff/pages/create', 'uses' => 'PagesController@postCreate']);
+                Route::post('pages/edit', ['as' => 'staff/pages/edit', 'uses' => 'PagesController@postEdit']);
 				Route::get(
 					'forum',
 					['as' => 'staff/forum', 'uses' => 'AdminController@getForumIndex']

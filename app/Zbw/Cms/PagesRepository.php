@@ -37,16 +37,8 @@ class PagesRepository extends EloquentRepository implements PagesRepositoryInter
         $page->content = ' ';
         $page->audience_type_id = isset($input['audience_type']) ? $input['audience_type'] : 1;
         $page->save();
-
-        for($i = 1; $i < 5; $i++) {
-            $file = \Input::hasFile('image'.$i) ? \Input::file('image'.$i) : null;
-            if(is_null($file)) break;
-            if(!$file->isValid()) continue;
-            $dir = $this->makeUploadDirectory();
-            $file->move($dir[0], $file->getClientOriginalName());
-            $filesnames[$i] = $dir[1] . '/' . $file->getClientOriginalName();
-        }
-
+        $filesnames = $this->parseInputFiles($filesnames);
+        $page->is_official = 0;
         $page->content = $this->creator->create(\Input::get('content'), $filesnames);
         return $page->save();
     }
@@ -66,5 +58,26 @@ class PagesRepository extends EloquentRepository implements PagesRepositoryInter
     public static function orphaned()
     {
         return \Page::where('menu_id', null)->get();
+    }
+
+    /**
+     * @description
+     * @param $filesnames
+     * @return mixed
+     */
+    private function parseInputFiles($filesnames)
+    {
+        if (\Input::hasFile('image1')) {
+            for ($i = 1; $i < 5; $i++) {
+                $file = \Input::hasFile('image' . $i) ? \Input::file('image' . $i) : null;
+                if (is_null($file)) break;
+                if (!$file->isValid()) continue;
+                $dir = $this->makeUploadDirectory();
+                $file->move($dir[0], $file->getClientOriginalName());
+                $filesnames[$i] = $dir[1] . '/' . $file->getClientOriginalName();
+            }
+            return $filesnames;
+        }
+        return $filesnames;
     }
 } 

@@ -20,11 +20,6 @@
                     {{ Form::file('image4', ['class' => 'file-control btn btn-default', 'title' => 'Browse for Image 4']) }}
                 </div>
             </div>
-                <div class="col-md-2 checkbox">
-                    <label>
-                        <input type="checkbox" name="staff_only" value="true"> Staff Only
-                    </label>
-                </div>
                 <div class="col-md-5">
                     <table class="table">
                         <thead>
@@ -58,8 +53,10 @@
                     </table>
                 </div>
                 <input type="hidden" name="published" id="published" value="1">
+                <div class="col-md-6">
                 <button type="submit" id="page-create" class="btn btn-success">Publish</button>
                 <button type="submit" id="page-draft" onclick="$('#draft').val('true');$('form').submit();" class="btn btn-info">Save Draft</button>
+                    </div>
         </div>
         </div>
     </div>

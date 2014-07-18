@@ -9,10 +9,12 @@ class PageCreator {
         $this->content = $content;
     }
 
-    public function create($input, $filenames)
+    public function create($input, $filenames = null)
     {
         $this->content = $input;
-        $this->insertImages($filenames);
+        if(!empty($filenames)) {
+            $this->insertImages($filenames);
+        }
         return $this->content;
     }
 

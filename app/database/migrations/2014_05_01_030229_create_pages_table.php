@@ -25,6 +25,7 @@ class CreatePagesTable extends Migration {
 				$table->tinyInteger('template_id')->nullable();
 				$table->string('route')->nullable();
 				$table->softDeletes();
+                $table->timestamps();
 		});
 	}
 
