@@ -17,36 +17,6 @@ class User extends SentryUser implements UserInterface, RemindableInterface
         static::$hasher = new Cartalyst\Sentry\Hashing\NativeHasher();
     }
 
-    //scopes
-
-    public function scopeMentors($query)
-    {
-        return $query->where('is_mentor', '=', 1);
-    }
-
-    public function scopeInstructors($query)
-    {
-        return $query->where('is_instructor', '=', 1);
-    }
-
-    public function scopeStaff($query)
-    {
-        return $query->where('is_atm', '=', 1)
-                     ->orWhere('is_datm', '=', 1)
-                     ->orWhere('is_ta', '=', 1)
-                     ->orWhere('is_mentor', '=', 1)
-                     ->orWhere('is_instructor', '=', 1)
-                     ->orWhere('is_facilities', '=', 1)
-                     ->orWhere('is_webmaster', '=', 1);
-    }
-
-    public function scopeExecutive($query)
-    {
-        return $query->where('is_atm', '=', 1)
-                     ->orWhere('is_datm', '=', 1)
-                     ->orWhere('is_ta', '=', 1);
-    }
-
     //relations
     public function settings()
     {
@@ -180,7 +150,7 @@ class User extends SentryUser implements UserInterface, RemindableInterface
 
     public function is_exec()
     {
-        $exec = \Sentry::findGroupByName('Executive Staff');
+        $exec = \Sentry::findGroupByName('Executive');
         return $this->inGroup($exec);
     }
 

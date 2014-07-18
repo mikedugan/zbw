@@ -104,7 +104,7 @@ class RosterJsonMigrator {
     private function updateUser($user)
     {
         $u = \User::find($user->cid);
-        $exec_group = \Sentry::findGroupByName('Executive Staff');
+        $exec_group = \Sentry::findGroupByName('Executive');
         $mtr_group = \Sentry::findGroupByName('Mentors');
         $fe_group = \Sentry::findGroupByName('Facilities Team');
         $ins_group = \Sentry::findGroupByName('Instructors');
