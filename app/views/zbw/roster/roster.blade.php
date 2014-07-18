@@ -29,7 +29,13 @@
             @else
             <td><a href="/controllers/{{$u->cid}}">{{ $u->username }}</a></td>
             @endif
-            <td>{{ $u->email }}</td>
+            <td>
+                @if($u->settings->email_hidden == 0)
+                {{ $u->email }}
+                @else
+                <i>Hidden</i>
+                @endif
+            </td>
             <td>{{ $u->cid }}</td>
             <td>{{ $u->rating->short }}</td>
         </tr>

@@ -22,7 +22,7 @@ class RosterController extends BaseController {
         $pag = 15;
         if(\Input::has('num')) $pag = 999;
         $data = [
-          'users' => $this->users->with(['rating'], null, 'cid', $pag),
+          'users' => $this->users->with(['rating', 'settings'], null, 'cid', $pag),
           'view' => $view,
           'action' => $action,
           'staff' =>  $this->users->getStaff()
