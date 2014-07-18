@@ -17,8 +17,8 @@ class PagesController extends BaseController {
 		$v    = \Input::get('v');
 		$data = [
 			'v' => $v,
-      'pages' => $this->pages->all(),
-      'menus' => $this->menus->all()
+            'pages' => $this->pages->all(),
+            'menus' => $this->menus->all()
 		];
 		return View::make('staff.pages.index', $data);
 	}
