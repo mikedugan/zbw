@@ -1,4 +1,4 @@
-<h1 class="text-center">Edit Page {{ $page->title }}</h1>
+<h1 class="text-center">Edit "{{ $page->title }}"</h1>
 <form action="/staff/pages/edit" method="post" enctype="multipart/form-data">
     <div class="row">
         <div class="row">
@@ -9,6 +9,7 @@
                     <input class="form-control" name="title" value="{{$page->title}}" id="title">
                 </div>
                 <input type="hidden" name="author" value="{{$page->author}}">
+                <input type="hidden" name="pid" value="{{$page->id}}">
                 <textarea class="editor" name="content" id="" cols="30" rows="10">{{$page->content}}</textarea>
                 <input type="hidden" id="draft" name="draft">
                 <p class="small">To use images: {IMAGE1}, {IMAGE2}, etc</p>
@@ -32,7 +33,7 @@
                     <tr class="text-center">
                         @foreach(\AudienceType::all() as $type)
                         <td><input type="radio"
-                                <?php if($page->audience_type_pid === $type->id) echo "checked"; ?>
+                                <?php if($page->audience_type_id === $type->id) echo "checked"; ?>
                                    value="{{$type->id}}" name="audience_type"> {{ucfirst($type->value)}}
                         </td>
                         @endforeach
@@ -57,8 +58,10 @@
                 </table>
             </div>
             <input type="hidden" name="published" id="published" value="1">
+            <div class="col-md-6">
             <button type="submit" id="page-create" class="btn btn-success">Publish</button>
             <button type="submit" id="page-draft" onclick="$('#draft').val('true');$('form').submit();" class="btn btn-info">Save Draft</button>
+                </div>
         </div>
     </div>
     </div>

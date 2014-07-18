@@ -19,7 +19,12 @@ class PagesController extends BaseController {
 			'v' => $v,
             'pages' => $this->pages->all(),
             'menus' => $this->menus->all()
-		];
+        ];
+        if(\Input::has('id')) {
+            $page = $this->pages->get(\Input::get('id'));
+            $data['page'] = $page;
+        }
+
 		return View::make('staff.pages.index', $data);
 	}
 
@@ -43,12 +48,21 @@ class PagesController extends BaseController {
 	}
 
 	public function postCreate() {
-		if($this->pages->create(\Input::all())) {
+        if($this->pages->create(\Input::all())) {
         return Redirect::route('staff/pages')->with('flash_success', 'Page created successfully');
     } else {
         return Redirect::back()->with('flash_error', 'Error creating page');
     }
 	}
+
+    public function postEdit()
+    {
+        if($this->pages->update(\Input::all())) {
+            return Redirect::route('staff/pages')->with('flash_success', 'Page updated successfully');
+        } else {
+            return Redirect::back()->with('flash_error', 'Error updating page');
+        }
+    }
 
 	public function getMenus() {
 		return View::make('staff.pages.menus');
