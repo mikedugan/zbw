@@ -34,24 +34,6 @@ Edit Controller
                         @endforeach
                     </select>
                 </div>
-                <div class="form-group form-inline col-md-9">
-                    <label for="ismentor">Is Mentor?</label>
-                    <input class="checkbox-inline checkbox" value="1" type="checkbox" name="ismentor" id="ismentor" {{{ $user->is_mentor ? 'checked' : '' }}}>
-                    <label for="isins">Is Instructor?</label>
-                    <input class="checkbox-inline checkbox" value="1" type="checkbox" name="isins" id="isins" {{{ $user->is_instructor ? 'checked' : '' }}}>
-                    <label for="isfe">Is FE?</label>
-                    <input class="checkbox-inline checkbox" value="1" type="checkbox" name="isfe" id="isfe" {{{ $user->is_facilities ? 'checked' : '' }}}>
-                    <label for="isweb">Is Webmaster?</label>
-                    <input class="checkbox-inline checkbox" value="1" type="checkbox" name="isweb" id="isweb" {{{ $user->is_webmaster ? 'checked' : '' }}}>
-                    <label for="isatm">Is ATM?</label>
-                    <input class="checkbox-inline checkbox" value="1" type="checkbox" name="isatm" id="isatm" {{{ $user->is_atm ? 'checked' : '' }}}>
-                    <label for="isdatm">Is DATM?</label>
-                    <input class="checkbox-inline checkbox" value="1" type="checkbox" name="isdatm" id="isdatm" {{{ $user->is_datm ? 'checked' : '' }}}>
-                    <label for="ista">Is TA?</label>
-                    <input class="checkbox-inline checkbox" value="1" type="checkbox" name="ista" id="ista" {{{ $user->is_ta ? 'checked' : '' }}}>
-                    <label for="isemeritus">Is Emeritus?</label>
-                    <input class="checkbox-inline checkbox" value="1" type="checkbox" name="isemeritus" id="isemeritus" {{{ $user->is_emeritus ? 'checked' : '' }}}>
-                </div>
             </div>
             <div class="row">
                 <div class="col-md-3">

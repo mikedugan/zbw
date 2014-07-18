@@ -2,4 +2,5 @@
 <p>CID: {{ $results[0]->cid }}</p>
 <p>Email: {{ $results[0]->email }}</p>
 <p>Rating: {{ $results[0]->rating->short }}</p>
-<img class="avatar" src="{{$controller->avatar()}}">
+
+<img class="avatar" src="{{$results[0]->avatar()}}">
