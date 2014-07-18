@@ -21,3 +21,4 @@ node_modules/
 workbench
 app/storage
 public/uploads
+public/packages

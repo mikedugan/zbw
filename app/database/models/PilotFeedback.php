@@ -1,6 +1,6 @@
 <?php
 
 class PilotFeedback extends Eloquent {
-	protected $guarded = ['ip', 'email'];
+	protected $guarded = ['email'];
 	protected $table = 'pilot_feedback';
 }
