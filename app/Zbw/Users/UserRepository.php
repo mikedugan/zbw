@@ -188,6 +188,11 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
      */
     public function search($input)
     {
+        if($input['cid'] > 0)
+        {
+            return \User::find($input['cid']);
+        }
+
         $users = $this->make()->where('cid', '>', 0);
         if($input['email'] != null && $input['email'] != '')
         {
@@ -198,11 +203,6 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
         if($input['rating'] != null && $input['rating'] != '')
         {
             $users = $users->where('rating_id', $input['rating']);
-        }
-
-        if($input['cid'] > 0)
-        {
-            return $this->make()->find($input['cid']);
         }
 
         if($input['fname'] != null && $input['fname'] != '')
