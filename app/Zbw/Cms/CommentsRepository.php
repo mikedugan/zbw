@@ -1,6 +1,5 @@
 <?php  namespace Zbw\Cms;
 
-
 use Zbw\Base\EloquentRepository;
 use Zbw\Cms\Contracts\CommentsRepositoryInterface;
 

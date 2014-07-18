@@ -1,8 +1,8 @@
 <?php
 
-use Zbw\Cms\CommentsRepositoryInterface;
+use Zbw\Cms\Contracts\CommentsRepositoryInterface;
 use Zbw\Training\QuestionsRepository;
-use Zbw\Training\ExamsRepositoryInterface;
+use Zbw\Training\Contracts\ExamsRepositoryInterface;
 
 class ExamsController extends BaseController
 {
