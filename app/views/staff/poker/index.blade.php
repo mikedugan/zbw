@@ -41,6 +41,11 @@ ZBW Airport Poker
                 </div>
                 <button class="btn btn-submit btn-primary">Deal</button>
             </form>
+            @if($me->is_exec())
+            <form style="margin-top:10px" class="confirm" data-warning="This will clear ALL airport poker data!" action="/staff/poker/wipe" method="post">
+                <button type="submit" class="btn btn-danger">Delete All Poker Data</button>
+            </form>
+            @endif
         </div>
         <div class="col-md-12">
             <h3 class="text-center">Pilots</h3>

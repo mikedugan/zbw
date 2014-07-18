@@ -117,5 +117,15 @@ class PokerService implements PokerServiceInterface
         $graded_hands = $this->analyzer->analyzeHands($hands);
         return $this->analyzer->sortHands($graded_hands);
     }
+
+    public function wipePilots()
+    {
+        return \PokerPilot::truncate();
+    }
+
+    public function wipeCards()
+    {
+        return \PokerCard::truncate();
+    }
 }
 
