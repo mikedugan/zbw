@@ -16,6 +16,19 @@ class PagesRepository extends EloquentRepository implements PagesRepositoryInter
 
     public function update($input)
     {
+        $page = $this->get($input['pid']);
+        $filenames = [];
+        $page->title = $input['title'];
+        $page->slug = \Str::slug($input['title']);
+        $page->published = $input['published'];
+        $page->author = $input['author'];
+        $page->content = ' ';
+        $page->audience_type_id = isset($input['audience_type']) ? $input['audience_type'] : 1;
+        $page->save();
+        $filenames = $this->parseInputFiles($filenames);
+        $page->is_official = 0;
+        $page->content = $this->creator->create(\Input::get('content'), $filenames);
+        return $page->save();
 
     }
 

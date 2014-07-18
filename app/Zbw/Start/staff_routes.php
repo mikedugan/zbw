@@ -70,13 +70,6 @@ Route::group(['before'   => 'auth|staff'], function () {
 						'uses' => 'RosterController@getEditUser'
 					]
 				);
-				Route::post(
-					'{id}/edit',
-					[
-						'as'   => 'roster/user/{id}/edit',
-						'uses' => 'RosterController@postEditUser'
-					]
-				);
 				Route::get(
 					'roster/create-controller',
 					[
@@ -227,4 +220,6 @@ Route::group(
         Route::get('staff/training/{id}', 'TrainingController@showAdmin');
     });
 Route::post('/staff/poker/{id}', ['as' => '/staff/poker/{id}', 'uses' => 'PokerController@postDiscard']);
+Route::post('{id}/edit',['as'   => 'roster/user/{id}/edit','uses' => 'RosterController@postEditUser']);
+
 
