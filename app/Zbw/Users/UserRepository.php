@@ -373,7 +373,7 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
     public function isExecutive($id)
     {
         $u = $this->make()->find($id);
-        $exec = \Sentry::findGroupByName('Executive Staff');
+        $exec = \Sentry::findGroupByName('Executive');
         return $u->inGroup($exec);
     }
 

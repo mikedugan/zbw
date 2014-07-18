@@ -8,7 +8,7 @@ class GroupsTableSeeder extends Seeder {
     {
 	      DB::table('groups')->truncate();
         \Sentry::createGroup([
-              'name' => 'Executive Staff',
+              'name' => 'Executive',
               'permissions' => [
                   'roster.all' => 1,
                   'news.all' => 1,
@@ -21,7 +21,7 @@ class GroupsTableSeeder extends Seeder {
               ]
           ]);
         \Sentry::createGroup([
-              'name' => 'Facilities Team',
+              'name' => 'Facilities',
               'permissions' => [
                   'roster.view' => 1,
                   'news.create' => 1,

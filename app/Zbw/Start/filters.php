@@ -104,7 +104,7 @@ Route::filter('staff', function() {
 });
 
 Route::filter('executive', function() {
-    if(! \Sentry::check() || ! \Sentry::getUser()->is('Executive Staff'))
+    if(! \Sentry::check() || ! \Sentry::getUser()->is('Executive'))
     {
         $data = [
             'page' => Request::url(),

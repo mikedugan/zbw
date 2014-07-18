@@ -30,8 +30,8 @@
             <td><a href="/controllers/{{$u->cid}}">{{ $u->username }}</a></td>
             @endif
             <td>
-                @if($u->settings->email_hidden == 0)
-                {{ $u->email }}
+                @if(isset($u->settings->email_hidden) && $u->settings->email_hidden == 0)
+                <a href="mailto:{{ $u->email }}">{{$u->email}}</a>
                 @else
                 <i>Hidden</i>
                 @endif
