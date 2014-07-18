@@ -53,4 +53,14 @@ class PokerController extends \BaseController {
         $this->service->discard(\Input::get('card'));
         return Redirect::back()->with('flash_success', 'Card discarded successfully');
     }
+
+    public function postWipe()
+    {
+        if($this->service->wipePilots() && $this->service->wipeCards())
+        {
+            return Redirect::back()->with('flash_success', 'Poker data successfully wiped out!');
+        } else {
+            return Redirect::back()->with('flash_error', 'Error removing poker data!');
+        }
+    }
 }

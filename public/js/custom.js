@@ -1,4 +1,4 @@
-$(function() {
+ $(function() {
     $('.file-control').bootstrapFileInput({'data-filename-placement': 'inside'});
     //$('input[type=file]').bootstrapFileInput();
     highlightCorrect();

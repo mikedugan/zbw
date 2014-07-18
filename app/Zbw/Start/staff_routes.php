@@ -109,7 +109,6 @@ Route::group(['before'   => 'auth|staff'], function () {
           Route::get('poker', ['as' => 'poker','uses' => 'PokerController@getIndex']);
           Route::post('poker', ['as' => 'poker', 'uses' => 'PokerController@postIndex']);
           Route::get('poker/{id}', ['as' => 'poker/{id}', 'uses' => 'PokerController@getPilot']);
-          Route::post('poker/{id}', ['as' => 'poker/{id}', 'uses' => 'PokerController@postDiscard']);
 
 				Route::get(
 					'news',
@@ -181,6 +180,7 @@ Route::group(['before'   => 'auth|staff'], function () {
 Route::group(
 	['before' => 'executive'],
 	function () {
+        Route::post('/staff/poker/wipe', 'PokerController@postWipe');
 		Route::post(
 			'/r/activate/{cid}',
 			[
@@ -222,7 +222,8 @@ Route::group(
 Route::group(
 	['before' => 'mentor'],
 	function () {
-		Route::post('/e/review/{eid}', 'AjaxController@postReviewComment');
-		Route::get('staff/training/{id}', 'TrainingController@showAdmin');
-	}
-);
+        Route::post('/e/review/{eid}', 'AjaxController@postReviewComment');
+        Route::get('staff/training/{id}', 'TrainingController@showAdmin');
+    });
+Route::post('/staff/poker/{id}', ['as' => '/staff/poker/{id}', 'uses' => 'PokerController@postDiscard']);
+
