@@ -6,6 +6,8 @@ View Pilot
 <h1 class="text-center">View Pilot</h1>
 <div class="row">
     <div class="col-md-6">
+        <p><b>Pilot: </b> {{ $pilot->first_name . ' ' . $pilot->last_name }}</p>
+
         <?php $card_names = \Config::get('zbw.poker.card_names'); ?>
         @foreach($pilot->cards as $card)
             <div style="margin-top:10px" class="row">

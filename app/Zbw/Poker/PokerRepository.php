@@ -73,7 +73,7 @@ class PokerRepository extends EloquentRepository implements PokerRepositoryInter
         $pilots = \PokerPilot::all();
         $ret = [];
         foreach($pilots as $pilot) {
-            if(count($pilot->cards) === 5) {
+            if(count($pilot->cards) >= 5) {
                 $ret[] = $pilot;
             }
         }

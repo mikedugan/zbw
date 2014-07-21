@@ -6,7 +6,7 @@ Access Denied
     <h1 class="text-center">Access Denied</h1>
     <p>We're sorry, but you do not have adequate permissions to view this page.</p>
     <p>If you believe this is an error, please contact a staff member!</p>
-    @if($me->username)
+    @if(\Sentry::check())
     <p><b>User:</b> {{$me->username}}</p>
     @else
     <p><b>User:</b> Not Logged In</p>

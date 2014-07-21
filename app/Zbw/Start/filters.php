@@ -93,12 +93,11 @@ Route::filter('controller', function() {
 });
 
 Route::filter('staff', function() {
-    if(! \Sentry::getUser()->is('Staff')) {
+    if(! \Sentry::check() || ! \Sentry::getUser()->is('Staff')) {
         $data = [
             'page' => Request::url(),
             'needed' => 'general staff member'
         ];
-        Zbw\Bostonjohn\ZbwLog::log(\Sentry::getUser()->initials . ' tried to access ' . Request::url());
         return View::make('zbw.errors.403', $data);
     }
 });
@@ -110,7 +109,6 @@ Route::filter('executive', function() {
             'page' => Request::url(),
             'needed' => 'executive staff member'
         ];
-        Zbw\Bostonjohn\ZbwLog::log(\Sentry::getUser() . ' tried to access ' . Request::url());
         return View::make('zbw.errors.403', $data);
     }
 });
@@ -122,7 +120,6 @@ Route::filter('instructor', function() {
             'page' => Request::url(),
             'needed' => 'instructor'
         ];
-        Zbw\Bostonjohn\ZbwLog::log(\Sentry::getUser()->initials . ' tried to access ' . Request::url());
         return View::make('zbw.errors.403', $data);
     }
 });
@@ -134,29 +131,26 @@ Route::filter('mentor', function() {
             'page' => Request::url(),
             'needed' => 'mentor'
         ];
-        Zbw\Bostonjohn\ZbwLog::log(\Sentry::getUser()->initials . ' tried to access ' . Request::url());
         return View::make('zbw.errors.403', $data);
     }
 });
 
 Route::filter('suspended', function() {
-      if(\Sentry::getUser()->rating->id === 0 || \Sentry::getUser()->is_suspended || \Sentry::getUser()->is_terminated) {
+      if(!\Sentry::check() || \Sentry::getUser()->rating->id === 0 || \Sentry::getUser()->is_suspended || \Sentry::getUser()->is_terminated) {
           $data = [
               'page' => Request::url(),
               'needed' => 'active (your account is suspended by ZBW or VATUSA)'
           ];
-          Zbw\Bostonjohn\ZbwLog::log(\Sentry::getUser()->initials . ' tried to access ' . Request::url() . ' but is suspended');
           return View::make('zbw.errors.403', $data);
       }
   });
 
 Route::filter('terminated', function() {
-     if(\Sentry::getUser()->is_terminated) {
+     if(\Sentry::check() && \Sentry::getUser()->is_terminated) {
          $data = [
              'page' => Request::url(),
              'needed' => 'active (your accout has been terminated)'
          ];
-         Zbw\Bostonjohn\ZbwLog::log(\Sentry::getUser()->initials . ' tried to access ' . Request::url() . ' but is terminated');
          return View::make('zbw.errors.403', $data);
      }
   });
