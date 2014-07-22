@@ -1,6 +1,7 @@
 <?php  namespace Zbw\Training;
 
 use Carbon\Carbon;
+use Zbw\Training\Contracts\TrainingGraderInterface;
 
 class TrainingSessionGrader implements TrainingGraderInterface
 {

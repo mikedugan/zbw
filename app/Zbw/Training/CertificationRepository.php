@@ -3,6 +3,7 @@
 use Zbw\Base\Helpers;
 use Zbw\Base\EloquentRepository;
 use Zbw\Training\Contracts\CertificationRepositoryInterface;
+use Zbw\Training\Contracts\ExamsRepositoryInterface;
 
 class CertificationRepository extends EloquentRepository implements CertificationRepositoryInterface
 {

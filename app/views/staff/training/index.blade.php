@@ -23,12 +23,12 @@ Training Index
         @foreach($staffings as $s)
             <p class="well"><a href="/controllers/{{$s->cid}}">{{ $s->user->initials }}</a> staffed {{$s->position}} for
                 <?php
-
                 $minutes = $s->created_at->diffInMInutes($s->stop);
                 $hours = 0;
                 if($minutes > 60) { $hours = floor($minutes / 60); $minutes = $minutes % 60; }
                 echo $hours > 0 ? $hours . ' hour(s) ' . $minutes . ' minutes' : $minutes . ' minutes';
-                ?></p>
+                ?>
+            </p>
         @endforeach
     </div>
 </div>
@@ -57,7 +57,7 @@ Training Index
                     <a href="/staff/exams/review/{{$e->id}}">
                     {{ strtoupper($e->student['initials']) }}
                         took
-                        {{ Zbw\Base\Helpers::readableCert($e->exam['value']) }}
+                        {{ Zbw\Base\Helpers::readableCert($e->exam['id']) }}
                     , scored
                         {{ \Zbw\Base\Helpers::getScore($e) }}
                         %
