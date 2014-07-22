@@ -34,6 +34,7 @@ class TrainingController extends BaseController
           'sessions' => ['a', 'b'],
           'requests' => \TrainingRequest::with(['student', 'certType'])->get(),
           'exams' => \Exam::recentExams(5),
+          'staffings' => \Staffing::limit(10)->with(['user'])->orderBy('created_at', 'DESC')->get()
         ];
         return View::make('staff.training.index', $data);
     }

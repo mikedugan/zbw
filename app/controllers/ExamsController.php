@@ -1,7 +1,6 @@
 <?php
 
 use Zbw\Cms\Contracts\CommentsRepositoryInterface;
-use Zbw\Training\QuestionsRepository;
 use Zbw\Training\Contracts\ExamsRepositoryInterface;
 
 class ExamsController extends BaseController
@@ -10,9 +9,8 @@ class ExamsController extends BaseController
     private $comments;
     private $exams;
 
-    public function __construct(QuestionsRepository $questions, CommentsRepositoryInterface $comments, ExamsRepositoryInterface $exams)
+    public function __construct(CommentsRepositoryInterface $comments, ExamsRepositoryInterface $exams)
     {
-        $this->questions = $questions;
         $this->comments = $comments;
         $this->exams = $exams;
     }

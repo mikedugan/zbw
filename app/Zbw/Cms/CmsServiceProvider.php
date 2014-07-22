@@ -6,7 +6,7 @@ class CmsServiceProvider extends ServiceProvider {
     public function register()
     {
         $this->app->bind('Zbw\Cms\Contracts\CommentsRepositoryInterface', function() {
-              return \App::make('CommentsRepository');
+              return \App::make('Zbw\Cms\CommentsRepository');
           });
         $this->app->bind('Zbw\Cms\Contracts\FeedbackRepositoryInteface', function() {
               return new FeedbackRepository;

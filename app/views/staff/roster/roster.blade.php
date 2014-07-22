@@ -2,6 +2,7 @@
 <div class="col-md-8">
     <h3>Current Roster</h3>
     <a href="?num=all">View All</a>
+    <a href="?num=active">View Active</a>
     <table class="full table-bordered">
         <thead>
         <th>Name</th>
@@ -44,7 +45,9 @@
         </tr>
         @endforeach
     </table>
-    {{ $users->links() }}
+    @if(\Input::has('num') && \Input::get('num') != 'active')
+        {{ $users->links }}
+    @endif
 </div>
 <div class="col-md-4">
     <h3>Search Controllers</h3>

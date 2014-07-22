@@ -20,17 +20,15 @@ Training Index
     </div>
     <div class="col-md-6">
         <h4>Recent Staffing</h4>
-        <p class="well">
-            AS staffed PVD_APP for 73 minutes on 2/21/14
-        </p>
-        <p class="well">
-            WY staffed BOS_CTR for 85 minutes on 2/18/14
-        </p>
-        <p class="well">
-            PG staffed PWM_GND for 51 minutes on 2/14/14
-        </p>
-        @foreach($sessions as $s)
+        @foreach($staffings as $s)
+            <p class="well"><a href="/controllers/{{$s->cid}}">{{ $s->user->initials }}</a> staffed {{$s->position}} for
+                <?php
 
+                $minutes = $s->created_at->diffInMInutes($s->stop);
+                $hours = 0;
+                if($minutes > 60) { $hours = floor($minutes / 60); $minutes = $minutes % 60; }
+                echo $hours > 0 ? $hours . ' hour(s) ' . $minutes . ' minutes' : $minutes . ' minutes';
+                ?></p>
         @endforeach
     </div>
 </div>

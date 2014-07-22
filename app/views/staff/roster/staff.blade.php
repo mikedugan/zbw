@@ -24,21 +24,20 @@
             @endif
             <td><a href="/controllers/{{$u->cid}}">{{ $u->username }}</a></td>
             <td>
-                @if($u->is_atm)
+                @if($u->inGroup(Sentry::findGroupByName('ATM')))
                 ATM
-                @elseif($u->is_datm)
+                @elseif($u->inGroup(Sentry::findGroupByName('DATM')))
                 DATM
-                @elseif($u->is_ta)
+                @elseif($u->inGroup(Sentry::findGroupByName('TA')))
                 TA
-                @elseif($u->is_webmaster)
+                @elseif($u->inGroup(Sentry::findGroupByName('WEB')))
                 Webmaster
-                @elseif($u->is_fe)
+                @elseif($u->inGroup(Sentry::findGroupByName('FE')))
                 FE
                 @endif
-                @if($u->is_instructor)
+                @if($u->inGroup(Sentry::findGroupByName('Instructors')))
                  Instructor
-                @endif
-                @if($u->is_mentor)
+                @elseif($u->inGroup(Sentry::findGroupByName('Mentors')))
                  Mentor
                 @endif
             </td>
