@@ -21,6 +21,65 @@ class GroupsTableSeeder extends Seeder {
               ]
           ]);
         \Sentry::createGroup([
+            'name' => 'ATM',
+            'permissions' => [
+              'roster.all' => 1,
+              'news.all' => 1,
+              'forum.all' => 1,
+              'files.sector' => 1,
+              'sops.all' => 1,
+              'pages.all' => 1,
+              'groups.all' => 1,
+              'staff.all' => 1
+            ]
+          ]);
+        \Sentry::createGroup([
+            'name' => 'DATM',
+            'permissions' => [
+              'roster.all' => 1,
+              'news.all' => 1,
+              'forum.all' => 1,
+              'files.sector' => 1,
+              'sops.all' => 1,
+              'pages.all' => 1,
+              'groups.all' => 1,
+              'staff.all' => 1
+            ]
+          ]);
+        \Sentry::createGroup([
+            'name' => 'TA',
+            'permissions' => [
+              'roster.all' => 1,
+              'news.all' => 1,
+              'forum.all' => 1,
+              'files.sector' => 1,
+              'sops.all' => 1,
+              'pages.all' => 1,
+              'groups.all' => 1,
+              'staff.all' => 1
+            ]
+          ]);
+        \Sentry::createGroup([
+            'name' => 'WEB',
+            'permissions' => [
+              'roster.all' => 1,
+              'news.all' => 1,
+              'forum.all' => 1,
+              'files.sector' => 1,
+              'sops.all' => 1,
+              'pages.all' => 1,
+              'groups.all' => 1,
+              'staff.all' => 1
+            ]
+          ]);
+        \Sentry::createGroup([
+            'name' => 'FE',
+            'permissions' => [
+              'news.all' => 1,
+              'files.sector' => 1,
+            ]
+          ]);
+        \Sentry::createGroup([
               'name' => 'Facilities',
               'permissions' => [
                   'roster.view' => 1,

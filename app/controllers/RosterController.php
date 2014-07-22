@@ -20,9 +20,16 @@ class RosterController extends BaseController {
         $action = \Input::get('action');
         $id = \Input::get('id');
         $pag = 15;
-        if(\Input::has('num')) $pag = 999;
+        $users = '';
+        if(\Input::has('num') && \Input::get('num') === 'active') {
+            $users = $this->users->active($pag);
+        }
+        else if(\Input::has('num')) {
+            $pag = \Input::get('num');
+            $users = $this->users->with(['rating', 'settings'], null, 'cid', $pag);
+        }
         $data = [
-          'users' => $this->users->with(['rating', 'settings'], null, 'cid', $pag),
+          'users' => $users,
           'view' => $view,
           'action' => $action,
           'staff' =>  $this->users->getStaff()
@@ -45,9 +52,18 @@ class RosterController extends BaseController {
         $action = \Input::get('action');
         $id = \Input::get('id');
         $pag = 15;
-        if(\Input::has('num')) { $pag = 999; }
+        $users = '';
+        if(\Input::has('num') && \Input::get('num') === 'active') {
+            $users = $this->users->active($pag);
+        }
+        else if(\Input::has('num')) {
+            $pag = \Input::get('num');
+            $users = $this->users->with(['rating', 'settings'], null, 'cid', $pag);
+        } else {
+            $users = $this->users->with(['rating', 'settings'], null, 'cid', 999);
+        }
         $data = [
-          'users' => $this->users->with(['rating'], null, 'cid', $pag),
+          'users' => $users,
           'view' => $view,
           'action' => $action,
           'staff' =>  $this->users->getStaff()

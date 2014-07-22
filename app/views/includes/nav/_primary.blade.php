@@ -4,7 +4,9 @@
         <a href="/controllers" class="dropdown-toggle" data-toggle="dropdown">Controllers <b class="caret"></b></a>
         <ul class="dropdown-menu">
             <li><a href="/roster">Roster</a></li>
+            @if(\Sentry::check())
             <li>{{ HTML::linkRoute('news', 'NOTAMS') }}</li>
+            @endif
             <li><a href="/pages/sops">ZBW Resources</a></li>
             <li><a href="/pages/resources">Other Resources</a></li>
             <li><a href="#">ATC Pages</a>
@@ -43,7 +45,9 @@
             <li><a href="/forum">Home</a></li>
             <li><a href="#">NOTAMS</a></li>
             <li><a href="#">Pilots</a></li>
+            @if(\Sentry::check())
             <li><a href="#">Controllers</a></li>
+            @endif
             <li><a href="#">Off-Topic</a></li>
         </ul>
     </li>

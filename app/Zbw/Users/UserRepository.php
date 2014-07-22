@@ -138,6 +138,11 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
         $model->save();
     }
 
+    public function active($num = 20)
+    {
+        return $this->make()->with(['rating', 'settings'])->where('activated', 1)->get();
+    }
+
     /**
      * @type
      * @name createInitials
