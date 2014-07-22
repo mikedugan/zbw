@@ -53,6 +53,11 @@ class User extends SentryUser implements UserInterface, RemindableInterface
         return $this->hasOne('Rating', 'id', 'rating_id');
     }
 
+    public function staffing()
+    {
+        return $this->hasMany('Staffing', 'cid', 'cid');
+    }
+
 
     //auth related -- mostly deprecated sine we switched to Sentry
     public function is($group)
