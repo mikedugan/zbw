@@ -32,7 +32,7 @@ class TrainingController extends BaseController
         $data = [
           'reports' => $this->trainings->recentReports(5),
           'sessions' => ['a', 'b'],
-          'requests' => \TrainingRequest::with(['student', 'certType'])->get(),
+          'requests' => \TrainingRequest::with(['student', 'certType'])->orderBy('created_at', 'desc')->get(),
           'exams' => \Exam::recentExams(5),
           'staffings' => \Staffing::limit(10)->with(['user'])->orderBy('created_at', 'DESC')->get()
         ];

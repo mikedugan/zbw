@@ -3,7 +3,10 @@
 class TrainingRequest extends Eloquent
 {
     public $table = '_training_requests';
-
+    public function getDates()
+    {
+        return ['start', 'end'];
+    }
     public function certType()
     {
         return $this->hasOne('CertType', 'id', 'cert_id');
@@ -23,10 +26,13 @@ class TrainingRequest extends Eloquent
     {
         $tr = new TrainingRequest();
         $tr->cid = $input['user'];
-        $tr->start = $input['start'];
-        $tr->end = $input['end'];
-        $tr->cert = $input['cert'];
-        return $tr->save();
+        $tr->start = str_replace('/', '-', $input['start']).':00';
+        $tr->end = str_replace('/', '-', $input['end']).':00';
+        $tr->cert_id = $input['cert'];
+        if($tr->save()) {
+            \Queue::push('Zbw\Bostonjohn\QueueDispatcher@trainingNewRequest', $tr);
+            return true;
+        } else return false;
     }
 
     public static function accept($tsid, $cid)

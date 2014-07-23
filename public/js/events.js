@@ -40,13 +40,18 @@ $(function() {
                 'cert': document.getElementById('examid').value
             }
         }).done(function(msg) {
-                msg = JSON.parse(msg);
-                if(msg.success)
-                {
-                    $('#flash').prepend(msg.message);
-                }
-                else $('#flash').prepend(msg.message);
-            });
+            msg = JSON.parse(msg);
+            if(msg.success)
+            {
+                $('.ajax-success').removeClass('hidden');
+                $('.ajax-success .message').text(msg.message);
+            }
+            else
+            {
+                $('.ajax-error').removeClass('hidden');
+                $('.ajax-error .message').text(msg.message);
+            }
+        });
     });
 
     $('#pm-reply').submit(function(e) {

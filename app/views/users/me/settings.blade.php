@@ -4,7 +4,7 @@
         <h3 class="text-center">Profile Settings</h3>
         <div class="form-group">
             {{ Form::label('email', 'Email') }}
-            <span title="Email is synced with VATUSA, please go to vatusa.net to change it!" class="pointer pull-right blue glyphicons circle_info"></span>
+            <span title="Email is synced with VATSIM, please go to vatsim.net to change it!" class="pointer pull-right blue glyphicons circle_info"></span>
             <input disabled type="text" name="email" id="email" value="{{$me->email}}" class="form-control">
         </div>
         <div class="form-group">
@@ -94,7 +94,7 @@
                 <td><input type="radio" name="n_news" {{ $me->settings->n_news === 2 ? 'checked' : '' }} value="2"></td>
                 <td><input type="radio" name="n_news" {{ $me->settings->n_news === 3 ? 'checked' : '' }} value="3"></td>
             </tr>
-            @if($me->is_staff)
+            @if($me->is('Staff'))
             <tr>
                 <td>New Exam Request</td>
                 <td><input type="radio" name="n_exam_request" {{ $me->settings->n_exam_request === 0 ? 'checked' : '' }} value="0"></td>
