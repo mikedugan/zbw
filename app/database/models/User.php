@@ -176,4 +176,20 @@ class User extends SentryUser implements UserInterface, RemindableInterface
         $mtr = \Sentry::findGroupByName('Mentors');
         return $this->inGroup($mtr);
     }
+
+    public function wants($type, $title)
+    {
+        if(is_null($this->settings->{'n_'.$title})) return false;
+        $user_wants = $this->settings->{'n_'.$title};
+        if($user_wants === 0) { return false; }
+        switch($type) {
+            case 'email':
+                if($user_wants === 3 || $user_wants === 2) return true;
+                break;
+            case 'message':
+                if($user_wants === 1 || $user_wants === 3) return true;
+                break;
+        }
+        return false;
+    }
 }

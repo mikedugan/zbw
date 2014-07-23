@@ -15,8 +15,8 @@ Your Training
         <h5>Current ZBW Certification: <span class="sans">{{ \Zbw\Base\Helpers::readableCert($me->cert) }}</span></h5>
     </div>
     <div class="col-md-6">
-        @if($me->cert < 10)
-        <a class="btn btn-primary" href="/e/request{{ $me->cid}}/{{ $me->cert + 1 }}">Request {{ \Zbw\Base\Helpers::readableCert($me->cert + 1) }} Exam</a>
+        @if($me->cert < 11)
+        <a class="btn btn-primary {{ $me->cert % 3 == 0 ? 'disabled' : ''}}" href="/e/request{{ $me->cid}}/{{ $me->cert + 1 }}">Request {{ \Zbw\Base\Helpers::readableCert($me->cert + 1) }} Exam</a>
         <a class="btn btn-primary" href="/training/request/new">Request Training</a>
         <a class="btn btn-primary" href="/training/take">Take Exam</a>
         <a class="btn btn-primary" href="/training/review">Review Exams</a>

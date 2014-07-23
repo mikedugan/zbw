@@ -111,7 +111,7 @@ class AjaxController extends BaseController
         if(\TrainingRequest::create(\Input::all())) {
             return json_encode([
                 'success' => true,
-                'message' => 'Training request added successfully for ' . $i['start']
+                'message' => 'Training request added successfully'
             ]);
         }
         else

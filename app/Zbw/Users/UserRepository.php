@@ -382,23 +382,23 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
         return $u->inGroup($exec);
     }
 
-    public static function canTrain($level)
+    public static function canTrain($level, $col = 'cid')
     {
-        if($level == 12) {
-            return \User::where('cert', '>=', 12)->lists('cid');
+        if($level == 11) {
+            return \User::where('cert', '>=', 12)->lists($col);
         } else {
-            return \User::where('cert', '>=', $level + 1)->lists('cid');
+            return \User::where('cert', '>=', $level + 1)->lists($col);
         }
     }
 
     /**
      * @deprecated
      */
-    public function canCertify($level)
+    public function canCertify($level, $col = 'cid')
     {
-        if($level == 11) { return $this->make()->where('cert', '>=', 12)->lists('cid'); }
-        else if ($level == 12) { return $this->make()->where('cert', '>=', 13)->lists('cid'); }
-        return $this->make()->where('cert', '>=', $level + 2)->lists('cid');
+        if($level == 11) { return $this->make()->where('cert', '>=', 12)->lists($col); }
+        else if ($level == 12) { return $this->make()->where('cert', '>=', 13)->lists($col); }
+        return $this->make()->where('cert', '>=', $level + 2)->lists($col);
     }
 
     public function checkUser($user)

@@ -1,6 +1,7 @@
 <?php  namespace Zbw\Bostonjohn;
 
 use Zbw\Cms\Contracts\MessagesRepositoryInterface;
+use Zbw\Users\Contracts\UserRepositoryInterface;
 
 class Notifier
 {
@@ -11,9 +12,10 @@ class Notifier
     protected $user;
     protected $log;
     private $messages;
-    public function __construct(MessagesRepositoryInterface $messages)
+    public function __construct(MessagesRepositoryInterface $messages, UserRepositoryInterface $users)
     {
         $this->messages = $messages;
+        $this->users = $users;
         $this->log = new ZbwLog();
     }
 
@@ -47,22 +49,19 @@ class Notifier
         $this->log->addLog('Staff welcome message sent to' . $this->user->initials, '');
     }
 
-    public function newTrainingRequestMessage(\TrainingRequest $request)
+    public function trainingRequestEmail($data)
     {
-        $recipients = \User::where('rating_id', '>=', $request->student->rating_id)->where('is_mentor', true)->orWhere('is_instructor', true)->get();
-        $content = $request->student->initials . ' has requested training on ' . $request->certType->value . '. Please visit ' . \HTML::link('training/request'.$request->id) . ' to view the request.'.
-        "\r\nThis is an automated message from Boston John. Please do not reply.";
-        foreach($recipients as $recipient) {
-            if($recipient->initials) {
-                $this->messages->create(
-                  [
-                    'to'      => $recipient->initials,
-                    'subject' => 'New Training Request',
-                    'message' => $content
-                  ]
-                );
-            }
-        }
-        return $recipients;
+        $vData = [
+            'user' => $this->users->get($data['cid']),
+            'to' => $this->users->get($data['to']),
+            'request' => $data['request']
+        ];
+        $mData = [
+            'to' => $vData['to']
+        ];
+        \Mail::send('zbw.emails.training-request', $vData, function($message) use ($mData) {
+              $message->to($mData['to']->email, $mData['to']->first_name . ' ' . $mData['to']->last_name);
+              $message->subject('ZBW Training Request');
+          });
     }
 } 

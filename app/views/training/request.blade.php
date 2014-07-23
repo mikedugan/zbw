@@ -15,7 +15,7 @@ Training Request
         <input id="userid" type="hidden" value="{{$me->cid}}">
         <div class="well col-md-12">
             <div class="col-md-3">
-                <div class="datepick" name="session_start"></div>
+                <div class="datepick" id="session_start" data-field="session_start" name="session_start"></div>
             </div>
             <div class="col-md-3">
                 <h3>Start Time</h3>
@@ -24,7 +24,7 @@ Training Request
                 request training for the next 30 days.</p>
             </div>
             <div class="col-md-3">
-                <div class="datepick col-md-6" name="session_end"></div>
+                <div class="datepick col-md-6" id="session_end" data-field="session_end" name="session_end"></div>
            </div>
             <div class="col-md-3">
                 <h3>End Time</h3>

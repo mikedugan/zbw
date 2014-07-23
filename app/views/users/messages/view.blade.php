@@ -28,7 +28,11 @@ View Message
         <hr/>
         <h2>Reply</h2>
         <form action="" id="pm-reply" method="post">
+            @if($message->sender->cid == 100)
+            <p>Boston John is a tower controller and doesn't provide radar services for replies!</p>
+            @else
             @include('includes.user._message_reply')
+            @endif
         </form>
     </div>
 @stop
