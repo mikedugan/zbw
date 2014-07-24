@@ -139,7 +139,7 @@ class MessagesRepository extends EloquentRepository implements MessagesRepositor
             $inbox = new \Message(
               [
                 'to'      => $to,
-                'subject' U=> $input['subject'],
+                'subject' => $input['subject'],
                 'content' => $input['message'],
                 'from'    => $from,
                 'cid'     => $to
