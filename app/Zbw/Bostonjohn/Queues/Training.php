@@ -44,7 +44,7 @@ class Training {
             if($user->wants('message', 'training_request')) {
                 $this->messages->create([
                       'subject' => 'ZBW Training Request',
-                      'message' => $message
+                      'message' => str_replace('_USER_', $user->initials, $message)
                   ]);
             }
         }
