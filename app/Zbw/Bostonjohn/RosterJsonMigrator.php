@@ -106,14 +106,23 @@ class RosterJsonMigrator {
         $u = \User::find($user->cid);
         $exec_group = \Sentry::findGroupByName('Executive');
         $mtr_group = \Sentry::findGroupByName('Mentors');
-        $fe_group = \Sentry::findGroupByName('Facilities Team');
+        $fe_group = \Sentry::findGroupByName('Facilities');
+        $fe_user = \Sentry::findGroupByName('FE');
+        $ta_user = \Sentry::findGroupByName('TA');
+        $datm_user = \Sentry::findGroupByName('DATM');
+        $atm_user = \Sentry::findGroupByName('ATM');
+        $web_user = \Sentry::findGroupByName('WEB');
         $ins_group = \Sentry::findGroupByName('Instructors');
         $staff_group = \Sentry::findGroupByName('Staff');
         $ec_group = \Sentry::findGroupByName('Events');
         if($user->is_chief || $user->is_chief_ins || $user->is_asst_chief) { $u->addGroup($exec_group); }
         if($user->is_mentor || $user->is_instructor) { $u->addGroup($mtr_group); }
+        if($user->is_chief) { $u->addGroup($atm_user); }
+        if($user->is_asst_chief) { $u->addGroup($datm_user); }
+        if($user->is_chief_ins) { $u->addGroup($ta_user); }
+        if($user->is_webmaster) { $u->addGroup($web_user); }
         if($user->is_instructor) { $u->addGroup($ins_group); }
-        if($user->is_facilities_engineer) { $u->addGroup($fe_group); }
+        if($user->is_facilities_engineer) { $u->addGroup($fe_group); $u->addGroup($fe_user); }
         if($user->is_event_coordinator) { $u->addGroup($ec_group); }
         if($user->is_chief || $user->is_chief_ins || $user->is_asst_chief || $user->is_mentor || $user->is_instructor || $user->is_facilities_engineer || $user->is_event_coordinator || $user->is_webmaster) {
             $u->addGroup($staff_group);

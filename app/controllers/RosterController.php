@@ -28,6 +28,10 @@ class RosterController extends BaseController {
             $pag = \Input::get('num');
             $users = $this->users->with(['rating', 'settings'], null, 'cid', $pag);
         }
+        else {
+            $pag = 20;
+            $users = $this->users->with(['rating', 'settings'], null, 'cid', $pag);
+        }
         $data = [
           'users' => $users,
           'view' => $view,

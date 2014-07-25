@@ -26,7 +26,7 @@
                     <tr>
                     @endif
                         <td>{{$message->created_at->toFormattedDateString()}}</td>
-                        <td>{{$message->sender->initials}}</td>
+                        <td>{{$message->sender->initials or 'User Deleted'}}</td>
                         <td>{{$message->subject}}</td>
                         <td>{{HTML::linkRoute('messages/{mid}', 'View', [$message->id])}} | {{HTML::linkRoute('messages/{mid}/delete', 'Delete', [$message->id])}}</td>
                     </tr>
