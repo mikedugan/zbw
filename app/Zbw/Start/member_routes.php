@@ -11,6 +11,9 @@ Route::group(
         '/me/markallread',
         ['as' => '/me/markallread', 'uses' => 'AjaxController@markInboxRead']
       );
+      Route::get('changelog', function() {
+            return View::make('zbw.changelog');
+        });
       Route::get(
         '/u/' . $cid,
         array('as' => 'me', 'uses' => 'UsersController@getMe')
