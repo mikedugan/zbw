@@ -181,7 +181,7 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
      */
     public function trainingProgress($id)
     {
-        return floor($this->make()->find($id)->cert / 7 * 100);
+        return floor(\User::find($id)->cert / 7 * 100);
     }
 
     /**
@@ -193,7 +193,7 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
      */
     public function search($input)
     {
-        if($input['cid'] > 0)
+        if($input['cid'] != '' && $input['cid'] != null)
         {
             return \User::find($input['cid']);
         }

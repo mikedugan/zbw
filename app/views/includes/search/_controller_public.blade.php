@@ -1,8 +1,10 @@
 <form action="/roster/results" method="GET">
+    @if(\Sentry::check())
     <div class="form-group">
         <label class="control-label" for="text">Email</label>
         <input class="form-control" type="text" name="email" id="email"/>
     </div>
+    @endif
     <div class="form-group">
         <label class="control-label" for="rating">Rating (ie I3)</label>
         <select class="form-control" name="rating" id="rating">

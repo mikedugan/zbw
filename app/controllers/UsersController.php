@@ -48,6 +48,7 @@ class UsersController extends BaseController
           'stype' => 'roster',
           'results' => $results
         ];
+
         if(count($results) === 0) {
             return Redirect::back()->with('flash_info', 'No results found');
         }
