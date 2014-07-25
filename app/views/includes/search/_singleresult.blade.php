@@ -1,6 +1,6 @@
-<p>Name: <a href="/controllers/{{$results[0]->cid}}">{{ $results[0]->first_name . ' ' . $results[0]->last_name }}</a></p>
-<p>CID: {{ $results[0]->cid }}</p>
-<p>Email: {{ $results[0]->email }}</p>
-<p>Rating: {{ $results[0]->rating->short }}</p>
+<p>Name: <a href="/controllers/{{$results->cid}}">{{ $results->first_name . ' ' . $results->last_name }}</a></p>
+<p>CID: {{ $results->cid }}</p>
+<p>Email: {{ $results->email }}</p>
+<p>Rating: {{ $results->rating->short }}</p>
 
-<img class="avatar" src="{{$results[0]->avatar()}}">
+<img class="avatar" src="{{$results->avatar()}}">
