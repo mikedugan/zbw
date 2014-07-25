@@ -10,34 +10,23 @@
         <th>Rating</th>
         </thead>
         @foreach($staff as $u)
-        @if($u->is_ta || $u->is_atm || $u->is_datm || $u->is_webmaster)
-        <tr class="danger">
-            @elseif($u->is_instructor)
-        <tr class="warning">
-            @elseif($u->is_staff || $u->is_mentor)
-        <tr class="info">
-            @elseif($u->artcc !== 'ZBW')
-        <tr class="success">
-            @else
-        <tr>
-            @endif
+            <tr>
             <td><a href="/controllers/{{$u->cid}}">{{ $u->username }}</a></td>
             <td>
-                @if($u->is_atm)
+                @if($u->is('ATM'))
                 ATM
-                @elseif($u->is_datm)
+                @elseif($u->is('DATM'))
                 DATM
-                @elseif($u->is_ta)
+                @elseif($u->is('TA'))
                 TA
-                @elseif($u->is_webmaster)
+                @elseif($u->is('WEB'))
                 Webmaster
-                @elseif($u->is_fe)
+                @elseif($u->is('FE'))
                 FE
                 @endif
-                @if($u->is_instructor)
+                @if($u->is('Instructors'))
                  Instructor
-                @endif
-                @if($u->is_mentor)
+                @elseif($u->is('Mentors'))
                  Mentor
                 @endif
             </td>
