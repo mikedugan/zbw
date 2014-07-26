@@ -1,58 +1,22 @@
-<?php namespace Zbw\Validators;
+<?php  namespace Zbw\Validators; 
 
-class ZbwValidator {
-    protected $errors;
-    protected $cids;
-    protected $sids;
-    protected $tids;
+use Illuminate\Validation\Validator;
 
-    public function __construct()
+class ZbwValidator extends Validator {
+
+    public function validateCid($attribute, $value, $parameters)
     {
-        /*$this->cids = Helpers::getCids(true);
-        $this->sids = Helpers::getSids(true);
-        $this->tids = Helpers::getTids(true);*/
-    }
-    /**
-     * @param array $input
-     * @return bool
-     */
-    public function validate($input)
-    {
-        $validator = \Validator::make($input, static::$rules);
-        if($validator->fails())
-        {
-            $this->errors = $validator->messages();
-            return false;
-        }
-        return true;
+        $is_valid = false;
+        $exists = false;
+        $is_valid = ($value > 100000 && $value < 2000000) || $value == 100;
     }
 
-    public function errors()
+    public function validateAirport($attributes, $value, $parameters)
     {
-        return $this->errors;
-    }
-
-    /**
-     * static wrapper function that will instantiate and return
-     * the validator, or return errors array if validation fails
-     *
-     * @param string $name - name of the child class
-     * @param array $input - Input::all() etc
-     * @return mixed
-     */
-    public static function get($name, $input = null)
-    {
-        if($input)
-        {
-            $name = 'Zbw\\Validators\\'.$name.'Validator';
-            $validator = new $name;
-            return $validator->validate($input) ? true : $validator->errors()->toArray();
-        }
-
-        else
-        {
-            $name = 'Zbw\\Validators\\'.$name.'Validator';
-            return new $name;
+        if($parameters[0] === 'iata') {
+            return preg_match('/[a-z]{3}/', strtolower($value));
+        } else {
+            return preg_match('/[a-z]{4}/', strtolower($value));
         }
     }
-}
+} 

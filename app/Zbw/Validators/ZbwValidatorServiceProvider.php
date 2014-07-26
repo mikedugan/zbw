@@ -10,7 +10,7 @@ class ZbwValidatorServiceProvider extends ServiceProvider {
      */
     public function register()
     {
-        $this->app->bind('ZbwValidator', 'Zbw\Validators\ZbwValidator');
+        $this->app->bind('ZbwValidator', 'Zbw\Validators\BaseValidator');
     }
 
 } 
