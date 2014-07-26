@@ -33,7 +33,7 @@ Training Request
                 of your request.</p>
             </div>
         </div>
-        <button class="btn btn-primary" type="submit">Submit</button>
+        <button class="btn btn-primary" disabled type="submit">Submit</button>
     </form>
     </div>
 @stop

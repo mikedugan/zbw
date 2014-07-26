@@ -108,18 +108,31 @@ class AjaxController extends BaseController
 
     public function postTrainingRequest()
     {
-        if(\TrainingRequest::create(\Input::all())) {
-            return json_encode([
-                'success' => true,
-                'message' => 'Training request added successfully'
-            ]);
+        try {
+            if (\TrainingRequest::create(\Input::all())) {
+                return json_encode(
+                  [
+                    'success' => true,
+                    'message' => 'Training request added successfully'
+                  ]
+                );
+            } else {
+                return json_encode(
+                  [
+                    'success'  => false,
+                    'messaage' => 'Error sending training request!'
+                  ]
+                );
+            }
         }
-        else
+        catch(InvalidArgumentException $e)
         {
-            return json_encode([
-               'success' => false,
-                'messaage' => 'Error sending training request!'
-            ]);
+            return json_encode(
+                [
+                    'success' => false,
+                    'message' => \Input::get('start')
+                ]
+            );
         }
     }
 

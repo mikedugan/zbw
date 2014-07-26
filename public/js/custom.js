@@ -4,6 +4,7 @@
     highlightCorrect();
     $('.datepick').datetimepicker({
         language: 'en',
+        format: 'm-d-Y H:i:s',
         inline: true,
         minDate:'0',
         maxDate: '+1970/01/30',
@@ -56,5 +57,9 @@
         buttons: ['bold', 'italic', 'underline', 'unorderedlist', 'orderedlist', 'outdent', 'indent',
         'image', 'link']
     });
-    $('.raptor').raptor();
+    /*$('.raptor').raptor();*/
+
+     if(window.location.pathname == '/training/request/new') {
+         createDateChangeListener();
+     }
 });

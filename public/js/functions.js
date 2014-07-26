@@ -77,3 +77,33 @@ function validateCC(form)
     });
     return window.confirm(message);
 }
+
+function getCarbonDate(addHours)
+{
+    var now = new Date();
+    var year = now.getFullYear();
+    var month = pad2(now.getMonth());
+    var day = pad2(now.getDate());
+    var h = pad2(now.getHours());
+    var m = pad2(now.getMinutes());
+    var s = pad2(now.getSeconds());
+    return month+'-'+day+'-'+year+' '+h+':'+m+':'+s;
+}
+
+function createDateChangeListener()
+{
+    var start_change = 0;
+    var end_change = 0;
+
+    $('#session_end').on('change', function(e) {
+        end_change++;
+    });
+    $('#session_start').on('change', function(e) {
+        start_change++;
+    });
+    $('.datepick').on('change', function(e) {
+        if(start_change > 0 && end_change > 0) {
+            $('button[type=submit]').removeAttr('disabled');
+        }
+    });
+}
