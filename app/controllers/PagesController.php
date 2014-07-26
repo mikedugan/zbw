@@ -30,6 +30,9 @@ class PagesController extends BaseController {
 
 	public function getPage($slug) {
       $page = $this->pages->slug($slug);
+      if(! $page instanceof Page) {
+          return View::make('zbw.errors.404');
+      }
       if($page->audience_type_id == 4 && ! \Sentry::getUser()->inGroup(\Sentry::findGroupByName('Staff'))) {
           $data = [
               'page' => \Request::url(),
