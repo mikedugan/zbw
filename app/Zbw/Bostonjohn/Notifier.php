@@ -64,4 +64,41 @@ class Notifier
               $message->subject('ZBW Training Request');
           });
     }
+
+    public function trainingRequestAcceptedEmail($data)
+    {
+        $vData = [
+          'to' => $this->users->get($data['to']),
+          'request' => $data['request'],
+          'staff' => $this->users->get($data['request']->sid),
+          'cert' => Helpers::readableCert($data->cert_id),
+          'start' => $data->start->toDayDateTimeString(),
+          'end' => $data->end->toDayDateTimeString()
+        ];
+        $mData = [
+          'to' => $vData['to']
+        ];
+        \Mail::send('zbw.emails.training_request_accepted', $vData, function($message) use ($mData) {
+              $message->to($mData['to']->email, $mData['to']->first_name . ' ' . $mData['to']->last_name);
+              $message->subject('ZBW Training Request');
+          });
+    }
+
+    public function trainingRequestDroppedEmail($data)
+    {
+        $vData = [
+          'to' => $this->users->get($data['to']),
+          'request' => $data['request'],
+          'cert' => Helpers::readableCert($data['request']->cert_id),
+          'start' => $data['request']->start->toDayDateTimeString(),
+          'end' => $data['request']->end->toDayDateTimeString()
+        ];
+        $mData = [
+          'to' => $vData['to']
+        ];
+        \Mail::send('zbw.emails.training_request_dropped', $vData, function($message) use ($mData) {
+              $message->to($mData['to']->email, $mData['to']->first_name . ' ' . $mData['to']->last_name);
+              $message->subject('ZBW Training Request');
+          });
+    }
 } 
