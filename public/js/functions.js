@@ -90,6 +90,9 @@ function getCarbonDate(addHours)
     return month+'-'+day+'-'+year+' '+h+':'+m+':'+s;
 }
 
+/**
+ * this registers a listener to prevent users from submitting training requests without changing the date
+ */
 function createDateChangeListener()
 {
     var start_change = 0;
