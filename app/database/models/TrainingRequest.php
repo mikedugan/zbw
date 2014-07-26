@@ -43,7 +43,10 @@ class TrainingRequest extends Eloquent
         if($tr->accepted_by) { return false;}
         $tr->sid = $cid;
         $tr->accepted_at = \Carbon::now();
-        return $tr->save();
+        if($tr->save()) {
+            \Queue::push('Zbw\Bostonjohn\QueueDispatcher@trainingAcceptRequest', $tr);
+            return true;
+        } else return false;
     }
 
     public static function drop($tsid, $cid)
@@ -52,7 +55,10 @@ class TrainingRequest extends Eloquent
         if($tr->sid === $cid) {
             $tr->sid = null;
             $tr->accepted_at = null;
-            return $tr->save();
+            if($tr->save()) {
+                \Queue::push('Zbw\Bostonjohn\QueueDispatcher@trainingDropRequest', $tr);
+                return true;
+            } else return false;
         }
         else return false;
 

@@ -3,7 +3,7 @@
 
 <p>Controller: {{ $student->initials }}</p>
 
-<p>Training Requested: Center (Off Peak)</p>
+<p>Training Requested: {{ $cert }}</p>
 
 <p>Requested Start: {{ $start }}</p>
 
