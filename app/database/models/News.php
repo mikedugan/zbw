@@ -1,71 +1,88 @@
 <?php
 
-class News extends Eloquent {
-	protected $guarded = ['audience', 'deleted_at'];
-	protected $table = 'zbw_news';
+class News extends BaseModel
+{
+    protected $guarded = ['audience', 'deleted_at'];
+    protected $table = 'zbw_news';
+
+    public static function boot()
+    {
+        parent::boot();
+
+        static::saving(function($model) {
+              return false;
+          });
+    }
 
     public function getDates()
     {
         return ['starts', 'ends'];
     }
-	//scopes
+    //scopes
     /**
      * @param Query $query
+     *
      * @return Eloquent
      */
     public function scopeEvents($query)
-	{
-		return $query->where('type', '=', 'event');
-	}
-
-    /**
-     * @param Query $query
-     * @return Eloquent
-     */
-	public function scopeNews($query)
-	{
-		return $query->where('type', '=', 'news');
-	}
-
-    /**
-     * @param Query $query
-     * @return Eloquent
-     */
-	public function scopePolicies($query)
-	{
-		return $query->where('type', '=', 'policy');
-	}
-
-    /**
-     * @param Query $query
-     * @return Eloquent
-     */
-	public function scopeForum($query)
-	{
-		return $query->where('type', '=', 'forum');
-	}
-
-    /**
-     * @param Query $query
-     * @return Eloquent
-     */
-	public function scopeStaff($query)
-	{
-		return $query->where('type', '=', 'staff');
-	}
-
-    /**
-     * @param Query $query
-     * @return Eloquent
-     */
- /*   public function scopeFacility($query, $fac)
     {
-        return $query->where('facility', '=', $fac);
-    }*/
+        return $query->where('type', '=', 'event');
+    }
 
     /**
      * @param Query $query
+     *
+     * @return Eloquent
+     */
+    public function scopeNews($query)
+    {
+        return $query->where('type', '=', 'news');
+    }
+
+    /**
+     * @param Query $query
+     *
+     * @return Eloquent
+     */
+    public function scopePolicies($query)
+    {
+        return $query->where('type', '=', 'policy');
+    }
+
+    /**
+     * @param Query $query
+     *
+     * @return Eloquent
+     */
+    public function scopeForum($query)
+    {
+        return $query->where('type', '=', 'forum');
+    }
+
+    /**
+     * @param Query $query
+     *
+     * @return Eloquent
+     */
+    public function scopeStaff($query)
+    {
+        return $query->where('type', '=', 'staff');
+    }
+
+    /**
+     * @param Query $query
+     *
+     * @return Eloquent
+     */
+    /*   public function scopeFacility($query, $fac)
+       {
+           return $query->where('facility', '=', $fac);
+       }*/
+
+    /**
+     * @param Query  $query
      * @param Carbon $date
+     *
      * @return Eloquent
      */
     public function scopeEndsBefore($query, $date)
@@ -74,8 +91,9 @@ class News extends Eloquent {
     }
 
     /**
-     * @param Query $query
+     * @param Query  $query
      * @param Carbon $date
+     *
      * @return Eloquent
      */
     public function scopeEndsAfter($query, $date)
@@ -84,8 +102,9 @@ class News extends Eloquent {
     }
 
     /**
-     * @param Query $query
+     * @param Query  $query
      * @param Carbon $date
+     *
      * @return Eloquent
      */
     public function scopeStartsBefore($query, $date)
@@ -94,8 +113,9 @@ class News extends Eloquent {
     }
 
     /**
-     * @param Query $query
+     * @param Query   $query
      * @param \Carbon $date
+     *
      * @return Eloquent
      */
     public function scopeStartsAfter($query, \Carbon\Carbon $date)
@@ -103,7 +123,7 @@ class News extends Eloquent {
         return $query->where('starts', '>', $date);
     }
 
-	//relations
+    //relations
 
     public function newsType()
     {

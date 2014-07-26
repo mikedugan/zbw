@@ -384,11 +384,17 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
 
     public static function canTrain($level, $col = 'cid')
     {
-        if($level == 11) {
-            return \User::where('cert', '>=', 12)->lists($col);
-        } else {
-            return \User::where('cert', '>=', $level + 1)->lists($col);
+        $start = \Sentry::findAllUsersInGroup(\Sentry::findGroupByName('Mentors'));
+        $start = \Sentry::findAllUsersInGroup(\Sentry::findGroupByName('Instructors'))->merge($start);
+        foreach ($start as $index => $user) {
+            if($level == 11 && $user->cert < 12) {
+                    unset($start[$index]);
+            }
+            else if($user->cert < $level + 1) {
+                unset($start[$index]);
+            }
         }
+        return $start->lists('cid');
     }
 
     /**
