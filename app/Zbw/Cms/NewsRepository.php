@@ -1,7 +1,7 @@
 <?php namespace Zbw\Cms;
 
 use Zbw\Base\EloquentRepository;
-use Zbw\Validators\ZbwValidator;
+use Zbw\Validators\BaseValidator;
 use Zbw\Cms\Contracts\NewsRepositoryInterface;
 
 class NewsRepository extends EloquentRepository implements NewsRepositoryInterface
@@ -76,7 +76,7 @@ class NewsRepository extends EloquentRepository implements NewsRepositoryInterfa
 
     public function update($input)
     {
-        $invalid = ZbwValidator::get('News', $input);
+        $invalid = BaseValidator::get('News', $input);
         if(is_array($invalid)) return $invalid;
         $input['starts'] = \Carbon::createFromFormat('Y-m-d H:i:s', $input['starts']);
         $input['ends'] = \Carbon::createFromFormat('Y-m-d H:i:s', $input['ends']);
