@@ -15,7 +15,7 @@ return array(
 	|
 	*/
 
-	'driver' => 'file',
+	'driver' => 'array',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -87,7 +87,7 @@ return array(
 	'prefix' => 'laravel',
 
   'times' => [
-      'page' => 120
+      'page' => 0
   ]
 
 );

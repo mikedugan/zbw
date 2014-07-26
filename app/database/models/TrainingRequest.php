@@ -1,5 +1,7 @@
 <?php 
 
+use Zbw\Base\Helpers;
+
 class TrainingRequest extends Eloquent
 {
     public $table = '_training_requests';
@@ -26,8 +28,8 @@ class TrainingRequest extends Eloquent
     {
         $tr = new TrainingRequest();
         $tr->cid = $input['user'];
-        $tr->start = str_replace('/', '-', $input['start']).':00';
-        $tr->end = str_replace('/', '-', $input['end']).':00';
+        $tr->start = Helpers::convertToCarbon($input['start']);
+        $tr->end = Helpers::convertToCarbon($input['end']);
         $tr->cert_id = $input['cert'];
         if($tr->save()) {
             \Queue::push('Zbw\Bostonjohn\QueueDispatcher@trainingNewRequest', $tr);

@@ -22,3 +22,4 @@ workbench
 app/storage
 public/uploads
 public/packages
+*.sql

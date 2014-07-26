@@ -202,7 +202,7 @@ class Helpers
     {
 
         $alphabet = "abcdefghijklmnopqrstuwxyzABCDEFGHIJKLMNOPQRSTUWXYZ0123456789";
-        $pass = array(); //remember to declare $pass as an array
+        $pass = array(); //remember to declare $pass as an arrayfun
         $alphaLength = strlen($alphabet) - 1; //put the length -1 in cache
         for ($i = 0; $i < $len; $i++) {
             $n = rand(0, $alphaLength);
@@ -217,7 +217,7 @@ class Helpers
      */
     public static function convertToCarbon($date)
     {
-        return \Carbon::createFromFormat('Y-m-d H:i:s', $date);
+        return \Carbon::createFromFormat('m-d-Y H:i:s', $date);
     }
 
     public static function makeLines($text, $r = true)
