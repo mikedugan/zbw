@@ -172,7 +172,7 @@ class AjaxController extends BaseController
             return json_encode(
               [
                 'success' => true,
-                'message' => 'Training session droppedr'
+                'message' => 'Training session dropped'
               ]
             );
         } else {
