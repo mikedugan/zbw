@@ -114,7 +114,7 @@ class Training {
         $message = \View::make('zbw.messages.training_request_dropped', $vdata)->render();
 
         if($student->wants('email', 'training_cancelled')) {
-            $this->notifier->trainingRequestAcceptedEmail(['cid' => $student->cid, 'to' => $student->cid, 'request' => $data]);
+            $this->notifier->trainingRequestDroppedEmail(['cid' => $student->cid, 'to' => $student->cid, 'request' => $data]);
         }
         if($student->wants('message', 'training_cancelled')) {
             $this->messages->create([

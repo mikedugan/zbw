@@ -2,6 +2,7 @@
 
 use Zbw\Cms\Contracts\MessagesRepositoryInterface;
 use Zbw\Users\Contracts\UserRepositoryInterface;
+use Zbw\Base\Helpers;
 
 class Notifier
 {
@@ -71,9 +72,9 @@ class Notifier
           'to' => $this->users->get($data['to']),
           'request' => $data['request'],
           'staff' => $this->users->get($data['request']->sid),
-          'cert' => Helpers::readableCert($data->cert_id),
-          'start' => $data->start->toDayDateTimeString(),
-          'end' => $data->end->toDayDateTimeString()
+          'cert' => Helpers::readableCert($data['request']->cert_id),
+          'start' => $data['request']->start->toDayDateTimeString(),
+          'end' => $data['request']->end->toDayDateTimeString()
         ];
         $mData = [
           'to' => $vData['to']
