@@ -5,14 +5,15 @@ class News extends BaseModel
     protected $guarded = ['audience', 'deleted_at'];
     protected $table = 'zbw_news';
 
-    public static function boot()
-    {
-        parent::boot();
-
-        static::saving(function($model) {
-              return false;
-          });
-    }
+    static $rules = [
+        'news_type_id' => 'required|integer|between:0,6',
+        'audience_type_id' => 'required|integer|between:0,6',
+        'title' => 'required',
+        'content' => 'required',
+        'start' => 'date',
+        'ends' => 'date',
+        'facility_id' => 'integer|between:0,50'
+    ];
 
     public function getDates()
     {

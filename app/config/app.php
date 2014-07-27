@@ -1,6 +1,6 @@
 <?php
 
-return array(
+return [
 
     /*
     |--------------------------------------------------------------------------
@@ -25,8 +25,7 @@ return array(
     |
     */
 
-
-    'url' => 'http://dev.bostonartcc.net',
+    'url'       => 'http://dev.bostonartcc.net',
     /*
     |--------------------------------------------------------------------------
     | Application Timezone
@@ -75,7 +74,7 @@ return array(
     |
     */
 
-    'providers' => array(
+    'providers' => [
 
       'Illuminate\Foundation\Providers\ArtisanServiceProvider',
       'Illuminate\Auth\AuthServiceProvider',
@@ -106,11 +105,10 @@ return array(
       'Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider',
       'Barryvdh\Debugbar\ServiceProvider',
       'Laracasts\Utilities\UtilitiesServiceProvider',
-      'Zbw\Validators\ZbwValidatorServiceProvider',
       'Way\Generators\GeneratorsServiceProvider',
-	  'Cartalyst\Sentry\SentryServiceProvider',
-	  'Bugsnag\BugsnagLaravel\BugsnagLaravelServiceProvider',
-    ),
+      'Cartalyst\Sentry\SentryServiceProvider',
+      'Bugsnag\BugsnagLaravel\BugsnagLaravelServiceProvider',
+    ],
     /*
     |--------------------------------------------------------------------------
     | Service Provider Manifest
@@ -134,50 +132,49 @@ return array(
     |
     */
 
-    'aliases'   => array(
+    'aliases'   => [
 
-      'App'          => 'Illuminate\Support\Facades\App',
-      'Artisan'      => 'Illuminate\Support\Facades\Artisan',
-      'Auth'         => 'Illuminate\Support\Facades\Auth',
-      'Blade'        => 'Illuminate\Support\Facades\Blade',
-      'Cache'        => 'Illuminate\Support\Facades\Cache',
-      'ClassLoader'  => 'Illuminate\Support\ClassLoader',
-      'Config'       => 'Illuminate\Support\Facades\Config',
-      'Controller'   => 'Illuminate\Routing\Controller',
-      'Cookie'       => 'Illuminate\Support\Facades\Cookie',
-      'Crypt'        => 'Illuminate\Support\Facades\Crypt',
-      'DB'           => 'Illuminate\Support\Facades\DB',
-      'Eloquent'     => 'Illuminate\Database\Eloquent\Model',
-      'Event'        => 'Illuminate\Support\Facades\Event',
-      'File'         => 'Illuminate\Support\Facades\File',
-      'Form'         => 'Illuminate\Support\Facades\Form',
-      'Hash'         => 'Illuminate\Support\Facades\Hash',
-      'HTML'         => 'Illuminate\Support\Facades\HTML',
-      'Input'        => 'Illuminate\Support\Facades\Input',
-      'Lang'         => 'Illuminate\Support\Facades\Lang',
-      'Log'          => 'Illuminate\Support\Facades\Log',
-      'Mail'         => 'Illuminate\Support\Facades\Mail',
-      'Paginator'    => 'Illuminate\Support\Facades\Paginator',
-      'Password'     => 'Illuminate\Support\Facades\Password',
-      'Queue'        => 'Illuminate\Support\Facades\Queue',
-      'Redirect'     => 'Illuminate\Support\Facades\Redirect',
-      'Redis'        => 'Illuminate\Support\Facades\Redis',
-      'Request'      => 'Illuminate\Support\Facades\Request',
-      'Response'     => 'Illuminate\Support\Facades\Response',
-      'Route'        => 'Illuminate\Support\Facades\Route',
-      'Schema'       => 'Illuminate\Support\Facades\Schema',
-      'Seeder'       => 'Illuminate\Database\Seeder',
-      'Session'      => 'Illuminate\Support\Facades\Session',
-      'SSH'          => 'Illuminate\Support\Facades\SSH',
-      'Str'          => 'Illuminate\Support\Str',
-      'URL'          => 'Illuminate\Support\Facades\URL',
-      'Validator'    => 'Illuminate\Support\Facades\Validator',
-      'View'         => 'Illuminate\Support\Facades\View',
-      'Carbon'       => 'Carbon\Carbon',
-      'JavaScript'   => 'Laracasts\Utlities\JavaScript\Facades\JavaScript',
-      'ZbwValidator' => 'Zbw\Facades\ZbwValidator',
-	  'Sentry'       => 'Cartalyst\Sentry\Facades\Laravel\Sentry',
-	  'Bugsnag'		 => 'Bugsnag\BugsnagLaravel\BugsnagFacade',
-    ),
+      'App'         => 'Illuminate\Support\Facades\App',
+      'Artisan'     => 'Illuminate\Support\Facades\Artisan',
+      'Auth'        => 'Illuminate\Support\Facades\Auth',
+      'Blade'       => 'Illuminate\Support\Facades\Blade',
+      'Cache'       => 'Illuminate\Support\Facades\Cache',
+      'ClassLoader' => 'Illuminate\Support\ClassLoader',
+      'Config'      => 'Illuminate\Support\Facades\Config',
+      'Controller'  => 'Illuminate\Routing\Controller',
+      'Cookie'      => 'Illuminate\Support\Facades\Cookie',
+      'Crypt'       => 'Illuminate\Support\Facades\Crypt',
+      'DB'          => 'Illuminate\Support\Facades\DB',
+      'Eloquent'    => 'Illuminate\Database\Eloquent\Model',
+      'Event'       => 'Illuminate\Support\Facades\Event',
+      'File'        => 'Illuminate\Support\Facades\File',
+      'Form'        => 'Illuminate\Support\Facades\Form',
+      'Hash'        => 'Illuminate\Support\Facades\Hash',
+      'HTML'        => 'Illuminate\Support\Facades\HTML',
+      'Input'       => 'Illuminate\Support\Facades\Input',
+      'Lang'        => 'Illuminate\Support\Facades\Lang',
+      'Log'         => 'Illuminate\Support\Facades\Log',
+      'Mail'        => 'Illuminate\Support\Facades\Mail',
+      'Paginator'   => 'Illuminate\Support\Facades\Paginator',
+      'Password'    => 'Illuminate\Support\Facades\Password',
+      'Queue'       => 'Illuminate\Support\Facades\Queue',
+      'Redirect'    => 'Illuminate\Support\Facades\Redirect',
+      'Redis'       => 'Illuminate\Support\Facades\Redis',
+      'Request'     => 'Illuminate\Support\Facades\Request',
+      'Response'    => 'Illuminate\Support\Facades\Response',
+      'Route'       => 'Illuminate\Support\Facades\Route',
+      'Schema'      => 'Illuminate\Support\Facades\Schema',
+      'Seeder'      => 'Illuminate\Database\Seeder',
+      'Session'     => 'Illuminate\Support\Facades\Session',
+      'SSH'         => 'Illuminate\Support\Facades\SSH',
+      'Str'         => 'Illuminate\Support\Str',
+      'URL'         => 'Illuminate\Support\Facades\URL',
+      'Validator'   => 'Illuminate\Support\Facades\Validator',
+      'View'        => 'Illuminate\Support\Facades\View',
+      'Carbon'      => 'Carbon\Carbon',
+      'JavaScript'  => 'Laracasts\Utlities\JavaScript\Facades\JavaScript',
+      'Sentry'      => 'Cartalyst\Sentry\Facades\Laravel\Sentry',
+      'Bugsnag'     => 'Bugsnag\BugsnagLaravel\BugsnagFacade',
+    ],
 
-);
+];

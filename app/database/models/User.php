@@ -4,7 +4,6 @@ use Illuminate\Auth\UserInterface;
 use Illuminate\Auth\Reminders\RemindableInterface;
 use Cartalyst\Sentry\Users\Eloquent\User as SentryUser;
 
-
 class User extends SentryUser implements UserInterface, RemindableInterface
 {
 
@@ -12,6 +11,27 @@ class User extends SentryUser implements UserInterface, RemindableInterface
     protected $primaryKey = 'cid';
     protected $positions;
     protected static $hasher;
+    static $rules = [
+        'cid' => 'integer',
+        'email' => 'email',
+        'password' => '',
+        'activated' => 'integer',
+        'activation_code' => '',
+        'activated_at' => 'date',
+        'last_login' => 'date',
+        'persist_code' => '',
+        'reset_password_code' => '',
+        'first_name' => 'max:60',
+        'last_name' => 'max:60',
+        'username' => 'max:60',
+        'remember_token' => '',
+        'initials' => 'max:2',
+        'rating_id' => 'integer',
+        'cert' => 'integer',
+        'artcc' => 'max:3'
+    ];
+
+
     public function __construct()
     {
         static::$hasher = new Cartalyst\Sentry\Hashing\NativeHasher();

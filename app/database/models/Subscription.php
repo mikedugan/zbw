@@ -3,6 +3,16 @@
 class Subscription extends \Eloquent {
 	  protected $fillable = [];
     protected $table = 'subscriptions';
+    static $rules = [
+        'method' => 'integer',
+        'frequency' => 'integer',
+        'settings' => 'max:255',
+        'cid' => 'cid|integer',
+        'type' => 'integer',
+        'type_id' => 'integer'
+    ];
+
+
     public function scopeCid($q, $cid)
     {
         return $q->where('cid', $cid);

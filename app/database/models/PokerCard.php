@@ -1,10 +1,20 @@
 <?php
 
-class PokerCard extends Eloquent {
-	protected $guarded = [];
-	protected $table = 'zbw_pokercards';
-	public $rules = [];
+class PokerCard extends Eloquent
+{
+    protected $guarded = [];
+    protected $table = 'zbw_pokercards';
     public $dates = ['discarded'];
+    static $rules = [
+        'pid' => 'cid',
+        'card' => '',
+        'discarded' => 'date'
+    ];
+
+    public function getDates()
+    {
+        return ['discarded'];
+    }
 
     public function pilot()
     {
@@ -15,6 +25,7 @@ class PokerCard extends Eloquent {
     {
         $card = \PokerCard::find($id);
         $card->discarded = \Carbon::now();
+
         return $card->save();
     }
 }

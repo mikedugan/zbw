@@ -3,7 +3,22 @@
 class TrainingSession extends Eloquent {
 	protected $guarded = ['cid', 'sid'];
 	protected $table = 'controller_training_sessions';
-	public $rules;
+	static $rules = [
+      'cid' => 'cid|integer',
+      'sid' => 'cid|integer',
+      'session_date' => 'date',
+      'weather_id' => 'integer',
+      'complexity_id' => 'integer',
+      'workload_id' => 'integer',
+      'staff_comment' => '',
+      'student_comment' => '',
+      'is_ots' => 'integer',
+      'facility_id' => 'integer',
+      'brief_time' => 'integer',
+      'position_time' => 'integer',
+      'is_live' => 'integer',
+      'training_type_id' => 'integer'
+  ];
 
     //scopes
     /**

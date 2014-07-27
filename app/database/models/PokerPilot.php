@@ -1,9 +1,15 @@
 <?php
 
-class PokerPilot extends Eloquent {
-	protected $guarded = [];
-	protected $table = 'zbw_pokerpilots';
-	public $rules = [];
+class PokerPilot extends Eloquent
+{
+    protected $guarded = [];
+    protected $table = 'zbw_pokerpilots';
+    static $rules = [
+      'first_name' => '',
+      'last_name'  => '',
+      'country'    => '',
+      'pid'        => 'cid'
+    ];
 
     public function cards()
     {

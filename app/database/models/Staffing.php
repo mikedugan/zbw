@@ -4,11 +4,18 @@ class Staffing extends Eloquent {
     protected $guarded = ['start', 'stop'];
     protected $table = 'zbw_staffing';
     protected $dates = ['start', 'stop'];
-    public $rules = [
-        'cid' => 'integer',
+    static $rules = [
+        'cid' => 'cid|integer',
+        'position' => '',
         'start' => 'date',
-        'stop' => 'date'
+        'stop' => 'date',
+        'frequency' => ''
     ];
+
+    public function getDates()
+    {
+        return ['start', 'stop'];
+    }
 
     public function user()
     {

@@ -49,29 +49,28 @@ class NewsRepository extends EloquentRepository implements NewsRepositoryInterfa
 
     public function add($input)
     {
-        $invalid = ZbwValidator::get('News', $input);
-
-        //if validation fails, return the errors
-        if(is_array($invalid)) return $invalid;
-
         //just in case a user forgot to properly set the date on the news
-        if( ! $input['starts']) { $starts = \Carbon::now(); }
+        /*if( ! $input['starts']) { $starts = \Carbon::now(); }
         else { $starts = \Carbon::createFromFormat('Y/m/d H:i', $input['starts']); }
         if( ! $input['ends']) { $ends = \Carbon::now()->addWeek(); }
-        else { $ends = \Carbon::createFromFormat('Y/m/d H:i', $input['ends']); }
-
+        else { $ends = \Carbon::createFromFormat('Y/m/d H:i', $input['ends']); }*/
         //create the object
-        $n = $this->make()->create([
-            'title' => $input['title'],
-            'starts' => $starts,
-            'ends' => $ends,
-            'news_type_id' => $input['news_type'],
-            'content' => $input['content'],
-            'facility_id' => $input['facility'],
-            'audience_type_id' => $input['audience']
-        ]);
+        $n = new $this->model;
+        $n->title =  $input['title'];
+        $n->starts =  $input['starts'];
+        $n->ends =  $input['ends'];
+        $n->news_type_id =  $input['news_type'];
+        $n->content =  $input['content'];
+        $n->facility_id =  $input['facility'];
+        $n->audience_type_id = $input['audience'];
         //return the save result
-        return $n->save();
+        if($n->save()) {
+            return true;
+        }
+        else {
+           $this->setErrors($n->getErrors());
+            return false;
+        }
     }
 
     public function update($input)

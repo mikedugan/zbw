@@ -1,7 +1,12 @@
 <?php
 
-class Datafeed extends Eloquent {
-	protected $guarded = array();
-	protected $table = '_datafeeds';
-	public $rules = array();
+class Datafeed extends Eloquent
+{
+    protected $guarded = [];
+    protected $table = '_datafeeds';
+    static $rules = [
+        'key' => 'required',
+        'value' => 'required',
+        'expires' => 'date'
+    ];
 }

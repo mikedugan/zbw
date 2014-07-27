@@ -4,6 +4,17 @@ class Page extends Eloquent
 {
     protected $guarded = ['author'];
     protected $table = 'zbw_pages';
+    static $rules = [
+        'title' => '',
+        'author' => 'cid|integer',
+        'content' => '',
+        'is_official' => 'integer',
+        'template_id' => 'integer',
+        'route' => '',
+        'published' => 'integer',
+        'audience_type_id' => 'integer',
+        'slug' => ''
+    ];
 
     //relations
     public function menu()

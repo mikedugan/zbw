@@ -1,7 +1,12 @@
 <?php
 
-class AudienceType extends Eloquent {
+class AudienceType extends BaseModel
+{
     protected $fillable = ['type'];
-	protected $table = '_audience_types';
+    protected $table = '_audience_types';
     public $timestamps = false;
+
+    static $rules = [
+        'value' => 'required'
+    ];
 }

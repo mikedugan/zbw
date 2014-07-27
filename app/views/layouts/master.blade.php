@@ -49,8 +49,8 @@ $messages = $me ? MessagesRepository::newMessageCount($me->cid) : 0;
     @if (Session::get('flash_error'))
         <div class="alert alert-danger alert-dismissable"><span class="red glyphicons fire"></span>
             <button type="button" class="close pull-right" data-dismiss="alert" aria-hidden="true">&times;</button>
-                @if(is_array(Session::get('flash_error')))
-                    @foreach(Session::get('flash_error') as $error)
+                @if(!is_string(Session::get('flash_error')))
+                    @foreach(Session::get('flash_error')->toArray() as $error)
                         {{ $error[0] }}&nbsp;
                     @endforeach
                 @else
