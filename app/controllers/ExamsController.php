@@ -54,23 +54,11 @@ class ExamsController extends BaseController
     public function postComment($eid)
     {
         $post = \Input::all();
-        if ($this->comments->create(
-          [
-            'content'      => $post['content'],
-            'parent_id'    => $eid,
-            'comment_type' => 5
-          ]
-        )
-        ) {
-            return Redirect::back()->with(
-              'flash_success',
-              'Comment added successfully'
-            );
+        $post['comment_type'] = \MessageType::where('value', 'c_exam')->first()->id;
+        if($this->comments->add($post)) {
+            return Redirect::back()->with('flash_success','Comment added successfully');
         } else {
-            return Redirect::back()->with(
-              'flash_error',
-              'Error adding comment'
-            );
+            return Redirect::back()->with('flash_error', $this->comments->getErrors());
         }
     }
 

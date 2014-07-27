@@ -31,15 +31,19 @@ Exam Review
                 <div class="col-md-8">
                     <div>{{ $comment->content }}</div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-2">
                     <p>posted by {{ $comment->user->initials }}<br>
                     {{ $comment->created_at->diffForHumans() }}</p>
+                </div>
+                <div class="col-md-2">
+                    <img src="{{ $comment->user->avatar() }}">
                 </div>
             </div>
         @endforeach
     </div>
     <div class="col-md-12">
         <form action="/staff/exams/review/{{$exam->id}}" method="post">
+            <input type="hidden" name="parent_id" value="{{$exam->id}}">
             <textarea class="form-control editor" name="content" id="comment" cols="30" rows="15"></textarea>
             <button type="submit" class="btn btn-primary">Send Comment</button>
         </form>

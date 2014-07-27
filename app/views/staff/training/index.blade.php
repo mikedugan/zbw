@@ -3,9 +3,9 @@
 Training Index
 @stop
 @section('content')
-<div class="col-md-6">
+<div class="col-lg-12 training-summary">
  {{-- this area should contain an overview of recent training, promotions, etc --}}
-    <div class="col-md-6">
+    <div class="col-lg-3">
         <h4>Recent Reports</h4>
         @foreach($reports as $r)
             <p class="well">
@@ -18,7 +18,7 @@ Training Index
             </p>
         @endforeach
     </div>
-    <div class="col-md-6">
+    <div class="col-lg-3">
         <h4>Recent Staffing</h4>
         @foreach($staffings as $s)
             <p class="well"><a href="/controllers/{{$s->cid}}">{{ $s->user->initials }}</a> staffed {{$s->position}} for
@@ -31,25 +31,25 @@ Training Index
             </p>
         @endforeach
     </div>
-</div>
-<div class="col-md-6">
  {{-- this area should contain pending training & exam requests, etc --}}
-    <div class="col-md-6">
+    <div class="col-lg-3">
         <h4>Requests</h4>
         @if($requests)
             @foreach($requests as $r)
-                @if($r->is_completed)
                 <p class="well">
-                @elseif(!empty($r->sid))
-                <p class="well well-warning">
-                @else
-                <p class="well well-danger">
-                @endif
-                <a href="/training/request/{{$r->id}}">{{ $r->student->initials }} has requested training on {{ Zbw\Base\Helpers::readableCert($r->certType->id) }}</a></p>
+                <a href="/training/request/{{$r->id}}">{{ $r->student->initials }} has requested training on {{ Zbw\Base\Helpers::readableCert($r->certType->id) }}</a>
+                    @if($r->is_completed)
+                    <span class="badge bg-success">Complete</span>
+                        @elseif(!empty($r->sid))
+                    <span class="badge bg-warning">Pending</span>
+                        @else
+                    <span class="badge bg-danger">Available</span>
+                    @endif
+                </p>
             @endforeach
         @endif
     </div>
-    <div class="col-md-6">
+    <div class="col-lg-3">
         <h4>Exam Reviews</h4>
         @if($exams)
             @foreach($exams as $e)
