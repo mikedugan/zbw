@@ -1,6 +1,6 @@
 <?php
 
-class Exam extends Eloquent {
+class Exam extends BaseModel {
     protected $guarded = ['exam_id', 'reviewed'];
     protected $table = 'controller_exams';
     protected $with = ['student', 'comments'];

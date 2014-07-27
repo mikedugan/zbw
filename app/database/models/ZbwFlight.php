@@ -1,6 +1,6 @@
 <?php
 
-class ZbwFlight extends Eloquent {
+class ZbwFlight extends BaseModel {
     protected $guarded = ['start', 'stop'];
     protected $table = '_flights';
     static $rules = [

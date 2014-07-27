@@ -2,7 +2,7 @@
 
 use Zbw\Base\Helpers;
 
-class TrainingRequest extends Eloquent
+class TrainingRequest extends BaseModel
 {
     public $table = '_training_requests';
     static $rules = [

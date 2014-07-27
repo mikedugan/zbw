@@ -1,6 +1,6 @@
 <?php
 
-class PokerCard extends Eloquent
+class PokerCard extends BaseModel
 {
     protected $guarded = [];
     protected $table = 'zbw_pokercards';

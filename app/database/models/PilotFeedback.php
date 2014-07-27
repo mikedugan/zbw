@@ -1,6 +1,6 @@
 <?php
 
-class PilotFeedback extends Eloquent
+class PilotFeedback extends BaseModel
 {
     protected $guarded = ['email'];
     protected $table = 'pilot_feedback';

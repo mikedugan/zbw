@@ -1,6 +1,6 @@
 <?php 
 
-class Facility extends Eloquent {
+class Facility extends BaseModel {
     public $timestamps = false;
     protected $table = '_facilities';
     protected $fillable = ['value'];

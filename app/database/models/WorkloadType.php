@@ -1,6 +1,6 @@
 <?php
 
-class WorkloadType extends Eloquent {
+class WorkloadType extends BaseModel {
     protected $fillable = ['type'];
 	protected $table = '_workload_types';
     public $timestamps = false;

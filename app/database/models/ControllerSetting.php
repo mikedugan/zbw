@@ -1,6 +1,6 @@
 <?php
 
-class ControllerSetting extends Eloquent
+class ControllerSetting extends BaseModel
 {
     protected $guarded = ['cid'];
     protected $table = 'zbw_controller_settings';

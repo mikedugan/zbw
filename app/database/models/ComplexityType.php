@@ -1,6 +1,6 @@
 <?php
 
-class ComplexityType extends Eloquent
+class ComplexityType extends BaseModel
 {
     protected $fillable = ['type'];
     protected $table = '_complexity_types';

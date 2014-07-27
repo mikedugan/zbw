@@ -1,6 +1,6 @@
 <?php
 
-class TrainingFacility extends Eloquent
+class TrainingFacility extends BaseModel
 {
     protected $table = "_training_facilities";
     public $timestamps = false;

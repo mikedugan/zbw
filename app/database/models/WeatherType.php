@@ -1,6 +1,6 @@
 <?php
 
-class WeatherType extends Eloquent
+class WeatherType extends BaseModel
 {
     protected $fillable = ['type'];
     protected $table = '_weather_types';

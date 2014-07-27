@@ -1,6 +1,6 @@
 <?php 
 
-class Page extends Eloquent
+class Page extends BaseModel
 {
     protected $guarded = ['author'];
     protected $table = 'zbw_pages';

@@ -1,6 +1,6 @@
 <?php 
 
-class Menu extends Eloquent
+class Menu extends BaseModel
 {
     protected $guarded = [''];
     protected $table = 'zbw_menus';

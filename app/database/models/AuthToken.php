@@ -3,7 +3,7 @@
 use Zbw\Bostonjohn\ZbwLog;
 use Zbw\Users\UserRepository;
 
-class AuthToken extends Eloquent {
+class AuthToken extends BaseModel {
     protected $guarded = [''];
     protected $table = '_tokens';
 

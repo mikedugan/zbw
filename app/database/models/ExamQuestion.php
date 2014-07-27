@@ -1,6 +1,6 @@
 <?php 
 
-class ExamQuestion extends Eloquent
+class ExamQuestion extends BaseModel
 {
     protected $table = '_exam_questions';
     public $timestamps = false;

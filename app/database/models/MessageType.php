@@ -1,6 +1,6 @@
 <?php 
 
-class MessageType extends Eloquent
+class MessageType extends BaseModel
 {
     protected $fillable = ['value'];
     protected $table = '_message_types';

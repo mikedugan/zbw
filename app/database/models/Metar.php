@@ -1,6 +1,6 @@
 <?php
 
-class Metar extends Eloquent {
+class Metar extends BaseModel {
     protected $guarded = array();
     protected $table = 'metars';
     static $rules = [
