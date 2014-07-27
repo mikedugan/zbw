@@ -21,7 +21,9 @@ Exam Review
         </form>
         @endif
         @if($me->cid === $exam->cid || in_array($me->cid, Zbw\Users\UserRepository::canTrain($exam->cert_id)))
-            <span class="badge bg-success">Exam Review Complete</span>
+            @if($exam->reviewed == 1)
+                <span class="badge bg-success">Exam Review Complete</span>
+            @endif
         @endif
     </div>
     <div class="col-md-6">
@@ -29,7 +31,7 @@ Exam Review
         <p><b>Date Assigned:</b> {{ $exam->assigned_on or "??"}}</p>
         <p><b>Total Questions: </b>{{$exam->total_questions}}</p>
         <p><b>Number Wrong: </b>{{count(explode(',',$exam->wrong_answers)) -1}}</p>
-        @if($exam->reviewed_by)
+        @if($exam->reviewed == 1)
         <p><b>Signed Off By: </b> {{ $exam->staff->initials }}</p>
         @endif
     </div>
