@@ -41,7 +41,7 @@ class TrainingSessionRepository extends EloquentRepository implements TrainingSe
     public static function recentReports($n)
     {
         return \TrainingSession::with(['student', 'staff', 'facility'])
-            ->orderBy('created_at', 'DESC')->limit($n)->get();
+            ->orderBy('updated_at', 'DESC')->limit($n)->get();
     }
 
 }

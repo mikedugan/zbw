@@ -46,8 +46,8 @@ class TrainingSessionGrader implements TrainingGraderInterface
         $session->student_comment = $this->student_comment;
         $session->is_ots = $this->ots;
         $session->facility_id = $this->facility;
-        $session->brief_time = ($this->times['brief']+$this->times['debrief'])/1000/60;
-        $session->position_time = $this->times['live']/1000/60;
+        $session->brief_time = round(($this->times['brief']+$this->times['debrief'])/1000/60);
+        $session->position_time = round($this->times['live']/1000/60);
         $session->is_live = $this->type == 3 ? 1 : 0;
         $session->training_type_id = $this->type;
         $session->save();
@@ -57,7 +57,7 @@ class TrainingSessionGrader implements TrainingGraderInterface
         }
 
         $report->reviewed = json_encode($this->reviews);
-        $report->training_session_id = $session->id;
+        $report->training_session_id = \TrainingSession::latest()->first()->id + 1;
         $report->markups = json_encode($this->markups);
         $report->markdown = json_encode($this->markdowns);
         $report->modifier = is_null($this->modifier) ? 0 : $this->modifier;
@@ -121,7 +121,7 @@ class TrainingSessionGrader implements TrainingGraderInterface
         foreach(json_decode($this->raw['final_markups'], TRUE) as $title => $number) {
             $this->markups[$title] = [$title, $number];
         }
-        $this->pos_points = $this->raw['pos_points'];
+        $this->pos_points = $this->raw['pos_points'] > 0 ? $this->raw['pos_points'] : 0;
     }
 
     private function parseMarkdowns()
@@ -129,7 +129,7 @@ class TrainingSessionGrader implements TrainingGraderInterface
         foreach(json_decode($this->raw['final_markdowns'], TRUE) as $title => $number) {
             $this->markdowns[$title] = [$title, $number];
         }
-        $this->neg_points = $this->raw['neg_points'];
+        $this->neg_points = $this->raw['neg_points'] > 0 ? $this->raw['neg_points'] : 0;
     }
 
     private function parseComments()
