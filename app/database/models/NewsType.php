@@ -1,6 +1,6 @@
 <?php
 
-class NewsType extends Eloquent
+class NewsType extends BaseModel
 {
     protected $fillable = ['type'];
     protected $table = '_news_types';

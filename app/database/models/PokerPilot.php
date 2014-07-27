@@ -1,6 +1,6 @@
 <?php
 
-class PokerPilot extends Eloquent
+class PokerPilot extends BaseModel
 {
     protected $guarded = [];
     protected $table = 'zbw_pokerpilots';

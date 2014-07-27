@@ -2,7 +2,7 @@
 
 use \Zbw\Base\Helpers as Helpers;
 
-class ActionRequired extends Eloquent
+class ActionRequired extends BaseModel
 {
 	protected $table = 'zbw_actionsrequired';
 	protected $guarded = [];

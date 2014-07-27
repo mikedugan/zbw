@@ -1,6 +1,6 @@
 <?php 
 
-class Template extends Eloquent
+class Template extends BaseModel
 {
     protected $guarded = [''];
     protected $table = 'zbw_templates';

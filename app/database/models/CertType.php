@@ -1,6 +1,6 @@
 <?php
 
-class CertType extends Eloquent
+class CertType extends BaseModel
 {
     protected $fillable = ['value'];
     protected $table = '_cert_types';

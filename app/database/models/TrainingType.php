@@ -1,6 +1,6 @@
 <?php
 
-class TrainingType extends Eloquent
+class TrainingType extends BaseModel
 {
     protected $fillable = ['type'];
     protected $table = '_training_types';

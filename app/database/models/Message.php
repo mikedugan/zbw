@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Eloquent\SoftDeletingTrait;
 
-class Message extends Eloquent {
+class Message extends BaseModel {
 
   use SoftDeletingTrait;
 

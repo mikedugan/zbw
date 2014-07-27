@@ -1,6 +1,6 @@
 <?php
 
-class Staffing extends Eloquent {
+class Staffing extends BaseModel {
     protected $guarded = ['start', 'stop'];
     protected $table = 'zbw_staffing';
     protected $dates = ['start', 'stop'];

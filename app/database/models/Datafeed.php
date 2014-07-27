@@ -1,6 +1,6 @@
 <?php
 
-class Datafeed extends Eloquent
+class Datafeed extends BaseModel
 {
     protected $guarded = [];
     protected $table = '_datafeeds';

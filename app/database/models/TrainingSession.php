@@ -1,6 +1,6 @@
 <?php
 
-class TrainingSession extends Eloquent {
+class TrainingSession extends BaseModel {
 	protected $guarded = ['cid', 'sid'];
 	protected $table = 'controller_training_sessions';
 	static $rules = [
