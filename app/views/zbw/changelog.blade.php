@@ -4,6 +4,16 @@ Changelog
 @stop
 @section('content')
 <h1 class="text-center">Changelog</h1>
+<h3>v2.0.2b</h3>
+mikedugan pilot feedback up and running
+mikedugan did some visual work to clean up air traffic on front page
+mikedugan fixed staffing parsing from datafeed
+mikedugan training session accept/drop notifications complete
+mikedugan added email functiosn
+mikedugan fixes #45 (training request date)
+mikedugan added more notifications for training sessions
+mikedugan refactor automated messages to use views
+mikedugan added base model and validation
 <h3>v2.0.1b</h3>
 mikedugan fixes #41 fixes #43 (nonexistent user data / user seeders)
 mikedugan fixes #46 #47 (training request dates)
