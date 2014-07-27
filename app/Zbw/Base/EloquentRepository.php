@@ -71,10 +71,7 @@ abstract class EloquentRepository {
 
     public function restore($id)
     {
-        if($this->hasSoftDeletes()) {
-            return $this->make()->restore($id);
-        }
-        else return false;
+        return $this->make()->withTrashed()->find($id)->restore();
     }
 
     /**

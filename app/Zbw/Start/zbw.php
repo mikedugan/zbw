@@ -9,5 +9,5 @@ App::register('Zbw\Poker\PokerServiceProvider');
 
 Validator::extend('cid', function($attribute, $value, $parameters)
 {
-    return $value > 500000 && $value < 3000000;
+    return $value === 100 || ($value > 500000 && $value < 3000000);
 });
