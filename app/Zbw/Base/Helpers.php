@@ -202,7 +202,7 @@ class Helpers
     {
 
         $alphabet = "abcdefghijklmnopqrstuwxyzABCDEFGHIJKLMNOPQRSTUWXYZ0123456789";
-        $pass = array(); //remember to declare $pass as an arrayfun
+        $pass = []; //remember to declare $pass as an arrayfun
         $alphaLength = strlen($alphabet) - 1; //put the length -1 in cache
         for ($i = 0; $i < $len; $i++) {
             $n = rand(0, $alphaLength);
@@ -228,5 +228,26 @@ class Helpers
             $text = explode("\n", trim($text));
         }
         return array_filter($text, 'trim');
+    }
+
+    /**
+     * @type static
+     * @description helper function to nom a route down to the first 3 and last 3 fixes
+     *
+     * @param $route string
+     *
+     * @return string
+     */
+    public static function shortenRouteString($route)
+    {
+        $strings = explode(' ', $route);
+        if(count($strings) > 12) {
+            $start = array_slice($strings, 0, 3);
+            $start[] = '...';
+            $end = array_slice($strings, -3, 3);
+            $route = array_merge($start, $end);
+            return implode(' ', $route);
+        }
+        else return $route;
     }
 }
