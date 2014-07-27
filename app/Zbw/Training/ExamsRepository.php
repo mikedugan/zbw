@@ -23,7 +23,7 @@ class ExamsRepository extends EloquentRepository implements ExamsRepositoryInter
         $e->exam_id = $i['exam_id'];
         $e->cert_id = $i['cert_id'];
         $e->cid = $i['cid'];
-        return $e->save;
+        return $this->checkAndSave($e);
     }
 
     public function update($input)

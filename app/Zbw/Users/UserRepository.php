@@ -57,7 +57,6 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
         $u->password = \Hash::make($tempPassword);
         $u->rating_id = $rating;
         $u->initials = substr($fname, 0, 1) . substr($lname[0], 0, 1);
-        if(strlen($u->initials) > 2) { dd($u->initials); }
         $s = new \UserSettings();
         $s->cid = $u->cid;
 
@@ -88,14 +87,48 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
         $user->last_name = $input['lname'];
         $user->initials = $input['initials'];
         $user->artcc = $input['artcc'];
-        $user->is_mentor = isset($input['ismentor']) ? $input['ismentor'] : 0;
-        $user->is_instructor = isset($input['isins']) ? $input['isins']: 0;
-        $user->is_ta = isset($input['is_ta']) ? $input['is_ta'] : 0;
-        $user->is_webmaster = isset($input['isweb']) ? $input['isweb'] : 0;
-        $user->is_facilities = isset($input['isfe']) ? $input['isfe'] : 0;
-        $user->is_atm = isset($input['isatm']) ? $input['isatm'] : 0;
-        $user->is_datm = isset($input['isdatm']) ? $input['isdatm'] : 0;
-        $user->is_emeritus = isset($input['isemeritus']) ? $input['isemeritus'] : 0;
+
+        if(isset($input['ismentor'])) {
+            $user->addGroup(\Sentry::findGroupByName('Mentors'));
+        } else {
+            $user->removeGroup(\Sentry::findGroupByName('Mentors'));
+        }
+        if(isset($input['isins'])) {
+            $user->addGroup(\Sentry::findGroupByName('Instructors'));
+        } else {
+            $user->removeGroup(\Sentry::findGroupByName('Instructors'));
+        }
+        if(isset($input['is_ta'])) {
+            $user->addGroup(\Sentry::findGroupByName('TA'));
+        } else {
+            $user->removeGroup(\Sentry::findGroupByName('TA'));
+        }
+        if(isset($input['isweb'])) {
+            $user->addGroup(\Sentry::findGroupByName('Web'));
+        } else {
+            $user->removeGroup(\Sentry::findGroupByName('Web'));
+        }
+        if(isset($input['isfe'])) {
+            $user->addGroup(\Sentry::findGroupByName('FE'));
+        } else {
+            $user->removeGroup(\Sentry::findGroupByName('FE'));
+        }
+        if(isset($input['isatm'])) {
+            $user->addGroup(\Sentry::findGroupByName('ATM'));
+        } else {
+            $user->removeGroup(\Sentry::findGroupByName('ATM'));
+        }
+        if(isset($input['isdatm'])) {
+            $user->addGroup(\Sentry::findGroupByName('DATM'));
+        } else {
+            $user->removeGroup(\Sentry::findGroupByName('DATM'));
+        }
+        if(isset($input['isemeritus'])) {
+            $user->addGroup(\Sentry::findGroupByName('Emeritus'));
+        } else {
+            $user->removeGroup(\Sentry::findGroupByName('Emeritus'));
+        }
+
         $old_groups = $user->groups->lists('id');
         $new_groups = [];
         $counter = 0;
@@ -124,8 +157,7 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
                 $counter++;
             }
         }
-        dd($counter);
-        return $user->save();
+        return $this->checkAndSave($user);
     }
 
     public function authUpdate($user)

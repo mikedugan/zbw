@@ -87,6 +87,17 @@ abstract class EloquentRepository {
         return in_array('SoftDeletingTrait', class_uses($this->model));
     }
 
+    protected function checkAndSave($model)
+    {
+        if(! $model->save()) {
+            $this->setErrors($model->getErrors());
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+
     abstract public function update($input);
     abstract public function create($input);
 }

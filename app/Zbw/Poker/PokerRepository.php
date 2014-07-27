@@ -54,14 +54,12 @@ class PokerRepository extends EloquentRepository implements PokerRepositoryInter
      */
     private function createPilot($input)
     {
-        $pilot = new \PokerPilot([
-            'first_name' => $input['name_first'],
-            'last_name' => $input['name_last'],
-            'pid' => $input['pid'],
-            'country' => $input['country']
-        ]);
-
-        return $pilot->save();
+        $pilot = new \PokerPilot;
+        $pilot->first_name-> $input['name_first'];
+        $pilot->last_name-> $input['name_last'];
+        $pilot->pid-> $input['pid'];
+        $pilot->country-> $input['country'];
+        return $this->checkAndSave($pilot);
     }
 
     /**

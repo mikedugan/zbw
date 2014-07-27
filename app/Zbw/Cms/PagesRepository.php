@@ -28,7 +28,7 @@ class PagesRepository extends EloquentRepository implements PagesRepositoryInter
         $filenames = $this->parseInputFiles($filenames);
         $page->is_official = 0;
         $page->content = $this->creator->create(\Input::get('content'), $filenames);
-        return $page->save();
+        return $this->checkAndSave($page);
 
     }
 
@@ -53,7 +53,7 @@ class PagesRepository extends EloquentRepository implements PagesRepositoryInter
         $filesnames = $this->parseInputFiles($filesnames);
         $page->is_official = 0;
         $page->content = $this->creator->create(\Input::get('content'), $filesnames);
-        return $page->save();
+        return $this->checkAndSave($page);
     }
 
     private function makeUploadDirectory()
