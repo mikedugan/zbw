@@ -10,43 +10,83 @@
         <th>Rating</th>
         <th>Edit</th>
         </thead>
+        <tbody>
+            <tr class="danger">
+                <?php $u = \Sentry::findAllUsersInGroup(\Sentry::findGroupByName('ATM'))[0]; ?>
+                <td><a href="/controllers/{{$u->cid}}">{{ $u->username }}</a></td>
+                <td>ATM<?php if($u->is('Instructors')) { echo " / Instructor"; } else if ($u->is('Mentors')) { echo " / Mentor"; } ?></td>
+                <td>{{ $u->email }}</td>
+                <td>{{ $u->cid }}</td>
+                <td>{{ $u->rating->short }}</td>
+                <td><a class="btn btn-sm" href="/staff/{{$u->cid}}/edit">Edit</a></td>
+            </tr>
+            <tr class="danger">
+                <?php $u = \Sentry::findAllUsersInGroup(\Sentry::findGroupByName('DATM'))[0]; ?>
+                <td><a href="/controllers/{{$u->cid}}">{{ $u->username }}</a></td>
+                <td>DATM<?php if($u->is('Instructors')) { echo " / Instructor"; } else if ($u->is('Mentors')) { echo " / Mentor"; } ?></td>
+                <td>{{ $u->email }}</td>
+                <td>{{ $u->cid }}</td>
+                <td>{{ $u->rating->short }}</td>
+                <td><a class="btn btn-sm" href="/staff/{{$u->cid}}/edit">Edit</a></td>
+            </tr>
+            <tr class="danger">
+                <?php $u = \Sentry::findAllUsersInGroup(\Sentry::findGroupByName('TA'))[0]; ?>
+                <td><a href="/controllers/{{$u->cid}}">{{ $u->username }}</a></td>
+                <td>TA<?php if($u->is('Instructors')) { echo " / Instructor"; } else if ($u->is('Mentors')) { echo " / Mentor"; } ?></td>
+                <td>{{ $u->email }}</td>
+                <td>{{ $u->cid }}</td>
+                <td>{{ $u->rating->short }}</td>
+                <td><a class="btn btn-sm" href="/staff/{{$u->cid}}/edit">Edit</a></td>
+            </tr>
+            <tr class="warning">
+                <?php $u = \Sentry::findAllUsersInGroup(\Sentry::findGroupByName('WEB'))[0]; ?>
+                <td><a href="/controllers/{{$u->cid}}">{{ $u->username }}</a></td>
+                <td>Webmaster<?php if($u->is('Instructors')) { echo " / Instructor"; } else if ($u->is('Mentors')) { echo " / Mentor"; } ?></td>
+                <td>{{ $u->email }}</td>
+                <td>{{ $u->cid }}</td>
+                <td>{{ $u->rating->short }}</td>
+                <td><a class="btn btn-sm" href="/staff/{{$u->cid}}/edit">Edit</a></td>
+            </tr>
+            <tr class="warning">
+                <?php $u = \Sentry::findAllUsersInGroup(\Sentry::findGroupByName('Events'))[0]; ?>
+                <td><a href="/controllers/{{$u->cid}}">{{ $u->username }}</a></td>
+                <td>Events Coordinator<?php if($u->is('Instructors')) { echo " / Instructor"; } else if ($u->is('Mentors')) { echo " / Mentor"; } ?></td>
+                <td>{{ $u->email }}</td>
+                <td>{{ $u->cid }}</td>
+                <td>{{ $u->rating->short }}</td>
+                <td><a class="btn btn-sm" href="/staff/{{$u->cid}}/edit">Edit</a></td>
+            </tr>
+            <tr class="warning">
+                <?php $u = \Sentry::findAllUsersInGroup(\Sentry::findGroupByName('FE'))[0]; ?>
+                <td><a href="/controllers/{{$u->cid}}">{{ $u->username }}</a></td>
+                <td>Facilities Engineer<?php if($u->is('Instructors')) { echo " / Instructor"; } else if ($u->is('Mentors')) { echo " / Mentor"; } ?></td>
+                <td>{{ $u->email }}</td>
+                <td>{{ $u->cid }}</td>
+                <td>{{ $u->rating->short }}</td>
+                <td><a class="btn btn-sm" href="/staff/{{$u->cid}}/edit">Edit</a></td>
+            </tr>
         @foreach($staff as $u)
-        @if($u->is_ta || $u->is_atm || $u->is_datm || $u->is_webmaster)
-        <tr class="danger">
-            @elseif($u->is_instructor)
-        <tr class="warning">
-            @elseif($u->is_staff || $u->is_mentor)
-        <tr class="info">
-            @elseif($u->artcc !== 'ZBW')
-        <tr class="success">
-            @else
-        <tr>
-            @endif
+        @if($u->inGroup(\Sentry::findGroupByName('Instructors')) && $u->not('Executive') && $u->not('Events') && $u->not('WEB') && $u->not('FE'))
+            <tr class="info">
             <td><a href="/controllers/{{$u->cid}}">{{ $u->username }}</a></td>
-            <td>
-                @if($u->inGroup(Sentry::findGroupByName('ATM')))
-                ATM
-                @elseif($u->inGroup(Sentry::findGroupByName('DATM')))
-                DATM
-                @elseif($u->inGroup(Sentry::findGroupByName('TA')))
-                TA
-                @elseif($u->inGroup(Sentry::findGroupByName('WEB')))
-                Webmaster
-                @elseif($u->inGroup(Sentry::findGroupByName('FE')))
-                FE
-                @endif
-                @if($u->inGroup(Sentry::findGroupByName('Instructors')))
-                 Instructor
-                @elseif($u->inGroup(Sentry::findGroupByName('Mentors')))
-                 Mentor
-                @endif
-            </td>
+            <td>Instructor</td>
             <td>{{ $u->email }}</td>
             <td>{{ $u->cid }}</td>
             <td>{{ $u->rating->short }}</td>
             <td><a class="btn btn-sm" href="/staff/{{$u->cid}}/edit">Edit</a></td>
-        </tr>
+            </tr>
+            @elseif($u->inGroup(\Sentry::findGroupByName('Mentors')) && $u->not('Executive') && $u->not('Events') && $u->not('WEB') && $u->not('FE'))
+            <tr class="success">
+                <td><a href="/controllers/{{$u->cid}}">{{ $u->username }}</a></td>
+                <td>Mentor</td>
+                <td>{{ $u->email }}</td>
+                <td>{{ $u->cid }}</td>
+                <td>{{ $u->rating->short }}</td>
+                <td><a class="btn btn-sm" href="/staff/{{$u->cid}}/edit">Edit</a></td>
+            </tr>
+        @endif
         @endforeach
+        </tbody>
     </table>
 </div>
 <div class="col-md-4">

@@ -108,8 +108,7 @@ class RosterController extends BaseController {
     {
         $data = [
             'user' => \User::find($id),
-            'groups' => $this->groups->all(),
-            'title' => 'Edit Controller'
+            'groups' => $this->groups->all()
         ];
         return View::make('staff.roster.edit', $data);
     }
