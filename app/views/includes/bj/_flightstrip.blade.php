@@ -1,25 +1,20 @@
 <div class="strip col-md-12 text-left">
-    <ul>
     <table class="table table-striped">
-		<li>
     <tbody>
     @foreach($flights as $flight)
-			<tr>
+			<tr style="border-top:2px solid #555;border-left:2px solid #555;border-right:2px solid #555;">
 				<td>{{ $flight->callsign }}</td>
 				<td>{{ $flight->departure }}</td>
-				<td>{{ $flight->route }}</td>
+				<td>{{ Zbw\Base\Helpers::shortenRouteString($flight->route) }}</td>
 				<td>{{ $flight->name }}</td>
 			</tr>
-      <tr>
+      <tr style="border-bottom:2px solid #555;border-left:2px solid #555;border-right:2px solid #555;">
           <td>{{ $flight->aircraft }}</td>
           <td>{{ $flight->destination }}</td>
           <td>{{ $flight->altitude }}</td>
           <td>{{ $flight->eta }}</td>
       </tr>
-       <tr><td></td><td></td><td></td><td></td></tr>
     @endforeach
         </tbody>
-        </li>
     </table>
-    </ul>
 </div>
