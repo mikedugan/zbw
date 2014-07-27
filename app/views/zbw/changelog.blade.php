@@ -5,21 +5,21 @@ Changelog
 @section('content')
 <h1 class="text-center">Changelog</h1>
 <h3>v2.0.2b</h3>
-mikedugan pilot feedback up and running
-mikedugan did some visual work to clean up air traffic on front page
-mikedugan fixed staffing parsing from datafeed
-mikedugan training session accept/drop notifications complete
-mikedugan added email functiosn
-mikedugan fixes #45 (training request date)
-mikedugan added more notifications for training sessions
-mikedugan refactor automated messages to use views
-mikedugan added base model and validation
+mikedugan pilot feedback up and running<br>
+mikedugan did some visual work to clean up air traffic on front page<br>
+mikedugan fixed staffing parsing from datafeed<br>
+mikedugan training session accept/drop notifications complete<br>
+mikedugan added email functiosn<br>
+mikedugan fixes #45 (training request date)<br>
+mikedugan added more notifications for training sessions<br>
+mikedugan refactor automated messages to use views<br>
+mikedugan added base model and validation<br>
 <h3>v2.0.1b</h3>
-mikedugan fixes #41 fixes #43 (nonexistent user data / user seeders)
-mikedugan fixes #46 #47 (training request dates)
-mikedugan fixed training requests
-mike fixes #39 (search by single cid)
-mike fixes #44 (public groups page removed)
+mikedugan fixes #41 fixes #43 (nonexistent user data / user seeders)<br>
+mikedugan fixes #46 #47 (training request dates)<br>
+mikedugan fixed training requests<br>
+mike fixes #39 (search by single cid)<br>
+mike fixes #44 (public groups page removed)<br>
 <h3>v2.0.0b</h3>
 mikedugan fixed roster import bug and a couple issues with roster views<br>
 mikedugan typo<br>
