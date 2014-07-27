@@ -66,6 +66,14 @@ class Training {
         $job->delete();
     }
 
+    /**
+     * @description sends notifications when a training session is accepted
+     *
+     * @param Job $job
+     * @param     $data
+     *
+     * @return void
+     */
     public function acceptRequest(Job $job, $data)
     {
         $data = \TrainingRequest::find($data['id']);
@@ -96,6 +104,14 @@ class Training {
         $job->delete();
     }
 
+    /**
+     * @description sends notifications if a training sessions is dropped
+     *
+     * @param Job $job
+     * @param     $data
+     *
+     * @return void
+     */
     public function dropRequest(Job $job, $data)
     {
         $data = \TrainingRequest::find($data['id']);

@@ -1,5 +1,6 @@
 <?php  namespace Zbw\Bostonjohn;
 
+use Carbon\Carbon;
 use Zbw\Base\Helpers;
 use Curl\Curl;
 
@@ -145,13 +146,10 @@ class DatafeedParser {
      */
     private function closeStaffings()
     {
-        if(count(\Staffing::all()) > 0) {
-            $lastUpdate = \Staffing::latest()->first()->updated_at;
-            foreach (\Staffing::all() as $row) {
-                if ($row->updated_at->lt(
-                    $lastUpdate->subMinutes(3)
-                  ) && ( ! $row->stop)
-                ) {
+        $staffings = \Staffing::getDaysOfStaffing(2);
+        if(count($staffings) > 0) {
+            foreach ($staffings as $row) {
+                if(($row->updated_at < \Carbon::now()->subMinutes(3)) && ( ! $row->stop)) {
                     $row->stop = \Carbon::now();
                     $row->save();
                 }

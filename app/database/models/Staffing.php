@@ -19,4 +19,9 @@ class Staffing extends Eloquent {
     {
         return Staffing::where('stop', null)->with(['user'])->get();
     }
+
+    public static function getDaysOfStaffing($days = 3)
+    {
+        return \Staffing::where('updated_at', '<', Carbon::now()->subDays($days))->get();
+    }
 }
