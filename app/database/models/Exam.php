@@ -28,7 +28,7 @@ class Exam extends BaseModel {
         return $this->hasOne('CertType', 'id', 'cert_id');
     }
 
-    public function reviewer()
+    public function staff()
     {
         return $this->belongsTo('User', 'reviewed_by', 'cid');
     }

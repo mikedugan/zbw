@@ -1,9 +1,10 @@
-<?php 
+<?php
 
-use Zbw\Users\Contracts\UserRepositoryInterface;
-use Zbw\Cms\Contracts\MessagesRepositoryInterface;
 use Zbw\Bostonjohn\Notifier;
+use Zbw\Cms\Contracts\MessagesRepositoryInterface;
 use Zbw\Training\Contracts\CertificationRepositoryInterface;
+use Zbw\Training\Contracts\ExamsRepositoryInterface;
+use Zbw\Users\Contracts\UserRepositoryInterface;
 
 class AjaxController extends BaseController
 {
@@ -12,96 +13,88 @@ class AjaxController extends BaseController
     private $emailer;
     private $certs;
 
-    public function __construct(UserRepositoryInterface $users, MessagesRepositoryInterface $messages, Notifier $emailer, CertificationRepositoryInterface $certs)
+    public function __construct(UserRepositoryInterface $users, MessagesRepositoryInterface $messages, Notifier $emailer, CertificationRepositoryInterface $certs, ExamsRepositoryInterface $exams)
     {
         $this->users = $users;
         $this->messages = $messages;
         $this->emailer = $emailer;
         $this->certs = $certs;
+        $this->exams = $exams;
     }
 
     //handles an ajax request
     public function requestExam($cid, $eid)
     {
-        if($this->certs->requestExam($cid, $eid))
-        {
+        if ($this->certs->requestExam($cid, $eid)) {
             return json_encode(
-                ['success' => true,
-                 'message' => 'Your exam has been successfully requested!']
+              ['success' => true,
+               'message' => 'Your exam has been successfully requested!']
             );
-        }
-
-        else { return json_encode(
-            ['success' => false,
-             'message' => 'There was an error! Please contact a staff member!']
+        } else {
+            return json_encode(
+              ['success' => false,
+               'message' => 'There was an error! Please contact a staff member!']
             );
         }
     }
 
-/*    public function actionCompleted($aid)
-    {
-        $ar = new ActionRepository($aid);
-        if($ar->resolve())
-            return json_encode(['success' => true, 'message' => 'Notification marked completed!']);
-        else return json_encode(['success' => false, 'message' => 'Notification could not be resolved!']);
-    }*/
+    /*    public function actionCompleted($aid)
+        {
+            $ar = new ActionRepository($aid);
+            if($ar->resolve())
+                return json_encode(['success' => true, 'message' => 'Notification marked completed!']);
+            else return json_encode(['success' => false, 'message' => 'Notification could not be resolved!']);
+        }*/
 
     public function sendStaffWelcome($cid)
     {
         $em = new Notifier(\Sentry::getUser()->cid);
         $em->staffWelcome();
+
         return json_encode(['success' => true, 'message' => "Staff welcome email sent successfully!"]);
     }
 
     public function suspendUser($id)
     {
-        if($this->users->suspendUser($id))
-        {
+        if ($this->users->suspendUser($id)) {
             return json_encode([
-                'success' => true,
-                'message' => 'User suspended'
+              'success' => true,
+              'message' => 'User suspended'
             ]);
-        }
-        else
-        {
+        } else {
             return json_encode([
-                'success' => false,
-                'message' => 'Error suspending user'
+              'success' => false,
+              'message' => 'Error suspending user'
             ]);
         }
     }
 
     public function terminateUser($id)
     {
-        if($this->users->terminateUser($id))
-        {
+        if ($this->users->terminateUser($id)) {
             return json_encode([
-                'success' => true,
-                'message' => 'User terminated'
+              'success' => true,
+              'message' => 'User terminated'
             ]);
-        }
-        else
-        {
+        } else {
             return json_encode([
-               'success' => false,
-                'message' => 'Error terminating user'
+              'success' => false,
+              'message' => 'Error terminating user'
             ]);
         }
     }
+
     public function activateUser($id)
     {
-        if($this->users->activateUser($id))
-        {
+        if ($this->users->activateUser($id)) {
             return json_encode([
-                'success' => true,
-                'message' => 'User activated'
+              'success' => true,
+              'message' => 'User activated'
             ]);
-        }
-        else
-        {
+        } else {
             return json_encode([
-                'success' => false,
-                'message' => 'Error activating user'
+              'success' => false,
+              'message' => 'Error activating user'
             ]);
         }
     }
@@ -124,14 +117,12 @@ class AjaxController extends BaseController
                   ]
                 );
             }
-        }
-        catch(InvalidArgumentException $e)
-        {
+        } catch(InvalidArgumentException $e) {
             return json_encode(
-                [
-                    'success' => false,
-                    'message' => \Input::get('start')
-                ]
+              [
+                'success' => false,
+                'message' => \Input::get('start')
+              ]
             );
         }
     }
@@ -139,36 +130,31 @@ class AjaxController extends BaseController
     public function cancelTrainingRequest($tsid)
     {
         $tr = TrainingRequest::find($tsid);
-        if($tr->delete())
-        {
+        if ($tr->delete()) {
             return Redirect::home()->with('flash_success', 'Training session cancelled');
-        }
-        else
-        {
+        } else {
             return Redirect::back()->with('flash_error', 'Unable to cancel session');
         }
     }
 
     public function acceptTrainingRequest($tsid)
     {
-        if(\TrainingRequest::accept($tsid, \Sentry::getUser()->cid)) {
+        if (\TrainingRequest::accept($tsid, \Sentry::getUser()->cid)) {
             return json_encode([
-                'success' => true,
-                'message' => 'Training session accepted'
+              'success' => true,
+              'message' => 'Training session accepted'
             ]);
-        }
-        else
-        {
+        } else {
             return json_encode([
-                'success' => false,
-                'message' => 'Error accepting training session'
+              'success' => false,
+              'message' => 'Error accepting training session'
             ]);
         }
     }
 
     public function dropTrainingRequest($tid)
     {
-        if(\TrainingRequest::drop($tid, \Sentry::getUser()->cid)) {
+        if (\TrainingRequest::drop($tid, \Sentry::getUser()->cid)) {
             return json_encode(
               [
                 'success' => true,
@@ -176,27 +162,54 @@ class AjaxController extends BaseController
               ]
             );
         } else {
-                return json_encode([
-                      'success' => false,
-                      'message' => 'Unable to drop training session'
-                  ]);
-            }
+            return json_encode([
+              'success' => false,
+              'message' => 'Unable to drop training session'
+            ]);
         }
+    }
 
     public function markInboxRead()
     {
-            if($this->messages->markAllRead(\Sentry::getUser()->cid))
-        {
+        if ($this->messages->markAllRead(\Sentry::getUser()->cid)) {
             return json_encode([
-                'success' => true,
-                'message' => 'All messaged marked as read'
+              'success' => true,
+              'message' => 'All messaged marked as read'
+            ]);
+        } else {
+            return json_encode([
+              'success' => false,
+              'message' => 'Error marking messages read'
             ]);
         }
-        else
-        {
+    }
+
+    public function postExamReviewed($id)
+    {
+        if ($this->exams->finishReview($id)) {
+            return json_encode([
+              'success' => true,
+              'message' => 'Exam review complete'
+            ]);
+        } else {
             return json_encode([
                 'success' => false,
-                'message' => 'Error marking messages read'
+                'message' => implode(',', $this->exams->getErrors())
+            ]);
+        }
+    }
+
+    public function postReopenExam($id)
+    {
+        if ($this->exams->reopenReview($id)) {
+            return json_encode([
+              'success' => true,
+              'message' => 'Exam review complete'
+            ]);
+        } else {
+            return json_encode([
+              'success' => false,
+              'message' => implode(',', $this->exams->getErrors())
             ]);
         }
     }

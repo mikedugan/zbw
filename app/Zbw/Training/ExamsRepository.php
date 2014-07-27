@@ -31,11 +31,6 @@ class ExamsRepository extends EloquentRepository implements ExamsRepositoryInter
 
     }
 
-    public function get($id, $withTrashed = false)
-    {
-        return $this->make()->find($id);
-    }
-
     public function delete($eid)
     {
 
@@ -70,5 +65,20 @@ class ExamsRepository extends EloquentRepository implements ExamsRepositoryInter
     public function lastExam($cid)
     {
         return $this->make()->where('cid', $cid)->with(['student', 'comments'])->latest()->first();
+    }
+
+    public function finishReview($id)
+    {
+        $exam = \Exam::find($id);
+        $exam->reviewed = 1;
+        $exam->reviewed_by = \Sentry::getUser()->cid;
+        return $this->checkAndSave($exam);
+    }
+
+    public function reopenReview($id)
+    {
+        $exam = \Exam::find($id);
+        $exam->reviewed = 0;
+        return$this->checkAndSave($exam);
     }
 }

@@ -169,8 +169,11 @@ Route::group(
               'pages/menus/{mid}/delete',
               ['as' => 'menus/{mid}/delete', 'uses' => 'MenusController@postDelete']
             );
+            Route::post('exams/review/{id}/complete', ['as' => 'exams/review/{id}/complete', 'uses' => 'AjaxController@postExamReviewed']);
+            Route::post('exams/review/{id}/reopen', ['as' => 'exams/review/{id}/reopen', 'uses' => 'AjaxController@postReopenExam']);
         }
       );
+
   }
 );
 
