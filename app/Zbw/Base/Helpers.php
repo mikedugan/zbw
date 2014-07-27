@@ -250,4 +250,31 @@ class Helpers
         }
         else return $route;
     }
+
+    public static function pilotFeedbackRating($rating)
+    {
+        switch($rating) {
+            case 0:
+                return 'Eek';
+            break;
+            case 1:
+                return 'Poor';
+            break;
+            case 2:
+                return 'Fair';
+            break;
+            case 3:
+                return 'Average';
+            break;
+            case 4:
+                return 'Good';
+            break;
+            case 5:
+                return 'Excellent';
+            break;
+            case 6:
+                return 'Whoa';
+            break;
+        }
+    }
 }
