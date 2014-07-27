@@ -1,26 +1,33 @@
 <?php
 
-use Zbw\Validators\BaseValidator;
-
 class BaseModel extends Eloquent {
 
     private $errors;
-    private $validator;
 
     public function __construct()
     {
-        $this->validator = new BaseValidator(get_class($this));
+        parent::__construct();
+    }
+
+    public function validate($model)
+    {
+        $validator = Validator::make($this->getAttributes(), static::$rules);
+        if($validator->fails())
+        {
+            $this->errors = $validator->messages();
+
+            return false;
+        }
+        return true;
     }
 
     public static function boot()
     {
         parent::boot();
-        static::creating(function($model) {
-             return false;
-          });
+
         static::saving(function($model)
         {
-            return false;
+            return $model->validate($model);
         });
     }
 

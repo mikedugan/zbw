@@ -111,12 +111,12 @@ Route::group(
               ['as' => 'staff/news', 'uses' => 'NewsController@getAdminIndex']
             );
             Route::get(
-              'news/create',
-              ['as' => 'news/create', 'uses' => 'NewsController@getCreate']
+              'news/add',
+              ['as' => 'news/add', 'uses' => 'NewsController@getCreate']
             );
             Route::post(
-              'news/create',
-              ['as' => 'news/create', 'uses' => 'NewsController@postCreate']
+              'news/add',
+              ['as' => 'news/add', 'uses' => 'NewsController@postCreate']
             );
 
             Route::get(

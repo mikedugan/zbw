@@ -3,8 +3,10 @@
 class Comment extends Eloquent {
     protected $guarded = ['author'];
     protected $table = 'zbw_comments';
-    public $rules = [
-        'cid' => 'integer'
+    static $rules = [
+        'author' => 'integer',
+        'content' => 'required',
+        'parent_id' => 'integer'
     ];
 
     public function user()

@@ -4,9 +4,23 @@ class Exam extends Eloquent {
     protected $guarded = ['exam_id', 'reviewed'];
     protected $table = 'controller_exams';
     protected $with = ['student', 'comments'];
-    public $rules;
+    static $rules = [
+        'exam_id' => 'integer',
+        'cid' => 'cid|integer',
+        'reviewed_by' => 'cid|integer',
+        'assigned_on' => 'date',
+        'completed_on' => 'date',
+        'cert_id' => 'integer',
+        'reviewed' => 'integer',
+        'wrong_questions' => '',
+        'wrong_answers' => '',
+        'total_questions' => 'integer'
+    ];
 
-
+    public function getDates()
+    {
+        return ['assigned_on'];
+    }
 
     //relations
     public function exam()

@@ -3,7 +3,19 @@
 class Metar extends Eloquent {
     protected $guarded = array();
     protected $table = 'metars';
-    public $rules = array();
+    static $rules = [
+        'facility' => '',
+        'raw' => '',
+        'time' => 'integer',
+        'wind_direction' => 'integer',
+        'wind_speed' => 'integer',
+        'wind_gusts' => 'integer',
+        'visbility' => 'integer',
+        'sky' => '',
+        'temp' => 'integer',
+        'dewpoint' => 'integer',
+        'altimeter' => ''
+    ];
 
     public function scopeAirport($q, $icao)
     {

@@ -5,10 +5,23 @@ use Zbw\Base\Helpers;
 class TrainingRequest extends Eloquent
 {
     public $table = '_training_requests';
+    static $rules = [
+        'cid' => 'cid|integer',
+        'sid' => 'cid|integer',
+        'start' => 'date',
+        'end' => 'date',
+        'cert_id' => 'integer',
+        'accepted_by' => 'cid|integer',
+        'accepted_at' => 'date',
+        'is_completed' => 'integer',
+        'completed_at' => 'date'
+    ];
+
     public function getDates()
     {
-        return ['start', 'end'];
+        return ['start', 'end', 'completed_at'];
     }
+
     public function certType()
     {
         return $this->hasOne('CertType', 'id', 'cert_id');

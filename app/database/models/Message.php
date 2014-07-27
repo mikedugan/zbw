@@ -8,7 +8,15 @@ class Message extends Eloquent {
 
 	protected $guarded = [];
 	protected $table = 'zbw_messages';
-	public $rules;
+	static $rules = [
+      'from' => 'cid|integer',
+      'to' => 'cid|integer',
+      'content' => 'required',
+      'has_attachments' => 'integer',
+      'is_read' => 'integer',
+      'history' => '',
+      'cid' => 'cid|integer'
+  ];
 
     //relations
     public function sender()

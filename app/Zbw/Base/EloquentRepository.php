@@ -2,6 +2,19 @@
 
 abstract class EloquentRepository {
 
+    protected $errors;
+
+    public function getErrors()
+    {
+        return $this->errors;
+    }
+
+    protected function setErrors($errors)
+    {
+        $this->errors = $errors;
+    }
+
+
     public function make()
     {
         return new $this->model;

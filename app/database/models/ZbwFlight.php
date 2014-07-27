@@ -3,8 +3,16 @@
 class ZbwFlight extends Eloquent {
     protected $guarded = ['start', 'stop'];
     protected $table = '_flights';
-    public $rules = [
-        'cid' => 'integer',
+    static $rules = [
+        'cid' => 'cid|integer',
+        'callsign' => '',
+        'departure' => '',
+        'destination' => '',
+        'name' => '',
+        'aircraft' => '',
+        'altitude' => '',
+        'eta' => '',
+        'route' => ''
     ];
 
     public static function frontPage($lim)
