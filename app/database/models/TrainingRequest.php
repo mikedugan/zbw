@@ -77,11 +77,12 @@ class TrainingRequest extends BaseModel
 
     }
 
-    public static function complete($tsid)
+    public static function complete($tsid, $report_id)
     {
         $tr = TrainingRequest::find($tsid);
         if($tr->is_completed) { return false; }
         $tr->is_completed = true;
+        $tr->training_session_id= $report_id;
         $tr->completed_at = \Carbon::now();
         return $tr->save();
     }

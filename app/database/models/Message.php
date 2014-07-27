@@ -2,21 +2,26 @@
 
 use Illuminate\Database\Eloquent\SoftDeletingTrait;
 
-class Message extends BaseModel {
+class Message extends BaseModel
+{
+    use SoftDeletingTrait;
 
-  use SoftDeletingTrait;
-
-	protected $guarded = [];
-	protected $table = 'zbw_messages';
-	static $rules = [
-      'from' => 'cid|integer',
-      'to' => 'cid|integer',
-      'content' => 'required',
+    protected $dates = ['deleted_at', 'created_at', 'updated_at'];
+    protected $guarded = [];
+    protected $table = 'zbw_messages';
+    static $rules = [
+      'from'            => 'cid',
+      'to'              => 'cid',
+      'content'         => 'required',
       'has_attachments' => 'integer',
-      'is_read' => 'integer',
-      'history' => '',
-      'cid' => 'cid|integer'
-  ];
+      'is_read'         => 'integer',
+      'cid'             => 'cid'
+    ];
+
+    public function getDates()
+    {
+        return $this->dates;
+    }
 
     //relations
     public function sender()

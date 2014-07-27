@@ -30,10 +30,10 @@ class TrainingController extends BaseController
     public function getAdminIndex()
     {
         $data = [
-          'reports' => $this->trainings->recentReports(5),
+          'reports' => $this->trainings->recentReports(10),
           'sessions' => ['a', 'b'],
-          'requests' => \TrainingRequest::with(['student', 'certType'])->orderBy('created_at', 'desc')->get(),
-          'exams' => \Exam::recentExams(5),
+          'requests' => \TrainingRequest::with(['student', 'certType'])->orderBy('created_at', 'desc')->limit(10)->get(),
+          'exams' => \Exam::recentExams(10),
           'staffings' => \Staffing::limit(10)->with(['user'])->orderBy('created_at', 'DESC')->get()
         ];
         return View::make('staff.training.index', $data);
@@ -106,7 +106,7 @@ class TrainingController extends BaseController
     {
         $report = (new TrainingSessionGrader(\Input::all()))->fileReport();
         if($report instanceof \TrainingSession) {
-            \TrainingRequest::complete($tsid);
+            \TrainingRequest::complete($tsid, $report->id);
             return Redirect::route('staff/training')->with('flash_success','Training session completed');
         } else {
             return Redirect::back()->with('flash_error', 'Error submitting training session! Please email admin@bostonartcc.net immediately');

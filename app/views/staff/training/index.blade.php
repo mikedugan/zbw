@@ -23,7 +23,7 @@ Training Index
         @foreach($staffings as $s)
             <p class="well"><a href="/controllers/{{$s->cid}}">{{ $s->user->initials }}</a> staffed {{$s->position}} for
                 <?php
-                $minutes = $s->created_at->diffInMInutes($s->stop);
+                $minutes = $s->created_at->diffInMinutes($s->stop);
                 $hours = 0;
                 if($minutes > 60) { $hours = floor($minutes / 60); $minutes = $minutes % 60; }
                 echo $hours > 0 ? $hours . ' hour(s) ' . $minutes . ' minutes' : $minutes . ' minutes';

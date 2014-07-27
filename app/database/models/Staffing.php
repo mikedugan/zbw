@@ -14,7 +14,7 @@ class Staffing extends BaseModel {
 
     public function getDates()
     {
-        return ['start', 'stop'];
+        return ['start', 'stop', 'created_at', 'updated_at'];
     }
 
     public function user()

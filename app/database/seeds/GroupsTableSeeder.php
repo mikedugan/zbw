@@ -123,6 +123,12 @@ class GroupsTableSeeder extends Seeder {
                   'news.view' => 1
               ]
           ]);
+        \Sentry::createGroup([
+          'name' => 'Emeritus',
+          'permissions' => [
+            'news.view' => 1
+          ]
+        ]);
     }
 
 }

@@ -11,11 +11,14 @@ class MenusRepository extends EloquentRepository implements MenusRepositoryInter
         $menu = new \Menu();
         $menu->title = $input['title'];
         $menu->location = json_encode($input['location']);
-        return $menu->save();
+        return $this->checkAndSave($menu);
     }
 
     public function update($input)
     {
-
+        $menu = $this->make()->get($input['id']);
+        $menu->title = $input['title'];
+        $menu->location = json_encode($input['location']);
+        return $this->checkAndSave($menu);
     }
 } 

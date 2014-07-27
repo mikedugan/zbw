@@ -14,18 +14,24 @@ class FeedbackRepository extends EloquentRepository implements FeedbackRepositor
 
     public function create($input)
     {
-        $feedback = \PilotFeedback::create([
-            'controller' => $input['controller'],
-            'rating' => $input['rating'],
-            'ip' => $this->getIp(),
-            'feedback' => $input['message'],
-            'name' => $input['fname'] . ' ' . $input['lname']
-        ]);
-        return $feedback->save();
+        $feedback = new \PilotFeedback;
+        $feedback->controller = $input['controller'];
+        $feedback->rating = $input['rating'];
+        $feedback->ip = $this->getIp();
+        $feedback->comments = $input['message'];
+        $feedback->email = $input['email'];
+        $feedback->name = $input['fname'] . ' ' . $input['lname'];
+
+        return $this->checkAndSave($feedback);
     }
 
     public function getIp()
     {
         return $_SERVER['REMOTE_ADDR'];
+    }
+
+    public function byRecent()
+    {
+        return $this->make()->orderBy('created_at', 'DESC')->get();
     }
 }

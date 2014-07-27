@@ -41,7 +41,7 @@ Edit Controller
                     </div>
         </form>
             <div class="col-md-9">
-                @if($user->is_active == 1)
+                @if($user->activated == 1)
                 <form class="axform col-md-4" action="/m/staff-welcome/{{$user->cid}}" method="post">
                     <button type="submit" class="btn btn-sm" id="staff-welcome">Send Staff Welcome Email</button>
                 </form>
@@ -51,14 +51,14 @@ Edit Controller
                 <form class="axform col-md-4" action="/r/terminate/{{$user->cid}}" method="post">
                     <button type="submit" class="btn btn-danger">Terminate User</button>
                 </form>
-                @elseif($user->is_active == 0)
+                @elseif($user->activated == 0)
                 <form class="axform col-md-4" action="/r/activate/{{$user->cid}}" method="post">
                     <button type="submit" class="btn btn-success">Activate User</button>
                 </form>
                 <form class="axform col-md-4" action="/r/terminate/{{$user->cid}}" method="post">
                     <button type="submit" class="btn btn-danger">Terminate User</button>
                 </form>
-                @elseif($user->is_active == -1)
+                @elseif($user->activated == -1)
                 <form class="axform col-md-4" action="/r/activate/{{$user->cid}}" method="post">
                     <button type="submit" class="btn btn-success">Activate User</button>
                 </form>

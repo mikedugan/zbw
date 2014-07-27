@@ -64,13 +64,7 @@ class NewsRepository extends EloquentRepository implements NewsRepositoryInterfa
         $n->facility_id =  $input['facility'];
         $n->audience_type_id = $input['audience'];
         //return the save result
-        if($n->save()) {
-            return true;
-        }
-        else {
-           $this->setErrors($n->getErrors());
-            return false;
-        }
+        return $this->checkAndSave($n);
     }
 
     public function update($input)
@@ -80,7 +74,9 @@ class NewsRepository extends EloquentRepository implements NewsRepositoryInterfa
         $input['starts'] = \Carbon::createFromFormat('Y-m-d H:i:s', $input['starts']);
         $input['ends'] = \Carbon::createFromFormat('Y-m-d H:i:s', $input['ends']);
 
-        return $this->make()->find($input['event_id'])->fill($input)->save();
+        $news = $this->make()->find($input['event_id'])->fill($input);
+
+        return $this->checkAndSave($news);
     }
 
     public function delete($id)

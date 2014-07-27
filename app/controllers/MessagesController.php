@@ -117,11 +117,12 @@ class MessagesController extends BaseController
 
     public function restore($message_id)
     {
-        if ($this->messages->restore($message_id)) {
-            return Redirect::route('messages')->with(
-              'flash_success',
-              'Message restored successfully'
-            );
+        $m = \Message::withTrashed()->find($message_id);
+        if (! $this->messages->restore($message_id)) {
+            return Redirect::back()->with('flash_error', $this->messages->getErrors());
+        }
+        else {
+            return Redirect::route('messages')->with('flash_success','Message restored successfully');
         }
     }
 } 

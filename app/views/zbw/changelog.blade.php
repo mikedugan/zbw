@@ -4,6 +4,16 @@ Changelog
 @stop
 @section('content')
 <h1 class="text-center">Changelog</h1>
+<h3>v2.0.3b</h3>
+mikedugan fixes #52 feedback <br>
+mikedugan fixes #53, adds report link to training request <br>
+mikedugan fixes #54 <br>
+mikedugan disable mail for dev, work on staff view <br>
+mikedugan refactoring of repositories to use appropriate validation <br>
+Mike Dugan Merge branch 'master' into 'develop' <br>
+mikedugan all eloquent models now extend  BaseModel <br>
+mikedugan validation rules and refactoring <br>
+mikedugan typo in route <br>
 <h3>v2.0.2b</h3>
 mikedugan pilot feedback up and running<br>
 mikedugan did some visual work to clean up air traffic on front page<br>

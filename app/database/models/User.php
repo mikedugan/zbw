@@ -85,6 +85,11 @@ class User extends SentryUser implements UserInterface, RemindableInterface
         return $this->inGroup(\Sentry::findGroupByName($group));
     }
 
+    public function not($group)
+    {
+        return ! $this->inGroup(\Sentry::findGroupByName($group));
+    }
+
     public function has($permission)
     {
         $has = false;

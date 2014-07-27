@@ -2,7 +2,7 @@
 
 interface CommentsRepositoryInterface
 {
-    public static function add($input);
+    public function add($input);
 
     public function update($input);
 

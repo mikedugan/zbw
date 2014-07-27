@@ -12,26 +12,21 @@ class TrainingSessionRepository extends EloquentRepository implements TrainingSe
      */
     public function create($input)
     {
-        $invalid = ZbwValidator::get('TrainingSession', $input);
-
-        //if validation fails, return the errors
-        if(is_array($invalid)) return $invalid;
-        $session = \TrainingSession::create([
-            'session_date' => $input['date'],
-            'weather_id' => $input['weather'],
-            'complexity_id' => $input['complexity'],
-            'workload_id' => $input['workload'],
-            'staff_comment' => $input['staff_comment'],
-            'is_ots' => isset($input['ots']) ? true : false,
-            'facility_id' => $input['facility_id'],
-            'brief_time' => $input['brief_time'],
-            'position_time' => $input['position_time'],
-            'is_live' => isset($input['live']) ? true: false,
-            'training_type_id' => $input['training_type']
-        ]);
-        $session->cid = $input['cid'];
-        $session->sid = $input['sid'];
-        return $session->save();
+        $ts = new \TrainingSession;
+        $ts->session_date = $input['date'];
+        $ts->weather_id = $input['weather'];
+        $ts->complexity_id = $input['complexity'];
+        $ts->workload_id = $input['workload'];
+        $ts->staff_comment = $input['staff_comment'];
+        $ts->is_ots = isset($input['ots']) ? true : false;
+        $ts->facility_id = $input['facility_id'];
+        $ts->brief_time = $input['brief_time'];
+        $ts->position_time = $input['position_time'];
+        $ts->is_live = isset($input['live']) ? true: false;
+        $ts->training_type_id = $input['training_type'];
+        $ts->cid = $input['cid'];
+        $ts->sid = $input['sid'];
+        return $this->checkAndSave($ts);
     }
 
     public function update($input)
@@ -46,7 +41,7 @@ class TrainingSessionRepository extends EloquentRepository implements TrainingSe
     public static function recentReports($n)
     {
         return \TrainingSession::with(['student', 'staff', 'facility'])
-            ->orderBy('created_at', 'DESC')->limit($n)->get();
+            ->orderBy('updated_at', 'DESC')->limit($n)->get();
     }
 
 }

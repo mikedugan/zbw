@@ -136,22 +136,18 @@ class MessagesRepository extends EloquentRepository implements MessagesRepositor
           ]
         );
         if ($from !== $to) {
-            $inbox = new \Message(
-              [
-                'to'      => $to,
-                'subject' => $input['subject'],
-                'content' => $input['message'],
-                'from'    => $from,
-                'cid'     => $to
-              ]
-            );
-            if ( ! $inbox->save() || ! $outbox->save()) {
-                return 'Error sending to ' . $input['to'];
-            }
+            $inbox = new \Message;
+                $inbox->to =  $to;
+            $inbox->subject =  $input['subject'];
+            $inbox->content =  $input['message'];
+            $inbox->from =  $from;
+            $inbox->cid =  $to;
+            return $this->checkAndSave($inbox) && $this->checkAndSave($outbox);
         }
-        if ( ! $outbox->save()) {
-            return 'Error sending to ' . $input['to'];
-        } else return '';
+        if(! $this->checkAndSave($outbox)) {
+            return false;
+        }
+        else return '';
     }
 
     /**

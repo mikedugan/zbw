@@ -72,6 +72,7 @@ Route::group(
                 'uses' => 'RosterController@getEditUser'
               ]
             );
+            Route::post('{id}/edit', ['as' => 'staff/{id}/edit', 'uses' => 'RosterController@postEditUser']);
             Route::get(
               'roster/create-controller',
               [
