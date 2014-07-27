@@ -55,7 +55,7 @@ Route::get(
 Route::get('mochahagotdi', function() { return Redirect::route('feedback'); });
 Route::get('feedback', ['as' => 'feedback', 'uses' => 'FeedbackController@getFeedback']);
 Route::post('feedback', ['as' => 'feedback', 'uses' => 'FeedbackController@postFeedback']);
-Route::post('feedback-all', ['as' => 'feedback', 'uses' => 'ZbwController@postFeedback']);
+Route::post('feedback-all', ['as' => 'feedback-all', 'uses' => 'ZbwController@postFeedback']);
 Route::post('error', ['as' => 'error', 'uses' => 'ZbwController@postError']);
 
 Route::get('pages/{slug}', ['as' => 'pages/{slug}', 'uses' => 'PagesController@getPage']);
