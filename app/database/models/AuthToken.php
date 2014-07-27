@@ -6,6 +6,7 @@ use Zbw\Users\UserRepository;
 class AuthToken extends BaseModel {
     protected $guarded = [''];
     protected $table = '_tokens';
+    static $rules = [];
 
     public static function checkLogin($input, $sso)
     {

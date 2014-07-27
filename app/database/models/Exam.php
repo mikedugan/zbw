@@ -1,6 +1,7 @@
 <?php
 
 class Exam extends BaseModel {
+    protected $dates = ['created_at', 'updated_at', 'assigned_on'];
     protected $guarded = ['exam_id', 'reviewed'];
     protected $table = 'controller_exams';
     protected $with = ['student', 'comments'];
@@ -19,7 +20,7 @@ class Exam extends BaseModel {
 
     public function getDates()
     {
-        return ['assigned_on'];
+        return $this->dates;
     }
 
     //relations
@@ -28,7 +29,7 @@ class Exam extends BaseModel {
         return $this->hasOne('CertType', 'id', 'cert_id');
     }
 
-    public function reviewer()
+    public function staff()
     {
         return $this->belongsTo('User', 'reviewed_by', 'cid');
     }
