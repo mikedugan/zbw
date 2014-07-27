@@ -12,6 +12,7 @@
             <li>{{ HTML::link('staff/news', 'News & Events') }}</li>
             @if($me->hasAccess('pages.all'))
             <li>{{ HTML::linkRoute('poker', 'Poker') }}</li>
+            <li>{{ HTML::linkRoute('staff/feedback', 'Feedback') }}</li>
             <li>{{ HTML::link('staff/pages', 'Pages') }}</li>
             @endif
             <li><a href="#">Staff Pages</a>

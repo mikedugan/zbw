@@ -24,9 +24,9 @@
         <a href="/pilots" class="dropdown-toggle" data-toggle="dropdown">Pilots <b class="caret"></b></a>
         <ul class="dropdown-menu">
             <li>{{ HTML::linkRoute('pilot-news', 'NOTAMS') }}</li>
+            <li>{{ HTML::linkRoute('feedback', 'Feedback') }}</li>
             <li><a href="/pages/airports">Airports & Charts</a></li>
             <li><a href="#">About ZBW</a></li>
-            <li><a href="#">Airports</a></li>
             <li><a href="/news">Events & News</a></li>
             <li><a href="#">Pilot Pages</a>
                 <ul>

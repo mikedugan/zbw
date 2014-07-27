@@ -1,5 +1,5 @@
 <div class="strip col-md-12 text-left">
-    <table class="table table-striped">
+    <table class="table">
     <tbody>
     @foreach($flights as $flight)
 			<tr style="border-top:2px solid #555;border-left:2px solid #555;border-right:2px solid #555;">
@@ -12,7 +12,12 @@
           <td>{{ $flight->aircraft }}</td>
           <td>{{ $flight->destination }}</td>
           <td>{{ $flight->altitude }}</td>
-          <td>{{ $flight->eta }}</td>
+          <td>
+              @if($flight->eta == 0)
+              ETE: under 1 hour</td>
+              @else
+              ETE: {{ $flight->eta }} hours</td>
+              @endif
       </tr>
     @endforeach
         </tbody>

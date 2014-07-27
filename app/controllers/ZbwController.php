@@ -1,20 +1,22 @@
 <?php
 
 use Zbw\Cms\Contracts\NewsRepositoryInterface;
+use Zbw\Users\Contracts\UserRepositoryInterface;
 
 class ZbwController extends BaseController
 {
 
     private $news;
+    private $users;
 
-    public function __construct(NewsRepositoryInterface $news)
+    public function __construct(NewsRepositoryInterface $news, UserRepositoryInterface $users)
     {
         $this->news = $news;
+        $this->users = $users;
     }
     public function getIndex()
     {
         $data = [
-          'title'   => 'vZBW ARTCC',
           'me'      => Auth::user(),
           'news'    => $this->news->front(5),
           'metars'  => \Metar::frontPage(),
@@ -28,7 +30,6 @@ class ZbwController extends BaseController
     public function getControllerIndex()
     {
         $data = [
-          'title' => 'vZBW Controller Home'
         ];
         return View::make('zbw.controllers', $data);
     }
@@ -36,7 +37,6 @@ class ZbwController extends BaseController
     public function getPilotIndex()
     {
         $data = [
-          'title' => 'vZBW Pilot Home'
         ];
         return View::make('zbw.pilots', $data);
     }
