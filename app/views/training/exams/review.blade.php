@@ -24,7 +24,7 @@ Exam Review
     <p><b>Number Wrong: </b>{{count(explode(',',$exam->wrong_answers)) -1}}</p>
     @if($exam->reviewed == 1)
     <p><b>Signed Off By: </b> {{ $exam->staff->initials }}</p>
-    @endif
+    @endif_
 </div>
 <div class="col-md-12">
     <h3 class="text-center">Review &amp; Discussion</h3>

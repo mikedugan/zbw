@@ -8,7 +8,7 @@
             @if($me->hasAccess('reports.view'))
             <li>{{ HTML::link('staff/training', 'Training') }}</li>
             @endif
-            <li>{{ HTML::link('staff/ts', 'Teamspeak') }}</li>
+            <li style="display:none">{{ HTML::link('staff/ts', 'Teamspeak') }}</li>
             <li>{{ HTML::link('staff/news', 'News & Events') }}</li>
             @if($me->hasAccess('pages.all'))
             <li>{{ HTML::linkRoute('poker', 'Poker') }}</li>
