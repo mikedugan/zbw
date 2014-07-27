@@ -35,7 +35,7 @@ class FeedbackController extends BaseController
 
     public function viewFeedback()
     {
-        $feedback = $this->feedbacks->all();
+        $feedback = $this->feedbacks->byRecent();
         $data = [
             'feedbacks' => $feedback
         ];

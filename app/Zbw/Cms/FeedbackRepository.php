@@ -18,7 +18,8 @@ class FeedbackRepository extends EloquentRepository implements FeedbackRepositor
         $feedback->controller = $input['controller'];
         $feedback->rating = $input['rating'];
         $feedback->ip = $this->getIp();
-        $feedback->feedback = $input['message'];
+        $feedback->comments = $input['message'];
+        $feedback->email = $input['email'];
         $feedback->name = $input['fname'] . ' ' . $input['lname'];
 
         return $this->checkAndSave($feedback);
@@ -27,5 +28,10 @@ class FeedbackRepository extends EloquentRepository implements FeedbackRepositor
     public function getIp()
     {
         return $_SERVER['REMOTE_ADDR'];
+    }
+
+    public function byRecent()
+    {
+        return $this->make()->orderBy('created_at', 'DESC')->get();
     }
 }

@@ -13,7 +13,7 @@ ZBW Pilot Feedback
             </div>
             <div class="form-group col-md-6">
                 <label class="control-label" for="lname">Last Name</label>
-                <input class="form-control" id="lname" name="fname" type="text"/>
+                <input class="form-control" id="lname" name="lname" type="text"/>
             </div>
             <div class="form-group col-md-6">
                 <label class="control-label" for="email">Email</label>
