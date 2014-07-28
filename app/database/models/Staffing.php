@@ -3,9 +3,9 @@
 class Staffing extends BaseModel {
     protected $guarded = ['start', 'stop'];
     protected $table = 'zbw_staffing';
-    protected $dates = ['start', 'stop'];
+    protected $dates = ['start', 'stop', 'created_at', 'updated_at'];
     static $rules = [
-        'cid' => 'cid|integer',
+        'cid' => 'cid',
         'position' => '',
         'start' => 'date',
         'stop' => 'date',
@@ -29,6 +29,6 @@ class Staffing extends BaseModel {
 
     public static function getDaysOfStaffing($days = 3)
     {
-        return \Staffing::where('updated_at', '<', Carbon::now()->subDays($days))->get();
+        return \Staffing::where('updated_at', '>', Carbon::now()->subDays($days))->get();
     }
 }
