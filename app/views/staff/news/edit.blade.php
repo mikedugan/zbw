@@ -7,7 +7,7 @@ Make News
 
 @section('content')
     <h1 class="text-center">Edit Event/News</h1>
-    <form role="form" action="/staff/news/edit" method="post">
+    <form role="form" action="/staff/news/{{$event->id}}/edit" method="post">
         <div class="col-md-5 col-md-offset-1">
             <div class="form-group">
                 <label class="control-label" for="title">Title</label>

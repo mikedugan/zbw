@@ -96,12 +96,15 @@ class MessagesController extends BaseController
         if ($input['cc'] !== '') {
             $this->messages->cc($input, $input['cc'], $mid);
         }
-
-        if ($this->messages->reply($input, $mid)) {
+        $response = $this->messages->reply($input, $mid);
+        if(! is_array($response)) {
             return Redirect::home()->with(
               'flash_success',
               'Message sent successfully'
             );
+        }
+        else {
+            return Redirect::back()->with('flash_error', $response);
         }
     }
 

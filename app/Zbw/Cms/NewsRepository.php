@@ -56,12 +56,12 @@ class NewsRepository extends EloquentRepository implements NewsRepositoryInterfa
         else { $ends = \Carbon::createFromFormat('Y/m/d H:i', $input['ends']); }*/
         //create the object
         $n = new $this->model;
-        $n->title =  $input['title'];
-        $n->starts =  $input['starts'];
-        $n->ends =  $input['ends'];
-        $n->news_type_id =  $input['news_type'];
-        $n->content =  $input['content'];
-        $n->facility_id =  $input['facility'];
+        $n->title = $input['title'];
+        $n->starts = \Carbon::createFromFormat('Y-m-d H:i:s', $input['starts']);
+        $n->ends = \Carbon::createFromFormat('Y-m-d H:i:s', $input['ends']);;
+        $n->news_type_id = $input['news_type'];
+        $n->content = $input['content'];
+        $n->facility_id = $input['facility'];
         $n->audience_type_id = $input['audience'];
         //return the save result
         return $this->checkAndSave($n);
@@ -69,14 +69,19 @@ class NewsRepository extends EloquentRepository implements NewsRepositoryInterfa
 
     public function update($input)
     {
-        $invalid = BaseValidator::get('News', $input);
-        if(is_array($invalid)) return $invalid;
         $input['starts'] = \Carbon::createFromFormat('Y-m-d H:i:s', $input['starts']);
         $input['ends'] = \Carbon::createFromFormat('Y-m-d H:i:s', $input['ends']);
 
-        $news = $this->make()->find($input['event_id'])->fill($input);
+        $n = $this->make()->find($input['event_id']);
+        $n->title =  $input['title'];
+        $n->starts =  $input['starts'];
+        $n->ends =  $input['ends'];
+        $n->news_type_id =  $input['news_type_id'];
+        $n->content =  $input['content'];
+        $n->facility_id =  $input['facility_id'];
+        $n->audience_type_id = $input['audience_type_id'];
 
-        return $this->checkAndSave($news);
+        return $this->checkAndSave($n);
     }
 
     public function delete($id)

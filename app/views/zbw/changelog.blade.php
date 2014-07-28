@@ -4,6 +4,15 @@ Changelog
 @stop
 @section('content')
 <h1 class="text-center">Changelog</h1>
+<h3>v2.0.4b</h3>
+mikedugan rm teamspeak from staff routes, fix some things with news <br>
+mikedugan fixed email in search results, fixed message link on user view <br>
+mikedugan feedback controller list sorted by last update <br>
+mikedugan fixed private message reply bug <br>
+mikedugan login fix <br>
+mikedugan patched up student commenting and exam review view <br>
+mikedugan fixed exam commenting, added badge for status, and reopen button <br>
+mikedugan fixed exam commenting and made training requests more obvious <br>
 <h3>v2.0.3b</h3>
 mikedugan fixes #52 feedback <br>
 mikedugan fixes #53, adds report link to training request <br>
