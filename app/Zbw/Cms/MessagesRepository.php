@@ -1,7 +1,6 @@
 <?php namespace Zbw\Cms;
 
 use Zbw\Base\EloquentRepository;
-use Zbw\Facades\ZbwValidator;
 use Zbw\Users\Contracts\UserRepositoryInterface;
 use Zbw\Cms\Contracts\MessagesRepositoryInterface;
 
@@ -30,35 +29,36 @@ class MessagesRepository extends EloquentRepository implements MessagesRepositor
      */
     public function reply($input, $mid)
     {
-        $invalid = ZbwValidator::get('Message', $input);
-        if (is_array($invalid)) {
-            return $invalid;
-        }
+        $m = new \Message;
+        $m->subject = $input['subject'];
+        $m->content = $input['content'];
+        $m->to = $input['to'];
+        $m->cid = $input['to'];
+        $m->from = isset($input['from']) ? $input['from'] : \Sentry::getUser()->cid;
+        $m->history = $input['history'];
 
-        $m = $this->make()->create(
-          [
-            'subject' => $input['subject'],
-            'content' => $input['content'],
-            'to'      => $input['to'],
-            'cid'     => $input['to'],
-            'from'    => \Sentry::getUser()->cid,
-            'history' => $input['history']
-          ]
-        );
-        $mm = $this->make()->create(
-          [
-            'subject' => $input['subject'],
-            'content' => $input['content'],
-            'to'      => $input['to'],
-            'cid'     => \Sentry::getUser()->cid,
-            'from'    => \Sentry::getUser()->cid,
-            'history' => $input['history']
-          ]
-        );
+        $mm = new \Message;
+        $mm->subject = $input['subject'];
+        $mm->content = $input['content'];
+        $mm->to = $input['to'];
+        $mm->cid = isset($input['from']) ? $input['from'] : \Sentry::getUser()->cid;
+        $mm->from = isset($input['from']) ? $input['from'] : \Sentry::getUser()->cid;
+        $mm->history = $input['history'];
+
         if (isset($input['forget_history']) && $input['forget_history'] === 'forget') {
             $m->history = '';
         }
-        return $m->save() && $mm->save();
+
+        $errors = [' '];
+        $success = true;
+        if(!$this->checkAndSave($m)) {
+            $errors = $this->getErrors();
+        }
+        if(!$this->checkAndSave($mm)) {
+            $errors = array_merge($errors, $this->getErrors());
+        }
+        if(! $success) { return $errors; }
+        else return true;
     }
 
     /**
@@ -73,7 +73,7 @@ class MessagesRepository extends EloquentRepository implements MessagesRepositor
     {
         $to = explode(',', str_replace(' ', '', $to));
         foreach ($to as $user) {
-            $input['to'] = $user;
+            $input['to'] = $this->users->findByInitials($user)->cid;
             $input['from'] = \Sentry::getUser()->cid;
             $this->reply($input, $mid);
         }
