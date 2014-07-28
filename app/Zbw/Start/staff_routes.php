@@ -130,7 +130,7 @@ Route::group(
               ['as' => 'news/{id}/edit', 'uses' => 'NewsController@getEdit']
             );
             Route::post(
-              'news/edit',
+              'news/{id}/edit',
               ['as' => 'news/{id}/edit', 'uses' => 'NewsController@postEdit']
             );
             //this route is deprecated

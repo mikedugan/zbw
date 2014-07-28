@@ -77,10 +77,10 @@ class NewsController extends BaseController
 
     public function postEdit()
     {
-        if($this->news->update(Input::all())) {
+        if(! $this->news->update(Input::all())) {
             return Redirect::back()->with('flash_error', $this->news->getErrors())->withInput();
         } else {
-            return Redirect::to('/staff')->with('flash_success', 'Event updated successfully');
+            return Redirect::to('/staff/news')->with('flash_success', 'Event updated successfully');
         }
     }
 
