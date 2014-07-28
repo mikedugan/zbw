@@ -17,7 +17,7 @@ View {{ $controller->initials }}
     </div>
     <div class="col-md-6">
         <img class="avatar" src="{{$controller->avatar()}}">
-        <a href="/messages?v=compose&to=DB" class="btn btn-success">Message</a>
+        <a href="/messages?v=compose&to={{$controller->initials}}" class="btn btn-success">Message</a>
     </div>
 </div>
 @stop

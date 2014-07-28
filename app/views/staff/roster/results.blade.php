@@ -6,6 +6,7 @@ Search Results
     <div class="col-md-12">
         <h1 class="text-center">Search Results</h1>
     <div class="col-md-6">
+        <?php if(count($results) == 1 && ! $results instanceof User) { $results = $results[0]; } ?>
     @if(count($results) == 1)
         @include('includes.search._singleresult')
     @else
