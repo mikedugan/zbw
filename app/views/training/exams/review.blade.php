@@ -12,9 +12,9 @@ Exam Review
     <p><b>Rating: </b> {{$exam->student->rating->short}}</p>
     <p><b>Testing for: </b>{{ \Zbw\Base\Helpers::readableCert($exam->exam->id)}}</p>
     @if($me->cid === $exam->cid || in_array($me->cid, Zbw\Users\UserRepository::canTrain($exam->cert_id)))
-    @if($exam->reviewed == 1)
-    <span class="badge bg-success">Exam Review Complete</span>
-    @endif
+        @if($exam->reviewed == 1)
+        <span class="badge bg-success">Exam Review Complete</span>
+        @endif
     @endif
 </div>
 <div class="col-md-6">
@@ -23,8 +23,8 @@ Exam Review
     <p><b>Total Questions: </b>{{$exam->total_questions}}</p>
     <p><b>Number Wrong: </b>{{count(explode(',',$exam->wrong_answers)) -1}}</p>
     @if($exam->reviewed == 1)
-    <p><b>Signed Off By: </b> {{ $exam->staff->initials }}</p>
-    @endif_
+        <p><b>Signed Off By: </b> {{ $exam->staff->initials }}</p>
+    @endif
 </div>
 <div class="col-md-12">
     <h3 class="text-center">Review &amp; Discussion</h3>
