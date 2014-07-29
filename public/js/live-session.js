@@ -327,7 +327,9 @@ function update()
     }
 }
 
-$(function()
-{
-    var t = window.setInterval(update, 1000);
+$('.markup, .markdown, .markupr, .markdownr').click(function(e) {
+    update();
+});
+$('.condition, .performance').change(function(e) {
+    update();
 });
