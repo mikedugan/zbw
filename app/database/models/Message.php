@@ -12,7 +12,7 @@ class Message extends BaseModel
     static $rules = [
       'from'            => 'cid',
       'to'              => 'cid',
-      'content'         => 'required',
+      'content'         => 'required|max:63000',
       'has_attachments' => 'integer',
       'is_read'         => 'integer',
       'cid'             => 'cid'
