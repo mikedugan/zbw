@@ -48,6 +48,10 @@ App::error(function(Exception $exception, $code)
 	Log::error($exception);
 });
 
+App::error(function(Illuminate\Database\Eloquent\ModelNotFoundException $exception, $code) {
+   return Response::view('zbw.errors.404', array(), 404);
+});
+
 App::missing(function($e) {
     return Response::view('zbw.errors.404', array(), 404);
 });
