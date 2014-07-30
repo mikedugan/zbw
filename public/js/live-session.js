@@ -3,6 +3,8 @@ trainingSession.reviews = new Object();
 trainingSession.score = 0;
 trainingSession.markups = new Object();
 trainingSession.markdowns = new Object();
+trainingSession.otherup = 0;
+trainingSession.otherdown = 0;
 trainingSession.timer = { start: 0, live: 0, debrief: 0, complete: 0 };
 trainingSession.conditions = { weather: 0, complexity: 0, traffic: 0};
 trainingSession.reviewTopic = {
@@ -77,6 +79,7 @@ $('.markdown').click(
       var attr = $this.attr('id');
       attr = attr.split('-')[1];
       trainingSession.markdowns[attr] += points;
+      $this.children('.badge').text(trainingSession.markdowns[attr]);
   }
 );
 
@@ -89,15 +92,39 @@ $('.markup').click(
       var attr = $this.attr('id');
       attr = attr.split('-')[1];
       trainingSession.markups[attr] += points;
+      $this.children('.badge').text(trainingSession.markups[attr]);
   }
 );
+
+$('.markupr').click(function(e) {
+    e.preventDefault();
+    var $this = $(this);
+    var target = $this.attr('id').split('-').slice(0,2).join('-');
+    var obj = $('#'+target);
+    trainingSession.markups[target.split('-')[1]] -= obj.data('points');
+    if(trainingSession.markups[target.split('-')[1]] < 0) { trainingSession.markups[target.split('-')[1]] = 0; }
+    obj.children('.badge').text(trainingSession.markups[target.split('-')[1]]);
+});
+
+$('.markdownr').click(function(e) {
+    e.preventDefault();
+    var $this = $(this);
+    var target = $this.attr('id').split('-').slice(0,2).join('-');
+    var obj = $('#'+target);
+    trainingSession.markdowns[target.split('-')[1]] -= obj.data('points');
+    if(trainingSession.markdowns[target.split('-')[1]] < 0) { trainingSession.markdowns[target.split('-')[1]] = 0; }
+    obj.children('.badge').text(trainingSession.markdowns[target.split('-')[1]]);
+});
 
 $('#mu-other-add').click(function(e) {
     e.preventDefault();
     var points = parseInt($('#mu-other-points').val(), 10);
+    if(isNaN(points)) { points = 0; }
     var comment = $('#mu-other').val().replace(/ /g,"_");
     $('#mu-other-points').val(0);
     $('#mu-other').val('');
+    trainingSession.otherup += points;
+    $(this).children('.badge').text(trainingSession.otherup);
     if(typeof trainingSession.markups[comment] === 'undefined') {
         trainingSession.markups[comment] = points;
     } else {
@@ -108,9 +135,12 @@ $('#mu-other-add').click(function(e) {
 $('#md-other-add').click(function(e) {
     e.preventDefault();
     var points = parseInt($('#md-other-points').val(), 10);
+    if(isNaN(points)) { points = 0; }
     var comment = $('#md-other').val().replace(/ /g,"_");
     $('#md-other-points').val(0);
     $('#md-other').val('');
+    trainingSession.otherdown += points;
+    $(this).children('.badge').text(trainingSession.otherdown);
     if(typeof trainingSession.markups[comment] === 'undefined') {
         trainingSession.markdowns[comment] = points;
     } else {
@@ -177,9 +207,22 @@ $('#start').click(
   function (e)
   {
       e.preventDefault();
-      console.log(trainingSession.timer);
+      $('#live').removeAttr('disabled');
+      $(this).attr('disabled');
   }
 );
+
+$('#live').click(function(e) {
+    e.preventDefault();
+    $('#debrief').removeAttr('disabled');
+    $(this).attr('disabled');
+  });
+
+$('#debrief').click(function(e) {
+    e.preventDefault();
+    $('#complete').removeAttr('disabled');
+    $(this).attr('disabled');
+});
 
 $('.timer').click(function(e) {
     e.preventDefault();
@@ -284,7 +327,9 @@ function update()
     }
 }
 
-$(function()
-{
-    var t = window.setInterval(update, 1000);
+$('.markup, .markdown, .markupr, .markdownr').click(function(e) {
+    update();
+});
+$('.condition, .performance').change(function(e) {
+    update();
 });

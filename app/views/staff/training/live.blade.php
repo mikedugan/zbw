@@ -10,7 +10,7 @@ Training Session
         <button data-timer="start" id="start" class="timer btn btn-primary btn-block">Start Brief/Review</button>
     </div>
     <div class="col-md-6">
-        <button data-timer="live" id="live" class="timer btn btn-primary btn-block">Start Live Session</button>
+        <button data-timer="live" id="live" disabled class="timer btn btn-primary btn-block">Start Live Session</button>
     </div>
 </div>
     <div class="row">
@@ -54,26 +54,26 @@ Training Session
     <div class="row">
         <div class="col-md-4">
         <h5 class="text-center">DEL/GND</h5>
-            <button data-points="2" class="markdown btn btn-block btn-warning" id="md-wafdof">WAFDOF</button>
-            <button data-points="2" class="markdown btn btn-block btn-warning" id="md-squawk">Missed Squawk</button>
-            <button data-points="1" class="markdown btn btn-block btn-warning" id="md-cl_late">Delayed Clrnc</button>
-            <button data-points="2" class="markdown btn btn-block btn-warning" id="md-cl_wrong">Incorrect Clrnc</button>
-            <button data-points="3" class="markdown btn btn-block btn-warning" id="md-taxi">Invalid Taxi</button>
+            <button id="md-wafdof-r" class="btn btn-info markdownr col-sm-2">-</button><button data-points="2" class="markdown btn col-sm-10 btn-warning" id="md-wafdof">WAFDOF <span class="badge">0</span></button>
+            <button id="md-squawk-r" class="btn btn-info markdownr col-sm-2">-</button><button data-points="2" class="markdown btn col-sm-10 btn-warning" id="md-squawk">Missed Squawk <span class="badge">0</span></button>
+            <button id="md-cl_late-r" class="btn btn-info markdownr col-sm-2">-</button><button data-points="1" class="markdown btn col-sm-10 btn-warning" id="md-cl_late">Delayed Clrnc <span class="badge">0</span></button>
+            <button id="md-cl_wrong-r" class="btn btn-info markdownr col-sm-2">-</button><button data-points="2" class="markdown btn col-sm-10 btn-warning" id="md-cl_wrong">Incorrect Clrnc <span class="badge">0</span></button>
+            <button id="md-taxi-r" class="btn btn-info markdownr col-sm-2">-</button><button data-points="3" class="markdown btn col-sm-10 btn-warning" id="md-taxi">Invalid Taxi <span class="badge">0</span></button>
         </div>
         <div class="col-md-4">
             <h5 class="text-center">Local</h5>
-            <button data-points="2" class="markdown btn btn-block btn-warning" id="md-landing">Invalid Landing</button>
-            <button data-points="2" class="markdown btn btn-block btn-warning" id="md-takeoff">Invalid Takeoff</button>
-            <button data-points="4" class="markdown btn btn-block btn-warning" id="md-luaw">LUAW While Landing</button>
-            <button data-points="3" class="markdown btn btn-block btn-warning" id="md-waketurb">Wake Turbulence</button>
+            <button id="md-landing-r" class="markdownr col-sm-2 btn btn-info">-</button><button data-points="2" class="markdown btn col-sm-10 btn-warning" id="md-landing">Invalid Landing <span class="badge">0</span></button>
+            <button id="md-takeoff-r" class="markdownr col-sm-2 btn btn-info">-</button><button data-points="2" class="markdown btn col-sm-10 btn-warning" id="md-takeoff">Invalid Takeoff <span class="badge">0</span></button>
+            <button id="md-luaw-r" class="markdownr col-sm-2 btn btn-info">-</button><button data-points="4" class="markdown btn col-sm-10 btn-warning" id="md-luaw">LUAW While Landing <span class="badge">0</span></button>
+            <button id="md-waketurb-r" class="markdownr col-sm-2 btn btn-info">-</button><button data-points="3" class="markdown btn col-sm-10 btn-warning" id="md-waketurb">Wake Turbulence <span class="badge">0</span></button>
         </div>
         <div class="col-md-4">
             <h5 class="text-center">Tracon</h5>
-            <button data-points="2" class="markdown btn btn-block btn-warning" id="md-cl_approach">Approach Clearance</button>
-            <button data-points="4" class="markdown btn btn-block btn-warning" id="md-mva">Vector Below MVA</button>
-            <button data-points="1" class="markdown btn btn-block btn-warning" id="md-sop">LOA/SOP Violation</button>
-            <button data-points="2" class="markdown btn btn-block btn-warning" id="md-fix">Incorrect Fix/VOR</button>
-            <button data-points="1" class="markdown btn btn-block btn-warning" id="md-final">Late Final Vectors</button>
+            <button id="md-cl_approach-r" class="markdownr col-sm-2 btn btn-info">-</button><button data-points="2" class="markdown btn col-sm-10 btn-warning" id="md-cl_approach">Approach Clearance <span class="badge">0</span></button>
+            <button id="md-mva-r" class="markdownr col-sm-2 btn btn-info">-</button><button data-points="4" class="markdown btn col-sm-10 btn-warning" id="md-mva">Vector Below MVA <span class="badge">0</span></button>
+            <button id="md-sop-r" class="markdownr col-sm-2 btn btn-info">-</button><button data-points="1" class="markdown btn col-sm-10 btn-warning" id="md-sop">LOA/SOP Violation <span class="badge">0</span></button>
+            <button id="md-fix-r" class="markdownr col-sm-2 btn btn-info">-</button><button data-points="2" class="markdown btn col-sm-10 btn-warning" id="md-fix">Incorrect Fix/VOR <span class="badge">0</span></button>
+            <button id="md-final-r" class="markdownr col-sm-2 btn btn-info">-</button><button data-points="1" class="markdown btn col-sm-10 btn-warning" id="md-final">Late Final Vectors <span class="badge">0</span></button>
         </div>
     </div>
     <br>
@@ -117,34 +117,34 @@ Training Session
         </div>
         <div class="col-md-4">
             <h5 class="text-center">Markups</h5>
-            <button data-points="2" class="markup btn btn-block btn-success" id="mu-flow">Traffic Flow</button>
-            <button data-points="3" class="markup btn btn-block btn-success" id="mu-separation">Separation</button>
-            <button data-points="2" class="markup btn btn-block btn-success" id="mu-phraseology">Phraseology</button>
-            <button data-points="2" class="markup btn btn-block btn-success" id="mu-situation">Situation Handling</button>
-            <button data-points="3" class="markup btn btn-block btn-success" id="mu-pointouts">Alerts & Pointouts</button>
-            <button data-points="2" class="markup btn btn-block btn-success" id="mu-sequencing">Speed & Sequencing</button>
+            <button id="mu-flow-r" class="btn btn-info col-sm-2 markupr">-</button><button data-points="2" class="markup btn col-sm-10 btn-success" id="mu-flow">Traffic Flow <span class="badge">0</span></button>
+            <button id="mu-separation-r" class="btn btn-info col-sm-2 markupr">-</button><button data-points="3" class="markup btn col-sm-10 btn-success" id="mu-separation">Separation <span class="badge">0</span></button>
+            <button id="mu-pharseology-r" class="btn btn-info col-sm-2 markupr">-</button><button data-points="2" class="markup btn col-sm-10 btn-success" id="mu-phraseology">Phraseology <span class="badge">0</span></button>
+            <button id="mu-situation-r" class="btn btn-info col-sm-2 markupr">-</button><button data-points="2" class="markup btn col-sm-10 btn-success" id="mu-situation">Situation Handling <span class="badge">0</span></button>
+            <button id="mu-pointouts-r" class="btn btn-info col-sm-2 markupr">-</button><button data-points="3" class="markup btn col-sm-10 btn-success" id="mu-pointouts">Alerts & Pointouts <span class="badge">0</span></button>
+            <button id="mu-sequencing-r" class="btn btn-info col-sm-2 markupr">-</button><button data-points="2" class="markup btn col-sm-10 btn-success" id="mu-sequencing">Speed & Sequencing <span class="badge">0</span></button>
         </div>
         <div class="col-md-4">
             <h5 class="text-center">Other Markdows</h5>
-            <button data-points="1" class="markdown btn btn-block btn-warning" id="md-flow">Slow Traffic Flow</button>
-            <button data-points="2" class="markdown btn btn-block btn-warning" id="md-separation">Loss of Separation</button>
-            <button data-points="1" class="markdown btn btn-block btn-warning" id="md-phraseology">Incorrect Phraseology</button>
-            <button data-points="4" class="markdown btn btn-block btn-danger" id="md-near_incident">Near Incident</button>
-            <button data-points="7" class="markdown btn btn-block btn-danger" id="md-incident">Crashed Planes</button>
-            <button data-points="2" class="markdown btn btn-block btn-warning" id="md-coordination">Missed Coordination</button>
-            <button data-points="1" class="markdown btn btn-block btn-warning" id="md-readback">Incorrect Readback</button>
+            <button id="md-flow-r" class="btn btn-info col-sm-2 markdownr">-</button><button data-points="1" class="markdown btn col-sm-10 btn-warning" id="md-flow">Slow Traffic Flow <span class="badge">0</span></button>
+            <button id="md-separation-r" class="btn btn-info col-sm-2 markdownr">-</button><button data-points="2" class="markdown btn col-sm-10 btn-warning" id="md-separation">Loss of Separation <span class="badge">0</span></button>
+            <button id="md-phraseology-r" class="btn btn-info col-sm-2 markdownr">-</button><button data-points="1" class="markdown btn col-sm-10 btn-warning" id="md-phraseology">Phraseology <span class="badge">0</span></button>
+            <button id="md-near_incident-r" class="btn btn-info col-sm-2 markdownr">-</button><button data-points="4" class="markdown btn col-sm-10 btn-danger" id="md-near_incident">Near Incident <span class="badge">0</span></button>
+            <button id="md-incident-r" class="btn btn-info col-sm-2 markdownr">-</button><button data-points="7" class="markdown btn col-sm-10 btn-danger" id="md-incident">Crashed Planes <span class="badge">0</span></button>
+            <button id="md-coordination-r" class="btn btn-info col-sm-2 markdownr">-</button><button data-points="2" class="markdown btn col-sm-10 btn-warning" id="md-coordination">Missed Coordination <span class="badge">0</span></button>
+            <button id="md-readback-r" class="btn btn-info col-sm-2 markdownr">-</button><button data-points="1" class="markdown btn col-sm-10 btn-warning" id="md-readback">Incorrect Readback <span class="badge">0</span></button>
         </div>
     </div>
     <div style="margin-top:10px" class="row form-horizontal">
         <div class="col-sm-12 form-inline">
             <label style="padding-top:7px" class="col-sm-2">Comment:</label><input class="col-sm-5 form-control" type="text" name="mu-other" id="mu-other">
-            <label style="padding-top:7px" class="col-sm-1">Points</label><input class="col-sm-1 form-control" type="number" name="mu-other-points" id="mu-other-points">
-            <button class="col-sm-2 col-sm-offset-1 btn btn-success" id="mu-other-add">Add Markup</button>
+            <label style="padding-top:7px" class="col-sm-1">Points</label><input style="max-width: 100px;" class="col-sm-1 form-control" type="number" name="mu-other-points" id="mu-other-points">
+            <button style="width:160px;" class="col-sm-2 col-sm-offset-1 btn btn-success" id="mu-other-add">Add Markup <span class="badge">0</span></button>
         </div>
         <div style="margin-top:5px" class="col-sm-12 form-inline">
             <label style="padding-top:7px" class="col-sm-2">Comment:</label><input class="col-sm-5 form-control" type="text" name="md-other" id="md-other">
-            <label style="padding-top:7px" class="col-sm-1">Points</label><input class="col-sm-1 form-control" type="number" name="md-other-points" id="md-other-points">
-            <button class="col-sm-2 col-md-offset-1 btn btn-danger" id="md-other-add">Add Markdown</button>
+            <label style="padding-top:7px" class="col-sm-1">Points</label><input style="max-width: 100px;" class="col-sm-1 form-control" type="number" name="md-other-points" id="md-other-points">
+            <button style="width:160px;" class="col-sm-2 col-md-offset-1 btn btn-danger" id="md-other-add">Add Markdown <span class="badge">0</span></button>
         </div>
     </div>
     <div class="row">
@@ -169,7 +169,7 @@ Training Session
                   rows="10"></textarea>
     </div>
     <div class="col-md-6">
-        <button data-timer="debrief" id="debrief" class="timer btn btn-primary btn-block">Start Debrief/Review</button>
+        <button data-timer="debrief" id="debrief" disabled class="timer btn btn-primary btn-block">Start Debrief/Review</button>
     </div>
     <div class="col-md-6">
         <input type="hidden" name="pos_points" id="pos_points" value="0">
