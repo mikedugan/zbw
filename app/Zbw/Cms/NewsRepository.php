@@ -57,8 +57,8 @@ class NewsRepository extends EloquentRepository implements NewsRepositoryInterfa
         //create the object
         $n = new $this->model;
         $n->title = $input['title'];
-        $n->starts = \Carbon::createFromFormat('Y-m-d H:i:s', $input['starts']);
-        $n->ends = \Carbon::createFromFormat('Y-m-d H:i:s', $input['ends']);;
+        $n->starts = \Carbon::createFromFormat('m-d-Y H:i:s', $input['starts']);
+        $n->ends = \Carbon::createFromFormat('m-d-Y H:i:s', $input['ends']);;
         $n->news_type_id = $input['news_type'];
         $n->content = $input['content'];
         $n->facility_id = $input['facility'];
