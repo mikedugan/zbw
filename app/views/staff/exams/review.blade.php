@@ -56,7 +56,7 @@ Exam Review
         @endforeach
     </div>
     <div class="col-md-12">
-        <form action="/staff/exams/review/{{$exam->id}}" method="post">
+        <form id="examReviewEdit"action="/staff/exams/review/{{$exam->id}}" method="post">
             <input type="hidden" name="parent_id" value="{{$exam->id}}">
             <textarea class="form-control editor" name="content" id="comment" cols="30" rows="15"></textarea>
             <button type="submit" class="btn btn-primary">Send Comment</button>

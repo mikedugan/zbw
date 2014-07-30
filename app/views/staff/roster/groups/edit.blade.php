@@ -1,7 +1,7 @@
 <h1 class="text-center">Edit Group</h1>
 <div class="row">
     <div class="col-md-6">
-        {{ Form::open(['route' => 'staff/roster/edit-group', 'method' => 'POST']) }}
+        {{ Form::open(['route' => 'staff/roster/edit-group', 'method' => 'POST', 'id' => 'groupEdit']) }}
             <input type="hidden" value="{{$group->id}}" name="group_id">
 
             <h3 class="text-center">{{$group->name}}</h3>

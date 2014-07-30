@@ -1,5 +1,5 @@
 <h1 class="text-center">Edit "{{ $page->title }}"</h1>
-<form action="/staff/pages/edit" method="post" enctype="multipart/form-data">
+<form id="pageEdit"action="/staff/pages/edit" method="post" enctype="multipart/form-data">
     <div class="row">
         <div class="row">
             <div class="col-md-12">

@@ -53,9 +53,17 @@ class MessagesRepository extends EloquentRepository implements MessagesRepositor
         $success = true;
         if(!$this->checkAndSave($m)) {
             $errors = $this->getErrors();
+            $success = false;
         }
         if(!$this->checkAndSave($mm)) {
-            $errors = array_merge($errors, $this->getErrors());
+            if(is_array($errors)) {
+                $errors = array_merge($errors, $this->getErrors());
+                $success = false;
+            }
+            else {
+                $errors = $this->getErrors();
+                $success = false;
+            }
         }
         if(! $success) { return $errors; }
         else return true;

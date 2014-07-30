@@ -7,7 +7,7 @@
       </div>
       <div class="modal-body">
       <div class = "col-md-6">
-        <form action="/login" method="post">
+        <form id = "modalLoginSubmit" action="/login" method="post">
         	<div class="input-group">
         		<label for="username">Username</label>
         		<input class="form-control" type="text" name="username" id="username">

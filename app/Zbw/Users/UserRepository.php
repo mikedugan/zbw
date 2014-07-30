@@ -427,7 +427,7 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
             if($level == 11 && $user->cert < 12) {
                     unset($start[$index]);
             }
-            else if($user->cert < $level + 1) {
+            else if($user->cert < $level + 2) {
                 unset($start[$index]);
             }
         }

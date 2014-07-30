@@ -1,4 +1,4 @@
-<form action="/roster/results" method="GET">
+<form id="controllerSearch" action="/roster/results" method="GET">
     @if(\Sentry::check())
     <div class="form-group">
         <label class="control-label" for="text">Email</label>

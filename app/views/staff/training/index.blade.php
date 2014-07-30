@@ -15,6 +15,13 @@ Training Index
                 {{ \Zbw\Base\Helpers::timeAgo($r->session_date) }} on
                 {{ $r->facility->value }}
                 </a>
+                @if($r->is_ots == -1)
+                <span class="badge bg-info">Not OTS</span>
+                @elseif($r->is_ots == 0)
+                <span class="badge bg-danger">OTS Fail</span>
+                @elseif($r->is_ots == 1)
+                <span class="badge bg-success">OTS Pass</span>
+                @endif
             </p>
         @endforeach
     </div>
@@ -36,6 +43,7 @@ Training Index
         <h4>Requests</h4>
         @if($requests)
             @foreach($requests as $r)
+            @if(in_array($me->cid, Zbw\Users\UserRepository::canTrain($r->cert_id)))
                 <p class="well">
                 <a href="/training/request/{{$r->id}}">{{ $r->student->initials }} has requested training on {{ Zbw\Base\Helpers::readableCert($r->certType->id) }}</a>
                     @if($r->is_completed)
@@ -46,6 +54,7 @@ Training Index
                     <span class="badge bg-danger">Available</span>
                     @endif
                 </p>
+                @endif
             @endforeach
         @endif
     </div>
@@ -53,16 +62,22 @@ Training Index
         <h4>Exam Reviews</h4>
         @if($exams)
             @foreach($exams as $e)
+            @if(in_array($me->cid, Zbw\Users\UserRepository::canTrain($e->cert_id)))
                 <p class="well">
                     <a href="/staff/exams/review/{{$e->id}}">
                     {{ strtoupper($e->student['initials']) }}
                         took
                         {{ Zbw\Base\Helpers::readableCert($e->exam['id']) }}
                     , scored
-                        {{ \Zbw\Base\Helpers::getScore($e) }}
-                        %
+                        <?php $score = \Zbw\Base\Helpers::getScore($e); echo $score ?>%
                     </a>
+                    @if($score < 80)
+                    <span class="badge bg-danger">Failed</span>
+                    @else
+                    <span class="badge bg-success">Passed</span>
+                    @endif
                 </p>
+            @endif
             @endforeach
         @endif
     </div>
