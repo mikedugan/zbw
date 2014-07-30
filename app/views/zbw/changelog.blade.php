@@ -4,6 +4,15 @@ Changelog
 @stop
 @section('content')
 <h1 class="text-center">Changelog</h1>
+<h3>v2.0.5b</h3>
+mikedugan fixes message size <br>
+mikedugan set perms so mtr/ins cant see reviews/requests they cant give <br>
+mikedugan added training badges <br>
+Erik Malmstrom-Partridge Id's for validation <br>
+mikedugan removed timer, scoring now event based <br>
+mikedugan resolves #50 #51 #6 live training sessions <br>
+Mike Dugan Merge branch 'working' into 'develop' <br>
+mikedugan fixed datafeed parser <br>
 <h3>v2.0.4b</h3>
 mikedugan rm teamspeak from staff routes, fix some things with news <br>
 mikedugan fixed email in search results, fixed message link on user view <br>

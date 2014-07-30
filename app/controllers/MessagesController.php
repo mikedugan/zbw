@@ -97,7 +97,7 @@ class MessagesController extends BaseController
             $this->messages->cc($input, $input['cc'], $mid);
         }
         $response = $this->messages->reply($input, $mid);
-        
+
         if($response instanceof Illuminate\Support\MessageBag) {
             return Redirect::back()->with('flash_error', $response);
         }
