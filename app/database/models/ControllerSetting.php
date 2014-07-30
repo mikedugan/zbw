@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * ControllerSetting
+ *
+ */
 class ControllerSetting extends BaseModel
 {
     protected $guarded = ['cid'];

@@ -2,6 +2,36 @@
 
 use Illuminate\Database\Eloquent\SoftDeletingTrait;
 
+/**
+ * Message
+ *
+ * @property integer $id
+ * @property integer $from
+ * @property integer $to
+ * @property string $subject
+ * @property string $content
+ * @property boolean $has_attachments
+ * @property boolean $is_read
+ * @property string $history
+ * @property integer $cid
+ * @property \Carbon\Carbon $deleted_at
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ * @property-read \User $sender
+ * @property-read \User $recipient
+ * @method static \Illuminate\Database\Query\Builder|\Message whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\Message whereFrom($value)
+ * @method static \Illuminate\Database\Query\Builder|\Message whereTo($value)
+ * @method static \Illuminate\Database\Query\Builder|\Message whereSubject($value)
+ * @method static \Illuminate\Database\Query\Builder|\Message whereContent($value)
+ * @method static \Illuminate\Database\Query\Builder|\Message whereHasAttachments($value)
+ * @method static \Illuminate\Database\Query\Builder|\Message whereIsRead($value)
+ * @method static \Illuminate\Database\Query\Builder|\Message whereHistory($value)
+ * @method static \Illuminate\Database\Query\Builder|\Message whereCid($value)
+ * @method static \Illuminate\Database\Query\Builder|\Message whereDeletedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\Message whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\Message whereUpdatedAt($value)
+ */
 class Message extends BaseModel
 {
     use SoftDeletingTrait;

@@ -1,5 +1,53 @@
 <?php
 
+/**
+ * TrainingSession
+ *
+ * @property integer $id
+ * @property integer $cid
+ * @property integer $sid
+ * @property string $session_date
+ * @property boolean $weather_id
+ * @property boolean $complexity_id
+ * @property boolean $workload_id
+ * @property string $staff_comment
+ * @property string $student_comment
+ * @property boolean $is_ots
+ * @property boolean $facility_id
+ * @property boolean $brief_time
+ * @property boolean $position_time
+ * @property boolean $is_live
+ * @property boolean $training_type_id
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ * @property-read \User $student
+ * @property-read \User $staff
+ * @property-read \TrainingReport $trainingReport
+ * @property-read \TrainingFacility $facility
+ * @property-read \TrainingType $trainingType
+ * @property-read \WeatherType $weatherType
+ * @property-read \ComplexityType $complexityType
+ * @property-read \WorkloadType $workloadType
+ * @method static \Illuminate\Database\Query\Builder|\TrainingSession whereId($value) 
+ * @method static \Illuminate\Database\Query\Builder|\TrainingSession whereCid($value) 
+ * @method static \Illuminate\Database\Query\Builder|\TrainingSession whereSid($value) 
+ * @method static \Illuminate\Database\Query\Builder|\TrainingSession whereSessionDate($value) 
+ * @method static \Illuminate\Database\Query\Builder|\TrainingSession whereWeatherId($value) 
+ * @method static \Illuminate\Database\Query\Builder|\TrainingSession whereComplexityId($value) 
+ * @method static \Illuminate\Database\Query\Builder|\TrainingSession whereWorkloadId($value) 
+ * @method static \Illuminate\Database\Query\Builder|\TrainingSession whereStaffComment($value) 
+ * @method static \Illuminate\Database\Query\Builder|\TrainingSession whereStudentComment($value) 
+ * @method static \Illuminate\Database\Query\Builder|\TrainingSession whereIsOts($value) 
+ * @method static \Illuminate\Database\Query\Builder|\TrainingSession whereFacilityId($value) 
+ * @method static \Illuminate\Database\Query\Builder|\TrainingSession whereBriefTime($value) 
+ * @method static \Illuminate\Database\Query\Builder|\TrainingSession wherePositionTime($value) 
+ * @method static \Illuminate\Database\Query\Builder|\TrainingSession whereIsLive($value) 
+ * @method static \Illuminate\Database\Query\Builder|\TrainingSession whereTrainingTypeId($value) 
+ * @method static \Illuminate\Database\Query\Builder|\TrainingSession whereCreatedAt($value) 
+ * @method static \Illuminate\Database\Query\Builder|\TrainingSession whereUpdatedAt($value) 
+ * @method static \TrainingSession older($date) 
+ * @method static \TrainingSession newer($date) 
+ */
 class TrainingSession extends BaseModel {
 	protected $guarded = ['cid', 'sid'];
 	protected $table = 'controller_training_sessions';
