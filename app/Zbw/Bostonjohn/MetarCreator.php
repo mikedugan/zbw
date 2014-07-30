@@ -19,13 +19,12 @@ class MetarCreator {
         {
             $this->curl->get($url->value, ['id' => $airport]);
             $parser = new MetarParser($this->curl->response);
-            $lastMetar = \Metar::where('facility', $airport)->latest()->first();
-            $response = $this->curl->response;
-            if(empty($response) || empty($lastMetar->raw)) { echo "empty"; continue; }
-            if($lastMetar->raw != $response) {
-                echo "not empty";
+            /*$lastMetar = \Metar::where('facility', $airport)->latest()->first();
+            $response = $this->curl->response;*/
+            /*if(empty($response) || empty($lastMetar->raw)) { continue; }
+            if($lastMetar->raw != $response) {*/
                 $this->createMetar($airport, $parser);
-            }
+            //}
         }
     }
 
