@@ -15,6 +15,13 @@ Training Index
                 {{ \Zbw\Base\Helpers::timeAgo($r->session_date) }} on
                 {{ $r->facility->value }}
                 </a>
+                @if($r->is_ots == -1)
+                <span class="badge bg-info">Not OTS</span>
+                @elseif($r->is_ots == 0)
+                <span class="badge bg-danger">OTS Fail</span>
+                @elseif($r->is_ots == 1)
+                <span class="badge bg-success">OTS Pass</span>
+                @endif
             </p>
         @endforeach
     </div>
