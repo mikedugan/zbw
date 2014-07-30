@@ -1,6 +1,6 @@
     <h1 class="text-center">New Message</h1>
     <div class="row">
-        <form class="col-md-6 col-md-offset-3" action="/messages/send" method="post">
+        <form id="messageCreate" class="col-md-6 col-md-offset-3" action="/messages/send" method="post">
             <div class="form-group">
                 {{ Form::label('to', 'To (Initials, Comma separated)') }}
                 <input class="form-control" name="to" id="to" value="{{ $to }}">

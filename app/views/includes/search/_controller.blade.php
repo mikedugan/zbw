@@ -1,4 +1,4 @@
-<form action="/staff/roster/results" method="GET">
+<form id="controllerSearch" action="/staff/roster/results" method="GET">
     <div class="form-group">
         <label class="control-label" for="text">Email</label>
         <input class="form-control" type="text" name="email" id="email"/>

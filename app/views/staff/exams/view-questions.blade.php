@@ -47,7 +47,7 @@ Exam Question Bank
     </div>
     <div class="col-md-6">
         <h3>Add Question</h3>
-        <form action="/staff/exams/questions" method="post">
+        <form id="questionAdd" action="/staff/exams/questions" method="post">
             <div class="form-group">
                 <label class="control-label" for="question">Question</label>
                 <input type="text" class="form-control" name="question" id="question">

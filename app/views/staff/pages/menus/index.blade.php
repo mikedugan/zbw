@@ -27,7 +27,7 @@
     </div>
     <div class="col-md-2">
         <h4>Add Menu</h4>
-        <form action="/pages/menus/create" method="post">
+        <form id="menuCreate"action="/pages/menus/create" method="post">
             <div class="input-group">
                 <label class="control-label" for="title">Title</label>
                 <input class="form-control" type="text" id="title" name="title">

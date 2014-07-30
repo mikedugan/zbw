@@ -6,7 +6,7 @@
                     <h4 class="modal-title">Boston ARTCC Feedback</h4>
                 </div>
                 <div class="modal-body">
-                    <form action="/feedback" method="post">
+                    <form id="feedbackSubmit" action="/feedback" method="post">
                         <h3 class="text-center">Leave Us Feedback</h3>
                         <div class="form-group">
                             <label class="control-label" for="name">Name</label>

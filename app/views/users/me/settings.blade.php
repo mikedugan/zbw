@@ -1,5 +1,5 @@
 <div class="col-md-6">
-    <form action="/me/profile" method="post" enctype="multipart/form-data">
+    <form id='meUpdate'action="/me/profile" method="post" enctype="multipart/form-data">
         {{ Form::hidden('update', 'settings') }}
         <h3 class="text-center">Profile Settings</h3>
         <div class="form-group">

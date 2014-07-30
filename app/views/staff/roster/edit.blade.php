@@ -8,7 +8,7 @@ Edit Controller
     <div class="col-md-12">
         <h1 class="text-center">Edit {{$user->initials}}</h1>
 
-        <form action="/staff/{{$user->cid}}/edit" method="post">
+        <form id="rosterEdit"action="/staff/{{$user->cid}}/edit" method="post">
             <div class="form-group">
                 <label for="fname">First Name</label>
                 <input class="form-control" type="text" name="fname" id="fname" value="{{$user->first_name}}">

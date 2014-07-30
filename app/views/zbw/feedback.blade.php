@@ -6,7 +6,7 @@ ZBW Pilot Feedback
 <h1 class="text-center">Pilot Feedback</h1>
 <div class="row">
     <div class="col-md-12">
-        <form class="col-md-6" action="" method="post">
+        <form id="feedbackSubmit" class="col-md-6" action="" method="post">
             <div class="form-group col-md-6">
                 <label for="fname">First Name</label>
                 <input class="form-control" name="fname" id="fname" type="text">

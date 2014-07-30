@@ -4,7 +4,7 @@
 @stop
 @section('content')
 	<h1>Reset Password</h1>
-	<form action="/password/reset" method="post">
+	<form id="passwordReset"action="/password/reset" method="post">
 		<input type="hidden" name="token" value="{{ $token }}">
 		<div class="input-group">
 			<label for="email">Email</label>

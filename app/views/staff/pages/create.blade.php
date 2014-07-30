@@ -1,5 +1,5 @@
 <h1 class="text-center">Add CMS Page</h1>
-<form action="/staff/pages/create" method="post" enctype="multipart/form-data">
+<form id="pageCreate"action="/staff/pages/create" method="post" enctype="multipart/form-data">
     <div class="row">
         <div class="row">
             <div class="col-md-12">

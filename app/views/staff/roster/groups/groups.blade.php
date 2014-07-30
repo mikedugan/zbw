@@ -22,7 +22,7 @@
     </div>
     <div class="col-md-6">
         <h3 class="text-center">Add Group</h3>
-        {{ Form::open(['route' => 'staff/roster/add-group']) }}
+        {{ Form::open(['route' => 'staff/roster/add-group', 'id' => 'groupAdd']) }}
         <div class="form-group">
             {{ Form::label('name', 'Group Name', ['class' => 'control-label']) }}
             {{ Form::text('name', '', ['class' => 'form-control']) }}

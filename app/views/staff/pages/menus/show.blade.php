@@ -9,7 +9,7 @@
     <h1 class="text-center">View Menu '{{ $menu->title }}'</h1>
     <div class="row">
         <div class="col-md-6">
-            <form action="/pages/menus/{{$menu->id}}/update" method="post">
+            <form id="menuUpdate"action="/pages/menus/{{$menu->id}}/update" method="post">
                 <div class="input-group">
                     <label class="label-control" for="title">Title</label>
                     <input class="form-control" type="text" name="title" id="title">
@@ -23,7 +23,7 @@
                 </div>
                 <button type="submit" class="btn btn-primary">Update</button>
             </form>
-            <form action="/pages/menus/{{$menu->id}}/delete" method="post">
+            <form id="menuDelete"action="/pages/menus/{{$menu->id}}/delete" method="post">
                 <p class="small">Any assigned pages will be orphaned when you delete this menu!</p>
                 <button type="submit" class="btn btn-warning">Delete</button>
             </form>

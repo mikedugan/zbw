@@ -1,4 +1,4 @@
-<form class="col-md-12" action="/contact">
+<form id = "staffContactSubmit" class="col-md-12" action="/contact">
         <div class="form-group">
             <label for="to">Staff Member</label>
             <select class="form-control" name="to">

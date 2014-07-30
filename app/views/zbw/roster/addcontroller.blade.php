@@ -1,6 +1,6 @@
 <div class="col-md-12">
     <h1 class="text-center">Add ZBW Controller</h1>
-    <form action="/staff/roster/add-controller" method="post">
+    <form id="controllerAdd"action="/staff/roster/add-controller" method="post">
         <div class="form-group">
             <label class="control-label" for="cid">CID</label>
             <input class="form-control" type="number" name="cid" id="cid"/>
