@@ -4,6 +4,59 @@ use Illuminate\Auth\UserInterface;
 use Illuminate\Auth\Reminders\RemindableInterface;
 use Cartalyst\Sentry\Users\Eloquent\User as SentryUser;
 
+/**
+ * User
+ *
+ * @property integer $cid
+ * @property string $email
+ * @property string $password
+ * @property string $permissions
+ * @property boolean $activated
+ * @property string $activation_code
+ * @property \Carbon\Carbon $activated_at
+ * @property \Carbon\Carbon $last_login
+ * @property string $persist_code
+ * @property string $reset_password_code
+ * @property string $first_name
+ * @property string $last_name
+ * @property string $username
+ * @property string $remember_token
+ * @property string $initials
+ * @property boolean $rating_id
+ * @property boolean $cert
+ * @property string $artcc
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ * @property-read \UserSettings $settings
+ * @property-read \Illuminate\Database\Eloquent\Collection|\ControllerGroup[] $group
+ * @property-read \Illuminate\Database\Eloquent\Collection|\TrainingSession[] $training
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Exam[] $exams
+ * @property-read \CertType $certification
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Subscription[] $subscriptions
+ * @property-read \Rating $rating
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Staffing[] $staffing
+ * @property-read \Illuminate\Database\Eloquent\Collection|\static::$groupModel[] $groups
+ * @method static \Illuminate\Database\Query\Builder|\User whereCid($value) 
+ * @method static \Illuminate\Database\Query\Builder|\User whereEmail($value) 
+ * @method static \Illuminate\Database\Query\Builder|\User wherePassword($value) 
+ * @method static \Illuminate\Database\Query\Builder|\User wherePermissions($value) 
+ * @method static \Illuminate\Database\Query\Builder|\User whereActivated($value) 
+ * @method static \Illuminate\Database\Query\Builder|\User whereActivationCode($value) 
+ * @method static \Illuminate\Database\Query\Builder|\User whereActivatedAt($value) 
+ * @method static \Illuminate\Database\Query\Builder|\User whereLastLogin($value) 
+ * @method static \Illuminate\Database\Query\Builder|\User wherePersistCode($value) 
+ * @method static \Illuminate\Database\Query\Builder|\User whereResetPasswordCode($value) 
+ * @method static \Illuminate\Database\Query\Builder|\User whereFirstName($value) 
+ * @method static \Illuminate\Database\Query\Builder|\User whereLastName($value) 
+ * @method static \Illuminate\Database\Query\Builder|\User whereUsername($value) 
+ * @method static \Illuminate\Database\Query\Builder|\User whereRememberToken($value) 
+ * @method static \Illuminate\Database\Query\Builder|\User whereInitials($value) 
+ * @method static \Illuminate\Database\Query\Builder|\User whereRatingId($value) 
+ * @method static \Illuminate\Database\Query\Builder|\User whereCert($value) 
+ * @method static \Illuminate\Database\Query\Builder|\User whereArtcc($value) 
+ * @method static \Illuminate\Database\Query\Builder|\User whereCreatedAt($value) 
+ * @method static \Illuminate\Database\Query\Builder|\User whereUpdatedAt($value) 
+ */
 class User extends SentryUser implements UserInterface, RemindableInterface
 {
 

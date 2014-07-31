@@ -1,5 +1,26 @@
 <?php
 
+/**
+ * Staffing
+ *
+ * @property integer $id
+ * @property integer $cid
+ * @property string $position
+ * @property \Carbon\Carbon $start
+ * @property string $frequency
+ * @property \Carbon\Carbon $stop
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ * @property-read \User $user
+ * @method static \Illuminate\Database\Query\Builder|\Staffing whereId($value) 
+ * @method static \Illuminate\Database\Query\Builder|\Staffing whereCid($value) 
+ * @method static \Illuminate\Database\Query\Builder|\Staffing wherePosition($value) 
+ * @method static \Illuminate\Database\Query\Builder|\Staffing whereStart($value) 
+ * @method static \Illuminate\Database\Query\Builder|\Staffing whereFrequency($value) 
+ * @method static \Illuminate\Database\Query\Builder|\Staffing whereStop($value) 
+ * @method static \Illuminate\Database\Query\Builder|\Staffing whereCreatedAt($value) 
+ * @method static \Illuminate\Database\Query\Builder|\Staffing whereUpdatedAt($value) 
+ */
 class Staffing extends BaseModel {
     protected $guarded = ['start', 'stop'];
     protected $table = 'zbw_staffing';

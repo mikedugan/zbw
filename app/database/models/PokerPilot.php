@@ -1,5 +1,24 @@
 <?php
 
+/**
+ * PokerPilot
+ *
+ * @property integer $id
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ * @property string $first_name
+ * @property string $last_name
+ * @property string $country
+ * @property integer $pid
+ * @property-read \Illuminate\Database\Eloquent\Collection|\PokerCard[] $cards
+ * @method static \Illuminate\Database\Query\Builder|\PokerPilot whereId($value) 
+ * @method static \Illuminate\Database\Query\Builder|\PokerPilot whereCreatedAt($value) 
+ * @method static \Illuminate\Database\Query\Builder|\PokerPilot whereUpdatedAt($value) 
+ * @method static \Illuminate\Database\Query\Builder|\PokerPilot whereFirstName($value) 
+ * @method static \Illuminate\Database\Query\Builder|\PokerPilot whereLastName($value) 
+ * @method static \Illuminate\Database\Query\Builder|\PokerPilot whereCountry($value) 
+ * @method static \Illuminate\Database\Query\Builder|\PokerPilot wherePid($value) 
+ */
 class PokerPilot extends BaseModel
 {
     protected $guarded = [];

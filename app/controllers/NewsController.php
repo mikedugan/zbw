@@ -66,7 +66,7 @@ class NewsController extends BaseController
     public function getEdit($id)
     {
         $data = [
-          'event'      => $this->news->find($id),
+          'event'      => $this->news->get($id),
           'facilities' => Facility::all(),
           'news_types' => NewsType::all(),
           'audiences'  => AudienceType::all(),

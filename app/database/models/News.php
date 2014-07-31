@@ -1,5 +1,42 @@
 <?php
 
+/**
+ * News
+ *
+ * @property integer $id
+ * @property boolean $news_type_id
+ * @property boolean $audience_type_id
+ * @property string $title
+ * @property string $content
+ * @property \Carbon\Carbon $starts
+ * @property \Carbon\Carbon $ends
+ * @property boolean $facility_id
+ * @property string $deleted_at
+ * @property string $created_at
+ * @property string $updated_at
+ * @property-read \NewsType $newsType
+ * @property-read \Facility $facility
+ * @method static \Illuminate\Database\Query\Builder|\News whereId($value) 
+ * @method static \Illuminate\Database\Query\Builder|\News whereNewsTypeId($value) 
+ * @method static \Illuminate\Database\Query\Builder|\News whereAudienceTypeId($value) 
+ * @method static \Illuminate\Database\Query\Builder|\News whereTitle($value) 
+ * @method static \Illuminate\Database\Query\Builder|\News whereContent($value) 
+ * @method static \Illuminate\Database\Query\Builder|\News whereStarts($value) 
+ * @method static \Illuminate\Database\Query\Builder|\News whereEnds($value) 
+ * @method static \Illuminate\Database\Query\Builder|\News whereFacilityId($value) 
+ * @method static \Illuminate\Database\Query\Builder|\News whereDeletedAt($value) 
+ * @method static \Illuminate\Database\Query\Builder|\News whereCreatedAt($value) 
+ * @method static \Illuminate\Database\Query\Builder|\News whereUpdatedAt($value) 
+ * @method static \News events() 
+ * @method static \News news() 
+ * @method static \News policies() 
+ * @method static \News forum() 
+ * @method static \News staff() 
+ * @method static \News endsBefore($date) 
+ * @method static \News endsAfter($date) 
+ * @method static \News startsBefore($date) 
+ * @method static \News startsAfter($date) 
+ */
 class News extends BaseModel
 {
     protected $guarded = ['audience', 'deleted_at'];

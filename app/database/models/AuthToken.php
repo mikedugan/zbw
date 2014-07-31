@@ -3,6 +3,20 @@
 use Zbw\Bostonjohn\ZbwLog;
 use Zbw\Users\UserRepository;
 
+/**
+ * AuthToken
+ *
+ * @property integer $id
+ * @property string $key
+ * @property string $secret
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ * @method static \Illuminate\Database\Query\Builder|\AuthToken whereId($value) 
+ * @method static \Illuminate\Database\Query\Builder|\AuthToken whereKey($value) 
+ * @method static \Illuminate\Database\Query\Builder|\AuthToken whereSecret($value) 
+ * @method static \Illuminate\Database\Query\Builder|\AuthToken whereCreatedAt($value) 
+ * @method static \Illuminate\Database\Query\Builder|\AuthToken whereUpdatedAt($value) 
+ */
 class AuthToken extends BaseModel {
     protected $guarded = [''];
     protected $table = '_tokens';

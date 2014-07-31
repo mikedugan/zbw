@@ -97,14 +97,12 @@ class MessagesController extends BaseController
             $this->messages->cc($input, $input['cc'], $mid);
         }
         $response = $this->messages->reply($input, $mid);
-        if(! is_array($response)) {
-            return Redirect::home()->with(
-              'flash_success',
-              'Message sent successfully'
-            );
+
+        if($response instanceof Illuminate\Support\MessageBag) {
+            return Redirect::back()->with('flash_error', $response);
         }
         else {
-            return Redirect::back()->with('flash_error', $response);
+            return Redirect::home()->with('flash_success','Message sent successfully');
         }
     }
 
