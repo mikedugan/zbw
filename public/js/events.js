@@ -15,7 +15,11 @@ $(function() {
         e.preventDefault();
         $(this).children('button').innerHTML = 'Uploading...';
     });
-
+    
+    $('button[type="reset"]').click(function(e) {
+        $('.editor').val(''); 
+    });
+    
     $('#request-training').submit(function(e) {
         e.preventDefault();
 
