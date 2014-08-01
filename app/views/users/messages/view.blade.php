@@ -27,7 +27,9 @@ View Message
         @endif
         <hr/>
         <h2>Reply</h2>
-        <form action="" id="pm-reply" method="post">
+        <form class="bsv" action="" id="pm-reply" method="post"
+        data-bv-feedbackicons-valid="glyphicons ok_2 green"
+        data-bv-feedbackicons-invalid="glyphicon remove_2 red">
             @if($message->sender->cid == 100)
             <p>Boston John is a tower controller and doesn't provide radar services for replies!</p>
             @else

@@ -15,6 +15,11 @@ class ExamsController extends BaseController
         $this->exams = $exams;
     }
 
+    public function getIndex()
+    {
+
+    }
+
     public function getStaffReview($eid)
     {
         $data = [

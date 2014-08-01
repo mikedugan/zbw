@@ -28,11 +28,11 @@
     <div class="col-md-2">
         <h4>Add Menu</h4>
         <form id="menuCreate"action="/pages/menus/create" method="post">
-            <div class="input-group">
+            <div class="form-group">
                 <label class="control-label" for="title">Title</label>
                 <input class="form-control" type="text" id="title" name="title">
             </div>
-            <div class="input-group">
+            <div class="form-group">
                 <label class="control-label" for="location">Location</label><br>
                 <select name="location[]" multiple>
                     <option value="pilots">Pilots</option>

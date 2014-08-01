@@ -27,6 +27,7 @@ Route::group(
         ['as' => 'profile', 'uses' => 'UsersController@postSettings']
       );
       //training and exam routes
+      Route::get('training/request/all', ['as' => 'training/request/all', 'uses' => 'TrainingController@getAllRequests']);
       Route::get(
         'training/request/new',
         [

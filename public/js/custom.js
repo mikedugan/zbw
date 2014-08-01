@@ -14,6 +14,18 @@
             document.getElementById(field).value = $input.val();
         }
     });
+     $('.datepickopen').datetimepicker({
+         language: 'en',
+         format: 'm-d-Y H:i:s',
+         inline: true,
+         onChangeDateTime: function(dp, $input)
+         {
+             var field = $(this.prev()[0]).data('field');
+             document.getElementById(field).value = $input.val();
+         }
+     });
+
+     $('.bsv').bootstrapValidator();
 
 	$('#slideshow').slidesjs({
 		width: 900,
