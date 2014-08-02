@@ -185,12 +185,13 @@ class Helpers
     {
         $status = [];
         if($controller->is_atm) $status[0] = 'ATM';
-        else if($controller->is_datm) $status[0] = 'DATM';
-        else if($controller->is_ta) $status[0] = 'TA';
-        else if($controller->is_webmaster) $status[0] = 'Webmaster';
-        else if($controller->is_fe) $status[0] = 'Facilities Engineer';
-        if($controller->is_instructor) $status[1] = 'Instructor';
-        if($controller->is_mentor) $status[1] = 'Mentor';
+        else if($controller->is('DATM')) $status[0] = 'DATM';
+        else if($controller->is('TA')) $status[0] = 'TA';
+        else if($controller->is('WEB')) $status[0] = 'Webmaster';
+        else if($controller->is('FE')) $status[0] = 'Facilities Engineer';
+        else if($controller->is('Events')) $status[0] = 'Events Coordinator';
+        if($controller->is('Instructors')) $status[1] = 'Instructor';
+        if($controller->is('Mentors')) $status[1] = 'Mentor';
         return implode($delim, $status);
     }
 

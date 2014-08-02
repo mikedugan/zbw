@@ -19,11 +19,12 @@ class ExamsRepository extends EloquentRepository implements ExamsRepositoryInter
     public function create($i)
     {
         $e = new \Exam();
-        $e->assigned_on = \Carbon::now();
-        $e->exam_id = $i['exam_id'];
-        $e->cert_id = $i['cert_id'];
+        $e->assigned_on = $i['assigned_on'];
+        $e->cert_type_id = $i['cert_type_id'];
         $e->cid = $i['cid'];
-        return $this->checkAndSave($e);
+        $e->total_questions = $i['total_questions'];
+        if($this->checkAndSave($e)) { return $e; }
+        else return false;
     }
 
     public function update($input)
@@ -106,5 +107,20 @@ class ExamsRepository extends EloquentRepository implements ExamsRepositoryInter
             $ret->where('completed_on', '>', \Carbon::createFromFormat('m-d-Y H:i:s', $input['after']));
         }
         return $ret->get();
+    }
+
+    public function grade($input)
+    {
+        $exam = [];
+        for($i = 1; $i < $input['examlength']; $i++) {
+            $exam[$i] = [
+                'id' => $input['question'.$i],
+                'answer' => $input['answer'.$i]
+            ];
+        }
+        $exam['examid'] = $input['examid'];
+
+        $grader = new ExamGrader();
+        $results = $grader->grade($exam);
     }
 }

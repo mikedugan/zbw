@@ -45,4 +45,17 @@ class QuestionsRepository extends EloquentRepository implements QuestionsReposit
         $this->fill($q, $i);
         return $this->checkAndSave($q);
     }
+
+    public function exam($cert_id, $count)
+    {
+        $questions = [];
+        $set = $this->make()->where('cert_type_id', $cert_id)->get();
+        while(count($questions) < $count) {
+            $index = mt_rand(0, count($set) - 1);
+            if(array_key_exists($index, $questions)) continue;
+            else $questions[$index] = $set[$index];
+        }
+
+        return $questions;
+    }
 } 

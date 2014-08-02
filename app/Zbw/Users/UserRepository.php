@@ -218,7 +218,7 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
      */
     public function trainingProgress($id)
     {
-        return floor(\User::find($id)->cert / 7 * 100);
+        return floor($this->get($id)->cert / 12 * 100);
     }
 
     /**
@@ -424,11 +424,11 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
         $start = \Sentry::findAllUsersInGroup(\Sentry::findGroupByName('Mentors'));
         $start = \Sentry::findAllUsersInGroup(\Sentry::findGroupByName('Instructors'))->merge($start);
         foreach ($start as $index => $user) {
-            if($level == 11 && $user->cert < 12) {
-                    unset($start[$index]);
+            if($level == 11) {
+                if($user->cert <= 11) unset($start[$index]);
             }
-            else if($user->cert < $level + 2) {
-                unset($start[$index]);
+            else {
+                if($user->cert < $level + 2) unset($start[$index]);
             }
         }
         return $start->lists('cid');

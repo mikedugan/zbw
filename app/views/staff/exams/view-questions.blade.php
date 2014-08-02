@@ -5,6 +5,7 @@ Exam Question Bank
 @section('header')
 @stop
 @section('content')
+@include('includes.nav._training')
     <h1 class="text-center">vZBW Exam Question Bank</h1>
 
     <div class="col-md-6">
@@ -51,7 +52,7 @@ Exam Question Bank
             </ul>
                 <div class="col-md-3">
                     {{ HTML::linkRoute('staff/exams/questions/{id}', 'Edit', $q->id, ['class' => 'btn btn-success']) }}
-                    <form class="form-inline" action="/staff/exams/questions/{{$q->id}}/delete" method="post"><button type="submit" class="btn btn-danger">Delete</button></form>
+                    <form class="confirm form-inline" data-warning="This will permanently delete the question" action="/staff/exams/questions/{{$q->id}}/delete" method="post"><button type="submit" class="btn btn-danger">Delete</button></form>
                 </div>
             </div>
         @endforeach

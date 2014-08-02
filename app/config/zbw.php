@@ -26,6 +26,17 @@ return [
         'roster', 'news', 'sops', 'pages', 'reports', 'sessions', 'files'
     ],
 
+    'exam_length' => [
+        'SOP' => 20,
+        'C_S1' => 30,
+        'O_S1' => 30,
+        'C_S2' => 30,
+        'O_S2' => 30,
+        'C_S3' => 30,
+        'O_S3' => 30,
+        'C_C1' => 30
+    ],
+
     'permission_sets' => [
         'cvuda' => [0 => 'none', 1 => 'view', 2 => 'create', 3 => 'update', 4 => 'update', 5 => 'manage'],
         'files' => [0 => 'none', 1 => 'forum', 2 => 'sector', 3 => 'uploads', 4 => 'delete', 5=> 'manage'],

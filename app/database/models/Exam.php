@@ -42,15 +42,14 @@ class Exam extends BaseModel {
     protected $table = 'controller_exams';
     protected $with = ['student', 'comments'];
     static $rules = [
-        'exam_id' => 'integer',
         'cid' => 'cid|integer',
         'reviewed_by' => 'cid|integer',
         'assigned_on' => 'date',
         'completed_on' => 'date',
         'cert_id' => 'integer',
         'reviewed' => 'integer',
-        'wrong_questions' => '',
-        'wrong_answers' => '',
+        'correct' => 'integer',
+        'wrong' => 'integer',
         'total_questions' => 'integer'
     ];
 

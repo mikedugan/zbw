@@ -126,4 +126,39 @@ class ExamsController extends BaseController
         }
         else return Redirect::back()->with('flash_error', 'Error deleting question');
     }
+
+    public function takeExam()
+    {
+        $user = \Sentry::getUser();
+        $next_cert = \CertType::find($user->cert + 1);
+        $count = \Config::get('zbw.exam_length.'.$next_cert->value);
+        $exam = [
+            'cid' => $user->cid,
+            'cert_type_id' => $next_cert->id,
+            'assigned_on' => \Carbon::now(),
+            'total_questions' => $count
+        ];
+
+        if(! $exam = $this->exams->create($exam)) {
+            return Redirect::back()->with('flash_error', $this->exams->getErrors());
+        }
+
+        $data = [
+            'questions' => $this->questions->exam($user->cert + 1, $count),
+            'exam' => $exam
+        ];
+
+        return View::make('training.exams.take', $data);
+    }
+
+    public function gradeExam()
+    {
+        $results = $this->exams->grade(\Input::all());
+        if($results === 'pass') {
+
+        }
+        else {
+
+        }
+    }
 }
