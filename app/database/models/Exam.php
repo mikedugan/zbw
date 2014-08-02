@@ -43,7 +43,7 @@ class Exam extends BaseModel {
     protected $with = ['student', 'comments'];
     static $rules = [
         'cid' => 'cid|integer',
-        'reviewed_by' => 'cid|integer',
+        'reviewed_by' => '',
         'assigned_on' => 'date',
         'completed_on' => 'date',
         'cert_id' => 'integer',
@@ -59,9 +59,9 @@ class Exam extends BaseModel {
     }
 
     //relations
-    public function exam()
+    public function cert()
     {
-        return $this->hasOne('CertType', 'id', 'cert_id');
+        return $this->hasOne('CertType', 'id', 'cert_type_id');
     }
 
     public function staff()

@@ -106,8 +106,18 @@ class TrainingController extends BaseController
     public function getReview()
     {
         $exam = $this->exams->lastExam(\Sentry::getUser()->cid);
+        $wrong = [];
+        $wrongset = json_decode($exam->exam)->wrong;
+        foreach($wrongset as $q) {
+            $question = \ExamQuestion::find($q->question);
+            $wrong[] = [
+              'question' => $question,
+              'answer' => $question->{'answer_'.$q->answer}
+            ];
+        }
         $data = [
-          'exam' => $exam
+          'exam' => $exam,
+          'wrong' => $wrong
         ];
         if ( ! $exam) {
             return Redirect::back()->with('flash_info', 'No exams found');

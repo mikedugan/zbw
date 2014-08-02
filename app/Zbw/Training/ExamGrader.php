@@ -9,7 +9,6 @@ class ExamGrader {
         $results = [
             'questions' => [],
             'total_questions' => count($exam),
-            'wrong ' => []
         ];
 
         $exam_id = $exam['examid'];
@@ -19,7 +18,7 @@ class ExamGrader {
         {
             $id = $question['id'] + 1;
             $q = \ExamQuestion::find($id);
-            $exam['questions'][] = $id;
+            $results['questions'][] = $id;
             if($this->isCorrect($q->id, $question['answer'])) {
                 $correct++;
             }
@@ -32,8 +31,7 @@ class ExamGrader {
                 $wrong++;
             }
         }
-        $this->saveExamResults($exam, $wrong, $correct, $exam_id);
-        return [$correct, $wrong, $id]
+        $this->saveExamResults($results, $wrong, $correct, $exam_id);
     }
 
     private function saveExamResults($exam, $wrong, $correct, $id)
@@ -41,9 +39,9 @@ class ExamGrader {
         $e = \Exam::find($id);
         $e->exam = json_encode($exam);
         $e->questions = json_encode($exam['questions']);
+        $e->completed_on = \Carbon::now();
         $e->correct = $correct;
         $e->wrong = $wrong;
-        $e->completed_on = \Carbon::now();
         $total = $wrong + $correct;
         if(($correct / $total * 100) < 80) $e->pass = 0;
         else $e->pass = 1;

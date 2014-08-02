@@ -181,6 +181,30 @@ class Helpers
         }
     }
 
+    public static function letterToDigit($input)
+    {
+        switch($input) {
+            case 'a': return 1; break;
+            case 'b': return 2; break;
+            case 'c': return 3; break;
+            case 'd': return 4; break;
+            case 'e': return 5; break;
+            case 'f': return 6; break;
+        }
+    }
+
+    public static function digitToLetter($input)
+    {
+        switch($input) {
+            case 1: return 'a'; break;
+            case 2: return 'b'; break;
+            case 3: return 'c'; break;
+            case 4: return 'd'; break;
+            case 5: return 'e'; break;
+            case 6: return 'f'; break;
+        }
+    }
+
     public static function staffStatusString($controller, $delim = ', ')
     {
         $status = [];

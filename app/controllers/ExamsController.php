@@ -153,12 +153,15 @@ class ExamsController extends BaseController
 
     public function gradeExam()
     {
-        $results = $this->exams->grade(\Input::all());
-        if($results === 'pass') {
-
+        $this->exams->grade(\Input::all());
+        $exam = \Exam::find(\Input::get('examid'));
+        $score = round($exam->correct / $exam->total_questions * 100, 2);
+        if($exam->pass) {
+            return Redirect::route('training')->with('flash_success', 'You passed your exam with a score of '.$score.'%. Click "Review Exams" to provide corrections and view with staff.');
         }
         else {
-
+            return Redirect::route('training')->with('flash_error', 'You failed your exam with a score of '.$score.'%. Click "Review Exams" to provide corrections and view with staff. You
+            may retake the exam in 7 days.');
         }
     }
 }

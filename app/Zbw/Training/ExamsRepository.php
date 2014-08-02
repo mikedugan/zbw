@@ -65,7 +65,7 @@ class ExamsRepository extends EloquentRepository implements ExamsRepositoryInter
 
     public function lastExam($cid)
     {
-        return $this->make()->where('cid', $cid)->with(['student', 'comments'])->latest()->first();
+        return $this->make()->where('cid', $cid)->with(['student', 'comments', 'cert'])->latest()->first();
     }
 
     public function finishReview($id)
@@ -121,6 +121,7 @@ class ExamsRepository extends EloquentRepository implements ExamsRepositoryInter
         $exam['examid'] = $input['examid'];
 
         $grader = new ExamGrader();
-        $results = $grader->grade($exam);
+        return $grader->grade($exam);
+
     }
 }
