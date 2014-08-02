@@ -37,7 +37,7 @@
  * @method static \Exam notReviewed() 
  */
 class Exam extends BaseModel {
-    protected $dates = ['created_at', 'updated_at', 'assigned_on'];
+    protected $dates = ['created_at', 'updated_at', 'assigned_on', 'completed_on'];
     protected $guarded = ['exam_id', 'reviewed'];
     protected $table = 'controller_exams';
     protected $with = ['student', 'comments'];
