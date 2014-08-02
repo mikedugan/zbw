@@ -9,22 +9,29 @@ Exam Question Bank
 
     <div class="col-md-6">
         <h3>Filter Options</h3>
-<<<<<<< HEAD
-        <select class="dropdown" ¡name="question-filter" id="question-filter">
-=======
-        <select style="margin-bottom: 1%" class="btn btn-sm" name="question-filter" id="question-filter">
->>>>>>> 161258e83cb2506b1016b3e7778bd351f872230d
-            <option value="1">Class C/D S1</option>
-            <option value="2">Class B S1</option>
-            <option value="3">Class C/D S2</option>
-            <option value="4">Class B S2</option>
-            <option value="5">Class C S3</option>
-            <option value="6">Class B S3</option>
-            <option vaue="7">Center</option>
-        </select>
+        <form action="" class="col-md-12" method="GET">
+            <select class="btn btn-sm" name="exam" id="exam">
+                <option value="1">SOP</option>
+                <option value="2">Class C/D S1</option>
+                <option value="3">Class B S1</option>
+                <option value="5">Class C/D S2</option>
+                <option value="6">Class B S2</option>
+                <option value="8">Class C S3</option>
+                <option value="9">Class B S3</option>
+                <option vaue="11">Center</option>
+            </select>
+            <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+        <div class="col-md-12">
+            @if($paginate)
+                {{ $questions->links() }}
+            @else
+                {{ HTML::linkRoute('staff/exams/questions', 'View All') }}
+            @endif
+        </div>
         @foreach($questions as $q)
             <div class="col-md-12 well">
-            <p><b>Exam: </b> {{ Zbw\Base\Helpers::readableCert($q->exam->value) }}</p>
+            <p><b>Exam: </b> {{ Zbw\Base\Helpers::readableCert($q->exam->id) }}</p>
             <p><b>Question:</b> {{$q->question}}</p>
             <p><b>Answers:</b></p>
             <input type="hidden" value="{{$q->correct}}" class="correct-answer">
@@ -46,62 +53,65 @@ Exam Question Bank
         @endforeach
     </div>
     <div class="col-md-6">
-        <h3>Add Question</h3>
+        <h3 class="text-center">Add Question</h3>
         <form id="questionAdd" action="/staff/exams/questions" method="post">
             <div class="form-group">
                 <label class="control-label" for="question">Question</label>
                 <input type="text" class="form-control" name="question" id="question">
             </div>
             <div class="form-group">
-                <label class="control-label" for="answers">Answers (3 required, select correct option)</label>
                 <div class="form-group">
-                    <span class="form-group-addon">
-                        <input type="radio" name="correct" value="0">
-                    </span>
+                    <label>Answer A</label>
                     <input class="form-control" name="answera" id="answera" type="text">
                 </div>
                 <div class="form-group">
-                    <span class="form-group-addon">
-                        <input type="radio" name="correct" value="1">
-                    </span>
+                    <label>Answer B</label>
                     <input class="form-control" name="answerb" id="answerb" type="text">
                 </div>
                 <div class="form-group">
-                    <span class="form-group-addon">
-                        <input type="radio" name="correct" value="2">
-                    </span>
+                    <label>Answer C</label>
                     <input class="form-control" name="answerc" id="answerc" type="text">
                 </div>
                 <div class="form-group">
-                    <span class="form-group-addon">
-                        <input type="radio" name="correct" value="3">
-                    </span>
+                    <label>Answer D</label>
                     <input class="form-control" name="answerd" id="answerd" type="text">
                 </div>
                 <div class="form-group">
-                    <span class="form-group-addon">
-                        <input type="radio" name="correct" value="4">
-                    </span>
+                    <label>Answer E</label>
                     <input class="form-control" name="answere" id="answere" type="text">
                 </div>
                 <div class="form-group">
-                    <span class="form-group-addon">
-                        <input type="radio" name="correct" value="5">
-                    </span>
+                    <label>Answer E</label>
                     <input class="form-control" name="answerf" id="answerf" type="text">
                 </div>
-                <br>
-            <select class="btn btn-info" name="exam" id="exam">
-                <option value="1">Class C/D S1</option>
-                <option value="2">Class B S1</option>
-                <option value="3">Class C/D S2</option>
-                <option value="4">Class B S2</option>
-                <option value="5">Class C S3</option>
-                <option value="6">Class B S3</option>
-                <option vaue="7">Center</option>
-            </select>
+                <div class="col-md-6">
+                    <label>Correct Answer</label>
+                    <select class="form-control" name="correct" id="correct">
+                        <option value="1">Answer A</option>
+                        <option value="2">Answer B</option>
+                        <option value="3">Answer C</option>
+                        <option value="4">Answer D</option>
+                        <option value="5">Answer E</option>
+                        <option value="6">Answer F</option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label>Exam</label>
+                    <select class="form-control col-md-6" name="exam" id="exam">
+                        <option value="1">SOP</option>
+                        <option value="2">Class C/D S1</option>
+                        <option value="3">Class B S1</option>
+                        <option value="5">Class C/D S2</option>
+                        <option value="6">Class B S2</option>
+                        <option value="8">Class C S3</option>
+                        <option value="9">Class B S3</option>
+                        <option vaue="11">Center</option>
+                    </select>
+                </div>
             </div>
-            <button type="submit" class="btn btn-primary">Add Question</button>
+            <div class="col-md-12 text-center" style="margin-top:10px;">
+                <button type="submit" class="btn btn-primary">Add Question</button>
+            </div>
         </form>
     </div>
 @stop

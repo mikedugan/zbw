@@ -37,10 +37,7 @@ Route::group(
                 'uses' => 'ExamsController@getStaffReview'
               ]
             );
-            Route::get(
-              'exams/questions',
-              'ExamsController@getQuestions'
-            );
+            Route::get('exams/questions', ['as' => 'staff/exams/questions', 'uses' => 'ExamsController@getQuestions']);
             Route::post(
               'exams/questions',
               [
