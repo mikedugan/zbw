@@ -10,6 +10,12 @@ class QuestionsRepository extends EloquentRepository implements QuestionsReposit
     public function create($i)
     {
         $q = new \ExamQuestion();
+        $this->fill($q, $i);
+        return $this->checkAndSave($q);
+    }
+
+    private function fill($q, $i)
+    {
         $q->question = $i['question'];
         $q->correct = $i['correct'];
         $q->cert_type_id = $i['exam'];
@@ -19,7 +25,6 @@ class QuestionsRepository extends EloquentRepository implements QuestionsReposit
         $q->answer_d = $i['answerd'];
         $q->answer_e = array_key_exists('answere', $i) ? $i['answere'] : null;
         $q->answer_f = array_key_exists('answerf', $i) ? $i['answerf'] : null;
-        return $this->checkAndSave($q);
     }
 
     public function indexPaginated($n = 10)
@@ -34,5 +39,10 @@ class QuestionsRepository extends EloquentRepository implements QuestionsReposit
         }
     }
 
-    public function update($data) {}
+    public function update($i)
+    {
+        $q = $this->get($i['id']);
+        $this->fill($q, $i);
+        return $this->checkAndSave($q);
+    }
 } 

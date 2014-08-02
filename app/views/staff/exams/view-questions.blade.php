@@ -18,7 +18,7 @@ Exam Question Bank
                 <option value="6">Class B S2</option>
                 <option value="8">Class C S3</option>
                 <option value="9">Class B S3</option>
-                <option vaue="11">Center</option>
+                <option value="11">Center</option>
             </select>
             <button type="submit" class="btn btn-primary">Search</button>
         </form>
@@ -35,7 +35,7 @@ Exam Question Bank
             <p><b>Question:</b> {{$q->question}}</p>
             <p><b>Answers:</b></p>
             <input type="hidden" value="{{$q->correct}}" class="correct-answer">
-            <ul class="answers">
+            <ul class="answers col-md-9">
                 <li>{{ $q->answer_a }}</li>
                 <li>{{ $q->answer_b }}</li>
                 <li>{{ $q->answer_c }}</li>
@@ -49,6 +49,10 @@ Exam Question Bank
                 <li>{{ $q->answer_f }}</li>
                 @endif
             </ul>
+                <div class="col-md-3">
+                    {{ HTML::linkRoute('staff/exams/questions/{id}', 'Edit', $q->id, ['class' => 'btn btn-success']) }}
+                    <form class="form-inline" action="/staff/exams/questions/{{$q->id}}/delete" method="post"><button type="submit" class="btn btn-danger">Delete</button></form>
+                </div>
             </div>
         @endforeach
     </div>
@@ -81,7 +85,7 @@ Exam Question Bank
                     <input class="form-control" name="answere" id="answere" type="text">
                 </div>
                 <div class="form-group">
-                    <label>Answer E</label>
+                    <label>Answer F</label>
                     <input class="form-control" name="answerf" id="answerf" type="text">
                 </div>
                 <div class="col-md-6">
@@ -105,7 +109,7 @@ Exam Question Bank
                         <option value="6">Class B S2</option>
                         <option value="8">Class C S3</option>
                         <option value="9">Class B S3</option>
-                        <option vaue="11">Center</option>
+                        <option value="11">Center</option>
                     </select>
                 </div>
             </div>

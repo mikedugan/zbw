@@ -90,6 +90,25 @@ class ExamsController extends BaseController
         }
     }
 
+    public function getEditQuestion($id)
+    {
+        $data = [
+            'question' => $this->questions->get($id)
+        ];
+
+        return View::make('staff.exams.edit', $data);
+    }
+
+    public function postEditQuestion($id)
+    {
+        if(! $this->questions->update(\Input::all())) {
+            return Redirect::back()->with('flash_error', $this->questions->getErrors());
+        }
+        else {
+            return Redirect::back()->with('flash_success', 'Question updated successfully');
+        }
+    }
+
     public function addQuestion()
     {
         if(! $this->questions->create(\Input::all())) {
@@ -98,5 +117,13 @@ class ExamsController extends BaseController
         else {
             return Redirect::back()->with('flash_success', 'Question added successfully');
         }
+    }
+
+    public function deleteQuestion($id)
+    {
+        if($this->questions->delete($id)) {
+            return Redirect::route('staff/exams/questions')->with('flash_success', 'Question deleted');
+        }
+        else return Redirect::back()->with('flash_error', 'Error deleting question');
     }
 }
