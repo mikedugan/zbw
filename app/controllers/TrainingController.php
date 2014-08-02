@@ -59,7 +59,19 @@ class TrainingController extends BaseController
     //all training requests
     public function getAllRequests()
     {
-
+        if(\Input::has('initials') || \Input::has('before') || \Input::has('after')) {
+            $data = [
+                'requests' => \TrainingRequest::indexFiltered(\Input::all()),
+                'paginate' => false
+            ];
+        }
+        else {
+            $data = [
+                'requests' => \TrainingRequest::indexPaginated(10),
+                'paginate' => true
+            ];
+        }
+        return View::make('staff.training.all-requests', $data);
     }
 
     public function showAdmin($id)

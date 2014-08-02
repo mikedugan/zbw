@@ -119,4 +119,26 @@ class TrainingRequest extends BaseModel
         $tr->completed_at = \Carbon::now();
         return $tr->save();
     }
+
+    public static function indexPaginated($n = 10)
+    {
+        return \TrainingRequest::with(['student','staff','certType'])->paginate($n);
+    }
+
+    public static function indexFiltered($input)
+    {
+        $users = App::make('Zbw\Users\UserRepository');
+        $ret = self::with(['student','staff','certType']);
+        if(array_key_exists('initials', $input)) {
+            $user = $users->findByInitials($input['initials']);
+            if($user) $ret->where('cid', $user->cid);
+        }
+        if(array_key_exists('before', $input) && ! empty($input['before'])) {
+            $ret->where('start', '<', \Carbon::createFromFormat('m-d-Y H:i:s', $input['before']));
+        }
+        if(array_key_exists('after', $input) && ! empty($input['after'])) {
+            $ret->where('start', '>', \Carbon::createFromFormat('m-d-Y H:i:s', $input['after']));
+        }
+        return $ret->get();
+    }
 } 
