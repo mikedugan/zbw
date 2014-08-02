@@ -11,6 +11,8 @@ Route::group(
               '/',
               ['as' => 'staff', 'uses' => 'AdminController@getAdminIndex']
             );
+              Route::get('staffing', ['as' => 'staff/staffing', 'uses' => 'StaffingController@getIndex']);
+              Route::get('exams/all', ['as' => 'staff/exams/all', 'uses' => 'ExamsController@getIndex']);
             Route::post(
               'exams/review/{eid}',
               [
@@ -27,6 +29,7 @@ Route::group(
                 'after'  => 'cache.put'
               ]
             );
+              Route::get('training/all', ['as' => 'staff/training/all', 'uses' => 'TrainingController@getAll']);
             Route::get(
               'exams/review/{eid}',
               [

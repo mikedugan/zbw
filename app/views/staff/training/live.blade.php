@@ -6,15 +6,15 @@ Training Session
 <form id="training_session" action="" method="post">
 <h1 class="text-center">Training Session</h1>
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-6" style="width:790px;">
         <button data-timer="start" id="start" class="timer btn btn-primary btn-block">Start Brief/Review</button>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-6" style="width:790px;">
         <button data-timer="live" id="live" disabled class="timer btn btn-primary btn-block">Start Live Session</button>
     </div>
 </div>
     <div class="row">
-<div class="col-md-6">
+<div class="col-md-6" style="width:790px;">
     <div class="row form-horizontal">
         <label class="control-label col-md-6">Training Facility</label>
         <div class="form-group col-md-6">
@@ -48,7 +48,7 @@ Training Session
         </div>
     </div>
 </div>
-<div class="col-md-6">
+<div class="col-md-6" style="width:790px;">
 
     <h3 class="text-center">Markups & Markdowns</h3>
     <div class="row">
@@ -158,20 +158,20 @@ Training Session
 </div>
     </div>
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-6" style="width:790px;">
         <h3 class="text-center">Staff Comment</h3>
         <textarea class="editor" name="comment-db" id="comment-db" cols="30"
                   rows="10"></textarea>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-6" style="width:790px;">
         <h3 class="text-center">Student Comment</h3>
         <textarea class="editor" name="comment-student" id="comment-student" cols="30"
                   rows="10"></textarea>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-6" style="width:790px;">
         <button data-timer="debrief" id="debrief" disabled class="timer btn btn-primary btn-block">Start Debrief/Review</button>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-6" style="width:790px;">
         <input type="hidden" name="pos_points" id="pos_points" value="0">
         <input type="hidden" name="neg_points" id="neg_points" value="0">
         <input type="hidden" name="modifier" id="modifier" value="1">

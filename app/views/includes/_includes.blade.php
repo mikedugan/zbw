@@ -2,6 +2,7 @@
 <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
 {{ HTML::script('js/bootstrap.js') }}
 {{ HTML::script('js/datetimepicker.js') }}
+{{ HTML::script('js/bootstrapValidator.min.js') }}
 {{ HTML::script('js/redactor.js') }}
 {{ HTML::script('js/slide.js') }}
 {{ HTML::script('js/fileinput.js') }}

@@ -6,7 +6,7 @@ Training Index
 <div class="col-lg-12 training-summary">
  {{-- this area should contain an overview of recent training, promotions, etc --}}
     <div class="col-lg-3">
-        <h4>Recent Reports</h4>
+        <h4>Recent Reports {{ HTML::linkRoute('staff/training/all', 'View All', '',['class' => 'small']) }}</h4>
         @foreach($reports as $r)
             <p class="well">
                 <a href="/staff/training/{{$r->id}}">
@@ -26,7 +26,7 @@ Training Index
         @endforeach
     </div>
     <div class="col-lg-3">
-        <h4>Recent Staffing</h4>
+        <h4>Recent Staffing {{ HTML::linkRoute('staff/staffing', 'View All', '',['class' => 'small']) }}</h4>
         @foreach($staffings as $s)
             <p class="well"><a href="/controllers/{{$s->cid}}">{{ $s->user->initials }}</a> staffed {{$s->position}} for
                 <?php
@@ -40,7 +40,7 @@ Training Index
     </div>
  {{-- this area should contain pending training & exam requests, etc --}}
     <div class="col-lg-3">
-        <h4>Requests</h4>
+        <h4>Requests {{ HTML::linkRoute('training/request/all', 'View All', '',['class' => 'small']) }}</h4>
         @if($requests)
             @foreach($requests as $r)
             @if(in_array($me->cid, Zbw\Users\UserRepository::canTrain($r->cert_id)))
@@ -59,7 +59,7 @@ Training Index
         @endif
     </div>
     <div class="col-lg-3">
-        <h4>Exam Reviews</h4>
+        <h4>Exam Reviews {{ HTML::linkRoute('staff/exams/all', 'View All', '',['class' => 'small']) }}</h4>
         @if($exams)
             @foreach($exams as $e)
             @if(in_array($me->cid, Zbw\Users\UserRepository::canTrain($e->cert_id)))

@@ -27,38 +27,12 @@ Route::group(
         ['as' => 'profile', 'uses' => 'UsersController@postSettings']
       );
       //training and exam routes
-      Route::get(
-        'training/request/new',
-        [
-          'as'   => 'training/new-request',
-          'uses' => 'TrainingController@getRequest'
-        ]
-      );
-      Route::get(
-        'training/request/{id}',
-        [
-          'as'   => 'training/view-request/{id}',
-          'uses' => 'TrainingController@showRequest'
-        ]
-      );
-      Route::get(
-        '/training/review',
-        ['as' => 'training/sessions', 'uses' => 'TrainingController@getReview']
-      );
-      Route::post(
-        '/training/review/{eid}',
-        [
-          'as'   => 'training/review-session',
-          'uses' => 'ExamsController@postComment'
-        ]
-      );
-      Route::post(
-        '/e/request/{cid}/{eid}',
-        [
-          'as'   => 'me/exam-requests/{eid}',
-          'uses' => 'AjaxController@requestExam'
-        ]
-      );
+      Route::get('training/request/all', ['as' => 'training/request/all', 'uses' => 'TrainingController@getAllRequests']);
+      Route::get('training/request/new', ['as'   => 'training/new-request','uses' => 'TrainingController@getRequest']);
+      Route::get('training/request/{id}',['as'   => 'training/view-request/{id}','uses' => 'TrainingController@showRequest']);
+      Route::get('/training/review',['as' => 'training/sessions', 'uses' => 'TrainingController@getReview']);
+      Route::post('/training/review/{eid}',['as'   => 'training/review-session','uses' => 'ExamsController@postComment']);
+      Route::post('/e/request/{cid}/{eid}',['as'   => 'me/exam-requests/{eid}','uses' => 'AjaxController@requestExam']);
       Route::post(
         '/t/request/new',
         [

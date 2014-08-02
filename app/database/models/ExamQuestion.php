@@ -1,5 +1,37 @@
 <?php 
 
+/**
+ * ExamQuestion
+ *
+ * @property integer $id
+ * @property boolean $cert_type_id
+ * @property string $question
+ * @property string $answer_a
+ * @property string $answer_b
+ * @property string $answer_c
+ * @property string $answer_d
+ * @property string $answer_e
+ * @property string $answer_f
+ * @property boolean $correct
+ * @property-read \CertType $exam
+ * @method static \Illuminate\Database\Query\Builder|\ExamQuestion whereId($value) 
+ * @method static \Illuminate\Database\Query\Builder|\ExamQuestion whereCertTypeId($value) 
+ * @method static \Illuminate\Database\Query\Builder|\ExamQuestion whereQuestion($value) 
+ * @method static \Illuminate\Database\Query\Builder|\ExamQuestion whereAnswerA($value) 
+ * @method static \Illuminate\Database\Query\Builder|\ExamQuestion whereAnswerB($value) 
+ * @method static \Illuminate\Database\Query\Builder|\ExamQuestion whereAnswerC($value) 
+ * @method static \Illuminate\Database\Query\Builder|\ExamQuestion whereAnswerD($value) 
+ * @method static \Illuminate\Database\Query\Builder|\ExamQuestion whereAnswerE($value) 
+ * @method static \Illuminate\Database\Query\Builder|\ExamQuestion whereAnswerF($value) 
+ * @method static \Illuminate\Database\Query\Builder|\ExamQuestion whereCorrect($value) 
+ * @method static \ExamQuestion cs1() 
+ * @method static \ExamQuestion bs1() 
+ * @method static \ExamQuestion cs2() 
+ * @method static \ExamQuestion bs2() 
+ * @method static \ExamQuestion cs3() 
+ * @method static \ExamQuestion bs3() 
+ * @method static \ExamQuestion center() 
+ */
 class ExamQuestion extends BaseModel
 {
     protected $table = '_exam_questions';

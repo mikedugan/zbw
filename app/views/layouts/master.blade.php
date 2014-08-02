@@ -5,9 +5,10 @@ $messages = $me ? MessagesRepository::newMessageCount($me->cid) : 0;
 <!DOCTYPE html>
 <html>
     <head>
-    <title>
-    @yield('title')
-    | vZBW ARTCC</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>
+        @yield('title')
+        | vZBW ARTCC</title>
     @include('includes._head')
     </head>
     <body>

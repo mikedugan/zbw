@@ -54,38 +54,38 @@ Exam Question Bank
             </div>
             <div class="form-group">
                 <label class="control-label" for="answers">Answers (3 required, select correct option)</label>
-                <div class="input-group">
-                    <span class="input-group-addon">
+                <div class="form-group">
+                    <span class="form-group-addon">
                         <input type="radio" name="correct" value="0">
                     </span>
                     <input class="form-control" name="answera" id="answera" type="text">
                 </div>
-                <div class="input-group">
-                    <span class="input-group-addon">
+                <div class="form-group">
+                    <span class="form-group-addon">
                         <input type="radio" name="correct" value="1">
                     </span>
                     <input class="form-control" name="answerb" id="answerb" type="text">
                 </div>
-                <div class="input-group">
-                    <span class="input-group-addon">
+                <div class="form-group">
+                    <span class="form-group-addon">
                         <input type="radio" name="correct" value="2">
                     </span>
                     <input class="form-control" name="answerc" id="answerc" type="text">
                 </div>
-                <div class="input-group">
-                    <span class="input-group-addon">
+                <div class="form-group">
+                    <span class="form-group-addon">
                         <input type="radio" name="correct" value="3">
                     </span>
                     <input class="form-control" name="answerd" id="answerd" type="text">
                 </div>
-                <div class="input-group">
-                    <span class="input-group-addon">
+                <div class="form-group">
+                    <span class="form-group-addon">
                         <input type="radio" name="correct" value="4">
                     </span>
                     <input class="form-control" name="answere" id="answere" type="text">
                 </div>
-                <div class="input-group">
-                    <span class="input-group-addon">
+                <div class="form-group">
+                    <span class="form-group-addon">
                         <input type="radio" name="correct" value="5">
                     </span>
                     <input class="form-control" name="answerf" id="answerf" type="text">

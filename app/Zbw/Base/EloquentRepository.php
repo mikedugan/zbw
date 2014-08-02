@@ -35,7 +35,7 @@ abstract class EloquentRepository {
         if($pagination) {
             return $this->make()->with($with)->paginate($pagination);
         } else if($id) {
-            return $this->make()->where($pk, $id)->with($with)->first();
+            return $this->make()->where($pk, $id)->with($with)->firstOrFail();
         }
         return $this->make()->with($with)->get();
     }
@@ -43,9 +43,9 @@ abstract class EloquentRepository {
     public function get($id, $withTrash = false)
     {
         if($withTrash) {
-            return $this->make()->withTrashed()->find($id);
+            return $this->make()->withTrashed()->findOrFail($id);
         } else {
-            return $this->make()->find($id);
+            return $this->make()->findOrFail($id);
         }
     }
 
@@ -71,7 +71,7 @@ abstract class EloquentRepository {
 
     public function restore($id)
     {
-        return $this->make()->withTrashed()->find($id)->restore();
+        return $this->make()->withTrashed()->findOrFail($id)->restore();
     }
 
     /**

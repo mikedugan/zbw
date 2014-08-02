@@ -4,6 +4,15 @@ Changelog
 @stop
 @section('content')
 <h1 class="text-center">Changelog</h1>
+<h3>v2.0.6b</h3>
+mikedugan all exams view with filters <br>
+mikedugan view all requests with filtering <br>
+mikedugan added view for all models with filtering <br>
+mikedugan fixes #48 #12 live training view <br>
+mikedugan added global error handling for (most) ModelNotFound <br>
+mikedugan fixes #65 carbon <br>
+mikedugan fixed metar display <br>
+mikedugan added phpdocs to models <br>
 <h3>v2.0.5b</h3>
 mikedugan fixes message size <br>
 mikedugan set perms so mtr/ins cant see reviews/requests they cant give <br>

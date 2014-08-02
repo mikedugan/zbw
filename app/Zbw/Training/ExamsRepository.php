@@ -81,4 +81,30 @@ class ExamsRepository extends EloquentRepository implements ExamsRepositoryInter
         $exam->reviewed = 0;
         return$this->checkAndSave($exam);
     }
+
+    public function indexPaginated($n = 10)
+    {
+        return $this->make()->with(['student', 'exam'])->paginate($n);
+    }
+
+    public function indexFiltered($input)
+    {
+        $ret = $this->make()->with(['student']);
+        if(array_key_exists('initials', $input) && ! empty($input['initials'])) {
+            $user = $this->users->findByInitials($input['initials']);
+            $ret->where('cid', $user->cid);
+        }
+        if(array_key_exists('reviewed', $input) && $input['reviewed'] == 'true') {
+            $ret->where('reviewed', '>=', 0);
+        } else {
+            $ret->where('reviewed', 0);
+        }
+        if(array_key_exists('before', $input) && ! empty($input['before'])) {
+            $ret->where('completed_on', '<', \Carbon::createFromFormat('m-d-Y H:i:s', $input['before']));
+        }
+        if(array_key_exists('after', $input) && ! empty($input['after'])) {
+            $ret->where('completed_on', '>', \Carbon::createFromFormat('m-d-Y H:i:s', $input['after']));
+        }
+        return $ret->get();
+    }
 }

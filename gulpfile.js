@@ -21,7 +21,7 @@ var paths = {
 }
 
 var files = {
-    js: ['public/js/bootstrap.js', 'public/js/datetimepicker.js', 'public/js/redactor.js', 'public/js/raptor.js', 'public/js/slide.js', 'public/js/fileinput.js', 'public/js/functions.js', 'public/js/events.js', 'public/js/custom.js'],
+    js: ['public/js/bootstrap.js', 'public/js/bootstrapValidator.min.js', 'public/js/datetimepicker.js', 'public/js/redactor.js', 'public/js/raptor.js', 'public/js/slide.js', 'public/js/fileinput.js', 'public/js/functions.js', 'public/js/events.js', 'public/js/custom.js'],
     images: paths.images + '**/*',
     css: paths.styles + '*.css',
     less: paths.styles + '*.less',

@@ -10,11 +10,11 @@
     <div class="row">
         <div class="col-md-6">
             <form id="menuUpdate"action="/pages/menus/{{$menu->id}}/update" method="post">
-                <div class="input-group">
+                <div class="form-group">
                     <label class="label-control" for="title">Title</label>
                     <input class="form-control" type="text" name="title" id="title">
                 </div>
-                <div class="input-group">
+                <div class="form-group">
                     <label class="control-label" for="location">Location</label>
                     <label><input type="checkbox" value="pilots" name="pilots"> Pilots</label>
                     <label><input type="checkbox" value="controllers" name="controllers"> Controllers</label>

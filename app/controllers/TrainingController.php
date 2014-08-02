@@ -31,12 +31,47 @@ class TrainingController extends BaseController
     {
         $data = [
           'reports' => $this->trainings->recentReports(10),
-          'sessions' => ['a', 'b'],
           'requests' => \TrainingRequest::with(['student', 'certType'])->orderBy('created_at', 'desc')->limit(10)->get(),
           'exams' => \Exam::recentExams(10),
           'staffings' => \Staffing::limit(10)->with(['user'])->orderBy('created_at', 'DESC')->get()
         ];
         return View::make('staff.training.index', $data);
+    }
+
+    //all training reports
+    public function getAll()
+    {
+        if(\Input::has('sinitials') || \Input::has('before') || \Input::has('after') || \Input::has('cinitials')) {
+            $data = [
+                'sessions' => $this->trainings->indexFiltered(\Input::all()),
+                'paginate' => false
+            ];
+        }
+        else {
+            $data = [
+                'sessions' => $this->trainings->indexPaginated(10),
+                'paginate' => true
+            ];
+        }
+        return View::make('staff.training.all', $data);
+    }
+
+    //all training requests
+    public function getAllRequests()
+    {
+        if(\Input::has('initials') || \Input::has('before') || \Input::has('after')) {
+            $data = [
+                'requests' => \TrainingRequest::indexFiltered(\Input::all()),
+                'paginate' => false
+            ];
+        }
+        else {
+            $data = [
+                'requests' => \TrainingRequest::indexPaginated(10),
+                'paginate' => true
+            ];
+        }
+        return View::make('staff.training.all-requests', $data);
     }
 
     public function showAdmin($id)

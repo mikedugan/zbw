@@ -15,6 +15,24 @@ class ExamsController extends BaseController
         $this->exams = $exams;
     }
 
+    public function getIndex()
+    {
+        if(\Input::has('initials') || \Input::has('reviewed') || \Input::has('before') || \Input::has('after')) {
+            $data = [
+              'exams' => $this->exams->indexFiltered(\Input::all()),
+              'paginate' => false
+            ];
+        }
+        else {
+            $data = [
+                'exams' => $this->exams->indexPaginated(10),
+                'paginate' => true
+            ];
+        }
+
+        return View::make('training.exams.all', $data);
+    }
+
     public function getStaffReview($eid)
     {
         $data = [
