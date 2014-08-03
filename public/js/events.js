@@ -25,6 +25,9 @@ $(function() {
         if($this.val() > 100000 && $this.length < 9999999) {
             var data = '';
             $(this).parent().removeClass('has-error').addClass('has-success');
+            if($('.spinner').length == 0) {
+                $(this).parent().after('<div class="spinner"><div class="rect1"></div><div class="rect2"></div><div class="rect3"></div><div class="rect4"></div><div class="rect5"></div></div>');
+            }
             $.get('http://'+window.location.host+'/status/'+$this.val(), data, function (msg) {
                 msg = $.parseXML(msg);
                 $msg = $(msg);
@@ -32,6 +35,7 @@ $(function() {
                 var fn = $msg.find('name_first').text();
                 var rating = $msg.find('rating').text();
                 var home = $msg.find('division').text();
+                $('.spinner').remove();
                 $('#fname').val(fn).parent().removeClass('hidden');
                 $('#lname').val(ln).parent().removeClass('hidden');
                 $('#rating').val(rating).parent().removeClass('hidden');
