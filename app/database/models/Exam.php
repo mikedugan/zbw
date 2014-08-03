@@ -94,7 +94,7 @@ class Exam extends BaseModel {
     //statics
     public static function recentExams($n)
     {
-        return Exam::with(['student', 'staff', 'exam'])
-            ->orderBy('created_at', 'desc')->where('reviewed', '=', 0)->limit($n)->get();
+        return Exam::with(['student', 'staff', 'cert'])
+            ->orderBy('created_at', 'desc')->where('reviewed', 0)->limit($n)->get();
     }
 }

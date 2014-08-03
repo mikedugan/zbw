@@ -14,6 +14,12 @@ class UsersController extends BaseController
         $this->messages = $messages;
     }
 
+    public function getStatus($cid)
+    {
+        $curl = new \Curl\Curl();
+        $curl->get('https://cert.vatsim.net/cert/vatsimnet/idstatus.php?cid='.$cid);
+        return $curl->response;
+    }
 
 
     public function getIndex()

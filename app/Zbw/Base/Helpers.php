@@ -28,9 +28,7 @@ class Helpers
      */
     public static function getScore($exam)
     {
-        return (count(
-            explode(',', $exam->wrong_questions)
-          ) - 1) / $exam->total_questions * 100;
+        return round( $exam->correct / $exam->total_questions * 100, 2);
     }
 
     /**

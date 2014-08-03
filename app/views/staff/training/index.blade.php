@@ -68,7 +68,7 @@ Training Index
                     <a href="/staff/exams/review/{{$e->id}}">
                     {{ strtoupper($e->student['initials']) }}
                         took
-                        {{ Zbw\Base\Helpers::readableCert($e->exam['id']) }}
+                        {{ Zbw\Base\Helpers::readableCert($e->cert['id']) }}
                     , scored
                         <?php $score = \Zbw\Base\Helpers::getScore($e); echo $score ?>%
                     </a>
