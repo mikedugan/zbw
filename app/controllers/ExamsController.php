@@ -139,6 +139,11 @@ class ExamsController extends BaseController
             'total_questions' => $count
         ];
 
+        $recent = $this->exams->lastDay($user->cid);
+        if(count($recent) > 0) {
+            return Redirect::route('training')->with('flash_error', 'You have taken an exam within the past 24 hours!');
+        }
+
         if(! $exam = $this->exams->create($exam)) {
             return Redirect::back()->with('flash_error', $this->exams->getErrors());
         }

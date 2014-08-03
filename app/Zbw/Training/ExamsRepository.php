@@ -68,6 +68,11 @@ class ExamsRepository extends EloquentRepository implements ExamsRepositoryInter
         return $this->make()->where('cid', $cid)->with(['student', 'comments', 'cert'])->latest()->first();
     }
 
+    public function lastDay($cid)
+    {
+        return $this->make()->where('cid', $cid)->where('created_at', '>', \Carbon::yesterday());
+    }
+
     public function finishReview($id)
     {
         $exam = \Exam::find($id);

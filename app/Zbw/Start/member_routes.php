@@ -35,7 +35,7 @@ Route::group(
       Route::post('/e/request/{cid}/{eid}',['as'   => 'me/exam-requests/{eid}','uses' => 'AjaxController@requestExam']);
       Route::post('/t/request/new',['as'   => 'me/request-training','uses' => 'AjaxController@postTrainingRequest']);
       Route::get('/training/exam', ['as' => 'training/exam', 'uses' => 'ExamsController@takeExam']);
-      Route::post('/training/exam', ['as' => 'training/exam', 'uses' => 'ExamsController@gradeExam']);
+      Route::post('/training/exam', ['before' => 'csrf', 'as' => 'training/exam', 'uses' => 'ExamsController@gradeExam']);
       Route::get('/t/request/{tid}',['as'   => 'training/view-request/{tid}','uses' => 'TrainingController@showRequest']);
       Route::post('/t/request/{tid}/cancel',['as'   => 'training/cancel-request/{tid}','uses' => 'AjaxController@cancelTrainingRequest']);
       Route::post('/t/request/{tid}/drop',['as' => 'training/drop-request/{tid}', 'uses' => 'AjaxController@dropTrainingRequest']);

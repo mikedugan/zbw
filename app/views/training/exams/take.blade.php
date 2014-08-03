@@ -31,6 +31,7 @@ ZBW Exam
     <?php $counter++; ?>
     @endforeach
     </ol>
+    <input type="hidden" name="_token" value="{{ csrf_token() }}">
     <input type="hidden" name="examid" value="{{$exam->id}}">
     <input type="hidden" name="examlength" value="{{$counter}}">
     <button type="submit" class="btn btn-success">Submit</button>

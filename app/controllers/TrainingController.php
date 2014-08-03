@@ -20,9 +20,11 @@ class TrainingController extends BaseController
 
     public function getIndex()
     {
+        $reviews = \Sentry::getUser()->exams()->where('reviewed', 0)->get();
         $data = [
             'availableExams' => $this->exams->availableExams(\Sentry::getUser()->cid),
-            'progress' => $this->users->trainingProgress(\Sentry::getUser()->cid)
+            'progress' => $this->users->trainingProgress(\Sentry::getUser()->cid),
+            'review' => count($reviews) > 0 ? true : false
         ];
         return View::make('training.index', $data);
     }

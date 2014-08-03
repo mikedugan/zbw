@@ -21,7 +21,14 @@ Exam Review
     <h3>Exam Summary</h3>
     <p><b>Date Assigned:</b> {{ $exam->assigned_on or "??"}}</p>
     <p><b>Total Questions: </b>{{$exam->total_questions}}</p>
-    <p><b>Number Wrong: </b>{{ $exam->wrong}}</p>
+    <p><b>Number Wrong: </b>{{ $exam->wrong}}&nbsp;
+        @if($exam->pass)
+            <span class="badge bg-success">Passed</span>
+        @else
+            <span class="badge bg-danger">Failed</span>
+        @endif
+    </p>
+    <p><b>Score:</b> {{ round($exam->correct / $exam->total_questions * 100, 2) }}%</p>
     @if($exam->reviewed == 1)
         <p><b>Signed Off By: </b> {{ $exam->staff->initials }}</p>
     @endif

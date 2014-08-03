@@ -21,7 +21,9 @@ Your Training
             @endif
         <a class="btn btn-primary" href="/training/request/new">Request Training</a>
         <a class="btn btn-primary" href="/training/exam">Take Exam</a>
-        <a class="btn btn-primary" href="/training/review">Review Exams</a>
+        @if($review)
+            <a class="btn btn-primary" href="/training/review">Review Exams</a>
+        @endif
         @else
         <h5>Congratulations! You have already completed all ZBW training and are a fully certed center!</h5>
         @endif
