@@ -37,7 +37,15 @@ Exam Review
     </div>
     <div class="col-md-12">
         <h3 class="text-center">Review &amp; Discussion</h3>
-        <p>Please discuss your corrections with the staff here.</p>
+        <div class="well">
+            <h5 class="text-center">Wrong Answers</h5>
+            @foreach($wrong as $question)
+            <p><strong>Question: {{ $question['question']->question }}</strong></p>
+            <p>Your Answer:<em>{{ $question['answer'] }}</em></p>
+            <p>Correct Answer: <em> {{ $question['question']->{'answer_'.Zbw\Base\Helpers::digitToLetter($question['question']->correct)} }}</em></p>
+            @endforeach
+        </div>
+        <p>Discuss corrections with the student below.</p>
     </div>
     <div class="col-md-12 exam-comment">
         @foreach($exam->comments()->where('comment_type', \MessageType::where('value','c_exam')->first()->id)->get() as $comment)

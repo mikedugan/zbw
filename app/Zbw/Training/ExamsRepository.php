@@ -90,7 +90,7 @@ class ExamsRepository extends EloquentRepository implements ExamsRepositoryInter
 
     public function indexPaginated($n = 10)
     {
-        return $this->make()->with(['student', 'exam'])->paginate($n);
+        return $this->make()->with(['student', 'cert'])->paginate($n);
     }
 
     public function indexFiltered($input)
