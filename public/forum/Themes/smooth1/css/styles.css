@@ -34,6 +34,10 @@ h3.catbg {
     font-size: 1.1em;
 }
 
+.dropmenu li li a {
+    background: #333;
+}
+
 .userinfo {
     color: #dbdbdb;
 }

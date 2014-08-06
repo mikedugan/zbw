@@ -172,7 +172,7 @@ function template_html_above()
 </head>
 <body>
 <nav class="navbar-default navbar">
-                <a class="hidden-sm hidden-xs" id="logo" href="http://localhost:8000"><img src="http://localhost:8000/dist/images/zbw_logo.png" alt="vZBW ARTCC"></a>
+                <a class="hidden-sm hidden-xs" id="logo" href="http://dev.bostonartcc.net"><img src="http://dev.bostonartcc.net/dist/images/zbw_logo.png" alt="vZBW ARTCC"></a>
 </nav>';
     template_menu();
 }

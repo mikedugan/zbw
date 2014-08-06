@@ -19,7 +19,7 @@ $mmessage = 'Okay faithful users...we\'re attempting to restore an older backup 
 ########## Forum Info ##########
 $mbname = 'Boston ARTCC';		# The name of your forum.
 $language = 'english';		# The default language file set for the forum.
-$boardurl = 'http://localhost:8000/forum';		# URL to your forum's folder. (without the trailing /!)
+$boardurl = 'http://dev.bostonartcc.net/forum';		# URL to your forum's folder. (without the trailing /!)
 $webmaster_email = 'bostonjohn@bostonartcc.net';		# Email address to send emails from. (like noreply@yourdomain.com.)
 $cookiename = 'SMFCookie391';		# Name of the cookie to set for authentication.
 
@@ -37,10 +37,10 @@ $db_error_send = 0;
 
 ########## Directories/Files ##########
 # Note: These directories do not have to be changed unless you move things.
-$base = "/home/mdugan/Code/me/zbw/public/";
-$boarddir = $base.'forum';		# The absolute path to the forum's folder. (not just '.'!)
-$sourcedir = $base.'forum/Sources';		# Path to the Sources directory.
-$cachedir = $base.'forum/cache';		# Path to the cache directory.
+$base = "/var/www/vhosts/bostonartcc.net/public/forum";
+$boarddir = $base;		# The absolute path to the forum's folder. (not just '.'!)
+$sourcedir = $base.'/Sources';		# Path to the Sources directory.
+$cachedir = $base.'cache';		# Path to the cache directory.
 
 ########## Error-Catching ##########
 # Note: You shouldn't touch these settings.
