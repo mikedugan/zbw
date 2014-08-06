@@ -102,4 +102,27 @@ class Notifier
               $message->subject('ZBW Training Request');
           });
     }
+
+    public function visitorRequestEmail($data)
+    {
+        $to = \Sentry::findAllUsersInGroup(\Sentry::findGroupByName('DATM'));
+        $vData = [
+            'to' => $to[0],
+            'firstname' => $data['fname'],
+            'lastname' => $data['lname'],
+            'rating' => $data['rating'],
+            'home' => $data['home'],
+            'email' => $data['email'],
+            'body' => $data['editor'],
+            'cid' => $data['cid']
+        ];
+
+        $mData = [
+            'to' => $to[0]
+        ];
+        \Mail::send('zbw.emails.visitor_request', $vData, function($message) use ($mData) {
+              $message->to($mData['to']->email, $mData['to']->first_name . ' ' . $mData['to']->last_name);
+              $message->subject('ZBW Visiting Controller Request');
+          });
+    }
 } 

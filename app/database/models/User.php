@@ -270,4 +270,19 @@ class User extends SentryUser implements UserInterface, RemindableInterface
         }
         return false;
     }
+
+    public function canRequest($exam_id = null)
+    {
+        $max = 0;
+        foreach($this->exams as $exam)
+        {
+            if (! $exam->reviewed) return false;
+            $limit = $exam->completed_on->addDays(7);
+            if(! $exam->pass && $limit < \Carbon::now()) return false;
+            if($exam->cert_type_id > $max) $max = $exam->cert_type_id;
+        }
+        echo $max;
+        if($exam_id && ($exam_id > $max + 1 || $exam_id <= $max)) return false;
+        return true;
+    }
 }

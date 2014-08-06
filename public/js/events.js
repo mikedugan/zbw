@@ -9,7 +9,7 @@ $(function() {
     $('.confirm').submit(function(e) {
         var message = 'Are you sure?\n'+$(this).data('warning');
         return window.confirm(message);
-    })
+    });
 
     $('.file-form').submit(function(e) {
         e.preventDefault();
@@ -18,6 +18,56 @@ $(function() {
     
     $('button[type="reset"]').click(function(e) {
         $('.editor').val(''); 
+    });
+
+    $('#visit #cid').keyup(function() {
+        var $this = $(this);
+        if($this.val() > 100000 && $this.length < 9999999) {
+            var data = '';
+            $(this).parent().removeClass('has-error').addClass('has-success');
+            if($('.spinner').length == 0) {
+                $(this).parent().after('<div class="spinner"><div class="rect1"></div><div class="rect2"></div><div class="rect3"></div><div class="rect4"></div><div class="rect5"></div></div>');
+            }
+            $.get('http://'+window.location.host+'/status/'+$this.val(), data, function (msg) {
+                msg = $.parseXML(msg);
+                $msg = $(msg);
+                var ln = $msg.find('name_last').text();
+                var fn = $msg.find('name_first').text();
+                var rating = $msg.find('rating').text();
+                var home = $msg.find('division').text();
+                $('.spinner').remove();
+                $('#fname').val(fn).parent().removeClass('hidden');
+                $('#lname').val(ln).parent().removeClass('hidden');
+                $('#rating').val(rating).parent().removeClass('hidden');
+                $('#home').val(home).parent().removeClass('hidden');
+                $('#email').parent().removeClass('hidden');
+            });
+        } else {
+            $(this).parent().addClass('has-feedback has-error');
+            $('#fname').parent().addClass('hidden');
+            $('#lname').parent().addClass('hidden');
+            $('#rating').parent().addClass('hidden');
+            $('#home').parent().addClass('hidden');
+            $('#email').parent().addClass('hidden');
+        }
+    });
+
+    $('#visit #email').keyup(function() {
+        var email = $(this).val();
+        $('#fname').parent().addClass('hidden');
+        $('#lname').parent().addClass('hidden');
+        $('#rating').parent().addClass('hidden');
+        $('#home').parent().addClass('hidden');
+        if(validateEmail(email)) {
+            $(this).parent().removeClass('has-error').addClass('has-success');
+            $('#visit button[type="submit"]').removeClass('hidden');
+            $('#visit #message').parent().removeClass('hidden');
+        }
+        else {
+            $('#visit button[type="submit"]').addClass('hidden');
+            $(this).parent().addClass('has-feedback has-error');
+            $('#visit #message').parent().addClass('hidden');
+        }
     });
     
     $('#request-training').submit(function(e) {

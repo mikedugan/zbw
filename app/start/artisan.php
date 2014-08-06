@@ -16,3 +16,4 @@ Artisan::add(new Zbw\Commands\UpdateUrls);
 Artisan::add(new Zbw\Commands\UpdateClients);
 Artisan::add(new Zbw\Commands\UpdateRoster);
 Artisan::add(new Zbw\Commands\MigrateOldRoster);
+Artisan::add(new Zbw\Commands\ImportExamQuestions);

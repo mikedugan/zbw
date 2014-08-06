@@ -4,6 +4,17 @@ Changelog
 @stop
 @section('content')
 <h1 class="text-center">Changelog</h1>
+<h3>v2.0.7b</h3>
+mikedugan added the new forum <br>
+mikedugan added wrong questions to staff exam review <br>
+mikedugan added spinner for controller info loading <br>
+mikedugan added visiting controller application <br>
+mikedugan added idiot proofing for exams <br>
+mikedugan first round of exam review population <br>
+mikedugan wip <br>
+mikedugan added edit/delete for exam questions <br>
+mikedugan added support for importing and creating exam questions <br>
+mikedugan Merge branch 'working' of git.mjdugan.com:mike/zbw into working <br>
 <h3>v2.0.6b</h3>
 mikedugan all exams view with filters <br>
 mikedugan view all requests with filtering <br>

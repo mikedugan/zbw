@@ -77,4 +77,21 @@ class ZbwController extends BaseController
         return Redirect::back()->with('flash_success', 'Feedback sent successfully');
     }
 
+    public function getVisit()
+    {
+        return View::make('zbw.visit');
+    }
+
+    public function postVisit()
+    {
+        $notifier = App::make('Zbw\Bostonjohn\Notifier');
+        $notifier->visitorRequestEmail(\Input::all());
+        return Redirect::home()->with('flash_success', 'Your request has been sent. We will be in contact as soon as possible.');
+    }
+
+    public function getJoin()
+    {
+        return View::make('zbw.join');
+    }
+
 }

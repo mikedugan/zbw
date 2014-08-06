@@ -20,6 +20,15 @@ Welcome
         @if($news)
         	@include ('includes.loops._news')
         @endif
+        <h3 class="text-center">Links</h3>
+        <div class="panel panel-default">
+            <div class="list-group">
+                <a class="list-group-item" href="/join">Join Boston ARTCC</a>
+                <a class="list-group-item" href="/visit">Visit Boston ARTCC</a>
+                <a class="list-group-item" href="http://vatsim.net">VATSIM</a>
+                <a class="list-group-item" href="http://vatusa.net">VATUSA</a>
+            </div>
+        </div>
     </div>
     <div class="col-md-6">
         <h3 class="text-left">ATC Online</h3>

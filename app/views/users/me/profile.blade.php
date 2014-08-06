@@ -28,10 +28,10 @@
 <div class="col-md-6">
     <h3>Recent Exams</h3>
     @foreach($me->exams as $exam)
-        <p>{{ Zbw\Base\Helpers::readableCert($exam->exam->id) . ' on ' . $exam->created_at->toFormattedDateString() }}</p>
+        <p>{{ Zbw\Base\Helpers::readableCert($exam->cert->id) . ' on ' . $exam->created_at->toFormattedDateString() }}</p>
     @endforeach
     <h3>Recent Training</h3>
-    @foreach($me->training as $session)
+    @foreach($me->training()->limit(10)->get() as $session)
         <p>{{ $session->created_at->toFormattedDateString() . ' at ' . $session->facility->value }}</p>
     @endforeach
     <h3>Recent Staffing</h3>

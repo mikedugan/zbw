@@ -37,23 +37,13 @@ Route::group(
                 'uses' => 'ExamsController@getStaffReview'
               ]
             );
-            Route::get(
-              'exams/questions',
-              'ExamsController@getQuestions'
-            );
-            Route::post(
-              'exams/questions',
-              [
-                'as'   => 'exams/add-question',
-                'uses' => 'ExamsController@addQuestion'
-              ]
-            );
-            Route::get(
-              'roster',
-              ['as' => 'roster', 'uses' => 'RosterController@getAdminIndex']
-            );
-            Route::post(
-              'roster/groups/add',
+            Route::get('exams/questions', ['as' => 'staff/exams/questions', 'uses' => 'ExamsController@getQuestions']);
+            Route::get('exams/questions/{id}', ['as' => 'staff/exams/questions/{id}', 'uses' => 'ExamsController@getEditQuestion']);
+            Route::post('exams/questions/{id}', ['as' => 'staff/exams/questions/{id}', 'uses' => 'ExamsController@postEditQuestion']);
+            Route::post('exams/questions/{id}/delete', ['as' => 'staff/exams/questions/{id}/delete', 'uses' => 'ExamsController@deleteQuestion']);
+            Route::post('exams/questions',['as'   => 'exams/add-question','uses' => 'ExamsController@addQuestion']);
+            Route::get('roster',['as' => 'roster', 'uses' => 'RosterController@getAdminIndex']);
+              Route::post('roster/groups/add',
               ['as' => 'staff/roster/add-group', 'uses' => 'RosterController@postGroup']
             );
             Route::post(

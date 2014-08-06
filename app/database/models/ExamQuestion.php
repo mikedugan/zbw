@@ -36,10 +36,14 @@ class ExamQuestion extends BaseModel
 {
     protected $table = '_exam_questions';
     public $timestamps = false;
+    static $rules = [
+        'question' => 'required',
+        'cert_type_id' => 'required|integer'
+    ];
 
     public function exam()
     {
-        return $this->hasOne('CertType', 'id', 'cert_type');
+        return $this->hasOne('CertType', 'id', 'cert_type_id');
     }
 
     public function scopeCs1($q)

@@ -10,7 +10,7 @@ Exam Review
         <h3>Student Info</h3>
         <p><b>Student:</b> {{$exam->student->username}} ({{$exam->student->initials}})</p>
         <p><b>Rating: </b> {{$exam->student->rating->short}}</p>
-        <p><b>Testing for: </b>{{ \Zbw\Base\Helpers::readableCert($exam->exam->id)}}</p>
+        <p><b>Testing for: </b>{{ \Zbw\Base\Helpers::readableCert($exam->cert->id)}}</p>
         @if(in_array($me->cid, Zbw\Users\UserRepository::canTrain($exam->cert_id)) && ! $exam->reviewed == 1)
             <form class="axform" action="/staff/exams/review/{{$exam->id}}/complete" method="post">
                 <button class="btn btn-xs btn-success">Exam Review Complete</button>
@@ -37,7 +37,15 @@ Exam Review
     </div>
     <div class="col-md-12">
         <h3 class="text-center">Review &amp; Discussion</h3>
-        <p>Please discuss your corrections with the staff here.</p>
+        <div class="well">
+            <h5 class="text-center">Wrong Answers</h5>
+            @foreach($wrong as $question)
+            <p><strong>Question: {{ $question['question']->question }}</strong></p>
+            <p>Your Answer:<em>{{ $question['answer'] }}</em></p>
+            <p>Correct Answer: <em> {{ $question['question']->{'answer_'.Zbw\Base\Helpers::digitToLetter($question['question']->correct)} }}</em></p>
+            @endforeach
+        </div>
+        <p>Discuss corrections with the student below.</p>
     </div>
     <div class="col-md-12 exam-comment">
         @foreach($exam->comments()->where('comment_type', \MessageType::where('value','c_exam')->first()->id)->get() as $comment)

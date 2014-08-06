@@ -51,13 +51,19 @@ abstract class EloquentRepository {
 
     public function delete($id)
     {
-        $item = $this->get($id, true);
-        if($item->trashed())
-        {
-            $item->forceDelete();
-            return true;
+        try {
+            $item = $this->get($id, true);
+        }
+        catch (\BadMethodCallException $e) {
+            return $this->make()->destroy($id);
         }
 
+        if($item->trashed()) {
+            {
+                $item->forceDelete();
+                return true;
+            }
+        }
         return $item->destroy($id);
     }
 

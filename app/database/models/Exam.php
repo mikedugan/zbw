@@ -42,15 +42,14 @@ class Exam extends BaseModel {
     protected $table = 'controller_exams';
     protected $with = ['student', 'comments'];
     static $rules = [
-        'exam_id' => 'integer',
         'cid' => 'cid|integer',
-        'reviewed_by' => 'cid|integer',
+        'reviewed_by' => '',
         'assigned_on' => 'date',
         'completed_on' => 'date',
         'cert_id' => 'integer',
         'reviewed' => 'integer',
-        'wrong_questions' => '',
-        'wrong_answers' => '',
+        'correct' => 'integer',
+        'wrong' => 'integer',
         'total_questions' => 'integer'
     ];
 
@@ -60,9 +59,9 @@ class Exam extends BaseModel {
     }
 
     //relations
-    public function exam()
+    public function cert()
     {
-        return $this->hasOne('CertType', 'id', 'cert_id');
+        return $this->hasOne('CertType', 'id', 'cert_type_id');
     }
 
     public function staff()
@@ -95,7 +94,7 @@ class Exam extends BaseModel {
     //statics
     public static function recentExams($n)
     {
-        return Exam::with(['student', 'staff', 'exam'])
-            ->orderBy('created_at', 'desc')->where('reviewed', '=', 0)->limit($n)->get();
+        return Exam::with(['student', 'staff', 'cert'])
+            ->orderBy('created_at', 'desc')->where('reviewed', 0)->limit($n)->get();
     }
 }

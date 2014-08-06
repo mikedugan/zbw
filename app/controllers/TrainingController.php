@@ -20,9 +20,11 @@ class TrainingController extends BaseController
 
     public function getIndex()
     {
+        $reviews = \Sentry::getUser()->exams()->where('reviewed', 0)->get();
         $data = [
             'availableExams' => $this->exams->availableExams(\Sentry::getUser()->cid),
-            'progress' => $this->users->trainingProgress(\Sentry::getUser()->cid)
+            'progress' => $this->users->trainingProgress(\Sentry::getUser()->cid),
+            'review' => count($reviews) > 0 ? true : false
         ];
         return View::make('training.index', $data);
     }
@@ -106,8 +108,18 @@ class TrainingController extends BaseController
     public function getReview()
     {
         $exam = $this->exams->lastExam(\Sentry::getUser()->cid);
+        $wrong = [];
+        $wrongset = json_decode($exam->exam)->wrong;
+        foreach($wrongset as $q) {
+            $question = \ExamQuestion::find($q->question);
+            $wrong[] = [
+              'question' => $question,
+              'answer' => $question->{'answer_'.$q->answer}
+            ];
+        }
         $data = [
-          'exam' => $exam
+          'exam' => $exam,
+          'wrong' => $wrong
         ];
         if ( ! $exam) {
             return Redirect::back()->with('flash_info', 'No exams found');

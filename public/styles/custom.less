@@ -1,3 +1,4 @@
+@import url(http://fonts.googleapis.com/css?family=Noto+Sans);
 @font-face {
     font-family: 'Flamenco';
     font-style: normal;
@@ -39,7 +40,7 @@ a:hover { text-decoration : none; }
 
 div.logopad { margin-top : 4%; }
 
-.sans { font-family : 'Pontano Sans', Arial, sans-serif; }
+.sans { font-family : 'Noto Sans', Arial, sans-serif; }
 
 .clear { clear : both; float : none; }
 
@@ -96,7 +97,7 @@ form .navbar-right li {
     color       : #fff;
     height      : 36px;
     font-size   : 18px;
-    font-family : "Pontano Sans", Arial, Helvetica, sans-serif;
+    font-family : "Noto Sans", Arial, Helvetica, sans-serif;
     margin-top  : 8px;
     }
 
@@ -257,3 +258,58 @@ ul.nav li a.small { font-size : 1em; }
 
 .control-height { height: 36px; }
 #training_session .badge { float: right; }
+#visit .form-group { transition: all 0.5s ease-in; }
+
+
+.spinner {
+    margin: 100px auto;
+    width: 50px;
+    height: 30px;
+    text-align: center;
+    font-size: 10px;
+}
+
+.spinner > div {
+    background-color: #333;
+    height: 100%;
+    width: 6px;
+    display: inline-block;
+
+    -webkit-animation: stretchdelay 1.2s infinite ease-in-out;
+    animation: stretchdelay 1.2s infinite ease-in-out;
+}
+
+.spinner .rect2 {
+    -webkit-animation-delay: -1.1s;
+    animation-delay: -1.1s;
+}
+
+.spinner .rect3 {
+    -webkit-animation-delay: -1.0s;
+    animation-delay: -1.0s;
+}
+
+.spinner .rect4 {
+    -webkit-animation-delay: -0.9s;
+    animation-delay: -0.9s;
+}
+
+.spinner .rect5 {
+    -webkit-animation-delay: -0.8s;
+    animation-delay: -0.8s;
+}
+
+@-webkit-keyframes stretchdelay {
+    0%, 40%, 100% { -webkit-transform: scaleY(0.4) }
+    20% { -webkit-transform: scaleY(1.0) }
+}
+
+@keyframes stretchdelay {
+    0%, 40%, 100% {
+        transform: scaleY(0.4);
+        -webkit-transform: scaleY(0.4);
+    }  20% {
+           transform: scaleY(1.0);
+           -webkit-transform: scaleY(1.0);
+       }
+}

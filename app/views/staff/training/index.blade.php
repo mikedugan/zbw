@@ -3,6 +3,7 @@
 Training Index
 @stop
 @section('content')
+@include('includes.nav._training')
 <div class="col-lg-12 training-summary">
  {{-- this area should contain an overview of recent training, promotions, etc --}}
     <div class="col-lg-3">
@@ -67,7 +68,7 @@ Training Index
                     <a href="/staff/exams/review/{{$e->id}}">
                     {{ strtoupper($e->student['initials']) }}
                         took
-                        {{ Zbw\Base\Helpers::readableCert($e->exam['id']) }}
+                        {{ Zbw\Base\Helpers::readableCert($e->cert['id']) }}
                     , scored
                         <?php $score = \Zbw\Base\Helpers::getScore($e); echo $score ?>%
                     </a>

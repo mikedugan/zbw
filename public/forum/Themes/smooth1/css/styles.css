@@ -1,0 +1,57 @@
+h3.catbg {
+    font-family: "Jacques Francois";
+    font-weight: 200;
+}
+
+.dropmenu a, a.subject {
+    font-family: "Jacques Francois";
+    font-weight: 200;
+}
+
+.dropmenu a {
+    font-size: 1.5em;
+    padding: 10px 15px;
+    color: #dbdbdb;
+}
+
+.dropmenu a:hover {
+    color: #fff;
+    background: inherit;
+}
+
+.dropmenu li ul {
+    width: 250px;
+}
+
+.dropmenu ul li {
+    width: auto;
+    display:block;
+    border-left: none;
+    border-right: none;
+}
+
+.dropmenu ul li a {
+    font-size: 1.1em;
+}
+
+.userinfo {
+    color: #dbdbdb;
+}
+
+.userinfo a {
+    color: #428bca;
+}
+
+.navbar {
+    position:absolute;
+    top: 0;
+    z-index:10;
+}
+
+#logo img { margin-left: 20%;}
+
+p.userinfo { padding-top: 7px; }
+
+.pagesection { clear: both;}
+
+#footer_section .reset { margin: 1% 0;}
