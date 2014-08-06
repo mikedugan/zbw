@@ -35,6 +35,7 @@ class AuthToken extends BaseModel {
             if(!is_null($userStatus)) return $userStatus;
             else {
                 \Sentry::login($loggedinuser, true);
+                smfapi_login($loggedinuser->username);
                 $users->authUpdate($user);
             }
             return true;
