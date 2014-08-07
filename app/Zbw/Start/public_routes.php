@@ -16,6 +16,12 @@ Route::get('visit', ['as' => 'visit', 'uses' => 'ZbwController@getVisit']);
 Route::post('visit', ['as' => 'visit', 'uses' => 'ZbwController@postVisit']);
 
 Route::get('pilots',['as' => 'pilots', 'uses' => 'ZbwController@getPilotIndex']);
+//static pages for pilots
+Route::get('pilots/getting-started', 'StaticController@getPilotsGettingStarted');
+Route::get('pilots/airport', 'StaticController@getPilotsAirports');
+Route::get('pilots/vfr-tutorial', 'StaticController@getPilotsVfrTutorial');
+
+
 Route::get('pilots/news', ['as' => 'pilot-news', 'uses' => 'NewsController@getPilotNews']);
 Route::get('controllers',['as' => 'controllers', 'uses' => 'ZbwController@getControllerIndex']);
 Route::get('training',['as' => 'training', 'uses' => 'TrainingController@getIndex']);
