@@ -11,10 +11,6 @@ Welcome
   		<div class="hidden-sm hidden-xs" id="slideshow">
     		@include('includes._slideshow')
     	</div>
-        <p>We hope you like the new website! If you are a new, transferring, or visiting controller,
-        please go to "Controllers" and click on the "New Controller" link.</p>
-        <p>If you are a pilot, please check out the "Pilots" section for awesome flight planning
-        resources such as charts, weather conditions, online ATC, and more!</p>
     <div class="col-md-6 news">
         <h3 class="text-center">News</h3>
         @if($news)
