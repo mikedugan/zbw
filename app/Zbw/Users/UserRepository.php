@@ -45,8 +45,6 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
      */
     public function add($fname, $lname, $email, $artcc, $cid, $rating, $notify = true)
     {
-        $tempPassword = Helpers::createPassword();
-
         $u = new \User();
         $u->cid = $cid;
         $u->first_name = $fname;
@@ -56,24 +54,14 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
         $u->email = $email;
         $u->password = \Hash::make($tempPassword);
         $u->rating_id = $rating;
-        $u->initials = substr($fname, 0, 1) . substr($lname[0], 0, 1);
+        $u->initials = $this->createInitials($fname, $lname);
         $s = new \UserSettings();
         $s->cid = $u->cid;
 
-        if($u->save() && $s->save())
-        {
-            if($notify) {
-                $em = new Emailer($u, ['password' => $tempPassword]);
-                $em->newUser($u);
-                return true;
-            }
-            else return true;
-        }
-        else return false;
+        return $u->save() && $s->save();
     }
 
     /**
-     * @type
      * @name updateUser
      * @description updates an existing user
      * @param $input

@@ -14,11 +14,9 @@
 </div>
 <div>
     <p><b>Username:</b> {{ $user->username }}</p>
-    <p><b>Password:</b> {{ $password }}</p>
-    <p><b>Controller Initials:</b> {{ $user->initials }}</p>
+    <p><b>Operating Initials:</b> {{ $user->initials }}</p>
     <p><b>Registered CID: </b> {{ $user->cid }}</p>
-    <p>You may elect to login to the ZBW website using your CID or your controller
-    initials.</p>
+    <p>Login to the ZBW website will require you to enter your VATSIM CID and password on the VATSIM website.</p>
 </div>
 <p>Best Regards,</p>
 <p>Boston John, vZBW Bot</p>

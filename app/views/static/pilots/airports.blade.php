@@ -3,6 +3,7 @@
 ZBW Airports
 @stop
 @section('content')
+
 <h3>Boston ARTCC Airports</h3>
 
 <p>131 airports shown - Click the airport name or ICAO ID for charts and info.</p>

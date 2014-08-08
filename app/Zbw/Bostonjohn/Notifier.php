@@ -20,11 +20,11 @@ class Notifier
         $this->log = new ZbwLog();
     }
 
-    public function newUserEmail(\User $user)
+    public function newUserEmail($cid)
     {
+        $user = $this->users->get($cid);
         $vData = [
-            'user' => $user,
-            'password' => 'foobar'
+            'user' => $user
         ];
         \Mail::send('zbw.emails.new-user', $vData, function($message) use ($user)
         {
@@ -32,7 +32,6 @@ class Notifier
             $message->to($user->email, $user->first_name . ' ' . $user->last_name);
             $message->subject('Welcome to vZBW');
         });
-        //$this->log->addLog('New user email sent to ' . $this->user->initials, '');
     }
 
     public function staffWelcomeEmail()
@@ -42,12 +41,9 @@ class Notifier
         ];
         \Mail::send('zbw.emails.welcome-staff', $vData, function($message)
         {
-            $message->from($this->from, $this->fromName);
             $message->to($this->to, $this->user->first_name . ' ' . $this->user->last_name);
             $message->subject('Welcome to the ZBW Staff');
         });
-        $log = new ZbwLog();
-        $this->log->addLog('Staff welcome message sent to' . $this->user->initials, '');
     }
 
     public function trainingRequestEmail($data)

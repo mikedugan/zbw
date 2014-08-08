@@ -16,4 +16,4 @@ class StaticController extends BaseController
     {
         return View::make('static.pilots.tutorial_vfr');
     }
-} 
+}
