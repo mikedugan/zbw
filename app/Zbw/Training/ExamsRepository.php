@@ -59,7 +59,7 @@ class ExamsRepository extends EloquentRepository implements ExamsRepositoryInter
     public function availableExams($cid)
     {
         $user = $this->users->get($cid);
-        $next = \CertType::find($user->certification->id + 1);
+        $next = \CertType::find($user->cert + 1);
         return [$next->id, Helpers::readableCert($next->value)];
     }
 
@@ -70,7 +70,7 @@ class ExamsRepository extends EloquentRepository implements ExamsRepositoryInter
 
     public function lastDay($cid)
     {
-        return $this->make()->where('cid', $cid)->where('created_at', '>', \Carbon::yesterday());
+        return $this->make()->where('cid', $cid)->where('created_at', '>', \Carbon::yesterday())->get();
     }
 
     public function finishReview($id)
@@ -78,6 +78,9 @@ class ExamsRepository extends EloquentRepository implements ExamsRepositoryInter
         $exam = \Exam::find($id);
         $exam->reviewed = 1;
         $exam->reviewed_by = \Sentry::getUser()->cid;
+        if(! in_array($exam->student->cert, [2,5,8,10])) {
+            \Queue::push('Zbw\Bostonjohn\QueueDispatcher@usersPromote', $exam->cid);
+        }
         return $this->checkAndSave($exam);
     }
 
@@ -85,7 +88,10 @@ class ExamsRepository extends EloquentRepository implements ExamsRepositoryInter
     {
         $exam = \Exam::find($id);
         $exam->reviewed = 0;
-        return$this->checkAndSave($exam);
+        if(! in_array($exam->student->cert, [2,5,8,10])) {
+            \Queue::push('Zbw\Bostonjohn\QueueDispatcher@usersDemote', $exam->cid);
+        }
+        return $this->checkAndSave($exam);
     }
 
     public function indexPaginated($n = 10)

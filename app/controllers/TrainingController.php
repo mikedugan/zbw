@@ -20,11 +20,14 @@ class TrainingController extends BaseController
 
     public function getIndex()
     {
-        $reviews = \Sentry::getUser()->exams()->where('reviewed', 0)->get();
+        $student = \Sentry::getUser();
+        $reviews = $student->exams()->where('reviewed', 0)->get();
+        if(in_array($student->cert, [2,5,8,10])) { $reviews = 1; }
         $data = [
             'availableExams' => $this->exams->availableExams(\Sentry::getUser()->cid),
             'progress' => $this->users->trainingProgress(\Sentry::getUser()->cid),
-            'review' => count($reviews) > 0 ? true : false
+            'review' => count($reviews) > 0 ? true : false,
+            'canTake' => count($student->exams) == 0 || $this->exams->lastExam($student->cid)->reviewed == 1 ? true : false
         ];
         return View::make('training.index', $data);
     }
@@ -87,11 +90,11 @@ class TrainingController extends BaseController
 
     public function getRequest()
     {
-        $data = [
-          'title'     => 'Request Training Session',
-          'available' => $this->exams->availableExams(\Sentry::getUser()->cid)
-        ];
-        return View::make('training.request', $data);
+        $user = \Sentry::getUser();
+        if($user->cert == 0 || $user->cert == 1) {
+            return Redirect::route('training')->with('flash_error', 'You must pass the ZBW class C ground exam to request training!');
+        }
+        return View::make('training.request');
     }
 
     public function showRequest($tid)
@@ -99,32 +102,9 @@ class TrainingController extends BaseController
         $request = \TrainingRequest::with(['student', 'certType', 'staff'])
                                    ->find($tid);
         $data = [
-          'title'   => 'View Training Request',
           'request' => $request
         ];
         return View::make('training.show-request', $data);
-    }
-
-    public function getReview()
-    {
-        $exam = $this->exams->lastExam(\Sentry::getUser()->cid);
-        $wrong = [];
-        $wrongset = json_decode($exam->exam)->wrong;
-        foreach($wrongset as $q) {
-            $question = \ExamQuestion::find($q->question);
-            $wrong[] = [
-              'question' => $question,
-              'answer' => $question->{'answer_'.$q->answer}
-            ];
-        }
-        $data = [
-          'exam' => $exam,
-          'wrong' => $wrong
-        ];
-        if ( ! $exam) {
-            return Redirect::back()->with('flash_info', 'No exams found');
-        }
-        return View::make('training.exams.review', $data);
     }
 
     public function getLiveSession($tsid)

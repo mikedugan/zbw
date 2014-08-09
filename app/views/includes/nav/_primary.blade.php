@@ -7,7 +7,7 @@
             @if(\Sentry::check())
             <li>{{ HTML::linkRoute('news', 'NOTAMS') }}</li>
             @endif
-            <li><a href="/pages/sops">ZBW Resources</a></li>
+            <li>{{ HTML::linkRoute('controllers/policies', 'ZBW Policies') }}</li>
             <li><a href="/pages/resources">Other Resources</a></li>
             <li><a href="#">ATC Pages</a>
                 <ul>
@@ -23,11 +23,10 @@
     <li class="dropdown">
         <a href="/pilots" class="dropdown-toggle" data-toggle="dropdown">Pilots <b class="caret"></b></a>
         <ul class="dropdown-menu">
+            <li>{{ HTML::linkRoute('pilots', 'Home') }}</li>
             <li>{{ HTML::linkRoute('pilot-news', 'NOTAMS') }}</li>
             <li>{{ HTML::linkRoute('feedback', 'Feedback') }}</li>
-            <li><a href="/pages/airports">Airports & Charts</a></li>
-            <li><a href="#">About ZBW</a></li>
-            <li><a href="/news">Events & News</a></li>
+            <li>{{ HTML::linkRoute('pilots/airports', 'Airports') }}</li>
             <li><a href="#">Pilot Pages</a>
                 <ul>
                     @foreach($pages as $page)

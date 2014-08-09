@@ -14,8 +14,22 @@ Route::get('/', ['as' => 'home', 'uses' => 'ZbwController@getIndex']);
 Route::get('join', ['as' => 'join', 'uses' => 'ZbwController@getJoin']);
 Route::get('visit', ['as' => 'visit', 'uses' => 'ZbwController@getVisit']);
 Route::post('visit', ['as' => 'visit', 'uses' => 'ZbwController@postVisit']);
+//used by staff contact on roster page
+Route::post('contact', ['as' => 'contact', 'uses' => 'ZbwController@postContact']);
 
-Route::get('pilots',['as' => 'pilots', 'uses' => 'ZbwController@getPilotIndex']);
+//static pages for pilots
+Route::get('pilots', ['as' => 'pilots', 'uses' => 'StaticController@getPilots']);
+Route::get('pilots/getting-started', ['as' => 'pilots/getting-started', 'uses' => 'StaticController@getPilotsGettingStarted']);
+Route::get('pilots/airports', ['as' => 'pilots/airports', 'uses' => 'StaticController@getPilotsAirports']);
+Route::get('pilots/vfr-tutorial', ['as' => 'pilots/vfr-tutorial', 'uses' => 'StaticController@getPilotsVfrTutorial']);
+//static pages for controllers
+Route::get('controllers/training-outline', ['as' => 'training-outline', 'uses' => 'StaticController@getControllersTrainingOutline']);
+Route::get('controllers/policies', ['as' => 'controllers/policies', 'uses' => 'StaticController@getControllersPolicies']);
+Route::get('controllers/policies/sign-on-off', ['as' => 'policies/sign-on-off', 'uses' => 'StaticController@getControllersSignonPolicy']);
+Route::get('controllers/policies/position-restrictions', ['as' => 'policies/position-restrictions', 'uses' => 'StaticController@getControllersPositionRestrictions']);
+Route::get('controllers/policies/visiting-transfer', ['as' => 'policies/visiting-transfer', 'uses' => 'StaticController@getControllersVisitingTransfer']);
+Route::get('controllers/policies/roster-removal', ['as' => 'policies/roster-removal', 'uses' => 'StaticController@getControllersRosterRemoval']);
+
 Route::get('pilots/news', ['as' => 'pilot-news', 'uses' => 'NewsController@getPilotNews']);
 Route::get('controllers',['as' => 'controllers', 'uses' => 'ZbwController@getControllerIndex']);
 Route::get('training',['as' => 'training', 'uses' => 'TrainingController@getIndex']);

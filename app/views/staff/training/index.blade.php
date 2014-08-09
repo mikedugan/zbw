@@ -68,7 +68,11 @@ Training Index
                     <a href="/staff/exams/review/{{$e->id}}">
                     {{ strtoupper($e->student['initials']) }}
                         took
-                        {{ Zbw\Base\Helpers::readableCert($e->cert['id']) }}
+                        @if(in_array($e->cert_type_id, [2,5,8,10]))
+                          VATUSA {{ \Rating::find($e->student['rating_id']+1)->short }}
+                        @else
+                          {{ Zbw\Base\Helpers::readableCert($e->cert['id']) }}
+                        @endif
                     , scored
                         <?php $score = \Zbw\Base\Helpers::getScore($e); echo $score ?>%
                     </a>

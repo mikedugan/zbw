@@ -164,6 +164,11 @@ Route::group(
             );
             Route::post('exams/review/{id}/complete', ['as' => 'exams/review/{id}/complete', 'uses' => 'AjaxController@postExamReviewed']);
             Route::post('exams/review/{id}/reopen', ['as' => 'exams/review/{id}/reopen', 'uses' => 'AjaxController@postReopenExam']);
+            Route::post('visitor/accept/{id}', ['as' => 'staff/visitor/accept/{id}', 'uses' => 'AjaxController@postVisitorAccept']);
+            Route::post('visitor/deny', ['as' => 'staff/visitor/deny', 'uses' => 'RosterController@postVisitorDeny']);
+            Route::post('visitor/lor', ['as' => 'staff/visitor/lor', 'uses' => 'RosterController@postVisitorLor']);
+            Route::post('visitor/comment', ['as' => 'staff/visitor/comment', 'uses' => 'RosterController@postVisitorComment']);
+            Route::post('visitor/delete/{id}', ['as' => 'staff/visitor/delete/{id}', 'uses' => 'RosterController@postVisitorDelete']);
         }
       );
 

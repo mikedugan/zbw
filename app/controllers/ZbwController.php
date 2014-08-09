@@ -1,18 +1,24 @@
 <?php
 
+use Zbw\Bostonjohn\Notifier;
 use Zbw\Cms\Contracts\NewsRepositoryInterface;
 use Zbw\Users\Contracts\UserRepositoryInterface;
+use Zbw\Users\Contracts\VisitorApplicantRepositoryInterface;
 
 class ZbwController extends BaseController
 {
 
     private $news;
     private $users;
+    private $notifier;
+    private $visitors;
 
-    public function __construct(NewsRepositoryInterface $news, UserRepositoryInterface $users)
+    public function __construct(NewsRepositoryInterface $news, UserRepositoryInterface $users, Notifier $notifier, VisitorApplicantRepositoryInterface $visitors)
     {
         $this->news = $news;
         $this->users = $users;
+        $this->notifier = $notifier;
+        $this->visitors = $visitors;
     }
     public function getIndex()
     {
@@ -46,7 +52,7 @@ class ZbwController extends BaseController
         $input = \Input::all();
         if(!empty($input['poobear'])) { return Redirect::home(); }
         $data = [
-            'to' => 'mike@mjdugan.com',
+            'to' => \Config::get('app.webmaster.email'),
             'from' => $input['email'],
             'subject' => $input['subject'],
             'content' => $input['content']
@@ -63,7 +69,7 @@ class ZbwController extends BaseController
         $input = \Input::all();
         if(!empty($input['poobear'])) { return Redirect::home(); }
         $data = [
-          'to' => 'mike@mjdugan.com',
+          'to' => \Config::get('app.webmaster.email'),
           'name' => $input['name'],
           'email' => $input['email'],
           'page' => $input['page'],
@@ -84,14 +90,20 @@ class ZbwController extends BaseController
 
     public function postVisit()
     {
-        $notifier = App::make('Zbw\Bostonjohn\Notifier');
-        $notifier->visitorRequestEmail(\Input::all());
+        $this->notifier->visitorRequestEmail(\Input::all());
+        $this->visitors->create(\Input::all());
         return Redirect::home()->with('flash_success', 'Your request has been sent. We will be in contact as soon as possible.');
     }
 
     public function getJoin()
     {
         return View::make('zbw.join');
+    }
+
+    public function postContact()
+    {
+        Queue::push('Zbw\Bostonjohn\QueueDispatcher@contactStaffPublic', \Input::all());
+        return Redirect::back()->with('flash_success', 'Your message has been sent successfully. We\'ll be in touch!');
     }
 
 }

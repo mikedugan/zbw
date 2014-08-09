@@ -41,7 +41,7 @@ ZBW Pilot Feedback
             </div>
             <div class="form-group col-md-12">
                 <label for="message">Tell Us How We Did</label>
-                <textarea class="editor" name="message" id="message" cols="30"rows="10"></textarea>
+                <textarea class="form-control editor" name="message" id="message" cols="30"rows="10"></textarea>
             </div>
             <div class="clearfix"></div>
             <button type="submit" class="btn btn-primary">Submit</button>

@@ -26,6 +26,11 @@ return [
     */
 
     'url'       => 'http://dev.bostonartcc.net',
+
+    'webmaster' => [
+        'name' => 'Mike Dugan',
+        'email' => 'mike@mjdugan.com'
+    ],
     /*
     |--------------------------------------------------------------------------
     | Application Timezone

@@ -38,20 +38,48 @@ class ExamsController extends BaseController
     public function getStaffReview($eid)
     {
         $exam = $this->exams->get($eid);
-        $wrong = [];
-        $wrongset = json_decode($exam->exam)->wrong;
-        foreach($wrongset as $q) {
-            $question = \ExamQuestion::find($q->question);
-            $wrong[] = [
-              'question' => $question,
-              'answer' => $question->{'answer_'.$q->answer}
-            ];
+        if($decoded = json_decode($exam->exam)) {
+            $wrongset = property_exists($decoded, 'wrong') ? $decoded->wrong : null;
+            if (count($wrongset) > 0) {
+                foreach ($wrongset as $q) {
+                    $question = \ExamQuestion::find($q->question);
+                    $wrong[] = [
+                      'question' => $question,
+                      'answer'   => $question->{'answer_' . $q->answer}
+                    ];
+                }
+            }
         }
         $data = [
           'exam' => $exam,
-          'wrong' => $wrong
+          'wrong' => isset($wrong) && is_array($wrong) ? $wrong : 'Wow, 100%! Great job!'
         ];
         return View::make('staff.exams.review', $data);
+    }
+
+    public function getReview()
+    {
+        $exam = $this->exams->lastExam(\Sentry::getUser()->cid);
+        if($decoded = json_decode($exam->exam)) {
+            $wrongset = property_exists($decoded, 'wrong') ? $decoded->wrong : null;
+            if (count($exam->wrong) > 0) {
+                foreach ($wrongset as $q) {
+                    $question = \ExamQuestion::find($q->question);
+                    $wrong[] = [
+                      'question' => $question,
+                      'answer'   => $question->{'answer_' . $q->answer}
+                    ];
+                }
+            }
+        }
+        $data = [
+          'exam' => $exam,
+          'wrong' => isset($wrong) && is_array($wrong) ? $wrong : 'Wow, 100%! Great job!'
+        ];
+        if ( ! $exam) {
+            return Redirect::back()->with('flash_info', 'No exams found');
+        }
+        return View::make('training.exams.review', $data);
     }
 
     public function getIntro($eid)
@@ -151,14 +179,12 @@ class ExamsController extends BaseController
         ];
 
         $recent = $this->exams->lastDay($user->cid);
-        if(count($recent) > 0) {
+        if(count($recent) > 90) {
             return Redirect::route('training')->with('flash_error', 'You have taken an exam within the past 24 hours!');
         }
-
         if(! $exam = $this->exams->create($exam)) {
             return Redirect::back()->with('flash_error', $this->exams->getErrors());
         }
-
         $data = [
             'questions' => $this->questions->exam($user->cert + 1, $count),
             'exam' => $exam

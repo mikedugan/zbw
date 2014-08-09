@@ -29,6 +29,7 @@ class RosterXmlParser
             if($this->users->exists($member->cid)) { continue; }
             $this->users->add($member->fname, $member->lname, $member->email, 'ZBW',
                               $member->cid, $member->rating, false);
+            Queue::push('Zbw\Bostonjohn\QueueDispatcher@usersNewUser', $member);
             $counter++;
         }
         return $counter;

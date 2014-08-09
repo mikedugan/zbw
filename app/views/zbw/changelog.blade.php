@@ -4,6 +4,19 @@ Changelog
 @stop
 @section('content')
 <h1 class="text-center">Changelog</h1>
+<h3>2.0.8b</h3>
+mikedugan wip on promotions <br>
+mikedugan added automatic promotion messages <br>
+mikedugan finished visitor application processing <br>
+mikedugan working on visitor applications <br>
+mikedugan added staff contact, fixed alert size <br>
+mikedugan some responsive changes, roster order updated' <br>
+mikedugan added a bunch more static pages <br>
+mikedugan more work on new user email <br>
+mikedugan finished up new user emails <br>
+mikedugan airport links now go to airnav <br>
+mikedugan added static pilot info pages <br>
+mikedugan style updates to forum <br>
 <h3>v2.0.7b</h3>
 mikedugan added the new forum <br>
 mikedugan added wrong questions to staff exam review <br>

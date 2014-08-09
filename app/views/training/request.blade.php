@@ -9,10 +9,9 @@ Training Request
     <h1 class="text-center">Request Training Session</h1>
     <div class="col-md-12">
     <form id="request-training">
-        <p>You are currently certified as <i>{{Zbw\Base\Helpers::readableCert($me->cert)}}</i></p>
-        <p>Your training request will be for <i>{{Zbw\Base\Helpers::readableCert($me->cert + 1)}}</i></p>
-        <input id="examid" type="hidden" value="{{$available[0]}}">
-        <input id="userid" type="hidden" value="{{$me->cid}}">
+        <p>Your training request will be for <i>{{Zbw\Base\Helpers::readableCert($me->cert)}}</i></p>
+        <input id="cert" type="hidden" value="{{ $me->cert }}">
+        <input id="cid" type="hidden" value="{{$me->cid }}">
         <div class="well col-md-12">
             <div class="col-md-3">
                 <div class="datepick" id="session_start" data-field="session_start" name="session_start"></div>

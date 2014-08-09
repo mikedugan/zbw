@@ -45,8 +45,7 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
      */
     public function add($fname, $lname, $email, $artcc, $cid, $rating, $notify = true)
     {
-        $tempPassword = Helpers::createPassword();
-
+        $tempPassword = str_random(20);
         $u = new \User();
         $u->cid = $cid;
         $u->first_name = $fname;
@@ -54,26 +53,16 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
         $u->username = $fname . ' ' . $lname;
         $u->artcc = $artcc;
         $u->email = $email;
-        $u->password = \Hash::make($tempPassword);
+        $u->password = $tempPassword;
         $u->rating_id = $rating;
-        $u->initials = substr($fname, 0, 1) . substr($lname[0], 0, 1);
+        $u->initials = $this->createInitials($fname, $lname);
         $s = new \UserSettings();
         $s->cid = $u->cid;
 
-        if($u->save() && $s->save())
-        {
-            if($notify) {
-                $em = new Emailer($u, ['password' => $tempPassword]);
-                $em->newUser($u);
-                return true;
-            }
-            else return true;
-        }
-        else return false;
+        return $u->save() && $s->save();
     }
 
     /**
-     * @type
      * @name updateUser
      * @description updates an existing user
      * @param $input
@@ -177,7 +166,17 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
 
     public function active($num = 20)
     {
-        return $this->make()->with(['rating', 'settings'])->where('activated', 1)->get();
+        return $this->make()->with(['rating', 'settings'])->where('activated', 1)->orderBy('activated', 'DESC')->get();
+    }
+
+    public function with($with, $id = null, $pk = 'id', $pagination = null)
+    {
+        if($pagination) {
+            return $this->make()->with($with)->orderBy('activated', 'DESC')->orderBy('initials', 'ASC')->paginate($pagination);
+        } else if($id) {
+            return $this->make()->where($pk, $id)->with($with)->firstOrFail();
+        }
+        return $this->make()->with($with)->get();
     }
 
     /**
@@ -196,7 +195,7 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
             $preferred = $lname[0] . substr($lname, $i, 1);
             if(count($this->make()->where('initials', '=', $preferred)->get()) == 0)
             {
-                return $preferred;
+                return strtoupper($preferred);
             }
         }
         for($i = -1; $i >= '-'.strlen($fname); $i--)
@@ -204,7 +203,7 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
             $preferred = $lname[0] . substr($fname, $i, 1);
             if(count($this->make()->where('initials', '=', $preferred)->get()) == 0)
             {
-                return $preferred;
+                return strtoupper($preferred);
             }
         }
     }
@@ -358,7 +357,6 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
         }
     }
 
-
     /**
      * @type
      * @name activateUser
@@ -369,17 +367,8 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
     public function activateUser($id)
     {
         $user = $this->make()->find($id);
-        $user->is_active = 1;
-        if($user->save())
-        {
-            ZbwLog::override(\Auth::user()->initials . ' activated ' . $user->initials);
-            return true;
-        }
-        else
-        {
-            ZbwLog::error(\Auth::user()->initials . ' had an error attempting to activate ' . $user->initials);
-            return false;
-        }
+        $user->activated = 1;
+        return $user->save();
     }
 
     public function getStaff()

@@ -65,6 +65,11 @@ class TrainingSessionGrader implements TrainingGraderInterface
         $report->negative_points = $this->neg_points;
         $report->ots = $this->ots;
         $report->save();
+
+        if($this->ots == 1) {
+            \Queue::push('Zbw\Bostonjohn\QueueDispatcher@usersPromote', $session->cid);
+        }
+
         return $session;
     }
 

@@ -6,6 +6,8 @@ Roster Admin
 @include('includes.nav._roster')
     @if(!$view || $view == 'roster')
     @include('staff.roster.roster')
+    @elseif($view === 'visitor')
+    @include('staff.roster.visitor')
     @elseif($view === 'staff')
     @include('staff.roster.staff')
     @elseif($view === 'controller')

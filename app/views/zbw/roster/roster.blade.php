@@ -27,7 +27,7 @@
                 &nbsp;<span class="orange glyph-sm glyphicons circle_exclamation_mark pointer" title="User is inactive"></span>
             </td>
             @else
-            <td><a href="/controllers/{{$u->cid}}">{{ $u->username }}</a></td>
+            <td><a href="/controllers/{{$u->cid}}">{{ $u->username . ' (' . $u->initials . ')'}}</a></td>
             @endif
             <td>
                 @if(isset($u->settings->email_hidden) && $u->settings->email_hidden == 0)

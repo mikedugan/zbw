@@ -20,11 +20,11 @@ class Notifier
         $this->log = new ZbwLog();
     }
 
-    public function newUserEmail(\User $user)
+    public function newUserEmail($cid)
     {
+        $user = $this->users->get($cid);
         $vData = [
-            'user' => $user,
-            'password' => 'foobar'
+            'user' => $user
         ];
         \Mail::send('zbw.emails.new-user', $vData, function($message) use ($user)
         {
@@ -32,7 +32,6 @@ class Notifier
             $message->to($user->email, $user->first_name . ' ' . $user->last_name);
             $message->subject('Welcome to vZBW');
         });
-        //$this->log->addLog('New user email sent to ' . $this->user->initials, '');
     }
 
     public function staffWelcomeEmail()
@@ -42,12 +41,9 @@ class Notifier
         ];
         \Mail::send('zbw.emails.welcome-staff', $vData, function($message)
         {
-            $message->from($this->from, $this->fromName);
             $message->to($this->to, $this->user->first_name . ' ' . $this->user->last_name);
             $message->subject('Welcome to the ZBW Staff');
         });
-        $log = new ZbwLog();
-        $this->log->addLog('Staff welcome message sent to' . $this->user->initials, '');
     }
 
     public function trainingRequestEmail($data)
@@ -113,7 +109,7 @@ class Notifier
             'rating' => $data['rating'],
             'home' => $data['home'],
             'email' => $data['email'],
-            'body' => $data['editor'],
+            'body' => $data['message'],
             'cid' => $data['cid']
         ];
 
@@ -124,5 +120,66 @@ class Notifier
               $message->to($mData['to']->email, $mData['to']->first_name . ' ' . $mData['to']->last_name);
               $message->subject('ZBW Visiting Controller Request');
           });
+    }
+
+    public function staffContactEmail($data)
+    {
+        $to = \Sentry::findAllUsersInGroup(\Sentry::findGroupByName($data['to']))[0];
+        $vData = [
+            'to' => $to,
+            'from' => $data['email'],
+            'subject' => $data['subject'],
+            'content' => $data['message']
+        ];
+
+        $mData = ['to' => $to];
+        \Mail::send('zbw.emails.staff_contact', $vData, function($message) use ($mData) {
+            $message->to($mData['to']->email, $mData['to']->username);
+            $message->subject('ZBW Staff Contact');
+        });
+    }
+
+    public function acceptVisitorEmail($data)
+    {
+        $user = $data;
+        $vData = [
+          'user' => $user
+        ];
+        \Mail::send('zbw.emails.new_visitor', $vData, function($message) use ($user)
+        {
+            $message->from($this->from, $this->fromName);
+            $message->to($user->email, $user->first_name . ' ' . $user->last_name);
+            $message->subject('Welcome to vZBW');
+        });
+    }
+
+    public function denyVisitorEmail($data)
+    {
+        $visitor = \VisitorApplicant::where('cid', $data[0])->firstOrFail();
+        $content = $data[1];
+        $vData = [
+          'visitor' => $visitor,
+          'content' => $content
+        ];
+        \Mail::send('zbw.emails.deny_visitor', $vData, function($message) use ($visitor)
+        {
+            $message->from($this->from, $this->fromName);
+            $message->to($visitor->email, $visitor->first_name . ' ' . $visitor->last_name);
+            $message->subject('vZBW Visitor Application');
+        });
+    }
+
+    public function vatusaExamRequestEmail($cid)
+    {
+        $student = $this->users->get($cid);
+        $vData = ['student' => $student];
+        $to = \Sentry::findAllUsersInGroup(\Sentry::findGroupByName('Instructors'));
+        foreach($to as $staff) {
+            \Mail::send('zbw.emails.vatusa_exam_request', $vData, function ($message) use ($staff) {
+                $message->from($this->from, $this->fromName);
+                $message->to('mike@mjdugan.com', $staff->username);
+                $message->subject('VATUSA Exam Request');
+            });
+        }
     }
 } 

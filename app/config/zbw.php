@@ -9,6 +9,12 @@ return [
         'port' => $_ENV['ts_port']
     ],
 
+    'off_peak' =>
+        '<ul>
+            <li>Monday-Thursday: You may not control from 7pm to 10pm, Eastern Standard Time</li>
+            <li>Friday-Sunday: You may not control from 4pm to 10pm, Eastern Standard Time</li>
+            </ul>',
+
     'roster_migrate' => 'http://bostonartcc.net/roster/export.php',
 
     'vatusa' => [
@@ -29,7 +35,7 @@ return [
     'exam_length' => [
         'SOP' => 20,
         'C_S1' => 30,
-        'O_S1' => 30,
+        'O_S1' => 25,
         'C_S2' => 30,
         'O_S2' => 30,
         'C_S3' => 30,

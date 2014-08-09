@@ -2,16 +2,19 @@
 
 use Zbw\Users\Contracts\GroupsRepositoryInterface;
 use Zbw\Users\Contracts\UserRepositoryInterface;
+use Zbw\Users\Contracts\VisitorApplicantRepositoryInterface;
 
 class RosterController extends BaseController {
 
     private $users;
     private $groups;
+    private $visitors;
 
-    function __construct(UserRepositoryInterface $users, GroupsRepositoryInterface $groups)
+    function __construct(UserRepositoryInterface $users, GroupsRepositoryInterface $groups, VisitorApplicantRepositoryInterface $visitors)
     {
         $this->users = $users;
         $this->groups = $groups;
+        $this->visitors = $visitors;
     }
 
     public function getPublicRoster()
@@ -80,6 +83,9 @@ class RosterController extends BaseController {
                 $data['groups'] = \Sentry::findAllGroups();
             }
         }
+        if($view === 'visitor') {
+            $data['applicants'] = \VisitorApplicant::all();
+        }
 
         return View::make('staff.roster.index', $data);
     }
@@ -138,6 +144,46 @@ class RosterController extends BaseController {
             return Redirect::back()->with('flash_success', 'Group updated');
         } else {
             return Redirect::back()->with('flash_error', 'Unable to update group');
+        }
+    }
+
+    public function postVisitorDeny()
+    {
+        $staff = \Sentry::getUser();
+        if($results = $this->visitors->deny($staff, \Input::all())) {
+            Queue::push('Zbw\Bostonjohn\QueueDispatcher@usersDenyVisitor', $results);
+            return Redirect::back()->with('flash_success', 'Visitor request denied');
+        } else {
+            return Redirect::back()->with('flash_error', $this->visitors->getErrors());
+        }
+    }
+
+    public function postVisitorLor()
+    {
+        $staff = \Sentry::getUser();
+        if($this->visitors->addLor($staff, \Input::all())) {
+            return Redirect::back()->with('flash_success', 'LOR uploaded successfully');
+        } else {
+            return Redirect::back()->with('flash_error', $this->visitors->getErrors());
+        }
+    }
+
+    public function postVisitorComment()
+    {
+        $staff = \Sentry::getUser();
+        if($comment = $this->visitors->comment($staff, \Input::all())) {
+            return Redirect::back()->with('flash_success', 'Comment added successfully');
+        } else {
+            return Redirect::back()->with('flash_error', $this->visitors->getErrors());
+        }
+    }
+
+    public function postVisitorDelete($id)
+    {
+        if($this->visitors->delete($id)) {
+            return Redirect::back()->with('flash_success', 'Applicant deleted successfully');
+        } else {
+            return Redirect::back()->with('flash_error', 'Error deleting applicant');
         }
     }
 }
