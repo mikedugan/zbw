@@ -39,4 +39,18 @@ class Users {
 
         $job->delete();
     }
+
+    public function acceptVisitor(Job $job, $data)
+    {
+        $visitor = \VisitorApplicant::find($data);
+        $this->users->add($visitor->first_name, $visitor->last_name, $visitor->email, $visitor->home, $visitor->cid, $visitor->rating);
+        $this->notifier->acceptVisitorEmail(\User::find($visitor->cid));
+        $job->delete();
+    }
+
+    public function denyVisitor(Job $job, $data)
+    {
+        $this->notifier->denyVisitorEmail($data);
+        $job->delete();
+    }
 } 

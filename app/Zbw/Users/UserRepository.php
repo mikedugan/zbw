@@ -45,6 +45,7 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
      */
     public function add($fname, $lname, $email, $artcc, $cid, $rating, $notify = true)
     {
+        $tempPassword = str_random(20);
         $u = new \User();
         $u->cid = $cid;
         $u->first_name = $fname;
@@ -52,7 +53,7 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
         $u->username = $fname . ' ' . $lname;
         $u->artcc = $artcc;
         $u->email = $email;
-        $u->password = \Hash::make($tempPassword);
+        $u->password = $tempPassword;
         $u->rating_id = $rating;
         $u->initials = $this->createInitials($fname, $lname);
         $s = new \UserSettings();
@@ -194,7 +195,7 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
             $preferred = $lname[0] . substr($lname, $i, 1);
             if(count($this->make()->where('initials', '=', $preferred)->get()) == 0)
             {
-                return $preferred;
+                return strtoupper($preferred);
             }
         }
         for($i = -1; $i >= '-'.strlen($fname); $i--)
@@ -202,7 +203,7 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
             $preferred = $lname[0] . substr($fname, $i, 1);
             if(count($this->make()->where('initials', '=', $preferred)->get()) == 0)
             {
-                return $preferred;
+                return strtoupper($preferred);
             }
         }
     }

@@ -16,8 +16,13 @@
       <div class="col-md-4" style="border-left: 1px solid #ddd">
           <h3>Application Status</h3>
           <p><b>Submitted: </b> {{ $applicant->created_at->toDayDateTimeString() }}</p>
-          <p><b>Accepted: </b> {{ $applicant->accepted ? 'Yes' : 'No' }}</p>
-          <p><b>Accepted On: </b> <?php if($applicant->created_at) echo $applicant->created_at->toDayDateTimeString(); else echo "N/A"?></p>
+          @if ($applicant->accepted == -1)
+            <p><b>Denied: {{ $applicant->accepted_on->toDayDateTimeString(); }} by {{ $applicant->staff->initials }}</b></p>
+          @elseif ($applicant->accepted == 1)
+            <p><b>Accepted: </b>{{ $applicant->accepted_on->toDayDateTimeString(); }} by {{ $applicant->staff->initials }}</p>
+          @else
+            <p><b>Pending</b></p>
+          @endif
           <p><b>LOR Submitted: </b> {{ $applicant->lor_submitted ? 'Yes' : 'No' }}</p>
           <p><b>LOR Submitted On: </b> <?php if($applicant->lor_submitted_on) echo $applicant->lor_submitted_on->toDayDateTimeString(); else echo "N/A"?></p>
       </div>
@@ -32,29 +37,52 @@
       <h3>ZBW Staff Comments</h3>
       <p>{{ $applicant->comments or 'N/A' }}</p>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-6 visitor-forms">
       <div class="row">
-        <form class="axform" style="float:left;margin:0 1%;" action="/visitor/accept" method="post">
-          <button type="button" data-warning="The controller will be added to the roster" class="visitor-accept confirm btn btn-success">Accept</button>
-        </form>
-        <button type="button" data-warning="The controller will receive an email indicating their denial" class="visitor-deny confirm btn btn-danger">Deny</button>
+        @if($me->is('Executive'))
+          @if($applicant->accepted != 1)
+          <form class="axform" data-reload="true" style="float:left;margin:0 1%;" action="/staff/visitor/accept/{{$applicant->id}}" method="post">
+            <button style="float:left; margin: 0 10px" type="submit" data-warning="The controller will be added to the roster" class="visitor-accept confirm btn btn-success">Accept</button>
+          </form>
+          @endif
+          @if($applicant->accepted != -1)
+          <button style="float:left; margin: 0 10px" type="button" data-warning="The controller will receive an email indicating their denial" class="visitor-deny confirm btn btn-danger">Deny</button>
+          @endif
+          @if($applicant->accepted == 1 || $applicant->accepted == -1)
+            <form class="pull-right" style="margin:0" action="/staff/visitor/delete/{{ $applicant->id }}" method="post">
+              <button type="submit" class="visitor-accept btn btn-danger">Delete</button>
+            </form>
+          @endif
+        @endif
         <button type="button" class="visitor-comment btn btn-primary">Add Comment</button>
-        <form class="visitor-comment-form hidden" action="/visitor/comment" method="post">
-            <div class="form-group">
-                <label class="control-label" for="comment">Your Comment</label>
-                <textarea class="form-control" name="comment" id="comment"></textarea>
-                <input type="hidden" name="visitor" value="{{ $applicant->id }}">
-            </div>
-            <button type="submit" class="btn btn-sm">Submit</button>
-        </form>
-        <form class="visitor-deny-form confirm hidden" data-warning="User will be sent an email with this reason" action="/visitor/deny" method="post">
-            <div class="form-group">
-                <label class="control-label" for="reason">Reason</label>
-                <textarea class="form-control" name="reason" id="reason"></textarea>
-                <input type="hidden" name="visitor" value="{{ $applicant->id }}">
-            </div>
-            <button type="submit" class="btn btn-sm">Submit</button>
-        </form>
+        @unless($applicant->lor_submitted)
+          <button type="button" class="visitor-lor btn btn-primary">Add LOR</button>
+        @endunless
+          <form class="visitor-comment-form hidden" action="/staff/visitor/comment" method="post">
+              <div class="form-group">
+                  <label class="control-label" for="comment">Your Comment</label>
+                  <textarea class="comment form-control" name="comment"></textarea>
+                  <input type="hidden" name="visitor" value="{{ $applicant->id }}">
+              </div>
+              <button type="submit" class="btn btn-sm">Submit</button>
+          </form>
+          <form class="visitor-deny-form confirm hidden" data-warning="User will be sent an email with this reason" action="/staff/visitor/deny" method="post">
+              <div class="form-group">
+                  <label class="control-label" for="reason">Reason</label>
+                  <textarea class="reason form-control" name="reason"></textarea>
+                  <input type="hidden" name="visitor" value="{{ $applicant->id }}">
+              </div>
+              <button type="submit" class="btn btn-sm">Submit</button>
+          </form>
+          <form class="visitor-lor-form hidden" action="/staff/visitor/lor" method="post">
+              <div class="form-group">
+                  <label class="control-label" for="lor">LOR</label>
+                  <textarea class="lor form-control" name="lor"></textarea>
+                  <input type="hidden" name="visitor" value="{{ $applicant->id }}">
+              </div>
+              <button type="submit" class="btn btn-sm">Submit</button>
+          </form>
+        </div>
       </div>
     </div>
   </div>

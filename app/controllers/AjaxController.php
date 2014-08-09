@@ -217,14 +217,14 @@ class AjaxController extends BaseController
         }
     }
 
-    public function postVisitorAccept()
+    public function postVisitorAccept($id)
     {
         $staff = \Sentry::getUser();
-        if($this->visitors->accept($staff, \Input::get('visitor'))) {
-            Queue::push('Zbw\Bostonjohn\QueueDispatcher@usersAcceptVisitor', \Input::get('visitor'));
+        if($this->visitors->accept($staff, $id)) {
+            Queue::push('Zbw\Bostonjohn\QueueDispatcher@usersAcceptVisitor', $id);
             return json_encode([
               'success' => true,
-              'message' => 'Visitor application accepted'
+              'message' => 'Visitor application accepted. Page reloading in 3 seconds...'
             ]);
         } else {
             return json_encode([
@@ -232,15 +232,5 @@ class AjaxController extends BaseController
               'message' => implode(',', $this->visitors->getErrors())
             ]);
         }
-    }
-
-    public function PostVisitorDeny()
-    {
-
-    }
-
-    public function postVisitorComment()
-    {
-
     }
 }

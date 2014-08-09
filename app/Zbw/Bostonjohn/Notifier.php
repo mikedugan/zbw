@@ -138,4 +138,34 @@ class Notifier
             $message->subject('ZBW Staff Contact');
         });
     }
+
+    public function acceptVisitorEmail($data)
+    {
+        $user = $data;
+        $vData = [
+          'user' => $user
+        ];
+        \Mail::send('zbw.emails.new_visitor', $vData, function($message) use ($user)
+        {
+            $message->from($this->from, $this->fromName);
+            $message->to($user->email, $user->first_name . ' ' . $user->last_name);
+            $message->subject('Welcome to vZBW');
+        });
+    }
+
+    public function denyVisitorEmail($data)
+    {
+        $visitor = \VisitorApplicant::where('cid', $data[0])->firstOrFail();
+        $content = $data[1];
+        $vData = [
+          'visitor' => $visitor,
+          'content' => $content
+        ];
+        \Mail::send('zbw.emails.deny_visitor', $vData, function($message) use ($visitor)
+        {
+            $message->from($this->from, $this->fromName);
+            $message->to($visitor->email, $visitor->first_name . ' ' . $visitor->last_name);
+            $message->subject('vZBW Visitor Application');
+        });
+    }
 } 

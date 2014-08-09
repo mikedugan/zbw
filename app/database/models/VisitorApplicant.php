@@ -60,4 +60,9 @@ class VisitorApplicant extends BaseModel
         return ['created_at', 'updated_at', 'accepted_on', 'lor_submitted_on'];
     }
 
+    public function staff()
+    {
+        return $this->hasOne('User', 'cid', 'accepted_by');
+    }
+
 } 
