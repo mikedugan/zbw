@@ -165,7 +165,17 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
 
     public function active($num = 20)
     {
-        return $this->make()->with(['rating', 'settings'])->where('activated', 1)->get();
+        return $this->make()->with(['rating', 'settings'])->where('activated', 1)->orderBy('activated', 'DESC')->get();
+    }
+
+    public function with($with, $id = null, $pk = 'id', $pagination = null)
+    {
+        if($pagination) {
+            return $this->make()->with($with)->orderBy('activated', 'DESC')->orderBy('initials', 'ASC')->paginate($pagination);
+        } else if($id) {
+            return $this->make()->where($pk, $id)->with($with)->firstOrFail();
+        }
+        return $this->make()->with($with)->get();
     }
 
     /**

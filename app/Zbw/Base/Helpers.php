@@ -264,7 +264,7 @@ class Helpers
     public static function shortenRouteString($route)
     {
         $strings = explode(' ', $route);
-        if(count($strings) > 12) {
+        if(count($strings) > 9 || strlen($route) > 24) {
             $start = array_slice($strings, 0, 3);
             $start[] = '...';
             $end = array_slice($strings, -3, 3);
