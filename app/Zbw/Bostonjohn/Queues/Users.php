@@ -97,4 +97,25 @@ class Users {
 
         $job->delete();
     }
+
+    public function requestVatusaExam(Job $job, $data)
+    {
+        $this->notifier->vatusaExamRequestEmail($data);
+        $student = \Sentry::findUserById($data);
+        $exams = \App::make('Zbw\Training\Contracts\ExamsRepositoryInterface');
+        $i = [
+            'assigned_on' => \Carbon::now(),
+            'cert_type_id' => $student->cert + 1,
+            'total_questions' => 1,
+            'cid' => $student->cid
+        ];
+        if($exam = $exams->create($i)) {
+            $exam->correct = 1;
+            $exam->wrong = 0;
+            $exam->pass = 1;
+            $exam->completed_on = \Carbon::now();
+            $exam->save();
+        }
+        $job->delete();
+    }
 } 

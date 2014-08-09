@@ -30,10 +30,11 @@ Route::group(
       Route::get('training/request/all', ['as' => 'training/request/all', 'uses' => 'TrainingController@getAllRequests']);
       Route::get('training/request/new', ['as'   => 'training/new-request','uses' => 'TrainingController@getRequest']);
       Route::get('training/request/{id}',['as'   => 'training/view-request/{id}','uses' => 'TrainingController@showRequest']);
-      Route::get('/training/review',['as' => 'training/sessions', 'uses' => 'TrainingController@getReview']);
+      Route::get('/training/review',['as' => 'training/sessions', 'uses' => 'ExamsController@getReview']);
       Route::post('/training/review/{eid}',['as'   => 'training/review-session','uses' => 'ExamsController@postComment']);
       Route::post('/e/request/{cid}/{eid}',['as'   => 'me/exam-requests/{eid}','uses' => 'AjaxController@requestExam']);
-      Route::post('/t/request/new',['as'   => 'me/request-training','uses' => 'AjaxController@postTrainingRequest']);
+      Route::post('/me/request/vatusa',['as'   => 'me/request/vatusa','uses' => 'AjaxController@requestVatusaExam']);
+      Route::post('/me/request-training', ['as'   => 'me/request-training','uses' => 'AjaxController@postTrainingRequest']);
       Route::get('/training/exam', ['as' => 'training/exam', 'uses' => 'ExamsController@takeExam']);
       Route::post('/training/exam', ['before' => 'csrf', 'as' => 'training/exam', 'uses' => 'ExamsController@gradeExam']);
       Route::get('/t/request/{tid}',['as'   => 'training/view-request/{tid}','uses' => 'TrainingController@showRequest']);

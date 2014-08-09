@@ -16,11 +16,25 @@ Your Training
     </div>
     <div class="col-md-6">
         @if($me->cert < 11)
-            @if($me->cert == 2 || $me->cert == 5 || $me->cert == 8 || $me->cert == 10)
-                <a class="btn btn-primary" href="/e/request{{ $me->cid}}/{{ $me->cert + 1 }}">Request {{ \Zbw\Base\Helpers::readableCert($me->cert + 1) }} Exam</a>
+            @if($me->cert == 2 && $me->rating_id < 2)
+              <form class="axform" action="/me/request/vatusa" method="post">
+                <button type="submit" class="btn btn-primary">Request VATUSA S1 Exam</button>
+              </form>
+            @elseif($me->cert == 5 && $me->rating_id < 3)
+            <form class="axform" action="/me/request/vatusa" method="post">
+                <button type="submit" class="btn btn-primary">Request VATUSA S2 Exam</button>
+            </form>
+            @elseif($me->cert == 8 && $me->rating_id < 4)
+            <form class="axform" action="/me/request/vatusa" method="post">
+                <button type="submit" class="btn btn-primary">Request VATUSA S3 Exam</button>
+            </form>
+            @elseif($me->cert == 10 && $me->rating_id < 5)
+            <form class="axform" action="/me/request/vatusa" method="post">
+                <button type="submit" class="btn btn-primary">Request VATUSA C1 Exam</button>
+            </form>
             @endif
         <a class="btn btn-primary" href="/training/request/new">Request Training</a>
-        @if($canTake)
+        @if($canTake && ! in_array($me->cert, [2,5,8,10]))
           <a class="btn btn-primary" href="/training/exam">Take Exam</a>
         @endif
         @if($review)

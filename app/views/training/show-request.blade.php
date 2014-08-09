@@ -33,11 +33,11 @@ View Request
     @endif
     @if($me->is_mentor() || $me->is_instructor())
         @if(($request->sid === $me->cid) && !$request->is_completed)
-        <form class="axform" action="/t/request/{{$request->id}}/drop" method="post">
+        <form data-reload="true" class="axform" action="/t/request/{{$request->id}}/drop" method="post">
             <button type="submit" class="btn btn-sm btn-warning">Drop Request</button>
         </form>
         @elseif(!$request->sid && !$request->is_completed)
-        <form class="axform" action="/t/request/{{$request->id}}/accept" method="post">
+        <form data-reload="true" class="axform" action="/t/request/{{$request->id}}/accept" method="post">
             <button type="submit" class="btn btn-sm btn-success">Accept Request</button>
         </form>
         @endif

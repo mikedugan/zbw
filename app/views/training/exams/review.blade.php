@@ -10,7 +10,11 @@ Exam Review
     <h3>Student Info</h3>
     <p><b>Student:</b> {{$exam->student->username}} ({{$exam->student->initials}})</p>
     <p><b>Rating: </b> {{$exam->student->rating->short}}</p>
-    <p><b>Testing for: </b>{{ \Zbw\Base\Helpers::readableCert($exam->cert->id)}}</p>
+    @if(in_array($exam->student->cert, [2,5,8,10]))
+      <p><b>Testing For: </b> {{ \Rating::find($exam->student->rating->id + 1)->long }}</p>
+    @else
+      <p><b>Testing for: </b>{{ \Zbw\Base\Helpers::readableCert($exam->cert->id)}}</p>
+    @endif
     @if($me->cid === $exam->cid || in_array($me->cid, Zbw\Users\UserRepository::canTrain($exam->cert_type_id)))
         @if($exam->reviewed == 1)
         <span class="badge bg-success">Exam Review Complete</span>

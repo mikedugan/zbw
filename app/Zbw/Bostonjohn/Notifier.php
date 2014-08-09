@@ -168,4 +168,18 @@ class Notifier
             $message->subject('vZBW Visitor Application');
         });
     }
+
+    public function vatusaExamRequestEmail($cid)
+    {
+        $student = $this->users->get($cid);
+        $vData = ['student' => $student];
+        $to = \Sentry::findAllUsersInGroup(\Sentry::findGroupByName('Instructors'));
+        foreach($to as $staff) {
+            \Mail::send('zbw.emails.vatusa_exam_request', $vData, function ($message) use ($staff) {
+                $message->from($this->from, $this->fromName);
+                $message->to('mike@mjdugan.com', $staff->username);
+                $message->subject('VATUSA Exam Request');
+            });
+        }
+    }
 } 

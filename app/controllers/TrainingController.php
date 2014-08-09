@@ -22,6 +22,7 @@ class TrainingController extends BaseController
     {
         $student = \Sentry::getUser();
         $reviews = $student->exams()->where('reviewed', 0)->get();
+        if(in_array($student->cert, [2,5,8,10])) { $reviews = 1; }
         $data = [
             'availableExams' => $this->exams->availableExams(\Sentry::getUser()->cid),
             'progress' => $this->users->trainingProgress(\Sentry::getUser()->cid),
@@ -93,11 +94,7 @@ class TrainingController extends BaseController
         if($user->cert == 0 || $user->cert == 1) {
             return Redirect::route('training')->with('flash_error', 'You must pass the ZBW class C ground exam to request training!');
         }
-        $data = [
-          'title'     => 'Request Training Session',
-          'available' => $this->exams->availableExams(\Sentry::getUser()->cid)
-        ];
-        return View::make('training.request', $data);
+        return View::make('training.request');
     }
 
     public function showRequest($tid)
@@ -105,34 +102,9 @@ class TrainingController extends BaseController
         $request = \TrainingRequest::with(['student', 'certType', 'staff'])
                                    ->find($tid);
         $data = [
-          'title'   => 'View Training Request',
           'request' => $request
         ];
         return View::make('training.show-request', $data);
-    }
-
-    public function getReview()
-    {
-        $exam = $this->exams->lastExam(\Sentry::getUser()->cid);
-        $decoded = json_decode($exam->exam);
-        $wrongset = property_exists($decoded, 'wrong') ? $decoded->wrong : null;
-        if(count($exam->wrong) > 0) {
-            foreach ($wrongset as $q) {
-                $question = \ExamQuestion::find($q->question);
-                $wrong[] = [
-                  'question' => $question,
-                  'answer'   => $question->{'answer_' . $q->answer}
-                ];
-            }
-        }
-        $data = [
-          'exam' => $exam,
-          'wrong' => is_array($wrong) ? $wrong : 'Wow, 100%! Great job!'
-        ];
-        if ( ! $exam) {
-            return Redirect::back()->with('flash_info', 'No exams found');
-        }
-        return View::make('training.exams.review', $data);
     }
 
     public function getLiveSession($tsid)

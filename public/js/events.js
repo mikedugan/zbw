@@ -107,13 +107,13 @@ $(function() {
             }
             $.ajax(
                 {
-                    url: '/t/request/new',
+                    url: '/me/request-training',
                     type: 'post',
                     data: {
                         'start': start,
                         'end': end,
-                        'user': document.getElementById('userid').value,
-                        'cert': document.getElementById('examid').value
+                        'user': document.getElementById('cid').value,
+                        'cert': document.getElementById('cert').value
                     }
                 }
             ).done(

@@ -10,7 +10,11 @@ Exam Review
         <h3>Student Info</h3>
         <p><b>Student:</b> {{$exam->student->username}} ({{$exam->student->initials}})</p>
         <p><b>Rating: </b> {{$exam->student->rating->short}}</p>
+        @if(in_array($exam->student->cert, [2,5,8,10]))
+        <p><b>Testing For: </b> {{ \Rating::find($exam->student->rating->id + 1)->long }}</p>
+        @else
         <p><b>Testing for: </b>{{ \Zbw\Base\Helpers::readableCert($exam->cert->id)}}</p>
+        @endif
         @if(in_array($me->cid, Zbw\Users\UserRepository::canTrain($exam->cert_id)) && ! $exam->reviewed == 1)
             <form data-reload="true" class="axform" action="/staff/exams/review/{{$exam->id}}/complete" method="post">
                 <button class="btn btn-xs btn-success">Exam Review Complete</button>
@@ -47,6 +51,7 @@ Exam Review
               @endforeach
             @else
               <p>{{ $wrong }}</p>
+              <p><i>If this is a VATUSA exam, please copy and paste your corrections in the comments.</i></p>
             @endif
         </div>
         <p>Discuss corrections with the student below.</p>

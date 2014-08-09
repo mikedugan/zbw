@@ -145,12 +145,12 @@ class AjaxController extends BaseController
         if (\TrainingRequest::accept($tsid, \Sentry::getUser()->cid)) {
             return json_encode([
               'success' => true,
-              'message' => 'Training session accepted'
+              'message' => 'Training session accepted. Reloading page in 3 seconds...'
             ]);
         } else {
             return json_encode([
               'success' => false,
-              'message' => 'Error accepting training session'
+              'message' => 'Error accepting training session.'
             ]);
         }
     }
@@ -161,7 +161,7 @@ class AjaxController extends BaseController
             return json_encode(
               [
                 'success' => true,
-                'message' => 'Training session dropped'
+                'message' => 'Training session dropped. Reloading page in 3 seconds...'
               ]
             );
         } else {
@@ -232,5 +232,16 @@ class AjaxController extends BaseController
               'message' => implode(',', $this->visitors->getErrors())
             ]);
         }
+    }
+
+    public function requestVatusaExam()
+    {
+        $student = \Sentry::getUser();
+        $exam = \Rating::find($student->rating_id + 1)->long;
+        Queue::push('Zbw\Bostonjohn\QueueDispatcher@usersRequestVatusaExam', $student->cid);
+        return json_encode([
+          'success' => true,
+          'message' => 'VATUSA '.$exam.' exam requested.'
+        ]);
     }
 }
