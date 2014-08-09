@@ -14,6 +14,8 @@ Route::get('/', ['as' => 'home', 'uses' => 'ZbwController@getIndex']);
 Route::get('join', ['as' => 'join', 'uses' => 'ZbwController@getJoin']);
 Route::get('visit', ['as' => 'visit', 'uses' => 'ZbwController@getVisit']);
 Route::post('visit', ['as' => 'visit', 'uses' => 'ZbwController@postVisit']);
+//used by staff contact on roster page
+Route::post('contact', ['as' => 'contact', 'uses' => 'ZbwController@postContact']);
 
 //static pages for pilots
 Route::get('pilots', ['as' => 'pilots', 'uses' => 'StaticController@getPilots']);

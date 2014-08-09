@@ -1,14 +1,14 @@
-<form class="bsv" id="staffContactSubmit" class="col-md-12" action="/contact"
+<form class="bsv" id="staffContactSubmit" class="col-md-12" action="/contact" method="post"
       data-bv-feedbackicons-valid="glyphicons ok_2 green"
       data-bv-feedbackicons-invalid="glyphicon remove_2 red">
         <div class="form-group">
             <label for="to">Staff Member</label>
             <select class="form-control" name="to">
-                <option value="atm">Air Traffic Manager</option>
-                <option value="datm">Deputy Air Traffic Manager</option>
-                <option value="ta">Training Administrator</option>
-                <option value="web">Webmaster</option>
-                <option value="fe">Facilities Engineer</option>
+                <option value="ATM">Air Traffic Manager</option>
+                <option value="DATM">Deputy Air Traffic Manager</option>
+                <option value="TA">Training Administrator</option>
+                <option value="WEB">Webmaster</option>
+                <option value="FE">Facilities Engineer</option>
             </select>
         </div>
         <div class="form-group">
@@ -24,7 +24,7 @@
               data-bv-notempty-message="Please enter a subject"/>
         </div>
         <div class="form-group"><label for="message">Message</label>
-            <textarea required="required" class="editor" name="message" id="message" cols="30" rows="10"
+            <textarea required="required" class="form-control editor" name="message" id="message" cols="30" rows="10"
               data-bv-notempty="true"
               data-bv-notempty-message="Please enter a message"></textarea>
         </div>

@@ -121,4 +121,21 @@ class Notifier
               $message->subject('ZBW Visiting Controller Request');
           });
     }
+
+    public function staffContactEmail($data)
+    {
+        $to = \Sentry::findAllUsersInGroup(\Sentry::findGroupByName($data['to']))[0];
+        $vData = [
+            'to' => $to,
+            'from' => $data['email'],
+            'subject' => $data['subject'],
+            'content' => $data['message']
+        ];
+
+        $mData = ['to' => $to];
+        \Mail::send('zbw.emails.staff_contact', $vData, function($message) use ($mData) {
+            $message->to($mData['to']->email, $mData['to']->username);
+            $message->subject('ZBW Staff Contact');
+        });
+    }
 } 
