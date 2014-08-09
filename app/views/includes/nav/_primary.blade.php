@@ -26,7 +26,7 @@
             <li>{{ HTML::linkRoute('pilots', 'Home') }}</li>
             <li>{{ HTML::linkRoute('pilot-news', 'NOTAMS') }}</li>
             <li>{{ HTML::linkRoute('feedback', 'Feedback') }}</li>
-            <li><a href="/pages/airports">Airports & Charts</a></li>
+            <li>{{ HTML::linkRoute('pilots/airports', 'Airports') }}</li>
             <li><a href="#">Pilot Pages</a>
                 <ul>
                     @foreach($pages as $page)

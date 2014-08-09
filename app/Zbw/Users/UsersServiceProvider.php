@@ -14,5 +14,8 @@ class UsersServiceProvider extends ServiceProvider {
         $this->app->singleton('Zbw\Users\Contracts\StaffingRepositoryInterface', function() {
               return new StaffingRepository;
           });
+        $this->app->bind('Zbw\Users\Contracts\VisitorApplicantRepositoryInterface', function() {
+            return new VisitorApplicantRepository;
+        });
     }
 } 

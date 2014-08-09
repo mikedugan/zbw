@@ -25,7 +25,7 @@
          }
      });
 
-     $('.bsv').bootstrapValidator();
+     //$('.bsv').bootstrapValidator();
 
     if($('#training'))
     {

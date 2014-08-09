@@ -40,7 +40,7 @@ $(function() {
                 $('#lname').val(ln).parent().removeClass('hidden');
                 $('#rating').val(rating).parent().removeClass('hidden');
                 $('#home').val(home).parent().removeClass('hidden');
-                $('#email').parent().removeClass('hidden');
+                $('#artcc').parent().removeClass('hidden');
             });
         } else {
             $(this).parent().addClass('has-feedback has-error');
@@ -48,16 +48,25 @@ $(function() {
             $('#lname').parent().addClass('hidden');
             $('#rating').parent().addClass('hidden');
             $('#home').parent().addClass('hidden');
-            $('#email').parent().addClass('hidden');
+            $('#artcc').parent().addClass('hidden');
         }
     });
 
-    $('#visit #email').keyup(function() {
-        var email = $(this).val();
+    $('#visit #artcc').keyup(function() {
+        var artcc = $(this).val();
         $('#fname').parent().addClass('hidden');
         $('#lname').parent().addClass('hidden');
         $('#rating').parent().addClass('hidden');
         $('#home').parent().addClass('hidden');
+        if(artcc.length > 2) {
+            $('#email').parent().removeClass('hidden');
+        } else {
+            $('#email').parent().addClass('hidden');
+        }
+    });
+    $('#visit #email').keyup(function() {
+        var email = $(this).val();
+        $('#artcc').parent().addClass('hidden');
         if(validateEmail(email)) {
             $(this).parent().removeClass('has-error').addClass('has-success');
             $('#visit button[type="submit"]').removeClass('hidden');
@@ -107,6 +116,16 @@ $(function() {
             }
         });
     });
+
+    $('.visitor-comment').click(function(e) {
+        $(this).parent().children('.visitor-deny-form').addClass('hidden');
+        $(this).parent().children('.visitor-comment-form').toggleClass('hidden');
+    });
+
+    $('.visitor-deny').click(function(e) {
+        $(this).parent().children('.visitor-comment-form').addClass('hidden');
+        $(this).parent().children('.visitor-deny-form').toggleClass('hidden');
+    })
 
     $('#pm-reply').submit(function(e) {
         if(! validateCC($(this)))

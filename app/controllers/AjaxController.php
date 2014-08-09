@@ -5,6 +5,7 @@ use Zbw\Cms\Contracts\MessagesRepositoryInterface;
 use Zbw\Training\Contracts\CertificationRepositoryInterface;
 use Zbw\Training\Contracts\ExamsRepositoryInterface;
 use Zbw\Users\Contracts\UserRepositoryInterface;
+use Zbw\Users\Contracts\VisitorApplicantRepositoryInterface;
 
 class AjaxController extends BaseController
 {
@@ -12,14 +13,16 @@ class AjaxController extends BaseController
     private $messages;
     private $emailer;
     private $certs;
+    private $visitors;
 
-    public function __construct(UserRepositoryInterface $users, MessagesRepositoryInterface $messages, Notifier $emailer, CertificationRepositoryInterface $certs, ExamsRepositoryInterface $exams)
+    public function __construct(UserRepositoryInterface $users, MessagesRepositoryInterface $messages, Notifier $emailer, CertificationRepositoryInterface $certs, ExamsRepositoryInterface $exams, VisitorApplicantRepositoryInterface $visitors)
     {
         $this->users = $users;
         $this->messages = $messages;
         $this->emailer = $emailer;
         $this->certs = $certs;
         $this->exams = $exams;
+        $this->visitors = $visitors;
     }
 
     //handles an ajax request
@@ -212,5 +215,32 @@ class AjaxController extends BaseController
               'message' => implode(',', $this->exams->getErrors())
             ]);
         }
+    }
+
+    public function postVisitorAccept()
+    {
+        $staff = \Sentry::getUser();
+        if($this->visitors->accept($staff, \Input::get('visitor'))) {
+            Queue::push('Zbw\Bostonjohn\QueueDispatcher@usersAcceptVisitor', \Input::get('visitor'));
+            return json_encode([
+              'success' => true,
+              'message' => 'Visitor application accepted'
+            ]);
+        } else {
+            return json_encode([
+              'success' => false,
+              'message' => implode(',', $this->visitors->getErrors())
+            ]);
+        }
+    }
+
+    public function PostVisitorDeny()
+    {
+
+    }
+
+    public function postVisitorComment()
+    {
+
     }
 }

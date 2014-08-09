@@ -3,6 +3,7 @@
 use Zbw\Bostonjohn\Notifier;
 use Zbw\Cms\Contracts\NewsRepositoryInterface;
 use Zbw\Users\Contracts\UserRepositoryInterface;
+use Zbw\Users\Contracts\VisitorApplicantRepositoryInterface;
 
 class ZbwController extends BaseController
 {
@@ -10,12 +11,14 @@ class ZbwController extends BaseController
     private $news;
     private $users;
     private $notifier;
+    private $visitors;
 
-    public function __construct(NewsRepositoryInterface $news, UserRepositoryInterface $users, Notifier $notifier)
+    public function __construct(NewsRepositoryInterface $news, UserRepositoryInterface $users, Notifier $notifier, VisitorApplicantRepositoryInterface $visitors)
     {
         $this->news = $news;
         $this->users = $users;
         $this->notifier = $notifier;
+        $this->visitors = $visitors;
     }
     public function getIndex()
     {
@@ -88,6 +91,7 @@ class ZbwController extends BaseController
     public function postVisit()
     {
         $this->notifier->visitorRequestEmail(\Input::all());
+        $this->visitors->create(\Input::all());
         return Redirect::home()->with('flash_success', 'Your request has been sent. We will be in contact as soon as possible.');
     }
 

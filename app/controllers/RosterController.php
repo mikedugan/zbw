@@ -80,6 +80,9 @@ class RosterController extends BaseController {
                 $data['groups'] = \Sentry::findAllGroups();
             }
         }
+        if($view === 'visitor') {
+            $data['applicants'] = \VisitorApplicant::all();
+        }
 
         return View::make('staff.roster.index', $data);
     }

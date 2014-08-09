@@ -109,7 +109,7 @@ class Notifier
             'rating' => $data['rating'],
             'home' => $data['home'],
             'email' => $data['email'],
-            'body' => $data['editor'],
+            'body' => $data['message'],
             'cid' => $data['cid']
         ];
 
