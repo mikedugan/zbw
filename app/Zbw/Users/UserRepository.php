@@ -357,7 +357,6 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
         }
     }
 
-
     /**
      * @type
      * @name activateUser
@@ -368,17 +367,8 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
     public function activateUser($id)
     {
         $user = $this->make()->find($id);
-        $user->is_active = 1;
-        if($user->save())
-        {
-            ZbwLog::override(\Auth::user()->initials . ' activated ' . $user->initials);
-            return true;
-        }
-        else
-        {
-            ZbwLog::error(\Auth::user()->initials . ' had an error attempting to activate ' . $user->initials);
-            return false;
-        }
+        $user->activated = 1;
+        return $user->save();
     }
 
     public function getStaff()

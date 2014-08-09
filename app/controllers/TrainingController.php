@@ -20,11 +20,13 @@ class TrainingController extends BaseController
 
     public function getIndex()
     {
-        $reviews = \Sentry::getUser()->exams()->where('reviewed', 0)->get();
+        $student = \Sentry::getUser();
+        $reviews = $student->exams()->where('reviewed', 0)->get();
         $data = [
             'availableExams' => $this->exams->availableExams(\Sentry::getUser()->cid),
             'progress' => $this->users->trainingProgress(\Sentry::getUser()->cid),
-            'review' => count($reviews) > 0 ? true : false
+            'review' => count($reviews) > 0 ? true : false,
+            'canTake' => count($student->exams) == 0 || $this->exams->lastExam($student->cid)->reviewed == 1 ? true : false
         ];
         return View::make('training.index', $data);
     }
@@ -87,6 +89,10 @@ class TrainingController extends BaseController
 
     public function getRequest()
     {
+        $user = \Sentry::getUser();
+        if($user->cert == 0 || $user->cert == 1) {
+            return Redirect::route('training')->with('flash_error', 'You must pass the ZBW class C ground exam to request training!');
+        }
         $data = [
           'title'     => 'Request Training Session',
           'available' => $this->exams->availableExams(\Sentry::getUser()->cid)
@@ -108,18 +114,20 @@ class TrainingController extends BaseController
     public function getReview()
     {
         $exam = $this->exams->lastExam(\Sentry::getUser()->cid);
-        $wrong = [];
-        $wrongset = json_decode($exam->exam)->wrong;
-        foreach($wrongset as $q) {
-            $question = \ExamQuestion::find($q->question);
-            $wrong[] = [
-              'question' => $question,
-              'answer' => $question->{'answer_'.$q->answer}
-            ];
+        $decoded = json_decode($exam->exam);
+        $wrongset = property_exists($decoded, 'wrong') ? $decoded->wrong : null;
+        if(count($exam->wrong) > 0) {
+            foreach ($wrongset as $q) {
+                $question = \ExamQuestion::find($q->question);
+                $wrong[] = [
+                  'question' => $question,
+                  'answer'   => $question->{'answer_' . $q->answer}
+                ];
+            }
         }
         $data = [
           'exam' => $exam,
-          'wrong' => $wrong
+          'wrong' => is_array($wrong) ? $wrong : 'Wow, 100%! Great job!'
         ];
         if ( ! $exam) {
             return Redirect::back()->with('flash_info', 'No exams found');

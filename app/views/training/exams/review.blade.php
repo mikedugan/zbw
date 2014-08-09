@@ -37,11 +37,15 @@ Exam Review
     <h3 class="text-center">Review &amp; Discussion</h3>
     <div class="well">
         <h5 class="text-center">Wrong Answers</h5>
+        @if(is_array($wrong))
         @foreach($wrong as $question)
             <p><strong>Question: {{ $question['question']->question }}</strong></p>
             <p>Your Answer:<em>{{ $question['answer'] }}</em></p>
             <p>Correct Answer: <em> {{ $question['question']->{'answer_'.Zbw\Base\Helpers::digitToLetter($question['question']->correct)} }}</em></p>
         @endforeach
+        @else
+          <p>{{ $wrong }}</p>
+        @endif
     </div>
     <p>Please discuss your corrections with the staff here.</p>
 </div>

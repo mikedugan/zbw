@@ -38,18 +38,20 @@ class ExamsController extends BaseController
     public function getStaffReview($eid)
     {
         $exam = $this->exams->get($eid);
-        $wrong = [];
-        $wrongset = json_decode($exam->exam)->wrong;
-        foreach($wrongset as $q) {
-            $question = \ExamQuestion::find($q->question);
-            $wrong[] = [
-              'question' => $question,
-              'answer' => $question->{'answer_'.$q->answer}
-            ];
+        $decoded = json_decode($exam->exam);
+        $wrongset = property_exists($decoded, 'wrong') ? $decoded->wrong : null;
+        if(count($wrongset) > 0) {
+            foreach ($wrongset as $q) {
+                $question = \ExamQuestion::find($q->question);
+                $wrong[] = [
+                  'question' => $question,
+                  'answer'   => $question->{'answer_' . $q->answer}
+                ];
+            }
         }
         $data = [
           'exam' => $exam,
-          'wrong' => $wrong
+          'wrong' => is_array($wrong) ? $wrong : 'Wow, 100%! Great job!'
         ];
         return View::make('staff.exams.review', $data);
     }

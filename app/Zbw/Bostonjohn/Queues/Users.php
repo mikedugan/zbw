@@ -44,6 +44,10 @@ class Users {
     {
         $visitor = \VisitorApplicant::find($data);
         $this->users->add($visitor->first_name, $visitor->last_name, $visitor->email, $visitor->home, $visitor->cid, $visitor->rating);
+        $user = \Sentry::findUserById($data);
+        $user->activated = 1;
+        $user->cert = 0;
+        $user->save();
         $this->notifier->acceptVisitorEmail(\User::find($visitor->cid));
         $job->delete();
     }
@@ -51,6 +55,46 @@ class Users {
     public function denyVisitor(Job $job, $data)
     {
         $this->notifier->denyVisitorEmail($data);
+        $job->delete();
+    }
+
+    public function promote(Job $job, $data)
+    {
+        $user = $this->users->get($data);
+        $user->cert = $user->cert + 1;
+        $user->save();
+        $vData = [
+            'student' => $user,
+            'cert' => Helpers::readableCert($user->cert)
+        ];
+        $messages = \App::make('Zbw\Cms\Contracts\MessagesRepositoryInterface');
+        $message = \View::make('zbw.messages.controller_promotion', $vData)->render();
+        $messages->create([
+            'subject' => 'ZBW Promotion',
+            'to' => $user->initials,
+            'message' => str_replace('_USER_', $user->initials, $message)
+        ]);
+
+        $job->delete();
+    }
+
+    public function demote(Job $job, $data)
+    {
+        $user = $this->users->get($data);
+        $user->cert = $user->cert - 1;
+        $user->save();
+        $vData = [
+          'student' => $user,
+          'cert' => Helpers::readableCert($user->cert)
+        ];
+        $messages = \App::make('Zbw\Cms\Contracts\MessagesRepositoryInterface');
+        $message = \View::make('zbw.messages.controller_promotion', $vData)->render();
+        $messages->create([
+          'subject' => 'ZBW Promotion',
+          'to' => $user->initials,
+          'message' => str_replace('_USER_', $user->initials, $message)
+        ]);
+
         $job->delete();
     }
 } 

@@ -20,7 +20,9 @@ Your Training
                 <a class="btn btn-primary" href="/e/request{{ $me->cid}}/{{ $me->cert + 1 }}">Request {{ \Zbw\Base\Helpers::readableCert($me->cert + 1) }} Exam</a>
             @endif
         <a class="btn btn-primary" href="/training/request/new">Request Training</a>
-        <a class="btn btn-primary" href="/training/exam">Take Exam</a>
+        @if($canTake)
+          <a class="btn btn-primary" href="/training/exam">Take Exam</a>
+        @endif
         @if($review)
             <a class="btn btn-primary" href="/training/review">Review Exams</a>
         @endif

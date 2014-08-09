@@ -45,7 +45,7 @@ abstract class EloquentRepository {
         if($withTrash) {
             return $this->make()->withTrashed()->findOrFail($id);
         } else {
-            return $this->make()->firstOrFail($id);
+            return $this->make()->find($id);
         }
     }
 

@@ -192,7 +192,7 @@ class AjaxController extends BaseController
         if ($this->exams->finishReview($id)) {
             return json_encode([
               'success' => true,
-              'message' => 'Exam review complete'
+              'message' => 'Exam review complete. Page reloading in 3 seconds...'
             ]);
         } else {
             return json_encode([
@@ -207,12 +207,12 @@ class AjaxController extends BaseController
         if ($this->exams->reopenReview($id)) {
             return json_encode([
               'success' => true,
-              'message' => 'Exam review complete'
+              'message' => 'Exam review reopened. Page reloading in 3 seconds...'
             ]);
         } else {
             return json_encode([
               'success' => false,
-              'message' => implode(',', $this->exams->getErrors())
+              'message' => $this->exams->getErrors()
             ]);
         }
     }

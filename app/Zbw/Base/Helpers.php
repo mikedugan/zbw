@@ -131,6 +131,7 @@ class Helpers
     public static function readableCert($cert)
     {
         switch ($cert) {
+            case '0':
             case '1':
                 return 'Observer';
                 break;
