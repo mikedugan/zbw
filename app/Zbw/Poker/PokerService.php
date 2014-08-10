@@ -17,7 +17,7 @@ class PokerService implements PokerServiceInterface
 
     /**
      * @name  draw
-     * @description
+     * 
      *
      * @param $input
      *
@@ -35,7 +35,7 @@ class PokerService implements PokerServiceInterface
 
     /**
      * @name  discard
-     * @description
+     * 
      *
      * @param $cardId
      *
@@ -48,7 +48,7 @@ class PokerService implements PokerServiceInterface
 
     /**
      * @name generateCard
-     * @description generates a card string randomly using mt_rand
+     *  generates a card string randomly using mt_rand
      * @return string
      */
     private function generateCard()
@@ -91,7 +91,7 @@ class PokerService implements PokerServiceInterface
 
     /**
      * @name getPilots
-     * @description wrapper function
+     *  wrapper function
      * @return mixed
      */
     public function getPilots()
@@ -101,7 +101,7 @@ class PokerService implements PokerServiceInterface
 
     /**
      * @name getStandings
-     * @description returns the poker standings as a sorted array of pilots
+     *  returns the poker standings as a sorted array of pilots
      * @return array
      */
     public function getStandings()

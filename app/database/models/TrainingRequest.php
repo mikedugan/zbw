@@ -74,8 +74,8 @@ class TrainingRequest extends BaseModel
     {
         $tr = new TrainingRequest();
         $tr->cid = $input['user'];
-        $tr->start = Helpers::convertToCarbon($input['start']);
-        $tr->end = Helpers::convertToCarbon($input['end']);
+        $tr->start = \Carbon::createFromFormat('m-d-Y H:i:s', $input['start']);
+        $tr->end = \Carbon::createFromFormat('m-d-Y H:i:s', $input['end']);
         $tr->cert_id = $input['cert'];
         if($tr->save()) {
             \Queue::push('Zbw\Bostonjohn\Queues\QueueDispatcher@trainingNewRequest', $tr);

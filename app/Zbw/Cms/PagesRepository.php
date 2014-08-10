@@ -2,18 +2,36 @@
 
 use Zbw\Base\EloquentRepository;
 use Zbw\Cms\Contracts\PagesRepositoryInterface;
-use Zbw\Cms\PageCreator;
 
+/**
+ * @package Zbw\Cms
+ * @author  Mike Dugan <mike@mjdugan.com>
+ * @since   2.0.b
+ */
 class PagesRepository extends EloquentRepository implements PagesRepositoryInterface
 {
+    /**
+     * @var PageCreator
+     */
     private $creator;
+
+    /**
+     * @param PageCreator $creator
+     */
     public function __construct(PageCreator $creator)
     {
         $this->creator = $creator;
     }
 
+    /**
+     * @var string
+     */
     public $model = '\Page';
 
+    /**
+     * @param $input
+     * @return bool
+     */
     public function update($input)
     {
         $page = $this->get($input['pid']);
@@ -32,11 +50,19 @@ class PagesRepository extends EloquentRepository implements PagesRepositoryInter
 
     }
 
+    /**
+     * @param $slug
+     * @return mixed
+     */
     public function slug($slug)
     {
         return $this->make()->where('slug', $slug)->first();
     }
 
+    /**
+     * @param $input
+     * @return bool
+     */
     public function create($input)
     {
         $page = new \Page();
@@ -56,6 +82,9 @@ class PagesRepository extends EloquentRepository implements PagesRepositoryInter
         return $this->checkAndSave($page);
     }
 
+    /**
+     * @return array
+     */
     private function makeUploadDirectory()
     {
         $month = date('m');
@@ -68,13 +97,16 @@ class PagesRepository extends EloquentRepository implements PagesRepositoryInter
         return [$directory, $path];
     }
 
+    /**
+     * @static * @return \Illuminate\Database\Eloquent\Collection|static[]
+     */
     public static function orphaned()
     {
         return \Page::where('menu_id', null)->get();
     }
 
     /**
-     * @description
+     * 
      * @param $filesnames
      * @return mixed
      */

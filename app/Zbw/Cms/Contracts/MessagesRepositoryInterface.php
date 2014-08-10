@@ -34,7 +34,7 @@ interface MessagesRepositoryInterface
     /**
      * @type static
      * @name       newMessageCount
-     * @description
+     * 
      *
      * @param null $cid
      *

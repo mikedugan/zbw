@@ -161,4 +161,13 @@ class TrainingController extends BaseController
         }
     }
 
+    public function postDropAdopt($cid)
+    {
+        if($this->users->dropAdopt($cid)) {
+            return Redirect::back()->with('flash_success', 'Adoption dropped successfully');
+        } else {
+            return Redirect::back()->with('flash_error', $this->users->getErrors());
+        }
+    }
+
 }

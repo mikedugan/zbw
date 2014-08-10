@@ -21,6 +21,7 @@ Route::group(
             Route::post('exams/questions', ['as' => 'exams/add-question', 'uses' => 'ExamsController@addQuestion']);
             Route::get('adopt/{cid}', ['as' => 'staff/adopt/{cid}', 'uses' => 'TrainingController@getAdopt']);
             Route::post('adopt/{cid}', ['as' => 'staff/adopt/{cid}', 'uses' => 'TrainingController@postAdopt']);
+            Route::post('adopt/{cid}/drop', ['as' => 'staff/adopt/{cid}/drop', 'uses' => 'TrainingController@getDropAdopt']);
             Route::get('roster', ['as' => 'roster', 'uses' => 'RosterController@getAdminIndex']);
             Route::post('roster/groups/add', ['as' => 'staff/roster/add-group', 'uses' => 'RosterController@postGroup']);
             Route::post('roster/groups/update', ['as' => 'staff/roster/edit-group', 'uses' => 'RosterController@updateGroup']);

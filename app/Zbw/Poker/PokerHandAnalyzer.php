@@ -3,7 +3,7 @@
 class PokerHandAnalyzer {
 
     /**
-     * @description do a little low-level usort magic on the total weight of the hands
+     *  do a little low-level usort magic on the total weight of the hands
      * @param array $hands
      * @return array
      */
@@ -17,7 +17,7 @@ class PokerHandAnalyzer {
     }
 
     /**
-     * @description array wrapper for the hand analyzer
+     *  array wrapper for the hand analyzer
      * @param array $hands
      * @return array
      */
@@ -32,7 +32,7 @@ class PokerHandAnalyzer {
 
     /**
      * written by Ross Carlson (vatsim@metacraft.net)
-     * @description analyzes a poker hand
+     *  analyzes a poker hand
      * @param array $cards
      * @return indexed_array('name', 'rank', 'total_weight', 'relative_weight', array('cards'))
      */

@@ -2,6 +2,11 @@
 
 use Illuminate\Support\ServiceProvider;
 
+/**
+ * @package Zbw\Cms
+ * @author  Mike Dugan <mike@mjdugan.com>
+ * @since   2.0.1b
+ */
 class CmsServiceProvider extends ServiceProvider {
     public function register()
     {

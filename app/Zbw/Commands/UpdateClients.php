@@ -22,9 +22,6 @@ class UpdateClients extends Command
      */
     protected $description = 'Updates VATSIM ATC and pilot clients.';
 
-    /**
-     *
-     */
     public function __construct()
     {
         parent::__construct();

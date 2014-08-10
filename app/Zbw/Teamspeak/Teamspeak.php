@@ -87,7 +87,7 @@ class Teamspeak
     /**
      * nonstatic
      * @name registerKey
-     * @description
+     * 
      * @param $current_uid
      * @param $tskey
      * @return void
@@ -104,7 +104,7 @@ class Teamspeak
     /**
      * nonstatic
      * @name parseNickname
-     * @description
+     * 
      * @param $client
      * @return array
      */
@@ -122,7 +122,7 @@ class Teamspeak
     /**
      * nonstatic
      * @name loadServerClients
-     * @description
+     * 
      * @return mixed
      */
     private function loadServerClients()
@@ -137,7 +137,7 @@ class Teamspeak
     /**
      * nonstatic
      * @name manageUsedKey
-     * @description
+     * 
      * @param $tskey
      * @param $current_uid
      * @return void
@@ -158,7 +158,7 @@ class Teamspeak
     /**
      * nonstatic
      * @name validateUser
-     * @description
+     * 
      * @param $current_uid
      * @param $user
      * @return void
@@ -178,7 +178,7 @@ class Teamspeak
     /**
      * nonstatic
      * @name manageUser
-     * @description
+     * 
      * @param $clientList
      * @return void
      */

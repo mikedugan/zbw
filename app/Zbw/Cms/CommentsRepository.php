@@ -3,12 +3,20 @@
 use Zbw\Base\EloquentRepository;
 use Zbw\Cms\Contracts\CommentsRepositoryInterface;
 
+/**
+ * @package Cms
+ * @author  Mike Dugan <mike@mjdugan.com>
+ * @since   2.0.b
+ */
 class CommentsRepository extends EloquentRepository implements CommentsRepositoryInterface
 {
+    /**
+     *
+     */
     public $model = '\Comment';
 
     /**
-     * @description creates a new Comment
+     *  creates a new Comment
      * @param $input
      * @return bool
      */
@@ -23,7 +31,7 @@ class CommentsRepository extends EloquentRepository implements CommentsRepositor
     }
 
     /**
-     * @description updates an existing Comment
+     *  updates an existing Comment
      * @param $input
      * @return bool
      */
@@ -37,6 +45,10 @@ class CommentsRepository extends EloquentRepository implements CommentsRepositor
         return $this->checkAndSave($comment);
     }
 
+    /**
+     * @param $input
+     * @return void
+     */
     public function create($input)
     {
 

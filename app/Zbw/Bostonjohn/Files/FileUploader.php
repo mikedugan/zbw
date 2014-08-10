@@ -2,18 +2,35 @@
 
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
+/**
+ * @package Bostonjohn
+ * @author  Mike Dugan <mike@mjdugan.com>
+ * @since   2.0.1b
+ */
 class FileUploader
 {
 
     private $file;
     private $validator;
 
+    /**
+     * @param UploadedFile $file
+     */
     public function __construct(UploadedFile $file)
     {
         $this->file = $file;
         $this->validator = new FileValidator($file);
     }
 
+    /**
+     * Main function that uploads the file
+     *
+     * @param null $path
+     * @param null $name
+     * @throws \Zbw\Bostonjohn\Files\Exceptions\MaxFilesizeExceededException
+     * @throws \Zbw\Bostonjohn\Files\Exceptions\MimeExtensionMismatchException
+     * @return void
+     */
     public function upload($path = null, $name = null)
     {
         try {
@@ -32,6 +49,11 @@ class FileUploader
 
     }
 
+    /**
+     * @param $path
+     * @param $name
+     * @return void
+     */
     private function moveToPath($path, $name)
     {
         if($name) {
@@ -41,6 +63,10 @@ class FileUploader
         }
     }
 
+    /**
+     * @param $name
+     * @return void
+     */
     private function moveToDefaultPath($name)
     {
         if($name) {

@@ -27,9 +27,11 @@
 </div>
 <div class="col-md-6">
     <h3>Recent Exams</h3>
-    @foreach($me->exams as $exam)
-        <p>{{ Zbw\Base\Helpers::readableCert($exam->cert->id) . ' on ' . $exam->created_at->toFormattedDateString() }}</p>
-    @endforeach
+    @unless(count($me->exams) == 0)
+      @foreach($me->exams as $exam)
+          <p>{{ Zbw\Base\Helpers::readableCert($exam->cert_type_id) . ' on ' . $exam->created_at->toFormattedDateString() }}</p>
+      @endforeach
+    @endunless
     <h3>Recent Training</h3>
     @foreach($me->training()->limit(10)->get() as $session)
         <p>{{ $session->created_at->toFormattedDateString() . ' at ' . $session->facility->value }}</p>

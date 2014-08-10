@@ -4,6 +4,11 @@ use Zbw\Base\EloquentRepository;
 use Zbw\Users\Contracts\UserRepositoryInterface;
 use Zbw\Cms\Contracts\MessagesRepositoryInterface;
 
+/**
+ * @package Zbw\Cms
+ * @author  Mike Dugan <mike@mjdugan.com>
+ * @since   2.0.b
+ */
 class MessagesRepository extends EloquentRepository implements MessagesRepositoryInterface
 {
 
@@ -12,9 +17,18 @@ class MessagesRepository extends EloquentRepository implements MessagesRepositor
     const EVENT_COMMENT = 3;
     const NEWS_COMMENT = 4;
     const EXAM_COMMENT = 5;
+    /**
+     * @var UserRepositoryInterface
+     */
     private $users;
+    /**
+     * @var string
+     */
     public $model = '\Message';
 
+    /**
+     * @param UserRepositoryInterface $users
+     */
     public function __construct(UserRepositoryInterface $users)
     {
         $this->users = $users;
@@ -88,9 +102,8 @@ class MessagesRepository extends EloquentRepository implements MessagesRepositor
     }
 
     /**
-     * @type static
-     * @name       newMessageCount
-     * @description
+     * @static
+     * 
      *
      * @param null $cid
      *
@@ -99,10 +112,9 @@ class MessagesRepository extends EloquentRepository implements MessagesRepositor
     public static function newMessageCount($cid = null)
     {
         $cid = is_null($cid) ? \Sentry::getUser()->cid : $cid;
-        return \Message::where('to', $cid)->where(
-          'cid',
-          \Sentry::getUser()->cid
-        )->where('is_read', 0)->get(['id'])->count();
+        return \Message::where('to', $cid)
+                        ->where('cid', \Sentry::getUser()->cid)
+                        ->where('is_read', 0)->get(['id'])->count();
     }
 
     /**
@@ -130,6 +142,10 @@ class MessagesRepository extends EloquentRepository implements MessagesRepositor
         return $errors;
     }
 
+    /**
+     * @param $input
+     * @return bool|string
+     */
     public function create($input)
     {
         $from = \Sentry::check() ? \Sentry::getUser()->cid : 100;
@@ -232,6 +248,10 @@ class MessagesRepository extends EloquentRepository implements MessagesRepositor
                     ->orderBy('created_at', 'DESC')->get();
     }
 
+    /**
+     * @param $input
+     * @return void
+     */
     public function update($input)
     {
 

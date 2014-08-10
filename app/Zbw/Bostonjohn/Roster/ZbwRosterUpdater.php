@@ -1,16 +1,42 @@
 <?php  namespace Zbw\Bostonjohn\Roster;
 
+use Zbw\Bostonjohn\Roster\Contracts\RosterUpdater;
 use Zbw\Users\Contracts\UserRepositoryInterface;
 use Curl\Curl;
 use Zbw\Base\Helpers;
+use Zbw\Bostonjohn\Roster\Exceptions\RosterUpdaterException;
 
-class RosterJsonMigrator {
+/**
+ * @package Bostonjohn
+ * @author Mike Dugan <mike@mjdugan.com>
+ * @since 2.0.0b
+ */
+class ZbwRosterUpdater implements RosterUpdater
+{
+    /**
+     * @var string
+     */
     private $url;
+
+    /**
+     * @var \Zbw\Users\UserRepository
+     */
     private $users;
+
+    /**
+     * @var \Curl\Curl
+     */
     private $curl;
+
+    /**
+     * @var array
+     */
     private $staff;
 
-
+    /**
+     * @param UserRepositoryInterface $users
+     * @param Curl                    $curl
+     */
     public function __construct(UserRepositoryInterface $users, Curl $curl)
     {
         $this->users = $users;
@@ -28,8 +54,12 @@ class RosterJsonMigrator {
         ];
     }
 
-
-    public function migrate()
+    /**
+     *  the global function to update the roster from ZBW
+     * @throws Exceptions\RosterUpdaterException
+     * @return array
+     */
+    public function update()
     {
         $new = 0;
         $updates = 0;
@@ -47,12 +77,22 @@ class RosterJsonMigrator {
         return [$new, $updates];
     }
 
+    /**
+     *  retrieves and decodes raw json
+     * @return mixed
+     */
     private function retrieve()
     {
         $this->curl->get($this->url);
         return json_decode($this->curl->response);
     }
 
+    /**
+     *  creates a user
+     * @param $user
+     * @throws Exceptions\RosterUpdaterException
+     * @return void
+     */
     private function createUser($user)
     {
         $u = new \User();
@@ -61,7 +101,7 @@ class RosterJsonMigrator {
         $u->last_name = $user->last_name;
         $u->username = $user->first_name . ' ' . $user->last_name;
         $u->initials = $user->initials;
-        $u->password = Helpers::createPassword();
+        $u->password = str_random(20);
         $u->email = $user->email;
         $rating = \Rating::where('short', $user->rating)->first();
         $u->rating_id = $rating->id;
@@ -98,9 +138,14 @@ class RosterJsonMigrator {
                 break;
         }
 
-        return $u->save();
+        if(! $u->save()) { throw new RosterUpdaterException('Unable to save user'); }
     }
 
+    /**
+     *  updates an exisiting user
+     * @param $user
+     * @return bool
+     */
     private function updateUser($user)
     {
         $u = \User::find($user->cid);

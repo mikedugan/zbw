@@ -1,5 +1,10 @@
-<?php  namespace Zbw\Events; 
+<?php  namespace Zbw\Events;
 
+/**
+ * @package Zbw\Events
+ * @author  Mike Dugan <mike@mjdugan.com>
+ * @since   2.0.1b
+ */
 class TrainingEventHandler {
 
     public function subscribe($events)

@@ -7,7 +7,7 @@ interface UserRepositoryInterface
 {
     /**
      * @name  findByInitials
-     * @description
+     * 
      *
      * @param $initials
      *
@@ -18,14 +18,14 @@ interface UserRepositoryInterface
     /**
      * @type
      * @name allVitals
-     * @description returns vital user data
+     *  returns vital user data
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
     public function allVitals();
 
     /**
      * @name       add
-     * @description
+     * 
      *
      * @param      $fname
      * @param      $lname
@@ -42,7 +42,7 @@ interface UserRepositoryInterface
     /**
      * @type
      * @name       updateUser
-     * @description updates an existing user
+     *  updates an existing user
      *
      * @param      $input
      * @param null $cid
@@ -53,7 +53,7 @@ interface UserRepositoryInterface
 
     /**
      * @name  authUpdate
-     * @description
+     * 
      *
      * @param $user
      *
@@ -64,7 +64,7 @@ interface UserRepositoryInterface
     /**
      * @type
      * @name  createInitials
-     * @description
+     * 
      *
      * @param $fname
      * @param $lname
@@ -76,7 +76,7 @@ interface UserRepositoryInterface
     /**
      * @type
      * @name  search
-     * @description
+     * 
      *
      * @param $input
      *
@@ -87,7 +87,7 @@ interface UserRepositoryInterface
     /**
      * @type
      * @name  suspendUser
-     * @description
+     * 
      *
      * @param $id
      *
@@ -98,7 +98,7 @@ interface UserRepositoryInterface
     /**
      * @type
      * @name  unsuspendUser
-     * @description
+     * 
      *
      * @param $id
      *
@@ -109,7 +109,7 @@ interface UserRepositoryInterface
     /**
      * @type
      * @name  terminateUser
-     * @description
+     * 
      *
      * @param $id
      *
@@ -120,7 +120,7 @@ interface UserRepositoryInterface
     /**
      * @type
      * @name  unterminateUser
-     * @description
+     * 
      *
      * @param $id
      *
@@ -131,7 +131,7 @@ interface UserRepositoryInterface
     /**
      * @type
      * @name  activateUser
-     * @description
+     * 
      *
      * @param $id
      *
@@ -141,7 +141,7 @@ interface UserRepositoryInterface
 
     /**
      * @name getStaff
-     * @description
+     * 
      * @return mixed
      */
     public function getStaff();
@@ -149,7 +149,7 @@ interface UserRepositoryInterface
     /**
      * @type static
      * @name  canTrain
-     * @description
+     * 
      *
      * @param $level
      *
@@ -164,7 +164,7 @@ interface UserRepositoryInterface
 
     /**
      * @name  checkUser
-     * @description
+     * 
      *
      * @param $user
      *
@@ -174,7 +174,7 @@ interface UserRepositoryInterface
 
     /**
      * @name  updateSettings
-     * @description
+     * 
      *
      * @param $input
      *
@@ -184,7 +184,7 @@ interface UserRepositoryInterface
 
     /**
      * @name  updateNotifications
-     * @description
+     * 
      *
      * @param $input
      *

@@ -23,7 +23,7 @@ class ImportExamQuestions extends Command
     /**
      * Create a new command instance.
      *
-     * @return UpdateMetars
+     * @return ImportExamQuestions
      */
     public function __construct()
     {

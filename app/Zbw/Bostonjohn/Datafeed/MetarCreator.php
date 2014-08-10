@@ -2,8 +2,12 @@
 
 use Curl\Curl;
 use Zbw\Bostonjohn\Datafeed\Contracts\MetarCreatorInterface;
-use Zbw\Bostonjohn\Datafeed\MetarParser;
 
+/**
+ * @package Zbw\Bostonjohn\Datafeed
+ * @author  Mike Dugan <mike@mjdugan.com>
+ * @since   2.0.1b
+ */
 class MetarCreator implements MetarCreatorInterface
 {
 
@@ -14,6 +18,11 @@ class MetarCreator implements MetarCreatorInterface
         $this->curl = new Curl();
     }
 
+    /**
+     * iterator that wraps the metar creator itself
+     *
+     * @return void
+     */
     public function updateMetars()
     {
         $airports = \Config::get('zbw.metar_airports');
@@ -32,8 +41,8 @@ class MetarCreator implements MetarCreatorInterface
     }
 
     /**
-     * @name  createMetar
-     * @description
+     * creates the metar for an airport
+     *
      * @param string $airport
      * @param MetarParser $parser
      * @return void

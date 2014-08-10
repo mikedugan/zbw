@@ -2,14 +2,36 @@
 
 use Curl\Curl;
 use Zbw\Bostonjohn\Queue;
+use Zbw\Bostonjohn\Roster\Contracts\RosterUpdater;
 use Zbw\Users\Contracts\UserRepositoryInterface;
 
-class RosterXmlParser
+/**
+ * @package Bostonjohn
+ * @author Mike Dugan <mike@mjdugan.com>
+ * @since 2.0.0b
+ */
+class VatusaRosterUpdater implements RosterUpdater
 {
 
+    /**
+     * @var string
+     */
     private $roster_url;
+
+    /**
+     * @var Curl
+     */
     private $curl;
 
+    /**
+     * @var \Zbw\Users\UserRepository
+     */
+    private $users;
+
+    /**
+     * @param UserRepositoryInterface $users
+     * @param Curl                    $curl
+     */
     public function __construct(UserRepositoryInterface $users, Curl $curl)
     {
         $this->users = $users;
@@ -22,7 +44,11 @@ class RosterXmlParser
         );
     }
 
-    public function updateRoster()
+    /**
+     * 
+     * @return int
+     */
+    public function update()
     {
         $roster = $this->getRosterXmlObject();
         $counter = 0;
@@ -36,6 +62,10 @@ class RosterXmlParser
         return $counter;
     }
 
+    /**
+     * 
+     * @return \SimpleXMLElement
+     */
     private function getRosterXmlObject()
     {
         $this->curl->get($this->roster_url);

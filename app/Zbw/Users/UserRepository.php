@@ -3,6 +3,7 @@
 use Zbw\Base\EloquentRepository;
 use Zbw\Bostonjohn\Emailer;
 use Zbw\Base\Helpers;
+use Zbw\Bostonjohn\Files\FileValidator;
 use Zbw\Bostonjohn\ZbwLog;
 use Zbw\Users\Contracts\UserRepositoryInterface;
 
@@ -21,7 +22,7 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
     /**
      * @type
      * @name allVitals
-     * @description returns vital user data
+     *  returns vital user data
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
     public function allVitals()
@@ -64,7 +65,7 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
 
     /**
      * @name updateUser
-     * @description updates an existing user
+     *  updates an existing user
      * @param $input
      * @param null $cid
      * @return bool
@@ -182,7 +183,7 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
     /**
      * @type
      * @name createInitials
-     * @description
+     * 
      * @param $fname
      * @param $lname
      * @return string
@@ -211,7 +212,7 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
     /**
      * @type
      * @name trainingProgress
-     * @description
+     * 
      * @param $id
      * @return float
      */
@@ -223,7 +224,7 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
     /**
      * @type
      * @name search
-     * @description
+     * 
      * @param $input
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
@@ -264,7 +265,7 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
     /**
      * @type
      * @name suspendUser
-     * @description
+     * 
      * @param $id
      * @return bool
      */
@@ -288,7 +289,7 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
     /**
      * @type
      * @name unsuspendUser
-     * @description
+     * 
      * @param $id
      * @return bool
      */
@@ -312,7 +313,7 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
     /**
      * @type
      * @name terminateUser
-     * @description
+     * 
      * @param $id
      * @return bool
      */
@@ -336,7 +337,7 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
     /**
      * @type
      * @name unterminateUser
-     * @description
+     * 
      * @param $id
      * @return bool
      */
@@ -360,7 +361,7 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
     /**
      * @type
      * @name activateUser
-     * @description
+     * 
      * @param $id
      * @return bool
      */
@@ -382,7 +383,7 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
      * @type
      * @name isStaff
      * @deprecated
-     * @description
+     * 
      * @param $id
      * @return bool
      */
@@ -397,7 +398,7 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
      * @type
      * @name isExecutive
      * @deprecated
-     * @description
+     * 
      * @param $id
      * @return bool
      */
@@ -447,6 +448,8 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
     public function updateSettings($input)
     {
         $u = \Sentry::getUser();
+
+
         if(isset($input['email_hidden']) && $input['email_hidden'] === 'true') $input['email_hidden'] = 1;
         else $input['email_hidden'] = 0;
         unset($input['avatar']);
@@ -454,8 +457,11 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
         if(\Input::hasFile('avatar')) {
             $path = public_path().'/uploads/avatars/';
             $avatar = \Input::file('avatar');
-            $avatar->move($path, $u->cid . '.' . $avatar->getClientOriginalExtension());
-            $u->settings->avatar = '/uploads/avatars/'.$u->cid.'.'.$avatar->getClientOriginalExtension();
+            $file_validator = new FileValidator($avatar);
+            if($file_validator->isValid()) {
+                $avatar->move($path, $u->cid . '.' . $avatar->getClientOriginalExtension());
+                $u->settings->avatar = '/uploads/avatars/' . $u->cid . '.' . $avatar->getClientOriginalExtension();
+            }
         }
         return $u->save() && $u->settings->save();
     }
@@ -475,6 +481,14 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
     public function getAdoptedStudents()
     {
         return $this->make()->where('adopted_by', '>', 100)->with(['adopter'])->get();
+    }
+
+    public function dropAdopt($student)
+    {
+        $student = $this->get($student);
+        $student->adopted_by = null;
+        $student->adopted_on = null;
+        return $this->checkAndSave($student);
     }
 
     public function adopt($student, $staff)

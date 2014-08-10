@@ -60,7 +60,7 @@ class OAuthRequest {
 
     /**
      * @name       set_parameter
-     * @description
+     * 
      *
      * @param      $name
      * @param      $value
@@ -85,7 +85,7 @@ class OAuthRequest {
 
     /**
      * @name  get_parameter
-     * @description
+     * 
      *
      * @param $name
      *
@@ -97,7 +97,7 @@ class OAuthRequest {
 
     /**
      * @name get_parameters
-     * @description
+     * 
      * @return array
      */
     public function get_parameters() {
@@ -106,7 +106,7 @@ class OAuthRequest {
 
     /**
      * @name  unset_parameter
-     * @description
+     * 
      *
      * @param $name
      *
@@ -226,7 +226,7 @@ class OAuthRequest {
 
     /**
      * @name __toString
-     * @description
+     * 
      * @return string
      */
     public function __toString() {
@@ -235,7 +235,7 @@ class OAuthRequest {
 
     /**
      * @name  sign_request
-     * @description
+     * 
      *
      * @param $signature_method
      * @param $consumer
@@ -255,7 +255,7 @@ class OAuthRequest {
 
     /**
      * @name  build_signature
-     * @description
+     * 
      *
      * @param $signature_method
      * @param $consumer

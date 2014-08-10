@@ -5,6 +5,11 @@ use Zbw\Base\Helpers;
 use Carbon\Carbon;
 use Zbw\Bostonjohn\Datafeed\Contracts\VatsimDataInterface;
 
+/**
+ * @package Bostonjohn
+ * @author  Mike Dugan <mike@mjdugan.com>
+ * @since   2.0.1b
+ */
 class Vatsim implements VatsimDataInterface
 {
     private $status_url;
@@ -17,8 +22,8 @@ class Vatsim implements VatsimDataInterface
     }
 
     /**
-     * @name updateStatus
-     * @description updates the vatsim datafeeds
+     * Updates the vatsim datafeeds
+     *
      * @return bool
      */
     public function updateStatus()
@@ -28,8 +33,8 @@ class Vatsim implements VatsimDataInterface
     }
 
     /**
-     * @name resetCurl
-     * @description resets the curl object
+     * Resets the curl object
+     *
      * @return void
      */
     private function resetCurl()
@@ -38,8 +43,8 @@ class Vatsim implements VatsimDataInterface
     }
 
     /**
-     * @name getStatus
-     * @description retrieves the vatsim status page
+     * Retrieves the vatsim status page
+     *
      * @return void
      */
     private function getStatus()
@@ -48,8 +53,8 @@ class Vatsim implements VatsimDataInterface
     }
 
     /**
-     * @name parseStatus
-     * @description parses the status page into urls
+     * Parses the status page into urls
+     *
      * @return array
      */
     private function parseStatus()
@@ -88,8 +93,8 @@ class Vatsim implements VatsimDataInterface
     }
 
     /**
-     * @name  save
-     * @description saves the datafeed urls
+     * Saves the datafeed urls
+     *
      * @param $data
      * @return bool
      */

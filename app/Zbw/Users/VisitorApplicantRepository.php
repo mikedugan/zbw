@@ -3,10 +3,23 @@
 use Zbw\Base\EloquentRepository;
 use Zbw\Users\Contracts\VisitorApplicantRepositoryInterface;
 
+/**
+ * @package Users
+ * @author  Mike Dugan <mike@mjdugan.com>
+ * @since   2.0.8b
+ */
 class VisitorApplicantRepository extends EloquentRepository implements VisitorApplicantRepositoryInterface
 {
+    /**
+     * @var string
+     */
     public $model = '\VisitorApplicant';
 
+    /**
+     * @param $staff
+     * @param $visitor_id
+     * @return bool|mixed
+     */
     public function accept($staff, $visitor_id)
     {
         $visitor = $this->make()->find($visitor_id);
@@ -20,6 +33,11 @@ class VisitorApplicantRepository extends EloquentRepository implements VisitorAp
         }
     }
 
+    /**
+     * @param $staff
+     * @param $input
+     * @return array|bool
+     */
     public function deny($staff, $input)
     {
         $visitor = $this->make()->find($input['visitor']);
@@ -34,11 +52,20 @@ class VisitorApplicantRepository extends EloquentRepository implements VisitorAp
         }
     }
 
+    /**
+     * @param $id
+     * @return int
+     */
     public function delete($id)
     {
         return \VisitorApplicant::destroy($id);
     }
 
+    /**
+     * @param $staff
+     * @param $input
+     * @return bool
+     */
     public function comment($staff, $input)
     {
         $visitor = $this->make()->find($input['visitor']);
@@ -46,6 +73,11 @@ class VisitorApplicantRepository extends EloquentRepository implements VisitorAp
         return $this->checkAndSave($visitor);
     }
 
+    /**
+     * @param $staff
+     * @param $input
+     * @return bool
+     */
     public function addLor($staff, $input)
     {
         $visitor = $this->make()->find($input['visitor']);
@@ -56,11 +88,19 @@ class VisitorApplicantRepository extends EloquentRepository implements VisitorAp
         return $this->checkAndSave($visitor);
     }
 
+    /**
+     * @param $input
+     * @return void
+     */
     public function update($input)
     {
 
     }
 
+    /**
+     * @param $input
+     * @return bool
+     */
     public function create($input)
     {
           $visitor = $this->make();

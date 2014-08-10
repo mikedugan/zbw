@@ -5,6 +5,11 @@ use Zbw\Bostonjohn\Notify\Contracts\MailInterface;
 use Zbw\Base\Helpers;
 use Zbw\Users\Contracts\UserRepositoryInterface;
 
+/**
+ * @package Bostonjohn
+ * @author  Mike Dugan <mike@mjdugan.com>
+ * @since   2.0.8b
+ */
 class Mail extends Notifier implements MailInterface
 {
     private $mailer;
@@ -15,7 +20,7 @@ class Mail extends Notifier implements MailInterface
     }
 
     /**
-     * @description wrapper for Illuminate\Mail\Mailer::send
+     *  wrapper for Illuminate\Mail\Mailer::send
      * @param $to_email
      * @param $to_name
      * @param $subject
@@ -29,7 +34,7 @@ class Mail extends Notifier implements MailInterface
     }
 
     /**
-     * @description builds message to/from/subject
+     *  builds message to/from/subject
      * @param $message
      * @param $to_name
      * @param $to_email

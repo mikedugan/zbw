@@ -1,18 +1,33 @@
 <?php namespace Zbw\Cms;
 
 use Zbw\Base\EloquentRepository;
-use Zbw\Validators\BaseValidator;
 use Zbw\Cms\Contracts\NewsRepositoryInterface;
 
+/**
+ * @package Cms
+ * @author  Mike Dugan <mike@mjdugan.com>
+ * @since   2.0.1b
+ */
 class NewsRepository extends EloquentRepository implements NewsRepositoryInterface
 {
+    /**
+     * @var string
+     */
     public $model = '\News';
 
+    /**
+     * @param $lim
+     * @return mixed
+     */
     public function front($lim)
     {
         return $this->make()->where('audience_type_id', '=', '1')->where('news_type_id', '!=', '5')->orderBy('created_at', 'DESC')->limit($lim)->get();
     }
 
+    /**
+     * @param null $lim
+     * @return mixed
+     */
     public function controllers($lim = null)
     {
         if($lim) {
@@ -22,6 +37,10 @@ class NewsRepository extends EloquentRepository implements NewsRepositoryInterfa
         }
     }
 
+    /**
+     * @param null $lim
+     * @return mixed
+     */
     public function pilots($lim = null)
     {
         if($lim) {
@@ -37,24 +56,31 @@ class NewsRepository extends EloquentRepository implements NewsRepositoryInterfa
         return $this->make()->all();
     }
 
+    /**
+     * @param      $id
+     * @param null $relations
+     * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|null|static
+     */
     public function find($id, $relations = null)
     {
         return $relations ? $this->make()->with($relations)->find($id) : $this->make()->find($id);
     }
 
+    /**
+     * @param $id
+     * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|null|static
+     */
     public function findWithRelations($id)
     {
         return $this->make()->with(['Facility'])->find($id);
     }
 
+    /**
+     * @param $input
+     * @return bool
+     */
     public function add($input)
     {
-        //just in case a user forgot to properly set the date on the news
-        /*if( ! $input['starts']) { $starts = \Carbon::now(); }
-        else { $starts = \Carbon::createFromFormat('Y/m/d H:i', $input['starts']); }
-        if( ! $input['ends']) { $ends = \Carbon::now()->addWeek(); }
-        else { $ends = \Carbon::createFromFormat('Y/m/d H:i', $input['ends']); }*/
-        //create the object
         $n = new $this->model;
         $n->title = $input['title'];
         $n->starts = \Carbon::createFromFormat('m-d-Y H:i:s', $input['starts']);
@@ -67,6 +93,10 @@ class NewsRepository extends EloquentRepository implements NewsRepositoryInterfa
         return $this->checkAndSave($n);
     }
 
+    /**
+     * @param $input
+     * @return bool
+     */
     public function update($input)
     {
         $input['starts'] = \Carbon::createFromFormat('Y-m-d H:i:s', $input['starts']);
@@ -84,42 +114,76 @@ class NewsRepository extends EloquentRepository implements NewsRepositoryInterfa
         return $this->checkAndSave($n);
     }
 
+    /**
+     * @param $id
+     * @return int
+     */
     public function delete($id)
     {
         return $this->make()->destroy($id);
     }
 
+    /**
+     * @param        $lim
+     * @param string $direction
+     * @return mixed
+     */
     public function staffNews($lim, $direction = 'DESC')
     {
         return $this->make()->where('news_type_id', '=', 5)->limit($lim)->orderBy('starts', $direction)->get();
     }
 
+    /**
+     * @param        $num
+     * @param string $direction
+     * @return mixed
+     */
     public function recentNews($num, $direction = 'DESC')
     {
         return $this->make()->where('news_type_id', '!=', 5)->where('news_type_id', '!=', 1)
                 ->limit($num)->orderBy('starts', $direction)->get();
     }
 
+    /**
+     * @return mixed
+     */
     public function events()
     {
         return $this->make()->where('news_type_id', '=', '1')->get();
     }
 
+    /**
+     * @return mixed
+     */
     public function activeEvents()
     {
         return $this->make()->where('ends', '>', \Carbon::now())->where('starts', '<', \Carbon::now())->get();
     }
 
+    /**
+     * @param        $lim
+     * @param string $sortBy
+     * @param string $direction
+     * @return mixed
+     */
     public function expiredEvents($lim, $sortBy = 'ends', $direction = 'DESC')
     {
         return $this->make()->where('ends', '<', \Carbon::now())->where('news_type_id', '=', 1)->limit($lim)->orderBy($sortBy, $direction)->get();
     }
 
+    /**
+     * @param $lim
+     * @return mixed
+     */
     public function upcomingEvents($lim)
     {
         return $this->make()->where('starts', '>', \Carbon::now())->orderBy('starts')->limit($lim)->get();
     }
 
+    /**
+     * @param $input
+     * @return void
+     */
     public function create($input)
     {
 

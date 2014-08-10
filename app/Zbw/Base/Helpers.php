@@ -3,15 +3,19 @@ namespace Zbw\Base;
 
 use Carbon\Carbon;
 
+/**
+ * @package Base
+ * @author  Mike Dugan <mike@mjdugan.com>
+ * @since   2.0.1b
+ */
 class Helpers
 {
 
     /**
-     * @summary given a date string, returns the relative time difference
+     * given a date string, returns the relative time difference
      *
-     * @param string $date
-     *
-     * @return \Carbon DateTime difference
+     * @param string|\Carbon $date
+     * @return string
      */
     public static function timeAgo($date)
     {
@@ -20,11 +24,10 @@ class Helpers
     }
 
     /**
-     * @summary returns the total number of wrong questions
+     * returns the total number of wrong questions
      *
      * @param \ControllerExam $exam
-     *
-     * @return integer
+     * @return double
      */
     public static function getScore($exam)
     {
@@ -32,11 +35,11 @@ class Helpers
     }
 
     /**
-     * @summary Returns an array or CSV list of CIDs
-     *
+     * Returns an array or CSV list of CIDs
+     * @static
      * @param boolean $csv
-     *
      * @return array
+     * @deprecated 2.0.9b - use lists on the UserRepository
      */
     public static function getCids($csv = false)
     {
@@ -46,6 +49,14 @@ class Helpers
         ) : array_values(\DB::table('users')->lists('cid'));
     }
 
+    /**
+     * deprecated - do not use
+     *
+     * @static
+     * @param bool $csv
+     * @return array|string
+     * @deprecated 2.0.9b   use lists on the UserRepository
+     */
     public static function getSids($csv = false)
     {
         return $csv ? implode(
@@ -59,6 +70,12 @@ class Helpers
           );
     }
 
+    /**
+     * @static
+     * @param bool $csv
+     * @return array|string
+     * @deprecated 2.0.9b   use lists on the UserRepository
+     */
     public static function getTids($csv = false)
     {
         return $csv ? implode(
@@ -81,11 +98,8 @@ class Helpers
     }
 
     /**
-     * @type static
-     * @name  readableRating
-     * @deprecated
-     * @description returns a readable rating string
-     * @deprecated left to prevent breakage
+     * @static
+     * @deprecated 2.0.7b   left to prevent breakage
      * @param $rating
      * @return string
      */
@@ -122,9 +136,9 @@ class Helpers
     }
 
     /**
-     * @type static
-     * @name  readableCert
-     * @description returns a readable ZBW cert string
+     * Returns a user-readable rendition of a cert
+     *
+     * @static
      * @param $cert
      * @return string
      */
@@ -180,6 +194,11 @@ class Helpers
         }
     }
 
+    /**
+     * @static
+     * @param $input
+     * @return int
+     */
     public static function letterToDigit($input)
     {
         switch($input) {
@@ -192,6 +211,11 @@ class Helpers
         }
     }
 
+    /**
+     * @static
+     * @param $input
+     * @return string
+     */
     public static function digitToLetter($input)
     {
         switch($input) {
@@ -204,10 +228,18 @@ class Helpers
         }
     }
 
+    /**
+     * Creates a readable string of a \User staff status
+     *
+     * @static
+     * @param \User $controller
+     * @param string $delim
+     * @return string
+     */
     public static function staffStatusString($controller, $delim = ', ')
     {
         $status = [];
-        if($controller->is_atm) $status[0] = 'ATM';
+        if($controller->is('ATM')) $status[0] = 'ATM';
         else if($controller->is('DATM')) $status[0] = 'DATM';
         else if($controller->is('TA')) $status[0] = 'TA';
         else if($controller->is('WEB')) $status[0] = 'Webmaster';
@@ -219,31 +251,11 @@ class Helpers
     }
 
     /**
-     * @deprecated
-     * use vatsim auth instead
+     * @static
+     * @param $text
+     * @param bool $r
+     * @return array
      */
-    public static function createPassword($len = 8)
-    {
-
-        $alphabet = "abcdefghijklmnopqrstuwxyzABCDEFGHIJKLMNOPQRSTUWXYZ0123456789";
-        $pass = []; //remember to declare $pass as an arrayfun
-        $alphaLength = strlen($alphabet) - 1; //put the length -1 in cache
-        for ($i = 0; $i < $len; $i++) {
-            $n = rand(0, $alphaLength);
-            $pass[] = $alphabet[$n];
-        }
-        return implode($pass); //turn the array into a string
-    }
-
-    /**
-     * @deprecated
-     * instead use getDates on models
-     */
-    public static function convertToCarbon($date)
-    {
-        return \Carbon::createFromFormat('m-d-Y H:i:s', $date);
-    }
-
     public static function makeLines($text, $r = true)
     {
         if ($r)
@@ -255,11 +267,10 @@ class Helpers
     }
 
     /**
-     * @type static
-     * @description helper function to nom a route down to the first 3 and last 3 fixes
+     *  Cuts a route down to the first 3 and last 3 fixes
      *
+     * @static
      * @param $route string
-     *
      * @return string
      */
     public static function shortenRouteString($route)
@@ -275,6 +286,13 @@ class Helpers
         else return $route;
     }
 
+    /**
+     * Converts feedback int to a string rating
+     *
+     * @static
+     * @param integer $rating
+     * @return string
+     */
     public static function pilotFeedbackRating($rating)
     {
         switch($rating) {

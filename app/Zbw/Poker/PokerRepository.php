@@ -22,7 +22,7 @@ class PokerRepository extends EloquentRepository implements PokerRepositoryInter
     public function create($input) {}
 
     /**
-     * @description creates a poker card, and the associated pilot if necessary
+     *  creates a poker card, and the associated pilot if necessary
      * @param array $input
      * @return \Illuminate\Database\Eloquent\Model|static
      * @throws PilotNotFoundException
@@ -48,7 +48,7 @@ class PokerRepository extends EloquentRepository implements PokerRepositoryInter
     }
 
     /**
-     * @description helper function for creating the pilot above
+     *  helper function for creating the pilot above
      * @param $input
      * @return \PokerPilot
      */
@@ -63,7 +63,7 @@ class PokerRepository extends EloquentRepository implements PokerRepositoryInter
     }
 
     /**
-     * @description returns pilots with a valid (5 card) hand
+     *  returns pilots with a valid (5 card) hand
      * @return array
      */
     public function getPilotsWithValidHands()
@@ -80,7 +80,7 @@ class PokerRepository extends EloquentRepository implements PokerRepositoryInter
     }
 
     /**
-     * @description @deprecated
+     *  @deprecated
      * @param $pid
      * @return mixed
      */
@@ -90,7 +90,7 @@ class PokerRepository extends EloquentRepository implements PokerRepositoryInter
     }
 
     /**
-     * @description returns a pilots discarded cards
+     *  returns a pilots discarded cards
      * @param $pid
      * @return mixed
      */
@@ -100,7 +100,7 @@ class PokerRepository extends EloquentRepository implements PokerRepositoryInter
     }
 
     /**
-     * @description discard a poker card
+     *  discard a poker card
      * @param $cardId
      * @return void
      */
@@ -111,7 +111,7 @@ class PokerRepository extends EloquentRepository implements PokerRepositoryInter
 
     /**
      * @name getPilotsList
-     * @description returns a list of pilots by cid
+     *  returns a list of pilots by cid
      * @return mixed
      */
     public function getPilotsList()
@@ -130,7 +130,7 @@ class PokerRepository extends EloquentRepository implements PokerRepositoryInter
     }
 
     /**
-     * @description returns array of pilot information from vatsim
+     *  returns array of pilot information from vatsim
      * @param integer $pid
      * @return array
      * @throws PilotNotFoundException

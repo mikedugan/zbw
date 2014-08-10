@@ -6,12 +6,31 @@ use Zbw\Users\Contracts\UserRepositoryInterface;
 use Zbw\Bostonjohn\Notify\Mail;
 use Zbw\Cms\Contracts\MessagesRepositoryInterface;
 
+/**
+ * @package Zbw\Bostonjohn\Queues
+ * @author  Mike Dugan <mike@mjdugan.com>
+ * @since   2.0.1b
+ */
 class Users {
 
+    /**
+     *  Mail
+     */
     private $notifier;
+    /**
+     *  UserRepositoryInterface
+     */
     private $users;
+    /**
+     *  MessagesRepositoryInterface
+     */
     private $messages;
 
+    /**
+     * @param Mail                        $notifier
+     * @param UserRepositoryInterface     $users
+     * @param MessagesRepositoryInterface $messages
+     */
     public function __construct(Mail $notifier, UserRepositoryInterface $users, MessagesRepositoryInterface $messages)
     {
         $this->notifier = $notifier;
@@ -19,6 +38,11 @@ class Users {
         $this->messages = $messages;
     }
 
+    /**
+     * @param Job $job
+     * @param     $data
+     * @return void
+     */
     public function newUser(Job $job, $data)
     {
         $vdata = [
@@ -40,6 +64,11 @@ class Users {
         $job->delete();
     }
 
+    /**
+     * @param Job $job
+     * @param     $data
+     * @return void
+     */
     public function acceptVisitor(Job $job, $data)
     {
         $visitor = \VisitorApplicant::find($data);
@@ -52,12 +81,22 @@ class Users {
         $job->delete();
     }
 
+    /**
+     * @param Job $job
+     * @param     $data
+     * @return void
+     */
     public function denyVisitor(Job $job, $data)
     {
         $this->notifier->denyVisitorEmail($data);
         $job->delete();
     }
 
+    /**
+     * @param Job $job
+     * @param     $data
+     * @return void
+     */
     public function promote(Job $job, $data)
     {
         $user = $this->users->get($data);
@@ -78,6 +117,11 @@ class Users {
         $job->delete();
     }
 
+    /**
+     * @param Job $job
+     * @param     $data
+     * @return void
+     */
     public function demote(Job $job, $data)
     {
         $user = $this->users->get($data);
@@ -98,6 +142,11 @@ class Users {
         $job->delete();
     }
 
+    /**
+     * @param Job $job
+     * @param     $data
+     * @return void
+     */
     public function requestVatusaExam(Job $job, $data)
     {
         $this->notifier->vatusaExamRequestEmail($data);
@@ -119,6 +168,11 @@ class Users {
         $job->delete();
     }
 
+    /**
+     * @param Job $job
+     * @param     $data
+     * @return void
+     */
     public function adopt(Job $job, $data)
     {
         $this->notifier->adoptUserEmail($data['student'], $data['staff'], $data['subject'], $data['message'], $data['meeting']);
