@@ -1,6 +1,4 @@
-<?php  namespace Zbw\Events; 
-
-use Zbw\Bostonjohn\Emailer;
+<?php  namespace Zbw\Events;
 
 class ControllerEventHandler {
 
@@ -8,7 +6,7 @@ class ControllerEventHandler {
 
     public function __construct()
     {
-        $this->emailer = \App::make('Zbw\Bostonjohn\Notify\Notifier');
+        $this->emailer = \App::make('Zbw\Bostonjohn\Notify\Mail');
     }
 
     public function subscribe($events)

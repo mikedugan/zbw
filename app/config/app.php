@@ -107,6 +107,7 @@ return [
       'Illuminate\Validation\ValidationServiceProvider',
       'Illuminate\View\ViewServiceProvider',
       'Illuminate\Workbench\WorkbenchServiceProvider',
+
       'Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider',
       'Barryvdh\Debugbar\ServiceProvider',
       'Laracasts\Utilities\UtilitiesServiceProvider',
@@ -176,8 +177,8 @@ return [
       'URL'         => 'Illuminate\Support\Facades\URL',
       'Validator'   => 'Illuminate\Support\Facades\Validator',
       'View'        => 'Illuminate\Support\Facades\View',
+
       'Carbon'      => 'Carbon\Carbon',
-      'JavaScript'  => 'Laracasts\Utlities\JavaScript\Facades\JavaScript',
       'Sentry'      => 'Cartalyst\Sentry\Facades\Laravel\Sentry',
       'Bugsnag'     => 'Bugsnag\BugsnagLaravel\BugsnagFacade',
       'Dispatcher'  => 'Zbw\Bostonjohn\Queues\QueueDispatcher',

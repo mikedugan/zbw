@@ -10,6 +10,8 @@ Roster Admin
     @include('staff.roster.visitor')
     @elseif($view === 'staff')
     @include('staff.roster.staff')
+    @elseif($view === 'adopt')
+    @include('staff.roster.adopt')
     @elseif($view === 'controller')
     @include('staff.roster.addcontroller')
     @elseif($view === 'staff')

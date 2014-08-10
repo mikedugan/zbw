@@ -467,6 +467,24 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
         return $settings->save();
     }
 
+    public function getAdoptableStudents()
+    {
+        return $this->make()->where('updated_at', '>', \Carbon::createFromFormat('Y-m-d', '2014-07-27'))->where('adopted_by', null)->where('cid', '!=', 100)->where('cert', 0)->orWhere('cert', 1)->get();
+    }
+
+    public function getAdoptedStudents()
+    {
+        return $this->make()->where('adopted_by', '>', 100)->with(['adopter'])->get();
+    }
+
+    public function adopt($student, $staff)
+    {
+        $student = $this->get($student);
+        $student->adopted_by = $staff;
+        $student->adopted_on = \Carbon::now();
+        return $this->checkAndSave($student);
+    }
+
     public function update($input) {}
     public function create($input) {}
 }

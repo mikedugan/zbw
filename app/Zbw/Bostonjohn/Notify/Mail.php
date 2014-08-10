@@ -203,4 +203,20 @@ class Mail extends Notifier implements MailInterface
             $this->send($staff->email, $staff->username, 'VATUSA Exam Request');
         }
     }
+
+    public function adoptUserEmail($student, $staff, $subject, $message, $datetime)
+    {
+        $student = $this->users->get($student);
+        $staff = $this->users->get($staff);
+
+        $this->setView('adopt_user');
+        $this->setViewData([
+            'student' => $student,
+            'staff' => $staff,
+            'content' => $message,
+            'date' => $datetime,
+            'subject' => $subject
+        ]);
+        $this->send($student->email, $student->username, $subject);
+    }
 } 

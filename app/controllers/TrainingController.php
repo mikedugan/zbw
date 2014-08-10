@@ -140,4 +140,25 @@ class TrainingController extends BaseController
         }
     }
 
+    public function getAdopt($cid)
+    {
+        $data = [
+            'student' => $this->users->get($cid)
+        ];
+
+        return View::make('staff.training.adopt', $data);
+    }
+
+    public function postAdopt()
+    {
+        $input = \Input::all();
+        if($this->users->adopt($input['student'], \Sentry::getUser()->cid)) {
+            $input['staff'] = \Sentry::getUser()->cid;
+            Queue::push('Zbw\Bostonjohn\Queues\QueueDispatcher@usersAdopt', $input);
+            return Redirect::back()->with('flash_success', 'User adopted successfully!');
+        } else {
+            return Redirect::back()->with('flash_error', $this->users->getErrors());
+        }
+    }
+
 }

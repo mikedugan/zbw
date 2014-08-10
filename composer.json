@@ -1,64 +1,64 @@
 {
-	"name": "mikedugan/zbw",
+    "name": "mikedugan/zbw",
 
-	"description": "ZBW website built with Laravel.",
-	"keywords": ["vatsim", "app"],
-	"license": "MIT",
-	"authors": [
-		{
-				"name": "Mike Dugan",
-				"email": "mike@mjdugan.com",
-				"homepage": "http://mjdugan.com"
-		}
-	],
-	"require": {
-		"laravel/framework": "4.2.*",
-		"laracasts/utilities": "dev-master",
-	    "fkubis/teamspeak-php-framework": "dev-master",
-   		"curl/curl": "dev-master",
-		"pda/pheanstalk": "2.0.*",
-		"cartalyst/sentry": "dev-master",
-		"mccool/laravel-auto-presenter": "*",
-		"vatsim/sso": "1.0.1",
-		"bugsnag/bugsnag-laravel": "1.*",
-		"doctrine/dbal": "2.3.*",
-	},
-	"require-dev": {
-		"barryvdh/laravel-ide-helper": "dev-master",
-		"barryvdh/laravel-debugbar": "dev-master",
-      "way/generators": "dev-master",
-		"fzaninotto/faker": "dev-master"
-	},
-	"autoload": {
-		"classmap": [
-			"app/controllers",
-			"app/database/models",
-			"app/database/migrations",
-			"app/database/seeds",
-			"app/tests/TestCase.php"
-		],
-		"psr-4": {
-		"Zbw\\": "app/Zbw"
-		}
-	},
-	"scripts": {
-		"post-install-cmd": [
-			"php artisan clear-compiled",
-			"php artisan optimize"
-		],
-		"post-update-cmd": [
-			"php artisan clear-compiled",
-			"php artisan dump-autoload",
-			"php artisan ide-helper:generate",
-			"php artisan debugbar:publish",
-			"php artisan optimize"
-		],
-		"post-create-project-cmd": [
-			"php artisan key:generate"
-		]
-	},
-	"config": {
-		"preferred-install": "dist"
-	},
-	"minimum-stability": "stable"
+    "description": "ZBW website built with Laravel.",
+    "keywords": ["vatsim", "app"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Mike Dugan",
+            "email": "mike@mjdugan.com",
+            "homepage": "http://mjdugan.com"
+        }
+    ],
+    "require": {
+        "laravel/framework": "4.2.*",
+        "laracasts/utilities": "dev-master",
+        "fkubis/teamspeak-php-framework": "dev-master",
+        "curl/curl": "dev-master",
+        "pda/pheanstalk": "2.0.*",
+        "cartalyst/sentry": "dev-master",
+        "mccool/laravel-auto-presenter": "*",
+        "vatsim/sso": "1.0.1",
+        "bugsnag/bugsnag-laravel": "1.*",
+        "doctrine/dbal": "2.3.*"
+    },
+    "require-dev": {
+        "barryvdh/laravel-ide-helper": "dev-master",
+        "barryvdh/laravel-debugbar": "dev-master",
+        "way/generators": "dev-master",
+        "fzaninotto/faker": "dev-master"
+    },
+    "autoload": {
+        "classmap": [
+            "app/controllers",
+            "app/database/models",
+            "app/database/migrations",
+            "app/database/seeds",
+            "app/tests/TestCase.php"
+        ],
+        "psr-4": {
+            "Zbw\\": "app/Zbw"
+        }
+    },
+    "scripts": {
+        "post-install-cmd": [
+            "php artisan clear-compiled",
+            "php artisan optimize"
+        ],
+        "post-update-cmd": [
+            "php artisan clear-compiled",
+            "php artisan dump-autoload",
+            "php artisan ide-helper:generate",
+            "php artisan debugbar:publish",
+            "php artisan optimize"
+        ],
+        "post-create-project-cmd": [
+            "php artisan key:generate"
+        ]
+    },
+    "config": {
+        "preferred-install": "dist"
+    },
+    "minimum-stability": "stable"
 }

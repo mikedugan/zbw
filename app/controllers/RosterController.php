@@ -86,6 +86,10 @@ class RosterController extends BaseController {
         if($view === 'visitor') {
             $data['applicants'] = \VisitorApplicant::all();
         }
+        if($view === 'adopt') {
+            $data['students'] = $this->users->getAdoptableStudents();
+            $data['adopted'] = $this->users->getAdoptedStudents();
+        }
 
         return View::make('staff.roster.index', $data);
     }

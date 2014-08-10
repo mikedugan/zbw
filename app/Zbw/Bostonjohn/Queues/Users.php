@@ -118,4 +118,10 @@ class Users {
         }
         $job->delete();
     }
+
+    public function adopt(Job $job, $data)
+    {
+        $this->notifier->adoptUserEmail($data['student'], $data['staff'], $data['subject'], $data['message'], $data['meeting']);
+        $job->delete();
+    }
 } 
