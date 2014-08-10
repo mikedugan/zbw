@@ -1,5 +1,9 @@
-<?php  namespace Zbw\Bostonjohn;
+<?php  namespace Zbw\Users;
 
+use Zbw\Bostonjohn\OAuthSignatureMethod_HMAC_SHA1;
+use Zbw\Bostonjohn\secret;
+use Zbw\Bostonjohn\SimpleXMLElement;
+use Zbw\Bostonjohn\type;
 use Zbw\Users\Auth\OAuthConsumer;
 use Zbw\Users\Auth\OAuthRequest;
 use Zbw\Users\Auth\SSO_OAuthSignatureMethod_RSA_SHA1;

@@ -78,7 +78,7 @@ class TrainingRequest extends BaseModel
         $tr->end = Helpers::convertToCarbon($input['end']);
         $tr->cert_id = $input['cert'];
         if($tr->save()) {
-            \Queue::push('Zbw\Bostonjohn\QueueDispatcher@trainingNewRequest', $tr);
+            \Queue::push('Zbw\Bostonjohn\Queues\QueueDispatcher@trainingNewRequest', $tr);
             return true;
         } else return false;
     }
@@ -90,7 +90,7 @@ class TrainingRequest extends BaseModel
         $tr->sid = $cid;
         $tr->accepted_at = \Carbon::now();
         if($tr->save()) {
-            \Queue::push('Zbw\Bostonjohn\QueueDispatcher@trainingAcceptRequest', $tr);
+            \Queue::push('Zbw\Bostonjohn\Queues\QueueDispatcher@trainingAcceptRequest', $tr);
             return true;
         } else return false;
     }
@@ -102,7 +102,7 @@ class TrainingRequest extends BaseModel
             $tr->sid = null;
             $tr->accepted_at = null;
             if($tr->save()) {
-                \Queue::push('Zbw\Bostonjohn\QueueDispatcher@trainingDropRequest', $tr);
+                \Queue::push('Zbw\Bostonjohn\Queues\QueueDispatcher@trainingDropRequest', $tr);
                 return true;
             } else return false;
         }

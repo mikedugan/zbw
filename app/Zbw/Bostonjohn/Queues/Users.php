@@ -3,7 +3,7 @@
 use Illuminate\Queue\Jobs\Job;
 use Zbw\Base\Helpers;
 use Zbw\Users\Contracts\UserRepositoryInterface;
-use Zbw\Bostonjohn\Notifier;
+use Zbw\Bostonjohn\Notify\Mail;
 use Zbw\Cms\Contracts\MessagesRepositoryInterface;
 
 class Users {
@@ -12,7 +12,7 @@ class Users {
     private $users;
     private $messages;
 
-    public function __construct(Notifier $notifier, UserRepositoryInterface $users, MessagesRepositoryInterface $messages)
+    public function __construct(Mail $notifier, UserRepositoryInterface $users, MessagesRepositoryInterface $messages)
     {
         $this->notifier = $notifier;
         $this->users = $users;

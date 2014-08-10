@@ -1,6 +1,6 @@
 <?php
 
-use Zbw\Bostonjohn\Notifier;
+use Zbw\Bostonjohn\Notify\Mail;
 use Zbw\Cms\Contracts\NewsRepositoryInterface;
 use Zbw\Users\Contracts\UserRepositoryInterface;
 use Zbw\Users\Contracts\VisitorApplicantRepositoryInterface;
@@ -13,7 +13,7 @@ class ZbwController extends BaseController
     private $notifier;
     private $visitors;
 
-    public function __construct(NewsRepositoryInterface $news, UserRepositoryInterface $users, Notifier $notifier, VisitorApplicantRepositoryInterface $visitors)
+    public function __construct(NewsRepositoryInterface $news, UserRepositoryInterface $users, Mail $notifier, VisitorApplicantRepositoryInterface $visitors)
     {
         $this->news = $news;
         $this->users = $users;
@@ -102,7 +102,7 @@ class ZbwController extends BaseController
 
     public function postContact()
     {
-        Queue::push('Zbw\Bostonjohn\QueueDispatcher@contactStaffPublic', \Input::all());
+        Queue::push('Zbw\Bostonjohn\Queues\QueueDispatcher@contactStaffPublic', \Input::all());
         return Redirect::back()->with('flash_success', 'Your message has been sent successfully. We\'ll be in touch!');
     }
 

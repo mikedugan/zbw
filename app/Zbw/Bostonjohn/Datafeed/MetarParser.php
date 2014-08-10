@@ -1,4 +1,5 @@
-<?php  namespace Zbw\Bostonjohn;
+<?php  namespace Zbw\Bostonjohn\Datafeed;
+use Zbw\Bostonjohn\Exception;
 
 /**
  * METAR - class for parsing METAR messages

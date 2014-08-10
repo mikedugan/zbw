@@ -1,6 +1,6 @@
 <?php
 
-use Zbw\Bostonjohn\Notifier;
+use Zbw\Bostonjohn\Notify\Mail;
 use Zbw\Cms\Contracts\MessagesRepositoryInterface;
 use Zbw\Training\Contracts\CertificationRepositoryInterface;
 use Zbw\Training\Contracts\ExamsRepositoryInterface;
@@ -15,7 +15,7 @@ class AjaxController extends BaseController
     private $certs;
     private $visitors;
 
-    public function __construct(UserRepositoryInterface $users, MessagesRepositoryInterface $messages, Notifier $emailer, CertificationRepositoryInterface $certs, ExamsRepositoryInterface $exams, VisitorApplicantRepositoryInterface $visitors)
+    public function __construct(UserRepositoryInterface $users, MessagesRepositoryInterface $messages, Mail $emailer, CertificationRepositoryInterface $certs, ExamsRepositoryInterface $exams, VisitorApplicantRepositoryInterface $visitors)
     {
         $this->users = $users;
         $this->messages = $messages;
@@ -51,7 +51,7 @@ class AjaxController extends BaseController
 
     public function sendStaffWelcome($cid)
     {
-        $em = new Notifier(\Sentry::getUser()->cid);
+        $em = new Mail(\Sentry::getUser()->cid);
         $em->staffWelcome();
 
         return json_encode(['success' => true, 'message' => "Staff welcome email sent successfully!"]);
@@ -221,7 +221,7 @@ class AjaxController extends BaseController
     {
         $staff = \Sentry::getUser();
         if($this->visitors->accept($staff, $id)) {
-            Queue::push('Zbw\Bostonjohn\QueueDispatcher@usersAcceptVisitor', $id);
+            Queue::push('Zbw\Bostonjohn\Queues\QueueDispatcher@usersAcceptVisitor', $id);
             return json_encode([
               'success' => true,
               'message' => 'Visitor application accepted. Page reloading in 3 seconds...'
@@ -238,7 +238,7 @@ class AjaxController extends BaseController
     {
         $student = \Sentry::getUser();
         $exam = \Rating::find($student->rating_id + 1)->long;
-        Queue::push('Zbw\Bostonjohn\QueueDispatcher@usersRequestVatusaExam', $student->cid);
+        Queue::push('Zbw\Bostonjohn\Queues\QueueDispatcher@usersRequestVatusaExam', $student->cid);
         return json_encode([
           'success' => true,
           'message' => 'VATUSA '.$exam.' exam requested.'

@@ -8,9 +8,9 @@ class ControllersTableSeeder extends Seeder
         DB::table('users')->truncate();
         Eloquent::unguard();
         $faker = Faker\Factory::create();
-        $parser = App::make('Zbw\Bostonjohn\RosterXmlParser');
+        $parser = App::make('Zbw\Bostonjohn\Roster\RosterXmlParser');
         $parser->updateRoster();
-        $migrator = App::make('Zbw\Bostonjohn\RosterJsonMigrator');
+        $migrator = App::make('Zbw\Bostonjohn\Roster\RosterJsonMigrator');
         $migrator->migrate();
     }
 

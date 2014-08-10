@@ -1,7 +1,7 @@
 <?php namespace Zbw\Commands;
 
 use Illuminate\Console\Command;
-use Zbw\Bostonjohn\Vatsim;
+use Zbw\Bostonjohn\Datafeed\Vatsim;
 
 class UpdateUrls extends Command
 {

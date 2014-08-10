@@ -16,7 +16,7 @@ class SessionsController extends BaseController
 
     public function oauthLogin()
     {
-        $sso = new \Zbw\Bostonjohn\Sso();
+        $sso = new \Zbw\Users\Sso();
         $return = \Config::get('zbw.sso.return');
         //vatsim redirected user
         if (\Input::has('oauth_token')) {

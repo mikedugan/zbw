@@ -1,8 +1,11 @@
-<?php  namespace Zbw\Bostonjohn;
+<?php  namespace Zbw\Bostonjohn\Datafeed;
 
 use Curl\Curl;
+use Zbw\Bostonjohn\Datafeed\Contracts\MetarCreatorInterface;
+use Zbw\Bostonjohn\Datafeed\MetarParser;
 
-class MetarCreator {
+class MetarCreator implements MetarCreatorInterface
+{
 
     private $curl;
 

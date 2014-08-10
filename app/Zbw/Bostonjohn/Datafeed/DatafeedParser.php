@@ -1,10 +1,12 @@
-<?php  namespace Zbw\Bostonjohn;
+<?php  namespace Zbw\Bostonjohn\Datafeed;
 
 use Carbon\Carbon;
 use Zbw\Base\Helpers;
 use Curl\Curl;
+use Zbw\Bostonjohn\Datafeed\Contracts\DatafeedParserInterface;
 
-class DatafeedParser {
+class DatafeedParser implements DatafeedParserInterface
+{
     private $datafeed;
     private $curl;
 

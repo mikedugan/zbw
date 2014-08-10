@@ -1,7 +1,7 @@
 <?php namespace Zbw\Commands;
 
 use Illuminate\Console\Command;
-use Zbw\Bostonjohn\MetarCreator;
+use Zbw\Bostonjohn\Datafeed\MetarCreator;
 
 class UpdateMetars extends Command
 {

@@ -38,7 +38,7 @@ class UpdateClients extends Command
     public function fire()
     {
         \ZbwFlight::truncate();
-        $df = new \Zbw\Bostonjohn\DatafeedParser();
+        $df = new \Zbw\Bostonjohn\Datafeed\DatafeedParser();
         $df->parseDatafeed();
         $this->info('Clients list updated successfully');
     }

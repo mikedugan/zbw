@@ -180,6 +180,7 @@ return [
       'JavaScript'  => 'Laracasts\Utlities\JavaScript\Facades\JavaScript',
       'Sentry'      => 'Cartalyst\Sentry\Facades\Laravel\Sentry',
       'Bugsnag'     => 'Bugsnag\BugsnagLaravel\BugsnagFacade',
+      'Dispatcher'  => 'Zbw\Bostonjohn\Queues\QueueDispatcher',
     ],
 
 ];

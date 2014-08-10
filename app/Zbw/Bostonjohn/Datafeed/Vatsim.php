@@ -1,10 +1,12 @@
-<?php  namespace Zbw\Bostonjohn;
+<?php  namespace Zbw\Bostonjohn\Datafeed;
 
 use Curl\Curl;
 use Zbw\Base\Helpers;
 use Carbon\Carbon;
+use Zbw\Bostonjohn\Datafeed\Contracts\VatsimDataInterface;
 
-class Vatsim {
+class Vatsim implements VatsimDataInterface
+{
     private $status_url;
     public $curl;
 

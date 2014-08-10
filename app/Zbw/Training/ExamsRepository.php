@@ -79,7 +79,7 @@ class ExamsRepository extends EloquentRepository implements ExamsRepositoryInter
         $exam->reviewed = 1;
         $exam->reviewed_by = \Sentry::getUser()->cid;
         if(! in_array($exam->student->cert, [2,5,8,10])) {
-            \Queue::push('Zbw\Bostonjohn\QueueDispatcher@usersPromote', $exam->cid);
+            \Queue::push('Zbw\Bostonjohn\Queues\QueueDispatcher@usersPromote', $exam->cid);
         }
         return $this->checkAndSave($exam);
     }
@@ -89,7 +89,7 @@ class ExamsRepository extends EloquentRepository implements ExamsRepositoryInter
         $exam = \Exam::find($id);
         $exam->reviewed = 0;
         if(! in_array($exam->student->cert, [2,5,8,10])) {
-            \Queue::push('Zbw\Bostonjohn\QueueDispatcher@usersDemote', $exam->cid);
+            \Queue::push('Zbw\Bostonjohn\Queues\QueueDispatcher@usersDemote', $exam->cid);
         }
         return $this->checkAndSave($exam);
     }

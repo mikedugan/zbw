@@ -24,7 +24,7 @@ class MigrateOldRoster extends Command {
 
     public function fire()
     {
-        $migrator = \App::make('Zbw\Bostonjohn\RosterJsonMigrator');
+        $migrator = \App::make('Zbw\Bostonjohn\Roster\RosterJsonMigrator');
         $data = $migrator->migrate();
         $this->info($data[0].' new users were added, and '.$data[1].' users were updated.');
     }

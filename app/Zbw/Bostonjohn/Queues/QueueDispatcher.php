@@ -1,4 +1,4 @@
-<?php  namespace Zbw\Bostonjohn;
+<?php  namespace Zbw\Bostonjohn\Queues;
 
 class QueueDispatcher {
 

@@ -8,7 +8,7 @@ class ControllerEventHandler {
 
     public function __construct()
     {
-        $this->emailer = \App::make('Zbw\Bostonjohn\Notifier');
+        $this->emailer = \App::make('Zbw\Bostonjohn\Notify\Notifier');
     }
 
     public function subscribe($events)

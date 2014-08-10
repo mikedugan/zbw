@@ -24,7 +24,7 @@ class UpdateRoster extends Command {
 
     public function fire()
     {
-        $parser = \App::make('Zbw\Bostonjohn\RosterXmlParser');
+        $parser = \App::make('Zbw\Bostonjohn\Roster\RosterXmlParser');
         if(($new_members = $parser->updateRoster())) {
             $this->info('Roster updated with '.$new_members.' new members');
         }

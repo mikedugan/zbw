@@ -1,4 +1,4 @@
-<?php  namespace Zbw\Bostonjohn; 
+<?php  namespace Zbw\Bostonjohn\Roster;
 
 use Zbw\Users\Contracts\UserRepositoryInterface;
 use Curl\Curl;
