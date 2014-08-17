@@ -4,6 +4,16 @@ Changelog
 @stop
 @section('content')
 <h1 class="text-center">Changelog</h1>
+<h3>2.0.9b</h3>
+mikedugan added js toggle for home page metars <br>
+mikedugan home page changes, added position online indicator <br>
+mikedugan added breadcrumbs to forum <br>
+mikedugan added select prompts and JS checking <br>
+mikedugan replaced redactor with froala, optimized js includes <br>
+mikedugan refactor a few classes, add documentation, add Message service class <br>
+mikedugan rm unnecessary stuff <br>
+mikedugan adopt a user <br>
+mike global refactoring <br>
 <h3>2.0.8b</h3>
 mikedugan wip on promotions <br>
 mikedugan added automatic promotion messages <br>

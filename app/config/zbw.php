@@ -1,6 +1,8 @@
 <?php
 
 return [
+    'version' => '2.0.9b',
+
     'teamspeak' => [
         'host' => $_ENV['ts_host'],
         'user' => $_ENV['ts_user'],
