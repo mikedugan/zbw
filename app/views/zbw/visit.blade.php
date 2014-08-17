@@ -41,8 +41,7 @@ Visit ZBW
                         <input type="email" name="email" id="email" class="form-control">
                     </div>
                     <div class="hidden form-group">
-                        <label for="message" class="control-label">Tell us a little about yourself and why you want to visit ZBW</label>
-                        <textarea class="form-control" name="message" id="message" cols="30"rows="10"></textarea>
+                        <textarea class="editor-inline form-control" placeholder="Tell us a little about yourself and why you want to visit ZBW" name="message" id="message" cols="30"rows="10"></textarea>
                      </div>
                     <button type="submit" class="hidden btn btn-primary">Submit</button>
                 </form>

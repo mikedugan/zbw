@@ -16,7 +16,7 @@ Make News
             <div class="form-group">
                 <label class="control-label" for="content">Event Description</label>
             </div>
-            <textarea class="form-control raptor" name="content" id="content" rows="10"></textarea>
+            <textarea class="form-control editor" name="content" id="content" rows="10"></textarea>
             <div class="form-group">
                 <label class="control-label" for="facility">Facility</label>
                 <select class="form-control" name="facility" id="facility">

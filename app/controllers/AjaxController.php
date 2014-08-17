@@ -9,12 +9,35 @@ use Zbw\Users\Contracts\VisitorApplicantRepositoryInterface;
 
 class AjaxController extends BaseController
 {
+    /**
+     * @var UserRepositoryInterface
+     */
     private $users;
+    /**
+     * @var MessagesRepositoryInterface
+     */
     private $messages;
+    /**
+     * @var Mail
+     */
     private $emailer;
+    /**
+     * @var CertificationRepositoryInterface
+     */
     private $certs;
+    /**
+     * @var VisitorApplicantRepositoryInterface
+     */
     private $visitors;
 
+    /**
+     * @param UserRepositoryInterface             $users
+     * @param MessagesRepositoryInterface         $messages
+     * @param Mail                                $emailer
+     * @param CertificationRepositoryInterface    $certs
+     * @param ExamsRepositoryInterface            $exams
+     * @param VisitorApplicantRepositoryInterface $visitors
+     */
     public function __construct(UserRepositoryInterface $users, MessagesRepositoryInterface $messages, Mail $emailer, CertificationRepositoryInterface $certs, ExamsRepositoryInterface $exams, VisitorApplicantRepositoryInterface $visitors)
     {
         $this->users = $users;
@@ -26,6 +49,11 @@ class AjaxController extends BaseController
     }
 
     //handles an ajax request
+    /**
+     * @param $cid
+     * @param $eid
+     * @return string
+     */
     public function requestExam($cid, $eid)
     {
         if ($this->certs->requestExam($cid, $eid)) {
@@ -49,6 +77,10 @@ class AjaxController extends BaseController
             else return json_encode(['success' => false, 'message' => 'Notification could not be resolved!']);
         }*/
 
+    /**
+     * @param $cid
+     * @return string
+     */
     public function sendStaffWelcome($cid)
     {
         $em = new Mail(\Sentry::getUser()->cid);
@@ -57,6 +89,10 @@ class AjaxController extends BaseController
         return json_encode(['success' => true, 'message' => "Staff welcome email sent successfully!"]);
     }
 
+    /**
+     * @param $id
+     * @return string
+     */
     public function suspendUser($id)
     {
         if ($this->users->suspendUser($id)) {
@@ -72,6 +108,10 @@ class AjaxController extends BaseController
         }
     }
 
+    /**
+     * @param $id
+     * @return string
+     */
     public function terminateUser($id)
     {
         if ($this->users->terminateUser($id)) {
@@ -87,6 +127,10 @@ class AjaxController extends BaseController
         }
     }
 
+    /**
+     * @param $id
+     * @return string
+     */
     public function activateUser($id)
     {
         if ($this->users->activateUser($id)) {
@@ -102,6 +146,9 @@ class AjaxController extends BaseController
         }
     }
 
+    /**
+     * @return string
+     */
     public function postTrainingRequest()
     {
         try {
@@ -130,6 +177,11 @@ class AjaxController extends BaseController
         }
     }
 
+    /**
+     * @param $tsid
+     * @throws Exception
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function cancelTrainingRequest($tsid)
     {
         $tr = TrainingRequest::find($tsid);
@@ -140,6 +192,10 @@ class AjaxController extends BaseController
         }
     }
 
+    /**
+     * @param $tsid
+     * @return string
+     */
     public function acceptTrainingRequest($tsid)
     {
         if (\TrainingRequest::accept($tsid, \Sentry::getUser()->cid)) {
@@ -155,6 +211,10 @@ class AjaxController extends BaseController
         }
     }
 
+    /**
+     * @param $tid
+     * @return string
+     */
     public function dropTrainingRequest($tid)
     {
         if (\TrainingRequest::drop($tid, \Sentry::getUser()->cid)) {
@@ -172,6 +232,9 @@ class AjaxController extends BaseController
         }
     }
 
+    /**
+     * @return string
+     */
     public function markInboxRead()
     {
         if ($this->messages->markAllRead(\Sentry::getUser()->cid)) {
@@ -187,6 +250,9 @@ class AjaxController extends BaseController
         }
     }
 
+    /* @param $id
+     * @return string
+     */
     public function postExamReviewed($id)
     {
         if ($this->exams->finishReview($id)) {
@@ -202,6 +268,10 @@ class AjaxController extends BaseController
         }
     }
 
+    /**
+     * @param $id
+     * @return string
+     */
     public function postReopenExam($id)
     {
         if ($this->exams->reopenReview($id)) {
@@ -217,6 +287,10 @@ class AjaxController extends BaseController
         }
     }
 
+    /**
+     * @param $id
+     * @return string
+     */
     public function postVisitorAccept($id)
     {
         $staff = \Sentry::getUser();
@@ -234,6 +308,9 @@ class AjaxController extends BaseController
         }
     }
 
+    /**
+     * @return string
+     */
     public function requestVatusaExam()
     {
         $student = \Sentry::getUser();

@@ -66,7 +66,7 @@ $messages = $me ? MessagesRepository::newMessageCount($me->cid) : 0;
         </div>
     @endif
     </div>
-    <div class="container">
+    <div class="container-fluid">
       <div class="row">
         <div class="col-md-10 col-md-offset-1">
           @yield('content')
@@ -78,5 +78,6 @@ $messages = $me ? MessagesRepository::newMessageCount($me->cid) : 0;
     </footer>
 
     @include('includes._includes')
+    @yield('scripts')
     </body>
 </html>

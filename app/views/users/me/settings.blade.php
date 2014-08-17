@@ -12,7 +12,7 @@
         </div>
         <div class="form-group">
         <p><b>Signature:</b></p>
-        <textarea name="signature" id="signature" class="form-control" cols="40" rows="5">{{$me->settings->signature}}</textarea>
+        <textarea name="signature" id="signature" class="editor form-control" cols="40" rows="5">{{$me->settings->signature}}</textarea>
         </div>
         <div class="form-group">
             <label class="label-control" for="ts_key">Teamspeak Key</label>

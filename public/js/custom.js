@@ -34,10 +34,20 @@
         //$('#training .progress-bar').css('width', width + '%');
     }
 
-    $('.editor').redactor({
+    /*$('.editor').redactor({
         buttons: ['bold', 'italic', 'underline', 'unorderedlist', 'orderedlist', 'outdent', 'indent',
         'image', 'link']
-    });
+    });*/
+     $('.editor').editable({
+         inlineMode: false,
+         buttons: ["bold", "italic", "underline", "fontSize", "align", "insertOrderedList", "insertUnorderedList", "outdent", "indent", "selectAll", "createLink", "insertImage", "table"]
+     });
+     $('.editor-inline').editable({
+         buttons: ["bold", "italic", "underline", "insertOrderedList", "insertUnorderedList", "createLink", "insertImage"]
+     });
+     $('.editor-full').editable();
+
+
     /*$('.raptor').raptor();*/
 
      if(window.location.pathname == '/training/request/new') {

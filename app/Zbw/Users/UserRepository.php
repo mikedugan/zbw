@@ -2,7 +2,6 @@
 
 use Zbw\Base\EloquentRepository;
 use Zbw\Bostonjohn\Emailer;
-use Zbw\Base\Helpers;
 use Zbw\Bostonjohn\Files\FileValidator;
 use Zbw\Bostonjohn\ZbwLog;
 use Zbw\Users\Contracts\UserRepositoryInterface;

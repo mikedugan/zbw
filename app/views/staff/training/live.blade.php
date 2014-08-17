@@ -188,3 +188,6 @@ Training Session
 </div>
 </form>
 @stop
+@section('scripts')
+    {{ HTML::script('js/live-session.js') }}
+@stop
