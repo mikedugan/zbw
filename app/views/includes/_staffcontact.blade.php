@@ -4,6 +4,7 @@
         <div class="form-group">
             <label for="to">Staff Member</label>
             <select class="form-control" name="to">
+                <option value="reqd">Select One</option>
                 <option value="ATM">Air Traffic Manager</option>
                 <option value="DATM">Deputy Air Traffic Manager</option>
                 <option value="TA">Training Administrator</option>

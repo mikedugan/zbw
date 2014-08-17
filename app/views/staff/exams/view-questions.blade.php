@@ -92,6 +92,7 @@ Exam Question Bank
                 <div class="col-md-6">
                     <label>Correct Answer</label>
                     <select class="form-control" name="correct" id="correct">
+                        <option value="reqd">Select One</option>
                         <option value="1">Answer A</option>
                         <option value="2">Answer B</option>
                         <option value="3">Answer C</option>
@@ -103,6 +104,7 @@ Exam Question Bank
                 <div class="col-md-6">
                     <label>Exam</label>
                     <select class="form-control col-md-6" name="exam" id="exam">
+                        <option value="reqd">Select One</option>
                         <option value="1">SOP</option>
                         <option value="2">Class C/D S1</option>
                         <option value="3">Class B S1</option>

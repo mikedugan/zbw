@@ -5,6 +5,7 @@
     </div>
     <div class="form-group col-md-6">
         <select class="form-control performance" name="{{$options['grade_name']}}" id="{{$options['grade_name']}}">
+            <option value="reqd">Select One</option>
             <option value="na">NA or Not Observed</option>
             <option value="u">Unsatisfactory</option>
             <option value="n">Needs Improvement</option>

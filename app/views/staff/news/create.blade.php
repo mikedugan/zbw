@@ -20,6 +20,7 @@ Make News
             <div class="form-group">
                 <label class="control-label" for="facility">Facility</label>
                 <select class="form-control" name="facility" id="facility">
+                    <option value="reqd">Select One</option>
                     @foreach($facilities as $facility)
                         <option value="{{$facility->id}}">{{$facility->value}}</option>
                     @endforeach
@@ -28,6 +29,7 @@ Make News
             <div class="form-group">
                 <label class="control-label" for="news_type">News Type</label>
                 <select class="form-control" name="news_type" id="news_type">
+                    <option value="reqd">Select One</option>
                     @foreach($news_types as $type)
                         <option value="{{$type->id}}">{{Str::title($type->value)}}</option>
                     @endforeach
@@ -36,6 +38,7 @@ Make News
             <div class="form-group">
                 <label class="control-label" for="audience">Target Audience</label>
                 <select class="form-control" name="audience" id="audience">
+                    <option value="reqd">Select One</option>
                     @foreach($audiences as $a)
                         <option value="{{$a->id}}">{{Str::title($a->value)}}</option>
                     @endforeach

@@ -30,6 +30,7 @@ ZBW Pilot Feedback
             <div class="form-group col-md-6 col-md-offset-3">
                 <label class="control-label" for="rating">How Would You Rate Your ATC?</label>
                 <select class="form-control" name="rating" id="rating">
+                    <option value="reqd">Select One</option>
                     <option value="0">Eek</option>
                     <option value="1">Poor</option>
                     <option value="2">Fair</option>

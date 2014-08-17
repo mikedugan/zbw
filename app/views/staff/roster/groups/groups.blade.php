@@ -35,6 +35,7 @@
         <div class="form-group">
             {{ Form::label('base_group', 'Base Group', ['class' => 'control-label']) }}
             <select class="form-control" name="base_group" id="base_group">
+                <option value="reqd">Select One</option>
                 <option value="0">None</option>
                 @foreach($groups as $group)
                 <option value="{{ $group->id }}">{{ $group->name }}</option>

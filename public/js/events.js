@@ -1,4 +1,19 @@
 $(function() {
+    $('form').submit(function(e) {
+        $this = $(this);
+        var selects = $this.find('select');
+        if(selects.length > 0) {
+            for(var i = 0; i < selects.length; i++) {
+                if(selects[i].value == 'reqd') {
+                    alert('Please make sure all dropdowns have a selected value');
+                    e.preventDefault();
+                    return false;
+                }
+            }
+        }
+    });
+
+
     //this handles any forms that should be submitted to the Ajax Controller
     //they -must- have a route in routes.php, action, and method
     $('.axform').submit(function (e){
@@ -22,7 +37,6 @@ $(function() {
     $('button[type="reset"]').click(function (e){
             $('.editor').val('');
     });
-
     $('#visit #cid').keyup(function (){
         var $this = $(this);
         if ($this.val() > 100000 && $this.length < 9999999) {

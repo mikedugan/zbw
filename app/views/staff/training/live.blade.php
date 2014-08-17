@@ -19,6 +19,7 @@ Training Session
         <label class="control-label col-md-6">Training Facility</label>
         <div class="form-group col-md-6">
             <select class="form-control" name="facility" id="facility">
+                <option value="reqd">Select One</option>
                 @foreach($facilities as $facility)
                 <option value="{{$facility->id}}">{{$facility->value}}</option>
                 @endforeach
@@ -29,6 +30,7 @@ Training Session
         <label class="control-label col-md-6">Training Type</label>
         <div class="form-group col-md-6">
             <select class="form-control" name="training_type" id="training_type">
+                <option value="reqd">Select One</option>
                 @foreach($types as $type)
                 <option value="{{$type->id}}">{{$type->value}}</option>
                 @endforeach
