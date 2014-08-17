@@ -305,17 +305,17 @@ function theme_linktree($force_show = false)
 	  <div class="col-md-12">';
 	  if (!empty($settings['enable_news'])) {
         echo '
-<p class="well well-lg"><b>News: </b>', $context['random_news_line'], '</p></div>';
+<p class="well well-lg col-md-12"><b>News: </b>', $context['random_news_line'], '</p></div>';
       }
     echo '
 	  </div>
 	  </div>
-		<ul style="display:none">';
+		<ol class="breadcrumb">';
 
     // Each tree item has a URL and name. Some may have extra_before and extra_after.
     foreach ($context['linktree'] as $link_num => $tree) {
         echo '
-			<li', ($link_num == count($context['linktree']) - 1) ? ' class="last"' : '', '>';
+			<li', ($link_num == count($context['linktree']) - 1) ? ' class="last active"' : '', '>';
 
         // Show something before the link?
         if (isset($tree['extra_before'])) {
@@ -329,11 +329,6 @@ function theme_linktree($force_show = false)
         // Show something after the link...?
         if (isset($tree['extra_after'])) {
             echo $tree['extra_after'];
-        }
-
-        // Don't show a separator for the last one.
-        if ($link_num != count($context['linktree']) - 1) {
-            echo ' &#187;';
         }
 
         echo '

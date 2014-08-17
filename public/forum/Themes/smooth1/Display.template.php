@@ -150,7 +150,6 @@ function template_main()
 
 	// Allow adding new buttons easily.
 	call_integration_hook('integrate_display_buttons', array(&$normal_buttons));
-
 	// Show the page index... "Pages: [1]".
 	echo '
 			<div class="pagesection">
