@@ -44,14 +44,22 @@ Welcome
         @include('includes.bj._flightstrip')
         <h3 class="text-left col-md-6">Weather
         <span class="small">
-            @if(\Input::get('raw') == true)
-            <a href="/">parsed</a>
-            @else
-            <a href="/?raw=true">raw</a>
-            @endif
+            <a id="parse" href="javascript:void()">raw</a>
         </span>
         </h3>
         @include('includes.bj._metar')
     </div>
 </div>
+@stop
+@section('scripts')
+<script>
+    $('#parse').click(function(e) {
+        e.preventDefault();
+        $this = $(this);
+        if($this.text() == 'raw') { $this.text('parsed'); }
+        else $this.text('raw');
+        $('.metar-pretty').toggleClass('hidden');
+        $('.metar-raw').toggleClass('hidden');
+    });
+</script>
 @stop
