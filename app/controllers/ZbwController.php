@@ -27,7 +27,8 @@ class ZbwController extends BaseController
           'news'    => $this->news->front(5),
           'metars'  => \Metar::frontPage(),
           'atcs'    => \Staffing::frontPage(),
-          'flights' => \ZbwFlight::frontPage(5)
+          'flights' => \ZbwFlight::frontPage(5),
+          'positions' => \Staffing::positionsOnline()
         ];
         return View::make('zbw', $data);
 
@@ -58,7 +59,7 @@ class ZbwController extends BaseController
             'content' => $input['content']
         ];
 
-        Mail::send('zbw.emails.feedback', $data, function($message) use ($data) {
+        \Mail::send('zbw.emails.feedback', $data, function($message) use ($data) {
             $message->to($data['to'])->subject('ZBW Feedback');
         });
         return Redirect::back()->with('flash_success', 'Feedback sent successfully');
@@ -77,7 +78,7 @@ class ZbwController extends BaseController
           'action' => $input['action']
         ];
 
-        Mail::send('zbw.emails.error', $data, function($message) use ($data) {
+        \Mail::send('zbw.emails.error', $data, function($message) use ($data) {
               $message->to($data['to'])->subject('ZBW Error Report');
           });
         return Redirect::back()->with('flash_success', 'Feedback sent successfully');

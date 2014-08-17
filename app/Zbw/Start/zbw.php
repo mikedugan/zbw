@@ -7,6 +7,21 @@ App::register('Zbw\Training\TrainingServiceProvider');
 App::register('Zbw\Cms\CmsServiceProvider');
 App::register('Zbw\Poker\PokerServiceProvider');
 
+Bugsnag::setAppVersion(\Config::get('zbw.version'));
+Bugsnag::setBeforeNotifyFunction('beforeBugsnagNotify');
+
+function beforeBugsnagNotify($error)
+{
+    if(Sentry::check())
+        $user = \Sentry::getUser();
+        $error->setMetaData([
+              'user' => [
+                  'name' => $user->username,
+                  'email' => $user->email
+              ]
+        ]);
+}
+
 //custom validation rules that need a new home
 
 Validator::extend('cid', function($attribute, $value, $parameters)

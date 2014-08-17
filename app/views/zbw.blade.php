@@ -6,25 +6,36 @@ Welcome
 @stop
 
 @section('content')
-  <div class="col-md-12 text-center">
-  <h4>Welcome to Boston ARTCC, where excellence is served daily with a cup of MOCHA HAGoTDI</h4>
-  		<div class="hidden-sm hidden-xs" id="slideshow">
-    		@include('includes._slideshow')
-    	</div>
-    <div class="col-md-6 news">
-        <h3 class="text-center">News</h3>
-        @if($news)
-        	@include ('includes.loops._news')
-        @endif
-        <h3 class="text-center">Links</h3>
-        <div class="panel panel-default">
-            <div class="list-group">
-                <a class="list-group-item" href="/join">Join Boston ARTCC</a>
-                <a class="list-group-item" href="/visit">Visit Boston ARTCC</a>
-                <a class="list-group-item" href="http://vatsim.net">VATSIM</a>
-                <a class="list-group-item" href="http://vatusa.net">VATUSA</a>
-            </div>
+<div class="row text-center">
+    <div class="col-md-8">
+        <div class="hidden-sm hidden-xs" id="slideshow">
+            @include('includes._slideshow')
         </div>
+    </div>
+    <div class="col-md-4">
+        <h4>Welcome to Boston ARTCC, where excellence is served daily with a cup
+            of MOCHA HAGoTDI</h4><br>
+
+        <p>Whether you are a pilot, controller, or a little of both; ZBW is the
+            premier airspace in VATSIM</p>
+
+        <div class="list-group">
+            <a class="list-group-item" href="/join">Join Boston ARTCC</a>
+            <a class="list-group-item" href="/visit">Visit Boston ARTCC</a>
+            <a class="list-group-item" href="http://vatsim.net">VATSIM</a>
+            <a class="list-group-item" href="http://vatusa.net">VATUSA</a>
+            @foreach($positions as $position)
+            <span style="background:limegreen" class="list-group-item col-md-3">{{ $position }}</span>
+            @endforeach
+        </div>
+    </div>
+</div>
+<div style="margin-top:20px;" class="row">
+    <div class="col-md-6 news">
+        <h3>News</h3>
+        @if($news)
+        @include ('includes.loops._news')
+        @endif
     </div>
     <div class="col-md-6">
         <h3 class="text-left">ATC Online</h3>
@@ -42,4 +53,5 @@ Welcome
         </h3>
         @include('includes.bj._metar')
     </div>
+</div>
 @stop
