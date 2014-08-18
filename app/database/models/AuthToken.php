@@ -11,11 +11,11 @@ use Zbw\Users\UserRepository;
  * @property string $secret
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
- * @method static \Illuminate\Database\Query\Builder|\AuthToken whereId($value) 
- * @method static \Illuminate\Database\Query\Builder|\AuthToken whereKey($value) 
- * @method static \Illuminate\Database\Query\Builder|\AuthToken whereSecret($value) 
- * @method static \Illuminate\Database\Query\Builder|\AuthToken whereCreatedAt($value) 
- * @method static \Illuminate\Database\Query\Builder|\AuthToken whereUpdatedAt($value) 
+ * @method static \Illuminate\Database\Query\Builder|\AuthToken whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\AuthToken whereKey($value)
+ * @method static \Illuminate\Database\Query\Builder|\AuthToken whereSecret($value)
+ * @method static \Illuminate\Database\Query\Builder|\AuthToken whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\AuthToken whereUpdatedAt($value)
  */
 class AuthToken extends BaseModel {
     protected $guarded = [''];
@@ -40,7 +40,6 @@ class AuthToken extends BaseModel {
             }
             return true;
         } else {
-            ZbwLog::error($sso->error());
             return $sso->error();
         }
     }

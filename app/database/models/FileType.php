@@ -5,8 +5,8 @@
  *
  * @property integer $id
  * @property string $value
- * @method static \Illuminate\Database\Query\Builder|\FileType whereId($value) 
- * @method static \Illuminate\Database\Query\Builder|\FileType whereValue($value) 
+ * @method static \Illuminate\Database\Query\Builder|\FileType whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\FileType whereValue($value)
  */
 class FileType extends BaseModel
 {

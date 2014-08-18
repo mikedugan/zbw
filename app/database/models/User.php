@@ -36,26 +36,31 @@ use Cartalyst\Sentry\Users\Eloquent\User as SentryUser;
  * @property-read \Rating $rating
  * @property-read \Illuminate\Database\Eloquent\Collection|\Staffing[] $staffing
  * @property-read \Illuminate\Database\Eloquent\Collection|\static::$groupModel[] $groups
- * @method static \Illuminate\Database\Query\Builder|\User whereCid($value) 
- * @method static \Illuminate\Database\Query\Builder|\User whereEmail($value) 
- * @method static \Illuminate\Database\Query\Builder|\User wherePassword($value) 
- * @method static \Illuminate\Database\Query\Builder|\User wherePermissions($value) 
- * @method static \Illuminate\Database\Query\Builder|\User whereActivated($value) 
- * @method static \Illuminate\Database\Query\Builder|\User whereActivationCode($value) 
- * @method static \Illuminate\Database\Query\Builder|\User whereActivatedAt($value) 
- * @method static \Illuminate\Database\Query\Builder|\User whereLastLogin($value) 
- * @method static \Illuminate\Database\Query\Builder|\User wherePersistCode($value) 
- * @method static \Illuminate\Database\Query\Builder|\User whereResetPasswordCode($value) 
- * @method static \Illuminate\Database\Query\Builder|\User whereFirstName($value) 
- * @method static \Illuminate\Database\Query\Builder|\User whereLastName($value) 
- * @method static \Illuminate\Database\Query\Builder|\User whereUsername($value) 
- * @method static \Illuminate\Database\Query\Builder|\User whereRememberToken($value) 
- * @method static \Illuminate\Database\Query\Builder|\User whereInitials($value) 
- * @method static \Illuminate\Database\Query\Builder|\User whereRatingId($value) 
- * @method static \Illuminate\Database\Query\Builder|\User whereCert($value) 
- * @method static \Illuminate\Database\Query\Builder|\User whereArtcc($value) 
- * @method static \Illuminate\Database\Query\Builder|\User whereCreatedAt($value) 
- * @method static \Illuminate\Database\Query\Builder|\User whereUpdatedAt($value) 
+ * @method static \Illuminate\Database\Query\Builder|\User whereCid($value)
+ * @method static \Illuminate\Database\Query\Builder|\User whereEmail($value)
+ * @method static \Illuminate\Database\Query\Builder|\User wherePassword($value)
+ * @method static \Illuminate\Database\Query\Builder|\User wherePermissions($value)
+ * @method static \Illuminate\Database\Query\Builder|\User whereActivated($value)
+ * @method static \Illuminate\Database\Query\Builder|\User whereActivationCode($value)
+ * @method static \Illuminate\Database\Query\Builder|\User whereActivatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\User whereLastLogin($value)
+ * @method static \Illuminate\Database\Query\Builder|\User wherePersistCode($value)
+ * @method static \Illuminate\Database\Query\Builder|\User whereResetPasswordCode($value)
+ * @method static \Illuminate\Database\Query\Builder|\User whereFirstName($value)
+ * @method static \Illuminate\Database\Query\Builder|\User whereLastName($value)
+ * @method static \Illuminate\Database\Query\Builder|\User whereUsername($value)
+ * @method static \Illuminate\Database\Query\Builder|\User whereRememberToken($value)
+ * @method static \Illuminate\Database\Query\Builder|\User whereInitials($value)
+ * @method static \Illuminate\Database\Query\Builder|\User whereRatingId($value)
+ * @method static \Illuminate\Database\Query\Builder|\User whereCert($value)
+ * @method static \Illuminate\Database\Query\Builder|\User whereArtcc($value)
+ * @method static \Illuminate\Database\Query\Builder|\User whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\User whereUpdatedAt($value)
+ * @property integer $adopted_by
+ * @property string $adopted_on
+ * @property-read \User $adopter
+ * @method static \Illuminate\Database\Query\Builder|\User whereAdoptedBy($value) 
+ * @method static \Illuminate\Database\Query\Builder|\User whereAdoptedOn($value) 
  */
 class User extends SentryUser implements UserInterface, RemindableInterface
 {

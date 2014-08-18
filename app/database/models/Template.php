@@ -5,8 +5,8 @@
  *
  * @property integer $id
  * @property string $title
- * @method static \Illuminate\Database\Query\Builder|\Template whereId($value) 
- * @method static \Illuminate\Database\Query\Builder|\Template whereTitle($value) 
+ * @method static \Illuminate\Database\Query\Builder|\Template whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\Template whereTitle($value)
  */
 class Template extends BaseModel
 {

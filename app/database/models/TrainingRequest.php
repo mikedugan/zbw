@@ -21,19 +21,19 @@ use Zbw\Base\Helpers;
  * @property-read \CertType $certType
  * @property-read \User $student
  * @property-read \User $staff
- * @method static \Illuminate\Database\Query\Builder|\TrainingRequest whereId($value) 
- * @method static \Illuminate\Database\Query\Builder|\TrainingRequest whereCid($value) 
- * @method static \Illuminate\Database\Query\Builder|\TrainingRequest whereSid($value) 
- * @method static \Illuminate\Database\Query\Builder|\TrainingRequest whereStart($value) 
- * @method static \Illuminate\Database\Query\Builder|\TrainingRequest whereEnd($value) 
- * @method static \Illuminate\Database\Query\Builder|\TrainingRequest whereCertId($value) 
- * @method static \Illuminate\Database\Query\Builder|\TrainingRequest whereCreatedAt($value) 
- * @method static \Illuminate\Database\Query\Builder|\TrainingRequest whereUpdatedAt($value) 
- * @method static \Illuminate\Database\Query\Builder|\TrainingRequest whereAcceptedBy($value) 
- * @method static \Illuminate\Database\Query\Builder|\TrainingRequest whereAcceptedAt($value) 
- * @method static \Illuminate\Database\Query\Builder|\TrainingRequest whereIsCompleted($value) 
- * @method static \Illuminate\Database\Query\Builder|\TrainingRequest whereCompletedAt($value) 
- * @method static \Illuminate\Database\Query\Builder|\TrainingRequest whereTrainingSessionId($value) 
+ * @method static \Illuminate\Database\Query\Builder|\TrainingRequest whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\TrainingRequest whereCid($value)
+ * @method static \Illuminate\Database\Query\Builder|\TrainingRequest whereSid($value)
+ * @method static \Illuminate\Database\Query\Builder|\TrainingRequest whereStart($value)
+ * @method static \Illuminate\Database\Query\Builder|\TrainingRequest whereEnd($value)
+ * @method static \Illuminate\Database\Query\Builder|\TrainingRequest whereCertId($value)
+ * @method static \Illuminate\Database\Query\Builder|\TrainingRequest whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\TrainingRequest whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\TrainingRequest whereAcceptedBy($value)
+ * @method static \Illuminate\Database\Query\Builder|\TrainingRequest whereAcceptedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\TrainingRequest whereIsCompleted($value)
+ * @method static \Illuminate\Database\Query\Builder|\TrainingRequest whereCompletedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\TrainingRequest whereTrainingSessionId($value)
  */
 class TrainingRequest extends BaseModel
 {

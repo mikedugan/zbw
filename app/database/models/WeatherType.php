@@ -5,8 +5,8 @@
  *
  * @property integer $id
  * @property string $value
- * @method static \Illuminate\Database\Query\Builder|\WeatherType whereId($value) 
- * @method static \Illuminate\Database\Query\Builder|\WeatherType whereValue($value) 
+ * @method static \Illuminate\Database\Query\Builder|\WeatherType whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\WeatherType whereValue($value)
  */
 class WeatherType extends BaseModel
 {

@@ -17,21 +17,21 @@
  * @property string $altimeter
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
- * @method static \Illuminate\Database\Query\Builder|\Metar whereId($value) 
- * @method static \Illuminate\Database\Query\Builder|\Metar whereFacility($value) 
- * @method static \Illuminate\Database\Query\Builder|\Metar whereRaw($value) 
- * @method static \Illuminate\Database\Query\Builder|\Metar whereTime($value) 
- * @method static \Illuminate\Database\Query\Builder|\Metar whereWindDirection($value) 
- * @method static \Illuminate\Database\Query\Builder|\Metar whereWindSpeed($value) 
- * @method static \Illuminate\Database\Query\Builder|\Metar whereWindGusts($value) 
- * @method static \Illuminate\Database\Query\Builder|\Metar whereVisibility($value) 
- * @method static \Illuminate\Database\Query\Builder|\Metar whereSky($value) 
- * @method static \Illuminate\Database\Query\Builder|\Metar whereTemp($value) 
- * @method static \Illuminate\Database\Query\Builder|\Metar whereDewpoint($value) 
- * @method static \Illuminate\Database\Query\Builder|\Metar whereAltimeter($value) 
- * @method static \Illuminate\Database\Query\Builder|\Metar whereCreatedAt($value) 
- * @method static \Illuminate\Database\Query\Builder|\Metar whereUpdatedAt($value) 
- * @method static \Metar airport($icao) 
+ * @method static \Illuminate\Database\Query\Builder|\Metar whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\Metar whereFacility($value)
+ * @method static \Illuminate\Database\Query\Builder|\Metar whereRaw($value)
+ * @method static \Illuminate\Database\Query\Builder|\Metar whereTime($value)
+ * @method static \Illuminate\Database\Query\Builder|\Metar whereWindDirection($value)
+ * @method static \Illuminate\Database\Query\Builder|\Metar whereWindSpeed($value)
+ * @method static \Illuminate\Database\Query\Builder|\Metar whereWindGusts($value)
+ * @method static \Illuminate\Database\Query\Builder|\Metar whereVisibility($value)
+ * @method static \Illuminate\Database\Query\Builder|\Metar whereSky($value)
+ * @method static \Illuminate\Database\Query\Builder|\Metar whereTemp($value)
+ * @method static \Illuminate\Database\Query\Builder|\Metar whereDewpoint($value)
+ * @method static \Illuminate\Database\Query\Builder|\Metar whereAltimeter($value)
+ * @method static \Illuminate\Database\Query\Builder|\Metar whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\Metar whereUpdatedAt($value)
+ * @method static \Metar airport($icao)
  */
 class Metar extends BaseModel {
     protected $guarded = array();

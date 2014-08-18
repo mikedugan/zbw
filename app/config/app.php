@@ -110,7 +110,6 @@ return [
 
       'Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider',
       'Barryvdh\Debugbar\ServiceProvider',
-      'Laracasts\Utilities\UtilitiesServiceProvider',
       'Way\Generators\GeneratorsServiceProvider',
       'Cartalyst\Sentry\SentryServiceProvider',
       'Bugsnag\BugsnagLaravel\BugsnagLaravelServiceProvider',

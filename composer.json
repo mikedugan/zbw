@@ -21,7 +21,8 @@
         "mccool/laravel-auto-presenter": "*",
         "vatsim/sso": "1.0.1",
         "bugsnag/bugsnag-laravel": "1.*",
-        "doctrine/dbal": "2.3.*"
+        "doctrine/dbal": "2.3.*",
+        "robclancy/presenter": "1.*"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "dev-master",

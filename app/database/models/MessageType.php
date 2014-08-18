@@ -5,8 +5,8 @@
  *
  * @property integer $id
  * @property string $value
- * @method static \Illuminate\Database\Query\Builder|\MessageType whereId($value) 
- * @method static \Illuminate\Database\Query\Builder|\MessageType whereValue($value) 
+ * @method static \Illuminate\Database\Query\Builder|\MessageType whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\MessageType whereValue($value)
  */
 class MessageType extends BaseModel
 {

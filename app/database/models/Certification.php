@@ -14,17 +14,17 @@
  * @property string $last_request
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
- * @method static \Illuminate\Database\Query\Builder|\Certification whereId($value) 
- * @method static \Illuminate\Database\Query\Builder|\Certification whereCid($value) 
- * @method static \Illuminate\Database\Query\Builder|\Certification whereCertTypeId($value) 
- * @method static \Illuminate\Database\Query\Builder|\Certification wherePassed($value) 
- * @method static \Illuminate\Database\Query\Builder|\Certification whereTimesTaken($value) 
- * @method static \Illuminate\Database\Query\Builder|\Certification whereFirstExam($value) 
- * @method static \Illuminate\Database\Query\Builder|\Certification whereLastExam($value) 
- * @method static \Illuminate\Database\Query\Builder|\Certification whereFirstRequest($value) 
- * @method static \Illuminate\Database\Query\Builder|\Certification whereLastRequest($value) 
- * @method static \Illuminate\Database\Query\Builder|\Certification whereCreatedAt($value) 
- * @method static \Illuminate\Database\Query\Builder|\Certification whereUpdatedAt($value) 
+ * @method static \Illuminate\Database\Query\Builder|\Certification whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\Certification whereCid($value)
+ * @method static \Illuminate\Database\Query\Builder|\Certification whereCertTypeId($value)
+ * @method static \Illuminate\Database\Query\Builder|\Certification wherePassed($value)
+ * @method static \Illuminate\Database\Query\Builder|\Certification whereTimesTaken($value)
+ * @method static \Illuminate\Database\Query\Builder|\Certification whereFirstExam($value)
+ * @method static \Illuminate\Database\Query\Builder|\Certification whereLastExam($value)
+ * @method static \Illuminate\Database\Query\Builder|\Certification whereFirstRequest($value)
+ * @method static \Illuminate\Database\Query\Builder|\Certification whereLastRequest($value)
+ * @method static \Illuminate\Database\Query\Builder|\Certification whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\Certification whereUpdatedAt($value)
  */
 class Certification extends BaseModel {
 	protected $guarded = ['cid', 'passed'];

@@ -7,9 +7,9 @@
  * @property string $title
  * @property string $location
  * @property-read \Illuminate\Database\Eloquent\Collection|\Page[] $pages
- * @method static \Illuminate\Database\Query\Builder|\Menu whereId($value) 
- * @method static \Illuminate\Database\Query\Builder|\Menu whereTitle($value) 
- * @method static \Illuminate\Database\Query\Builder|\Menu whereLocation($value) 
+ * @method static \Illuminate\Database\Query\Builder|\Menu whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\Menu whereTitle($value)
+ * @method static \Illuminate\Database\Query\Builder|\Menu whereLocation($value)
  */
 class Menu extends BaseModel
 {

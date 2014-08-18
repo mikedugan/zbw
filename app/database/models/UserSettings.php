@@ -20,22 +20,22 @@
  * @property string $signature
  * @property string $ts_key
  * @property-read \User $user
- * @method static \Illuminate\Database\Query\Builder|\UserSettings whereCid($value) 
- * @method static \Illuminate\Database\Query\Builder|\UserSettings whereNPrivateMessage($value) 
- * @method static \Illuminate\Database\Query\Builder|\UserSettings whereNExamAssigned($value) 
- * @method static \Illuminate\Database\Query\Builder|\UserSettings whereNExamComment($value) 
- * @method static \Illuminate\Database\Query\Builder|\UserSettings whereNTrainingAccepted($value) 
- * @method static \Illuminate\Database\Query\Builder|\UserSettings whereNTrainingCancelled($value) 
- * @method static \Illuminate\Database\Query\Builder|\UserSettings whereNEvents($value) 
- * @method static \Illuminate\Database\Query\Builder|\UserSettings whereNNews($value) 
- * @method static \Illuminate\Database\Query\Builder|\UserSettings whereNExamRequest($value) 
- * @method static \Illuminate\Database\Query\Builder|\UserSettings whereNStaffExamComment($value) 
- * @method static \Illuminate\Database\Query\Builder|\UserSettings whereNTrainingRequest($value) 
- * @method static \Illuminate\Database\Query\Builder|\UserSettings whereNStaffNews($value) 
- * @method static \Illuminate\Database\Query\Builder|\UserSettings whereAvatar($value) 
- * @method static \Illuminate\Database\Query\Builder|\UserSettings whereEmailHidden($value) 
- * @method static \Illuminate\Database\Query\Builder|\UserSettings whereSignature($value) 
- * @method static \Illuminate\Database\Query\Builder|\UserSettings whereTsKey($value) 
+ * @method static \Illuminate\Database\Query\Builder|\UserSettings whereCid($value)
+ * @method static \Illuminate\Database\Query\Builder|\UserSettings whereNPrivateMessage($value)
+ * @method static \Illuminate\Database\Query\Builder|\UserSettings whereNExamAssigned($value)
+ * @method static \Illuminate\Database\Query\Builder|\UserSettings whereNExamComment($value)
+ * @method static \Illuminate\Database\Query\Builder|\UserSettings whereNTrainingAccepted($value)
+ * @method static \Illuminate\Database\Query\Builder|\UserSettings whereNTrainingCancelled($value)
+ * @method static \Illuminate\Database\Query\Builder|\UserSettings whereNEvents($value)
+ * @method static \Illuminate\Database\Query\Builder|\UserSettings whereNNews($value)
+ * @method static \Illuminate\Database\Query\Builder|\UserSettings whereNExamRequest($value)
+ * @method static \Illuminate\Database\Query\Builder|\UserSettings whereNStaffExamComment($value)
+ * @method static \Illuminate\Database\Query\Builder|\UserSettings whereNTrainingRequest($value)
+ * @method static \Illuminate\Database\Query\Builder|\UserSettings whereNStaffNews($value)
+ * @method static \Illuminate\Database\Query\Builder|\UserSettings whereAvatar($value)
+ * @method static \Illuminate\Database\Query\Builder|\UserSettings whereEmailHidden($value)
+ * @method static \Illuminate\Database\Query\Builder|\UserSettings whereSignature($value)
+ * @method static \Illuminate\Database\Query\Builder|\UserSettings whereTsKey($value)
  */
 class UserSettings extends \Eloquent
 {

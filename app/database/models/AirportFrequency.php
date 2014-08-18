@@ -13,16 +13,16 @@
  * @property string $freq5
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
- * @method static \Illuminate\Database\Query\Builder|\AirportFrequency whereId($value) 
- * @method static \Illuminate\Database\Query\Builder|\AirportFrequency whereIcao($value) 
- * @method static \Illuminate\Database\Query\Builder|\AirportFrequency whereName($value) 
- * @method static \Illuminate\Database\Query\Builder|\AirportFrequency whereFreq1($value) 
- * @method static \Illuminate\Database\Query\Builder|\AirportFrequency whereFreq2($value) 
- * @method static \Illuminate\Database\Query\Builder|\AirportFrequency whereFreq3($value) 
- * @method static \Illuminate\Database\Query\Builder|\AirportFrequency whereFreq4($value) 
- * @method static \Illuminate\Database\Query\Builder|\AirportFrequency whereFreq5($value) 
- * @method static \Illuminate\Database\Query\Builder|\AirportFrequency whereCreatedAt($value) 
- * @method static \Illuminate\Database\Query\Builder|\AirportFrequency whereUpdatedAt($value) 
+ * @method static \Illuminate\Database\Query\Builder|\AirportFrequency whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\AirportFrequency whereIcao($value)
+ * @method static \Illuminate\Database\Query\Builder|\AirportFrequency whereName($value)
+ * @method static \Illuminate\Database\Query\Builder|\AirportFrequency whereFreq1($value)
+ * @method static \Illuminate\Database\Query\Builder|\AirportFrequency whereFreq2($value)
+ * @method static \Illuminate\Database\Query\Builder|\AirportFrequency whereFreq3($value)
+ * @method static \Illuminate\Database\Query\Builder|\AirportFrequency whereFreq4($value)
+ * @method static \Illuminate\Database\Query\Builder|\AirportFrequency whereFreq5($value)
+ * @method static \Illuminate\Database\Query\Builder|\AirportFrequency whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\AirportFrequency whereUpdatedAt($value)
  */
 class AirportFrequency extends BaseModel {
 	protected $guarded = array();

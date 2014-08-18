@@ -15,20 +15,20 @@
  * @property integer $audience_type_id
  * @property string $slug
  * @property-read \Illuminate\Database\Eloquent\Collection|\Menu[] $menu
- * @method static \Illuminate\Database\Query\Builder|\Page whereId($value) 
- * @method static \Illuminate\Database\Query\Builder|\Page whereTitle($value) 
- * @method static \Illuminate\Database\Query\Builder|\Page whereAuthor($value) 
- * @method static \Illuminate\Database\Query\Builder|\Page whereContent($value) 
- * @method static \Illuminate\Database\Query\Builder|\Page whereIsOfficial($value) 
- * @method static \Illuminate\Database\Query\Builder|\Page whereTemplateId($value) 
- * @method static \Illuminate\Database\Query\Builder|\Page whereRoute($value) 
- * @method static \Illuminate\Database\Query\Builder|\Page whereDeletedAt($value) 
- * @method static \Illuminate\Database\Query\Builder|\Page wherePublished($value) 
- * @method static \Illuminate\Database\Query\Builder|\Page whereAudienceTypeId($value) 
- * @method static \Illuminate\Database\Query\Builder|\Page whereSlug($value) 
- * @method static \Page staff() 
- * @method static \Page pilots() 
- * @method static \Page controllers() 
+ * @method static \Illuminate\Database\Query\Builder|\Page whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\Page whereTitle($value)
+ * @method static \Illuminate\Database\Query\Builder|\Page whereAuthor($value)
+ * @method static \Illuminate\Database\Query\Builder|\Page whereContent($value)
+ * @method static \Illuminate\Database\Query\Builder|\Page whereIsOfficial($value)
+ * @method static \Illuminate\Database\Query\Builder|\Page whereTemplateId($value)
+ * @method static \Illuminate\Database\Query\Builder|\Page whereRoute($value)
+ * @method static \Illuminate\Database\Query\Builder|\Page whereDeletedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\Page wherePublished($value)
+ * @method static \Illuminate\Database\Query\Builder|\Page whereAudienceTypeId($value)
+ * @method static \Illuminate\Database\Query\Builder|\Page whereSlug($value)
+ * @method static \Page staff()
+ * @method static \Page pilots()
+ * @method static \Page controllers()
  */
 class Page extends BaseModel
 {

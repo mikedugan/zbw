@@ -20,23 +20,26 @@
  * @property string $lor
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
- * @method static \Illuminate\Database\Query\Builder|\VisitorApplicant whereId($value) 
- * @method static \Illuminate\Database\Query\Builder|\VisitorApplicant whereCid($value) 
- * @method static \Illuminate\Database\Query\Builder|\VisitorApplicant whereEmail($value) 
- * @method static \Illuminate\Database\Query\Builder|\VisitorApplicant whereFirstName($value) 
- * @method static \Illuminate\Database\Query\Builder|\VisitorApplicant whereLastName($value) 
- * @method static \Illuminate\Database\Query\Builder|\VisitorApplicant whereRating($value) 
- * @method static \Illuminate\Database\Query\Builder|\VisitorApplicant whereDivision($value) 
- * @method static \Illuminate\Database\Query\Builder|\VisitorApplicant whereHome($value) 
- * @method static \Illuminate\Database\Query\Builder|\VisitorApplicant whereMessage($value) 
- * @method static \Illuminate\Database\Query\Builder|\VisitorApplicant whereComments($value) 
- * @method static \Illuminate\Database\Query\Builder|\VisitorApplicant whereAccepted($value) 
- * @method static \Illuminate\Database\Query\Builder|\VisitorApplicant whereAcceptedOn($value) 
- * @method static \Illuminate\Database\Query\Builder|\VisitorApplicant whereLorSubmitted($value) 
- * @method static \Illuminate\Database\Query\Builder|\VisitorApplicant whereLorSubmittedOn($value) 
- * @method static \Illuminate\Database\Query\Builder|\VisitorApplicant whereLor($value) 
- * @method static \Illuminate\Database\Query\Builder|\VisitorApplicant whereCreatedAt($value) 
- * @method static \Illuminate\Database\Query\Builder|\VisitorApplicant whereUpdatedAt($value) 
+ * @method static \Illuminate\Database\Query\Builder|\VisitorApplicant whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\VisitorApplicant whereCid($value)
+ * @method static \Illuminate\Database\Query\Builder|\VisitorApplicant whereEmail($value)
+ * @method static \Illuminate\Database\Query\Builder|\VisitorApplicant whereFirstName($value)
+ * @method static \Illuminate\Database\Query\Builder|\VisitorApplicant whereLastName($value)
+ * @method static \Illuminate\Database\Query\Builder|\VisitorApplicant whereRating($value)
+ * @method static \Illuminate\Database\Query\Builder|\VisitorApplicant whereDivision($value)
+ * @method static \Illuminate\Database\Query\Builder|\VisitorApplicant whereHome($value)
+ * @method static \Illuminate\Database\Query\Builder|\VisitorApplicant whereMessage($value)
+ * @method static \Illuminate\Database\Query\Builder|\VisitorApplicant whereComments($value)
+ * @method static \Illuminate\Database\Query\Builder|\VisitorApplicant whereAccepted($value)
+ * @method static \Illuminate\Database\Query\Builder|\VisitorApplicant whereAcceptedOn($value)
+ * @method static \Illuminate\Database\Query\Builder|\VisitorApplicant whereLorSubmitted($value)
+ * @method static \Illuminate\Database\Query\Builder|\VisitorApplicant whereLorSubmittedOn($value)
+ * @method static \Illuminate\Database\Query\Builder|\VisitorApplicant whereLor($value)
+ * @method static \Illuminate\Database\Query\Builder|\VisitorApplicant whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\VisitorApplicant whereUpdatedAt($value)
+ * @property integer $accepted_by
+ * @property-read \User $staff
+ * @method static \Illuminate\Database\Query\Builder|\VisitorApplicant whereAcceptedBy($value) 
  */
 class VisitorApplicant extends BaseModel
 {

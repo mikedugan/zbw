@@ -20,21 +20,33 @@
  * @property-read \User $staff
  * @property-read \User $student
  * @property-read \Illuminate\Database\Eloquent\Collection|\Comment[] $comments
- * @method static \Illuminate\Database\Query\Builder|\Exam whereId($value) 
- * @method static \Illuminate\Database\Query\Builder|\Exam whereExamId($value) 
- * @method static \Illuminate\Database\Query\Builder|\Exam whereCid($value) 
- * @method static \Illuminate\Database\Query\Builder|\Exam whereReviewedBy($value) 
- * @method static \Illuminate\Database\Query\Builder|\Exam whereAssignedOn($value) 
- * @method static \Illuminate\Database\Query\Builder|\Exam whereCertId($value) 
- * @method static \Illuminate\Database\Query\Builder|\Exam whereReviewed($value) 
- * @method static \Illuminate\Database\Query\Builder|\Exam whereWrongQuestions($value) 
- * @method static \Illuminate\Database\Query\Builder|\Exam whereWrongAnswers($value) 
- * @method static \Illuminate\Database\Query\Builder|\Exam whereTotalQuestions($value) 
- * @method static \Illuminate\Database\Query\Builder|\Exam whereCreatedAt($value) 
- * @method static \Illuminate\Database\Query\Builder|\Exam whereUpdatedAt($value) 
- * @method static \Illuminate\Database\Query\Builder|\Exam whereCompletedOn($value) 
- * @method static \Exam reviewed() 
- * @method static \Exam notReviewed() 
+ * @method static \Illuminate\Database\Query\Builder|\Exam whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\Exam whereExamId($value)
+ * @method static \Illuminate\Database\Query\Builder|\Exam whereCid($value)
+ * @method static \Illuminate\Database\Query\Builder|\Exam whereReviewedBy($value)
+ * @method static \Illuminate\Database\Query\Builder|\Exam whereAssignedOn($value)
+ * @method static \Illuminate\Database\Query\Builder|\Exam whereCertId($value)
+ * @method static \Illuminate\Database\Query\Builder|\Exam whereReviewed($value)
+ * @method static \Illuminate\Database\Query\Builder|\Exam whereWrongQuestions($value)
+ * @method static \Illuminate\Database\Query\Builder|\Exam whereWrongAnswers($value)
+ * @method static \Illuminate\Database\Query\Builder|\Exam whereTotalQuestions($value)
+ * @method static \Illuminate\Database\Query\Builder|\Exam whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\Exam whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\Exam whereCompletedOn($value)
+ * @method static \Exam reviewed()
+ * @method static \Exam notReviewed()
+ * @property integer $cert_type_id
+ * @property integer $correct
+ * @property integer $wrong
+ * @property string $questions
+ * @property boolean $pass
+ * @property-read \CertType $cert
+ * @method static \Illuminate\Database\Query\Builder|\Exam whereCertTypeId($value) 
+ * @method static \Illuminate\Database\Query\Builder|\Exam whereCorrect($value) 
+ * @method static \Illuminate\Database\Query\Builder|\Exam whereWrong($value) 
+ * @method static \Illuminate\Database\Query\Builder|\Exam whereExam($value) 
+ * @method static \Illuminate\Database\Query\Builder|\Exam whereQuestions($value) 
+ * @method static \Illuminate\Database\Query\Builder|\Exam wherePass($value) 
  */
 class Exam extends BaseModel {
     protected $dates = ['created_at', 'updated_at', 'assigned_on', 'completed_on'];

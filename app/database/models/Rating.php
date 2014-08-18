@@ -8,11 +8,11 @@
  * @property string $medium
  * @property string $long
  * @property string $grp
- * @method static \Illuminate\Database\Query\Builder|\Rating whereId($value) 
- * @method static \Illuminate\Database\Query\Builder|\Rating whereShort($value) 
- * @method static \Illuminate\Database\Query\Builder|\Rating whereMedium($value) 
- * @method static \Illuminate\Database\Query\Builder|\Rating whereLong($value) 
- * @method static \Illuminate\Database\Query\Builder|\Rating whereGrp($value) 
+ * @method static \Illuminate\Database\Query\Builder|\Rating whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\Rating whereShort($value)
+ * @method static \Illuminate\Database\Query\Builder|\Rating whereMedium($value)
+ * @method static \Illuminate\Database\Query\Builder|\Rating whereLong($value)
+ * @method static \Illuminate\Database\Query\Builder|\Rating whereGrp($value)
  */
 class Rating extends \Eloquent
 {

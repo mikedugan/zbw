@@ -11,11 +11,11 @@ use Cartalyst\Sentry\Groups\Eloquent\Group as SentryGroup;
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection|\static::$userModel[] $users
- * @method static \Illuminate\Database\Query\Builder|\Group whereId($value) 
- * @method static \Illuminate\Database\Query\Builder|\Group whereName($value) 
- * @method static \Illuminate\Database\Query\Builder|\Group wherePermissions($value) 
- * @method static \Illuminate\Database\Query\Builder|\Group whereCreatedAt($value) 
- * @method static \Illuminate\Database\Query\Builder|\Group whereUpdatedAt($value) 
+ * @method static \Illuminate\Database\Query\Builder|\Group whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\Group whereName($value)
+ * @method static \Illuminate\Database\Query\Builder|\Group wherePermissions($value)
+ * @method static \Illuminate\Database\Query\Builder|\Group whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\Group whereUpdatedAt($value)
  */
 class Group extends SentryGroup {
 
