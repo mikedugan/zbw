@@ -1,6 +1,6 @@
 $('#slideshow').slidesjs({
-    width: 900,
-    height: 400,
+    /*width: 900,
+    height: 400,*/
     pagination: {
         active: false
     },
