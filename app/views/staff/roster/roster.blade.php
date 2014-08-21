@@ -1,5 +1,6 @@
 <h1 class="text-center">Roster Admin</h1>
-<div class="col-md-8">
+<div class="row">
+<div class="col-md-9">
     <h3>Current Roster</h3>
     <a href="?num=all">View All</a>
     <a href="?num=active">View Active</a>
@@ -49,7 +50,8 @@
         {{ $users->links }}
     @endif
 </div>
-<div class="col-md-4">
+<div class="col-md-3">
     <h3>Search Controllers</h3>
     @include('includes.search._controller')
+</div>
 </div>
