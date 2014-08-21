@@ -25,8 +25,9 @@
             <td>{{ $student->created_at->toDayDateTimeString() }}</td>
             @if(! $student->adopted_by)
               <td><a class="btn btn-success btn-sm" href="/staff/adopt/{{$student->cid}}">Adopt</a></td>
-             @elseif($student->adopted_by === $me->cid)
+            @elseif($student->adopted_by === $me->cid)
               <td><a class="btn btn-danger btn-sm" href="/staff/adopt/{{$student->cid}}/drop">Drop</a></td>
+            @endif
         </tr>
     @endforeach
   </table>

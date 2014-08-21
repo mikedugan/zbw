@@ -7,7 +7,6 @@
             <th>Email</th>
             <th>CID</th>
             <th>Rating</th>
-            <th>Edit</th>
             </thead>
             <tbody>
                 <tr class="danger">
@@ -17,7 +16,6 @@
                     <td><a href="mailto:{{$u->email}}">{{ $u->email }}</a></td>
                     <td>{{ $u->cid }}</td>
                     <td>{{ $u->rating->short }}</td>
-                    <td><a class="btn btn-sm" href="/staff/{{$u->cid}}/edit">Edit</a></td>
                 </tr>
                 <tr class="danger">
                     <?php $u = \Sentry::findAllUsersInGroup(\Sentry::findGroupByName('DATM'))[0]; ?>
@@ -26,7 +24,6 @@
                     <td><a href="mailto:{{$u->email}}">{{ $u->email }}</a></td>
                     <td>{{ $u->cid }}</td>
                     <td>{{ $u->rating->short }}</td>
-                    <td><a class="btn btn-sm" href="/staff/{{$u->cid}}/edit">Edit</a></td>
                 </tr>
                 <tr class="danger">
                     <?php $u = \Sentry::findAllUsersInGroup(\Sentry::findGroupByName('TA'))[0]; ?>
@@ -35,7 +32,6 @@
                     <td><a href="mailto:{{$u->email}}">{{ $u->email }}</a></td>
                     <td>{{ $u->cid }}</td>
                     <td>{{ $u->rating->short }}</td>
-                    <td><a class="btn btn-sm" href="/staff/{{$u->cid}}/edit">Edit</a></td>
                 </tr>
                 <tr class="warning">
                     <?php $u = \Sentry::findAllUsersInGroup(\Sentry::findGroupByName('Events'))[0]; ?>
@@ -44,7 +40,6 @@
                     <td><a href="mailto:{{$u->email}}">{{ $u->email }}</a></td>
                     <td>{{ $u->cid }}</td>
                     <td>{{ $u->rating->short }}</td>
-                    <td><a class="btn btn-sm" href="/staff/{{$u->cid}}/edit">Edit</a></td>
                 </tr>
                 <tr class="warning">
                     <?php $u = \Sentry::findAllUsersInGroup(\Sentry::findGroupByName('WEB'))[0]; ?>
@@ -53,7 +48,6 @@
                     <td><a href="mailto:{{$u->email}}">{{ $u->email }}</a></td>
                     <td>{{ $u->cid }}</td>
                     <td>{{ $u->rating->short }}</td>
-                    <td><a class="btn btn-sm" href="/staff/{{$u->cid}}/edit">Edit</a></td>
                 </tr>
                 <tr class="warning">
                     <?php $u = \Sentry::findAllUsersInGroup(\Sentry::findGroupByName('FE'))[0]; ?>
@@ -62,7 +56,6 @@
                     <td><a href="mailto:{{$u->email}}">{{ $u->email }}</a></td>
                     <td>{{ $u->cid }}</td>
                     <td>{{ $u->rating->short }}</td>
-                    <td><a class="btn btn-sm" href="/staff/{{$u->cid}}/edit">Edit</a></td>
                 </tr>
             @foreach($staff as $u)
             @if($u->inGroup(\Sentry::findGroupByName('Instructors')) && $u->not('Executive') && $u->not('Events') && $u->not('WEB') && $u->not('FE'))
@@ -72,7 +65,6 @@
                 <td><a href="mailto:{{$u->email}}">{{ $u->email }}</a></td>
                 <td>{{ $u->cid }}</td>
                 <td>{{ $u->rating->short }}</td>
-                <td><a class="btn btn-sm" href="/staff/{{$u->cid}}/edit">Edit</a></td>
                 </tr>
                 @elseif($u->inGroup(\Sentry::findGroupByName('Mentors')) && $u->not('Executive') && $u->not('Events') && $u->not('WEB') && $u->not('FE'))
                 <tr class="success">
@@ -81,7 +73,6 @@
                     <td><a href="mailto:{{$u->email}}">{{ $u->email }}</a></td>
                     <td>{{ $u->cid }}</td>
                     <td>{{ $u->rating->short }}</td>
-                    <td><a class="btn btn-sm" href="/staff/{{$u->cid}}/edit">Edit</a></td>
                 </tr>
             @endif
             @endforeach

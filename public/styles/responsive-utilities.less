@@ -21,7 +21,6 @@
   width: device-width;
 }
 
-
 // Visibility utilities
 .visible-xs,
 .visible-sm,
@@ -89,4 +88,11 @@
   @media print {
     .responsive-invisibility();
   }
+}
+
+@media (max-width: 1366px) {
+  h4 { font-size: 1.25em !important; }
+  #slideshow { height: 300px; }
+  .content.col-md-10 { margin-top: 50px; }
+  .training-summary .well { height: 105px; }
 }

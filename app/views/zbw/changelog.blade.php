@@ -4,6 +4,13 @@ Changelog
 @stop
 @section('content')
 <h1 class="text-center">Changelog</h1>
+<h3>2.0.10b</h3>
+mikedugan fixed position online indicator <br>
+mikedugan added some responsive helpers <br>
+mikedugan homstead and bugsnag user check" <br>
+mikedugan fixed responsive slideshow bug <br>
+mikedugan updated model docs <br>
+mikedugan pilots with dotted routes <br>
 <h3>2.0.9b</h3>
 mikedugan added js toggle for home page metars <br>
 mikedugan home page changes, added position online indicator <br>
