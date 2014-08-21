@@ -55,6 +55,6 @@ class Staffing extends BaseModel {
 
     public static function positionsOnline()
     {
-        return \Staffing::where('stop', '0000-00-00 00:00:00')->lists('position');
+        return \Staffing::where('stop', '0000-00-00 00:00:00')->orWhere('stop', null)->lists('position');
     }
 }
