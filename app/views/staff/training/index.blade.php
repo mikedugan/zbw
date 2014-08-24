@@ -46,7 +46,7 @@ Training Index
             @foreach($requests as $r)
             @if(in_array($me->cid, Zbw\Users\UserRepository::canTrain($r->cert_id)))
                 <p class="well">
-                <a href="/training/request/{{$r->id}}">{{ $r->student->initials }} has requested training on {{ Zbw\Base\Helpers::readableCert($r->certType->id) }}</a>
+                <a href="/training/request/{{$r->id}}">{{ $r->student->initials }} has requested training on {{ $r->certType->readable() }}</a>
                     @if($r->is_completed)
                     <span class="badge bg-success">Complete</span>
                         @elseif(!empty($r->sid))
@@ -62,25 +62,26 @@ Training Index
     <div class="col-lg-3">
         <h4>Exam Reviews {{ HTML::linkRoute('staff/exams/all', 'View All', '',['class' => 'small']) }}</h4>
         @if($exams)
-            @foreach($exams as $e)
-            @if(in_array($me->cid, Zbw\Users\UserRepository::canTrain($e->cert_id)))
+            @foreach($exams as $exam)
+            @if($me->canTrain($exam->cert_type_id))
                 <p class="well">
-                    <a href="/staff/exams/review/{{$e->id}}">
-                    {{ strtoupper($e->student['initials']) }}
+                    <a href="/staff/exams/review/{{$exam->id}}">
+                    {{ strtoupper($exam->student['initials']) }}
                         took
-                        @if(in_array($e->cert_type_id, [2,5,8,10]))
-                          VATUSA {{ \Rating::find($e->student['rating_id']+1)->short }}
+                        @if($exam->isVatusaExam())
+                          VATUSA {{ \Rating::find($exam->student['rating_id']+1)->short }}
                         @else
-                          {{ Zbw\Base\Helpers::readableCert($e->cert['id']) }}
+
                         @endif
                     , scored
-                        <?php $score = \Zbw\Base\Helpers::getScore($e); echo $score ?>%
+                        {{ $exam->score() }}%
                     </a>
-                    @if($score < 80)
+                    @if($exam->failed())
                     <span class="badge bg-danger">Failed</span>
                     @else
                     <span class="badge bg-success">Passed</span>
                     @endif
+                    {{ dd($exam->cert) }}
                 </p>
             @endif
             @endforeach

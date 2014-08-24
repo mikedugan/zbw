@@ -1,4 +1,6 @@
 <?php
+use Robbo\Presenter\PresentableInterface;
+use Zbw\Training\Presenters\ExamPresenter;
 
 /**
  * Exam
@@ -48,7 +50,8 @@
  * @method static \Illuminate\Database\Query\Builder|\Exam whereQuestions($value) 
  * @method static \Illuminate\Database\Query\Builder|\Exam wherePass($value) 
  */
-class Exam extends BaseModel {
+class Exam extends BaseModel implements PresentableInterface
+{
     protected $dates = ['created_at', 'updated_at', 'assigned_on', 'completed_on'];
     protected $guarded = ['exam_id', 'reviewed'];
     protected $table = 'controller_exams';
@@ -68,6 +71,11 @@ class Exam extends BaseModel {
     public function getDates()
     {
         return $this->dates;
+    }
+
+    public function getPresenter()
+    {
+        return new ExamPresenter($this);
     }
 
     //relations
@@ -100,6 +108,26 @@ class Exam extends BaseModel {
     public function scopeNotReviewed($query)
     {
         return $query->where('reviewed', '=', 0);
+    }
+
+    public function failed()
+    {
+        return ($this->score() < 80);
+    }
+
+    public function passed()
+    {
+        return ($this->score() >= 80);
+    }
+
+    public function score()
+    {
+        return round( $this->correct / $this->total_questions * 100, 2);
+    }
+
+    public function isVatusaExam()
+    {
+        return in_array($this->cert_type_id, [2,5,8,10]);
     }
 
     //statics

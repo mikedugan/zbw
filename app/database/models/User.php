@@ -239,4 +239,12 @@ class User extends SentryUser implements PresentableInterface
         if($exam_id && ($exam_id > $max + 1 || $exam_id <= $max)) return false;
         return true;
     }
+
+    public function canTrain($cert)
+    {
+        if($cert == 11) {
+            return $this->cert > 11;
+        }
+        else return $this->cert >= $cert + 2;
+    }
 }

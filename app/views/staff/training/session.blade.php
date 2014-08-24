@@ -23,16 +23,18 @@ Training Session
         <h3 class="text-center">Training Summary</h3>
         <h5>Peformance</h5>
         @foreach(\Config::get('zbw.live_training_performance') as $subject)
-            <label class="col-sm-3">{{ $subject['label'] }}</label>
+          <div class="row">
+            <label class="col-sm-6">{{ $subject['label'] }}</label>
             @if($tsession->trainingReport->{$subject['review_name']} == -1)
-                <span style="padding:5px" class="col-sm-9 bg-info">Not Observed/Not Applicable</span><br>
+                <span style="padding:5px" class="col-sm-6 bg-info">Not Observed/Not Applicable</span><br>
             @elseif($tsession->trainingReport->{$subject['review_name']} == 0)
-                <span style="padding:5px" class="col-sm-9 bg-danger">Unsatisfactory</span><br>
+                <span style="padding:5px" class="col-sm-6 bg-danger">Unsatisfactory</span><br>
             @elseif($tsession->trainingReport->{$subject['review_name']} == 5)
-                <span style="padding:5px" class="col-sm-9 bg-warning">Needs Improvement</span><br>
+                <span style="padding:5px" class="col-sm-6 bg-warning">Needs Improvement</span><br>
             @else
-                <span style="padding:5px" class="col-sm-9 bg-success">Satisfactory</span><br>
+                <span style="padding:5px" class="col-sm-6 bg-success">Satisfactory</span><br>
             @endif
+            </div>
         @endforeach
         <div class="col-md-6">
         <h5>Markups</h5>
