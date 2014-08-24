@@ -2,8 +2,6 @@
 
 use Zbw\Base\EloquentRepository;
 use Zbw\Bostonjohn\Emailer;
-use Zbw\Bostonjohn\Files\FileValidator;
-use Zbw\Bostonjohn\ZbwLog;
 use Zbw\Users\Contracts\UserRepositoryInterface;
 
 class UserRepository extends EloquentRepository implements UserRepositoryInterface
@@ -273,16 +271,7 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
         $user = $this->make()->find($id);
         $user->is_active = 1;
         $user->is_suspended = 1;
-        if($user->save())
-        {
-            ZbwLog::override(\Auth::user()->initials . ' suspended ' . $user->initials);
-            return true;
-        }
-        else
-        {
-            ZbwLog::error(\Auth::user()->initials . ' had an error attempting to suspend ' . $user->initials);
-            return false;
-        }
+        return $this->checkAndSave($user);
     }
 
     /**
@@ -297,16 +286,7 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
         $user = $this->make()->find($id);
         $user->is_active = true;
         $user->is_suspended = false;
-        if($user->save())
-        {
-            ZbwLog::override(\Auth::user()->initials . ' un-suspended ' . $user->initials);
-            return true;
-        }
-        else
-        {
-            ZbwLog::error(\Auth::user()->initials . ' had an error attempting to un-suspend ' . $user->initials);
-            return false;
-        }
+        return $this->checkAndSave($user);
     }
 
     /**
@@ -321,16 +301,7 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
         $user = $this->make()->find($id);
         $user->is_active = false;
         $user->is_terminated = true;
-        if($user->save())
-        {
-            ZbwLog::log(\Auth::user()->initials . ' terminated ' . $user->initials);
-            return true;
-        }
-        else
-        {
-            ZbwLog::error(\Auth::user()->initials . ' had an error attempting to terminate ' . $user->initials);
-            return false;
-        }
+        return $this->checkAndSave($user);
     }
 
     /**
@@ -345,16 +316,7 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
         $user = $this->make()->find($id);
         $user->is_active = true;
         $user->is_terminated = false;
-        if($user->save())
-        {
-            ZbwLog::log(\Auth::user()->initials . ' un-terminated ' . $user->initials);
-            return true;
-        }
-        else
-        {
-            ZbwLog::error(\Auth::user()->initials . ' had an error attempting to un-terminate ' . $user->initials);
-            return false;
-        }
+        return $this->checkAndSave($user);
     }
 
     /**
@@ -368,7 +330,7 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
     {
         $user = $this->make()->find($id);
         $user->activated = 1;
-        return $user->save();
+        return $this->checkAndSave($user);
     }
 
     public function getStaff()
@@ -444,30 +406,30 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
         return $status;
     }
 
-    public function updateSettings($input)
+    public function updateEmailHidden($user, $hidden)
     {
-        $u = \Sentry::getUser();
-
-
-        if(isset($input['email_hidden']) && $input['email_hidden'] === 'true') $input['email_hidden'] = 1;
-        else $input['email_hidden'] = 0;
-        unset($input['avatar']);
-        $u->settings->fill($input);
-        if(\Input::hasFile('avatar')) {
-            $path = public_path().'/uploads/avatars/';
-            $avatar = \Input::file('avatar');
-            $file_validator = new FileValidator($avatar);
-            if($file_validator->isValid()) {
-                $avatar->move($path, $u->cid . '.' . $avatar->getClientOriginalExtension());
-                $u->settings->avatar = '/uploads/avatars/' . $u->cid . '.' . $avatar->getClientOriginalExtension();
-            }
-        }
-        return $u->save() && $u->settings->save();
+        $user = \Sentry::getUser();
+        if($hidden && $hidden === 'true') { $user->settings->email_hidden = 1; }
+        else $user->settings->email_hidden = 0;
+        return $user->settings->save();
     }
 
-    public function updateNotifications($input)
+    public function updateAvatar($user, $path)
     {
-        $settings = \UserSettings::where('cid', \Sentry::getUser()->cid)->firstOrFail();
+        $user->settings->avatar = $path;
+        return $user->settings->save();
+    }
+
+    public function updateNotifications($cid, $input)
+    {
+        $settings = \UserSettings::where('cid', $cid)->firstOrFail();
+        $settings->fill($input);
+        return $settings->save();
+    }
+
+    public function updateSettings($cid, $input)
+    {
+        $settings = \UserSettings::where('cid', $cid)->firstOrFail();
         $settings->fill($input);
         return $settings->save();
     }

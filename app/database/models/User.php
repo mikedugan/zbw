@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Auth\UserInterface;
-use Illuminate\Auth\Reminders\RemindableInterface;
 use Cartalyst\Sentry\Users\Eloquent\User as SentryUser;
+use Robbo\Presenter\PresentableInterface;
+use Zbw\Users\UserPresenter;
 
 /**
  * User
@@ -62,7 +62,7 @@ use Cartalyst\Sentry\Users\Eloquent\User as SentryUser;
  * @method static \Illuminate\Database\Query\Builder|\User whereAdoptedBy($value) 
  * @method static \Illuminate\Database\Query\Builder|\User whereAdoptedOn($value) 
  */
-class User extends SentryUser implements UserInterface, RemindableInterface
+class User extends SentryUser implements PresentableInterface
 {
 
     protected $guarded = ['cid', 'email', 'rating', 'is_webmaster', 'is_staff'];
@@ -93,6 +93,11 @@ class User extends SentryUser implements UserInterface, RemindableInterface
     public function __construct()
     {
         static::$hasher = new Cartalyst\Sentry\Hashing\NativeHasher();
+    }
+
+    public function getPresenter()
+    {
+        return new UserPresenter($this);
     }
 
     //relations
@@ -141,8 +146,6 @@ class User extends SentryUser implements UserInterface, RemindableInterface
         return $this->hasMany('Staffing', 'cid', 'cid');
     }
 
-
-    //auth related -- mostly deprecated sine we switched to Sentry
     public function is($group)
     {
         return $this->inGroup(\Sentry::findGroupByName($group));
@@ -158,9 +161,7 @@ class User extends SentryUser implements UserInterface, RemindableInterface
         $has = false;
         foreach($this->groups as $group) {
             $perms = $group->getPermissions();
-            if(isset($perms[$permission]) && $perms[$permission] == 1) {
-                $has = true;
-            }
+            $has = isset($perms[$permission]) && $perms[$permission] == 1 ? true : false;
         }
         return $has;
     }
@@ -183,63 +184,6 @@ class User extends SentryUser implements UserInterface, RemindableInterface
 
     protected $hidden = array('password');
 
-    /**
-     * Get the unique identifier for the user.
-     *
-     * @return mixed
-     */
-    public function getAuthIdentifier()
-    {
-        return $this->getKey();
-    }
-
-    /**
-     * Get the password for the user.
-     *
-     * @return string
-     */
-    public function getAuthPassword()
-    {
-        return $this->password;
-    }
-
-    /**
-     * Get the e-mail address where password reminders are sent.
-     *
-     * @return string
-     */
-    public function getReminderEmail()
-    {
-        return $this->email;
-    }
-
-    /**
-     * Get either a Gravatar URL or complete image tag for a specified email address.
-     *
-     * @param string $email The email address
-     * @param string $s Size in pixels, defaults to 80px [ 1 - 2048 ]
-     * @param string $d Default imageset to use [ 404 | mm | identicon | monsterid | wavatar ]
-     * @param string $r Maximum rating (inclusive) [ g | pg | r | x ]
-     * @param boole $img True to return a complete IMG tag False for just the URL
-     * @param array $atts Optional, additional key/value attributes to include in the IMG tag
-     * @return String containing either just a URL or a complete image tag
-     * @source http://gravatar.com/site/implement/images/php/
-     */
-    public function avatar($s = 100, $d = 'mm', $r = 'r', $img = false, $atts = array() ) {
-        if(empty($this->settings->avatar)) {
-            $url = 'http://www.gravatar.com/avatar/';
-            $url .= md5(strtolower(trim($this->email)));
-            $url .= "?s=$s&d=$d&r=$r";
-            if ($img) {
-                $url = '<img src="' . $url . '"';
-                foreach ($atts as $key => $val)
-                    $url .= ' ' . $key . '="' . $val . '"';
-                $url .= ' />';
-            }
-            return $url;
-        }
-        else return $this->settings->avatar;
-    }
 
     public function is_exec()
     {

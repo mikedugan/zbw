@@ -107,10 +107,6 @@ return [
       'Illuminate\Validation\ValidationServiceProvider',
       'Illuminate\View\ViewServiceProvider',
       'Illuminate\Workbench\WorkbenchServiceProvider',
-
-      'Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider',
-      'Barryvdh\Debugbar\ServiceProvider',
-      'Way\Generators\GeneratorsServiceProvider',
       'Cartalyst\Sentry\SentryServiceProvider',
       'Bugsnag\BugsnagLaravel\BugsnagLaravelServiceProvider',
       'Robbo\Presenter\PresenterServiceProvider',
