@@ -88,7 +88,7 @@ class MessagesController extends BaseController
     public function reply($mid)
     {
         $input = Input::all();
-        $response = $this->execute(ReplyToMessageCommand::class, [$mid, $input]);
+        $response = $this->execute(ReplyToMessageCommand::class, ['message_id' => $mid, 'input' => $input]);
         if($response instanceof Illuminate\Support\MessageBag) {
             $this->setFlash(['flash_error' => $response]);
             return $this->redirectBack()->withInput();

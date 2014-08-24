@@ -1,9 +1,11 @@
 <?php
 
+use Illuminate\Session\Store;
 use Zbw\Training\Contracts\ExamsRepositoryInterface;
-use Zbw\Training\TrainingSessionGrader;
 use Zbw\Training\Contracts\TrainingSessionRepositoryInterface;
 use Zbw\Users\Contracts\UserRepositoryInterface;
+
+use Zbw\Training\Commands\ProcessTrainingSessionCommand;
 
 class TrainingController extends BaseController
 {
@@ -11,25 +13,24 @@ class TrainingController extends BaseController
     private $exams;
     private $users;
 
-    function __construct(ExamsRepositoryInterface $exams, TrainingSessionRepositoryInterface $trainings, UserRepositoryInterface $users)
+    function __construct(ExamsRepositoryInterface $exams, TrainingSessionRepositoryInterface $trainings, UserRepositoryInterface $users, Store $session)
     {
         $this->exams = $exams;
         $this->trainings = $trainings;
         $this->users = $users;
+        parent::__construct($session);
     }
 
     public function getIndex()
     {
-        $student = \Sentry::getUser();
-        $reviews = $student->exams()->where('reviewed', 0)->get();
-        if(in_array($student->cert, [2,5,8,10])) { $reviews = 1; }
-        $data = [
-            'availableExams' => $this->exams->availableExams(\Sentry::getUser()->cid),
-            'progress' => $this->users->trainingProgress(\Sentry::getUser()->cid),
-            'review' => count($reviews) > 0 ? true : false,
-            'canTake' => count($student->exams) == 0 || $this->exams->lastExam($student->cid)->reviewed == 1 ? true : false
-        ];
-        return View::make('training.index', $data);
+        $reviews = $this->current_user->exams()->where('reviewed', 0)->get();
+        if(in_array($this->current_user->cert, [2,5,8,10])) { $reviews = 1; }
+        $this->setData('availableExams', $this->exams->availableExams(\Sentry::getUser()->cid));
+        $this->setData('progress', $this->users->trainingProgress(\Sentry::getUser()->cid));
+        $this->setData('review', count($reviews) > 0 ? true : false);
+        $this->setData('canTake', count($this->current_user->exams) == 0 || $this->exams->lastExam($this->current_user->cid)->reviewed == 1 ? true : false);
+
+        $this->view('training.index');
     }
 
     public function getAdminIndex()
@@ -44,107 +45,87 @@ class TrainingController extends BaseController
     //all training reports
     public function getAll()
     {
-        if(\Input::has('sinitials') || \Input::has('before') || \Input::has('after') || \Input::has('cinitials')) {
-            $data = [
-                'sessions' => $this->trainings->indexFiltered(\Input::all()),
-                'paginate' => false
-            ];
+        if(empty(\Input::all())) {
+            $this->setData('sessions', $this->trainings->indexPaginated(10));
+            $this->setData('paginate', true);
+        } else {
+            $this->setData('sessions', $this->trainings->indexFiltered(\Input::all()));
+            $this->setData('paginate', false);
         }
-        else {
-            $data = [
-                'sessions' => $this->trainings->indexPaginated(10),
-                'paginate' => true
-            ];
-        }
-        return View::make('staff.training.all', $data);
+
+        $this->view('staff.training.all');
     }
 
     //all training requests
     public function getAllRequests()
     {
-        if(\Input::has('initials') || \Input::has('before') || \Input::has('after')) {
-            $data = [
-                'requests' => \TrainingRequest::indexFiltered(\Input::all()),
-                'paginate' => false
-            ];
+        if(empty(\Input::all())) {
+            $this->setData('requests', \TrainingRequest::indexPaginated(10));
+            $this->setData('paginate', false);
+        } else {
+            $this->setData('requests', \TrainingRequest::indexFiltered(\Input::all()));
+            $this->setData('paginate', true);
         }
-        else {
-            $data = [
-                'requests' => \TrainingRequest::indexPaginated(10),
-                'paginate' => true
-            ];
-        }
-        return View::make('staff.training.all-requests', $data);
+
+        $this->view('staff.training.all-requests');
     }
 
     public function showAdmin($id)
     {
-        $ts = $this->trainings->with(['student', 'staff', 'facility', 'weatherType', 'trainingReport'], $id);
-        $data = [
-          'tsession' => $ts
-        ];
-        return View::make('staff.training.session', $data);
+        $this->setData('tsession', $this->trainings->with(['student', 'staff', 'facility', 'weatherType', 'trainingReport'], $id));
+        $this->view('staff.training.session');
     }
 
     public function getRequest()
     {
-        $user = \Sentry::getUser();
-        if($user->cert == 0 || $user->cert == 1) {
-            return Redirect::route('training')->with('flash_error', 'You must pass the ZBW class C ground exam to request training!');
+        if($this->current_user->cert == 0 <= 1) {
+            $this->setFlash(['flash_error' => 'You must pass the ZBW class C ground exam to request training!']);
+            $this->redirectRoute('training');
         }
-        return View::make('training.request');
+
+        $this->view('training.request');
     }
 
     public function showRequest($tid)
     {
-        $request = \TrainingRequest::with(['student', 'certType', 'staff'])
-                                   ->find($tid);
-        $data = [
-          'request' => $request
-        ];
-        return View::make('training.show-request', $data);
+        $this->setData('request', \TrainingRequest::with(['student', 'certType', 'staff'])->find($tid));
+        $this->view('training.show-request');
     }
 
     public function getLiveSession($tsid)
     {
-        $session = \TrainingRequest::find($tsid);
-        $data = [
-            'staff' => \Sentry::getUser(),
-            'student' => \Sentry::getUser($session->cid)
-        ];
-        return View::make('staff.training.live', $data);
+        $this->setData('student', \TrainingRequest::find($tsid)->cid);
+        $this->setData('staff', $this->current_user);
+        $this->view('staff.training.live');
     }
 
     public function testLiveSession($tsid)
     {
         $request = \TrainingRequest::find($tsid);
-        $data = [
-            'staff' => \Sentry::getUser(),
-            'student' => \Sentry::findUserById($request->cid),
-            'facilities' => \TrainingFacility::all(),
-            'types' => \TrainingType::all()
-        ];
-        return View::make('staff.training.live', $data);
+        $this->setData('staff', $this->current_user);
+        $this->setData('student', $this->users->get($request->cid));
+        $this->setData('facilities', \TrainingFacility::all());
+        $this->setData('types', \TrainingType::all());
+        $this->view('staff.training.live');
     }
 
     public function postLiveSession($tsid)
     {
-        $report = (new TrainingSessionGrader(\Input::all()))->fileReport();
-        if($report instanceof \TrainingSession) {
-            \TrainingRequest::complete($tsid, $report->id);
-            return Redirect::route('staff/training')->with('flash_success','Training session completed');
+        $success = $this->execute(ProcessTrainingSessionCommand::class, ['input' => \Input::all(), 'tsid' => $tsid]);
+
+        if($success) {
+            $this->setFlash(['flash_success' => 'Training session completed']);
+            return $this->redirectRoute('staff/training');
         } else {
-            return Redirect::back()->with('flash_error', 'Error submitting training session! Please email admin@bostonartcc.net immediately');
+            $this->setFlash(['flash_error' => 'Error submitting training session! Please email admin@bostonartcc.net immediately']);
+            return $this->redirectBack()->withInput();
         }
     }
 
     public function getAdopt($cid)
     {
-        $data = [
-            'student' => $this->users->get($cid)
-        ];
-
-        return View::make('staff.training.adopt', $data);
+        $this->setData('student', $this->users->get($cid));
+        $this->view('staff.training.adopt');
     }
 
     public function postAdopt()
