@@ -5,6 +5,7 @@ View Message
 @section('header')
 @stop
 @section('content')
+@include('includes.nav._messenger')
     <h1 class="text-center">View Message from {{$message->sender->initials}}</h1>
     <div class="col-md-6">
         <h2>Subject</h2>

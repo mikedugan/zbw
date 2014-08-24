@@ -65,6 +65,7 @@ class MessagesController extends BaseController
     {
         $message = $this->messages->get($message_id);
         $message->markRead();
+        $this->setData('view', '');
         $this->setData('message', $message);
         $this->setData('users', $this->users->allVitals());
         $this->view('users.messages.view');
@@ -101,7 +102,7 @@ class MessagesController extends BaseController
     {
         if ($this->messages->delete($message_id)) {
             $this->setFlash(['flash_success' => 'Message deleted successfully']);
-            $this->redirectRoute('messages');
+            return $this->redirectRoute('messages');
         }
     }
 
@@ -109,11 +110,11 @@ class MessagesController extends BaseController
     {
         if (! $this->messages->restore($message_id)) {
             $this->setFlash(['flash_error' => $this->messages->getErrors()]);
-            $this->redirectBack();
+            return $this->redirectBack();
         }
         else {
             $this->setFlash(['flash_success' => 'Message restored successfully']);
-            $this->redirectRoute('messages');
+            return $this->redirectRoute('messages');
         }
     }
 } 
