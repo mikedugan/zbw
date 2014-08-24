@@ -36,12 +36,12 @@ class FileValidator
         }
 
         if($matches) {
-            $mime_base = explode('/', $this->file->getMimeType());
+            $mime_base = explode('/', $this->file->getMimeType())[0];
             $max_filesize = \Config::get('file.max_size')[$mime_base];
             if($this->file->getSize() < $max_filesize) {
                 return true;
             }
-            throw new MaxFilesizeExceededException('File must be under '.$max_filesize.' bytes');
+            throw new MaxFilesizeExceededException('File must be under '.($max_filesize/1000).' kbytes');
         } else {
             throw new MimeExtensionMismatchException('Detected mime does not match the file extension');
         }

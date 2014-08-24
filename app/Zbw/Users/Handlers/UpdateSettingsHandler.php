@@ -1,6 +1,8 @@
 <?php  namespace Zbw\Users\Handlers; 
 
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Zbw\Users\Commands\UpdateSettingsCommand;
+use Zbw\Bostonjohn\Files\FileValidator;
 use Zbw\Users\Contracts\UserRepositoryInterface;
 
 class UpdateSettingsHandler
@@ -27,6 +29,8 @@ class UpdateSettingsHandler
                 $avatar->move($path, $u->cid . '.' . $avatar->getClientOriginalExtension());
                 $newPath = '/uploads/avatars/' . $u->cid . '.' . $avatar->getClientOriginalExtension();
                 $success = $this->users->updateAvatar($u, $newPath) === true ?: false;
+            } else {
+                throw new FileException;
             }
         }
 

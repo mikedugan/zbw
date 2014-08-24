@@ -2,7 +2,7 @@
 return [
   'max_size'            => [
     'application' => '50000',
-    'image'       => '10000',
+    'image'       => '10000000',
     'text'        => '25000',
     'video'       => '100000',
     'audio'       => '20000'
