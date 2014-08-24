@@ -20,7 +20,8 @@ Adopt a Student
   </div>
   <div class="col-md-6">
     <form action="" method="post">
-        <input type="hidden" name="student" value="{{$student->cid}}">
+        <input type="hidden" name="cid" value="{{$student->cid}}">
+        <input type="hidden" name="sid" value="{{$me->cid}}">
         <div class="form-group">
             <label class="control-label" for="subject">Subject</label>
             <input type="text" name="subject" id="subject" class="form-control">

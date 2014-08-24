@@ -6,6 +6,7 @@ use Zbw\Training\Contracts\TrainingSessionRepositoryInterface;
 use Zbw\Users\Contracts\UserRepositoryInterface;
 
 use Zbw\Training\Commands\ProcessTrainingSessionCommand;
+use Zbw\Training\Commands\AdoptUserCommand;
 
 class TrainingController extends BaseController
 {
@@ -130,23 +131,23 @@ class TrainingController extends BaseController
 
     public function postAdopt()
     {
-        $input = \Input::all();
-        if($this->users->adopt($input['student'], \Sentry::getUser()->cid)) {
-            $input['staff'] = \Sentry::getUser()->cid;
-            Queue::push('Zbw\Bostonjohn\Queues\QueueDispatcher@usersAdopt', $input);
-            return Redirect::back()->with('flash_success', 'User adopted successfully!');
-        } else {
-            return Redirect::back()->with('flash_error', $this->users->getErrors());
-        }
+        $input = \Input::only(['meeting','message','subject','sid','cid']);
+        $success = $this->execute(AdoptUserCommand::class, $input);
+
+        if($success === true) { $this->setFlash(['flash_success' => 'User adopted successfully']); }
+        else { $this->setFlash(['flash_error' => $success]); }
+
+        return $this->redirectBack();
     }
 
     public function postDropAdopt($cid)
     {
         if($this->users->dropAdopt($cid)) {
-            return Redirect::back()->with('flash_success', 'Adoption dropped successfully');
+            $this->setFlash(['flash_success' => 'Adoption dropped successfully']);
         } else {
-            return Redirect::back()->with('flash_error', $this->users->getErrors());
+            $this->setFlash(['flash_error' => $this->users->getErrors()]);
         }
+        return $this->redirectBack();
     }
 
 }
