@@ -6,55 +6,96 @@ Training Index
 @include('includes.nav._training')
 <div class="col-lg-12 training-summary">
  {{-- this area should contain an overview of recent training, promotions, etc --}}
-    <div class="col-lg-3">
-        <h4>Recent Reports {{ HTML::linkRoute('staff/training/all', 'View All', '',['class' => 'small']) }}</h4>
-        @foreach($reports as $r)
-            <p class="well">
-                <a href="/staff/training/{{$r->id}}">
-                {{ $r->student['initials'] }} was trained by
-                {{ $r->staff['initials'] }}
-                {{ $r->timeAgo('session_date') }} on
-                {{ $r->facility->value }}
-                </a>
-                @if($r->is_ots == -1)
-                <span class="badge bg-info">Not OTS</span>
-                @elseif($r->is_ots == 0)
-                <span class="badge bg-danger">OTS Fail</span>
-                @elseif($r->is_ots == 1)
-                <span class="badge bg-success">OTS Pass</span>
-                @endif
-            </p>
-        @endforeach
-    </div>
-    <div class="col-lg-3">
-        <h4>Recent Staffing {{ HTML::linkRoute('staff/staffing', 'View All', '',['class' => 'small']) }}</h4>
+ <div class="panel-group" id="accordion">
+   <div class="row">
+   <div class="col-md-6 panel panel-default">
+   <div class="panel-heading">
+       <h3 class="panel-title">
+        <a data-toggle="collapse" data-parent="accordion" href="#collapseOne">
+        Recent Reports {{ HTML::linkRoute('staff/training/all', 'View All', '',['class' => 'small']) }}
+        </a>
+       </h3>
+   </div>
+   <div id="collapseOne" class="panel-collapse collapse">
+     <div class="panel-body">
+       @foreach($reports as $r)
+         <p class="well">
+             <a href="/staff/training/{{$r->id}}">
+             {{ $r->student['initials'] }} was trained by
+             {{ $r->staff['initials'] }}
+             {{ $r->timeAgo('session_date') }} on
+             {{ $r->facility->value }}
+             </a>
+             @if($r->is_ots == -1)
+             <span class="badge bg-info">Not OTS</span>
+             @elseif($r->is_ots == 0)
+             <span class="badge bg-danger">OTS Fail</span>
+             @elseif($r->is_ots == 1)
+             <span class="badge bg-success">OTS Pass</span>
+             @endif
+         </p>
+     @endforeach
+     </div>
+   </div>
+   </div>
+   <div class="col-md-6 panel panel-default">
+      <div class="panel-heading">
+          <h3 class="panel-title">
+           <a data-toggle="collapse" data-parent="accordion" href="#collapseTwo">
+           Recent Staffing {{ HTML::linkRoute('staff/staffing', 'View All', '',['class' => 'small']) }}
+           </a>
+          </h3>
+      </div>
+      <div id="collapseTwo" class="panel-collapse collapse">
+        <div class="panel-body">
         @foreach($staffings as $s)
             <p class="well"><a href="/controllers/{{$s->cid}}">{{ $s->user->initials }}</a> staffed {{$s->position}} for {{ $s->timeOnline() }}</p>
         @endforeach
-    </div>
- {{-- this area should contain pending training & exam requests, etc --}}
-    <div class="col-lg-3">
-        <h4>Requests {{ HTML::linkRoute('training/request/all', 'View All', '',['class' => 'small']) }}</h4>
-        @if($requests)
-            @foreach($requests as $r)
-            @if($me->canTrain($r->cert_id))
-                <p class="well">
-                <a href="/training/request/{{$r->id}}">{{ $r->student->initials }} has requested training on {{ $r->certType->readable() }}</a>
-                    @if($r->is_completed)
-                    <span class="badge bg-success">Complete</span>
-                        @elseif(!empty($r->sid))
-                    <span class="badge bg-warning">Pending</span>
-                        @else
-                    <span class="badge bg-danger">Available</span>
-                    @endif
-                </p>
-                @endif
-            @endforeach
-        @endif
-    </div>
-    <div class="col-lg-3">
-        <h4>Exam Reviews {{ HTML::linkRoute('staff/exams/all', 'View All', '',['class' => 'small']) }}</h4>
-        @if($exams)
+        </div>
+      </div>
+   </div>
+   </div>
+   <div class="row">
+   <div class="col-md-6 panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+             <a data-toggle="collapse" data-parent="accordion" href="#collapseThr">
+             Requests {{ HTML::linkRoute('training/request/all', 'View All', '',['class' => 'small']) }}
+             </a>
+            </h3>
+        </div>
+        <div id="collapseThr" class="panel-collapse collapse">
+          <div class="panel-body">
+          @if($requests)
+                      @foreach($requests as $r)
+                      @if($me->canTrain($r->cert_id))
+                          <p class="well">
+                          <a href="/training/request/{{$r->id}}">{{ $r->student->initials }} has requested training on {{ $r->certType->readable() }}</a>
+                              @if($r->is_completed)
+                              <span class="badge bg-success">Complete</span>
+                                  @elseif(!empty($r->sid))
+                              <span class="badge bg-warning">Pending</span>
+                                  @else
+                              <span class="badge bg-danger">Available</span>
+                              @endif
+                          </p>
+                          @endif
+                      @endforeach
+                  @endif
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 panel panel-default">
+              <div class="panel-heading">
+                  <h3 class="panel-title">
+                   <a data-toggle="collapse" data-parent="accordion" href="#collapseFour">
+                   Exam Reviews {{ HTML::linkRoute('staff/exams/all', 'View All', '',['class' => 'small']) }}
+                   </a>
+                  </h3>
+              </div>
+              <div id="collapseFour" class="panel-collapse collapse">
+                <div class="panel-body">
+            @if($exams)
             @foreach($exams as $exam)
             @if($me->canTrain($exam->cert_type_id))
                 <p class="well">
@@ -78,6 +119,10 @@ Training Index
             @endif
             @endforeach
         @endif
-    </div>
+                </div>
+              </div>
+            </div>
+ </div>
+ </div>
 </div>
 @stop
