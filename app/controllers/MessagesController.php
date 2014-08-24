@@ -34,10 +34,10 @@ class MessagesController extends BaseController
                 $this->setData('inbox', $this->messages->to(\Sentry::getUser()->cid,Input::get('unread')));
                 break;
             case 'outbox':
-                $this->setData('outbox', $this->messages->from(\Sentry::getUser()));
+                $this->setData('outbox', $this->messages->from(\Sentry::getUser()->cid));
                 break;
             case 'trash':
-                $this->setData('trash', $this->messages->trashed(\Sentry::getUser()));
+                $this->setData('trash', $this->messages->trashed(\Sentry::getUser()->cid));
                 break;
         }
 
