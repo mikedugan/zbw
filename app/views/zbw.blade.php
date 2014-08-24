@@ -25,7 +25,7 @@ Welcome
             <a class="list-group-item" href="http://vatsim.net">VATSIM</a>
             <a class="list-group-item" href="http://vatusa.net">VATUSA</a>
             @foreach($positions as $position)
-            <span style="background:limegreen" class="list-group-item col-md-3">{{ $position }}</span>
+            <span style="background:limegreen" class="list-group-item col-md-4">{{ $position }}</span>
             @endforeach
         </div>
     </div>

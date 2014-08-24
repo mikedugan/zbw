@@ -17,14 +17,15 @@ Bugsnag::setBeforeNotifyFunction('beforeBugsnagNotify');
 
 function beforeBugsnagNotify($error)
 {
+    if($user = \Sentry::getUser())
     /*if(Sentry::check())
         $user = \Sentry::getUser();
         $error->setMetaData([
               'user' => [
-                  'name' => $user->initials,
+                  'name' => $user->username,
                   'email' => $user->email
               ]
-        ]);*/
+        ]);
 }
 
 //custom validation rules that need a new home
