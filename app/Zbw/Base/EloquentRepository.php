@@ -173,5 +173,5 @@ abstract class EloquentRepository {
      * @param $input
      * @return mixed
      */
-    abstract public function create($input);
+    //abstract public function create($input);
 }

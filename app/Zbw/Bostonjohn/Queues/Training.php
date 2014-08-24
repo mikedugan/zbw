@@ -71,11 +71,7 @@ class Training {
             }
             //send private message if they want those
             if($user->wants('message', 'training_request')) {
-                $this->messages->create([
-                      'subject' => 'ZBW Training Request',
-                      'to' => $user->initials,
-                      'message' => str_replace('_USER_', $user->initials, $message)
-                  ]);
+                $this->messages->create($user->initials, 'ZBW Training Request', str_replace('_USER_', $user->initials, $message));
             }
         }
         $job->delete();
@@ -115,11 +111,7 @@ class Training {
         //check if student wants pm notifications
         if($student->wants('message', 'training_accepted')) {
             //send the pm
-            $this->messages->create([
-                  'subject' => 'Training Request Accepted',
-                  'to' => $student->initials,
-                  'message' => str_replace('_USER_', $student->initials, $message)
-              ]);
+            $this->messages->create($student->initials, 'Training Request Accepted', str_replace('_USER_', $student->initials, $message));
         }
         $job->delete();
     }
@@ -158,11 +150,7 @@ class Training {
         //check if user wants pm notifications
         if($student->wants('message', 'training_cancelled')) {
             //send pm
-            $this->messages->create([
-                'subject' => 'Training Request Dropped',
-                'to' => $student->initials,
-                'message' => str_replace('_USER_', $student->initials, $message)
-              ]);
+            $this->messages->create($student->initials, 'Training Request Dropped', str_replace('_USER_', $student->initials, $message));
         }
         $job->delete();
     }

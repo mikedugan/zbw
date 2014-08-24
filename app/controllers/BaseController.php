@@ -66,7 +66,7 @@ abstract class BaseController extends Controller
     }
 
     /**
-     * @param $flash_data
+     * @param array $flash_data
      * @return void
      */
     protected function setFlash($flash_data)

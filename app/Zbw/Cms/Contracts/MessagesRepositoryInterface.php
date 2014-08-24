@@ -49,7 +49,7 @@ interface MessagesRepositoryInterface
      */
     public function add($input);
 
-    public function create($input);
+    public function create($to, $subject, $message);
 
     /**
      * @param integer message id
