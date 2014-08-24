@@ -133,6 +133,10 @@ class ExamsRepository extends EloquentRepository implements ExamsRepositoryInter
 
         $grader = new ExamGrader();
         return $grader->grade($exam);
+    }
 
+    public function recentExams($n)
+    {
+        return $this->make()->with(['student', 'staff', 'cert'])->orderBy('created_at', 'desc')->where('reviewed', 0)->limit($n)->get();
     }
 }

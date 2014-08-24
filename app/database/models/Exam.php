@@ -130,10 +130,8 @@ class Exam extends BaseModel implements PresentableInterface
         return in_array($this->cert_type_id, [2,5,8,10]);
     }
 
-    //statics
-    public static function recentExams($n)
+    public function studentRating()
     {
-        return Exam::with(['student', 'staff', 'cert'])
-            ->orderBy('created_at', 'desc')->where('reviewed', 0)->limit($n)->get();
+        \Rating::find($this->student['rating_id']+1)->short;
     }
 }

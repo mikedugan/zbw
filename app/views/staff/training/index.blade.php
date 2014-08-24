@@ -11,9 +11,9 @@ Training Index
         @foreach($reports as $r)
             <p class="well">
                 <a href="/staff/training/{{$r->id}}">
-                {{ strtoupper($r->student['initials']) }} was trained by
-                {{ strtoupper($r->staff['initials']) }}
-                {{ \Zbw\Base\Helpers::timeAgo($r->session_date) }} on
+                {{ $r->student['initials'] }} was trained by
+                {{ $r->staff['initials'] }}
+                {{ $r->timeAgo('session_date') }} on
                 {{ $r->facility->value }}
                 </a>
                 @if($r->is_ots == -1)
@@ -29,14 +29,7 @@ Training Index
     <div class="col-lg-3">
         <h4>Recent Staffing {{ HTML::linkRoute('staff/staffing', 'View All', '',['class' => 'small']) }}</h4>
         @foreach($staffings as $s)
-            <p class="well"><a href="/controllers/{{$s->cid}}">{{ $s->user->initials }}</a> staffed {{$s->position}} for
-                <?php
-                $minutes = $s->created_at->diffInMinutes($s->stop);
-                $hours = 0;
-                if($minutes > 60) { $hours = floor($minutes / 60); $minutes = $minutes % 60; }
-                echo $hours > 0 ? $hours . ' hour(s) ' . $minutes . ' minutes' : $minutes . ' minutes';
-                ?>
-            </p>
+            <p class="well"><a href="/controllers/{{$s->cid}}">{{ $s->user->initials }}</a> staffed {{$s->position}} for {{ $s->timeOnline() }}</p>
         @endforeach
     </div>
  {{-- this area should contain pending training & exam requests, etc --}}
@@ -44,7 +37,7 @@ Training Index
         <h4>Requests {{ HTML::linkRoute('training/request/all', 'View All', '',['class' => 'small']) }}</h4>
         @if($requests)
             @foreach($requests as $r)
-            @if(in_array($me->cid, Zbw\Users\UserRepository::canTrain($r->cert_id)))
+            @if($me->canTrain($r->cert_id))
                 <p class="well">
                 <a href="/training/request/{{$r->id}}">{{ $r->student->initials }} has requested training on {{ $r->certType->readable() }}</a>
                     @if($r->is_completed)
@@ -69,9 +62,9 @@ Training Index
                     {{ strtoupper($exam->student['initials']) }}
                         took
                         @if($exam->isVatusaExam())
-                          VATUSA {{ \Rating::find($exam->student['rating_id']+1)->short }}
+                          VATUSA {{ $exam->studentRating() }}
                         @else
-
+                          {{ $exam->cert->readable() }}
                         @endif
                     , scored
                         {{ $exam->score() }}%
@@ -81,7 +74,6 @@ Training Index
                     @else
                     <span class="badge bg-success">Passed</span>
                     @endif
-                    {{ dd($exam->cert) }}
                 </p>
             @endif
             @endforeach

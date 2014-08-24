@@ -34,13 +34,11 @@ class TrainingController extends BaseController
 
     public function getAdminIndex()
     {
-        $data = [
-          'reports' => $this->trainings->recentReports(10),
-          'requests' => \TrainingRequest::with(['student', 'certType'])->orderBy('created_at', 'desc')->limit(10)->get(),
-          'exams' => \Exam::recentExams(10),
-          'staffings' => \Staffing::limit(10)->with(['user'])->orderBy('created_at', 'DESC')->get()
-        ];
-        return View::make('staff.training.index', $data);
+        $this->setData('reports', $this->trainings->recentReports(10));
+        $this->setData('exams', $this->exams->recentExams(10));
+        $this->setData('staffings', \Staffing::recentStaffings(10));
+        $this->setData('requests', \TrainingRequest::with(['student', 'certType'])->orderBy('created_at', 'desc')->limit(10)->get());
+        $this->view('staff.training.index');
     }
 
     //all training reports
