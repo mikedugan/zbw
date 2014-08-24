@@ -12,13 +12,15 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
     {
     }
 
+    /**
+     * @param $initials
+     * @return mixed
+     */
     public function findByInitials($initials)
     {
         return $this->make()->where('initials', strtoupper($initials))->first();
     }
     /**
-     * @type
-     * @name allVitals
      *  returns vital user data
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
@@ -27,6 +29,10 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
         return $this->make()->all(['first_name', 'last_name', 'cid', 'initials']);
     }
 
+    /**
+     * @param $cid
+     * @return bool
+     */
     public function exists($cid)
     {
         return (count($this->make()->find($cid)) === 1);
@@ -61,7 +67,6 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
     }
 
     /**
-     * @name updateUser
      *  updates an existing user
      * @param $input
      * @param null $cid
@@ -147,6 +152,10 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
         return $this->checkAndSave($user);
     }
 
+    /**
+     * @param $user
+     * @return void
+     */
     public function authUpdate($user)
     {
         $model = \Sentry::findUserById($user->user->id);
@@ -157,16 +166,30 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
         $model->save();
     }
 
+    /**
+     * @return mixed
+     */
     public function activeList()
     {
         return $this->make()->where('activated', 1)->orderBy('updated_at', 'DESC')->get();
     }
 
+    /**
+     * @param int $num
+     * @return mixed
+     */
     public function active($num = 20)
     {
         return $this->make()->with(['rating', 'settings'])->where('activated', 1)->orderBy('activated', 'DESC')->get();
     }
 
+    /**
+     * @param \Zbw\Base\relations $with
+     * @param null                $id
+     * @param string              $pk
+     * @param null                $pagination
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     */
     public function with($with, $id = null, $pk = 'id', $pagination = null)
     {
         if($pagination) {
@@ -178,8 +201,6 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
     }
 
     /**
-     * @type
-     * @name createInitials
      * 
      * @param $fname
      * @param $lname
@@ -207,8 +228,6 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
     }
 
     /**
-     * @type
-     * @name trainingProgress
      * 
      * @param $id
      * @return float
@@ -219,8 +238,6 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
     }
 
     /**
-     * @type
-     * @name search
      * 
      * @param $input
      * @return \Illuminate\Database\Eloquent\Collection|static[]
@@ -260,8 +277,6 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
     }
 
     /**
-     * @type
-     * @name suspendUser
      * 
      * @param $id
      * @return bool
@@ -275,8 +290,6 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
     }
 
     /**
-     * @type
-     * @name unsuspendUser
      * 
      * @param $id
      * @return bool
@@ -290,8 +303,6 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
     }
 
     /**
-     * @type
-     * @name terminateUser
      * 
      * @param $id
      * @return bool
@@ -305,8 +316,6 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
     }
 
     /**
-     * @type
-     * @name unterminateUser
      * 
      * @param $id
      * @return bool
@@ -320,8 +329,6 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
     }
 
     /**
-     * @type
-     * @name activateUser
      * 
      * @param $id
      * @return bool
@@ -333,6 +340,9 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
         return $this->checkAndSave($user);
     }
 
+    /**
+     * @return array
+     */
     public function getStaff()
     {
         $staff = \Sentry::findGroupByName('Staff');
@@ -341,8 +351,6 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
     }
 
     /**
-     * @type
-     * @name isStaff
      * @deprecated
      * 
      * @param $id
@@ -356,8 +364,6 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
     }
 
     /**
-     * @type
-     * @name isExecutive
      * @deprecated
      * 
      * @param $id
@@ -370,6 +376,10 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
         return $u->inGroup($exec);
     }
 
+    /**
+     * @param string $col
+     * @return mixed
+     */
     public static function canTrain($level, $col = 'cid')
     {
         $start = \Sentry::findAllUsersInGroup(\Sentry::findGroupByName('Mentors'));
@@ -395,6 +405,10 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
         return $this->make()->where('cert', '>=', $level + 2)->lists($col);
     }
 
+    /**
+     * @param $user
+     * @return null|string
+     */
     public function checkUser($user)
     {
         if(is_int($user)) $user = $this->make()->find($user);
@@ -406,6 +420,11 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
         return $status;
     }
 
+    /**
+     * @param $user
+     * @param $hidden
+     * @return mixed
+     */
     public function updateEmailHidden($user, $hidden)
     {
         $user = \Sentry::getUser();
@@ -414,12 +433,22 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
         return $user->settings->save();
     }
 
+    /**
+     * @param $user
+     * @param $path
+     * @return mixed
+     */
     public function updateAvatar($user, $path)
     {
         $user->settings->avatar = $path;
         return $user->settings->save();
     }
 
+    /**
+     * @param $cid
+     * @param $input
+     * @return bool
+     */
     public function updateNotifications($cid, $input)
     {
         $settings = \UserSettings::where('cid', $cid)->firstOrFail();
@@ -427,6 +456,11 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
         return $settings->save();
     }
 
+    /**
+     * @param $cid
+     * @param $input
+     * @return bool
+     */
     public function updateSettings($cid, $input)
     {
         $settings = \UserSettings::where('cid', $cid)->firstOrFail();
@@ -434,16 +468,26 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
         return $settings->save();
     }
 
+    /**
+     * @return mixed
+     */
     public function getAdoptableStudents()
     {
         return $this->make()->where('updated_at', '>', \Carbon::createFromFormat('Y-m-d', '2014-07-27'))->where('adopted_by', null)->where('cid', '!=', 100)->where('cert', 0)->orWhere('cert', 1)->get();
     }
 
+    /**
+     * @return mixed
+     */
     public function getAdoptedStudents()
     {
         return $this->make()->where('adopted_by', '>', 100)->with(['adopter'])->get();
     }
 
+    /**
+     * @param $student
+     * @return bool
+     */
     public function dropAdopt($student)
     {
         $student = $this->get($student);
@@ -452,6 +496,11 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
         return $this->checkAndSave($student);
     }
 
+    /**
+     * @param $student
+     * @param $staff
+     * @return bool
+     */
     public function adopt($student, $staff)
     {
         $student = $this->get($student);
@@ -460,6 +509,15 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
         return $this->checkAndSave($student);
     }
 
+    /**
+     * @param $input
+     * @return void
+     */
     public function update($input) {}
+
+    /**
+     * @param $input
+     * @return void
+     */
     public function create($input) {}
 }
