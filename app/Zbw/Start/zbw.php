@@ -23,7 +23,7 @@ function beforeBugsnagNotify($error)
         $error->setMetaData([
               'user' => [
                   'name' => $user->username,
-                  'email' => $user->email
+                  'email'  => $user->email
               ]
         ]);*/
 }

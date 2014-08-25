@@ -22,30 +22,22 @@ class ZbwController extends BaseController
     }
     public function getIndex()
     {
-        $data = [
-          'me'      => Auth::user(),
-          'news'    => $this->news->front(5),
-          'metars'  => \Metar::frontPage(),
-          'atcs'    => \Staffing::frontPage(),
-          'flights' => \ZbwFlight::frontPage(5),
-          'positions' => \Staffing::positionsOnline()
-        ];
-        return View::make('zbw', $data);
-
+      $this->setData('news', $this->news->front(5));
+      $this->setData('metars', \Metar::frontPage());
+      $this->setData('atcs', \Staffing::frontPage());
+      $this->setData('flights', \ZbwFlight::frontPage(5));
+      $this->setData('positions', \Staffing::positionsOnline());
+      $this->view('zbw');
     }
 
     public function getControllerIndex()
     {
-        $data = [
-        ];
-        return View::make('zbw.controllers', $data);
+        $this->view('zbw.controllers');
     }
 
     public function getPilotIndex()
     {
-        $data = [
-        ];
-        return View::make('zbw.pilots', $data);
+        $this->view('zbw.pilots');
     }
 
     public function postFeedback()
@@ -56,7 +48,7 @@ class ZbwController extends BaseController
             'to' => \Config::get('app.webmaster.email'),
             'from' => $input['email'],
             'subject' => $input['subject'],
-            'content' => $input['content']
+            'content' => $input['content'],
         ];
 
         \Mail::send('zbw.emails.feedback', $data, function($message) use ($data) {
@@ -86,7 +78,7 @@ class ZbwController extends BaseController
 
     public function getVisit()
     {
-        return View::make('zbw.visit');
+        $this->view('zbw.visit');
     }
 
     public function postVisit()
@@ -98,7 +90,7 @@ class ZbwController extends BaseController
 
     public function getJoin()
     {
-        return View::make('zbw.join');
+        $this->view('zbw.join');
     }
 
     public function postContact()

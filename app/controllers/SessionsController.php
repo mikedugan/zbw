@@ -1,22 +1,42 @@
 <?php
 
+use Illuminate\Session\Store;
+use Zbw\Users\Auth\AuthService;
+
+use Zbw\Users\Commands\LoginUserCommand;
+
 class SessionsController extends BaseController
 {
+    private $auth;
+
+    public function __construct(AuthService $auth, Store $session)
+    {
+        parent::__construct($session);
+        $this->auth = $auth;
+    }
 
     /**
      * @deprecated
      */
     public function getLogin()
     {
-        $data = [
-          'title' => 'vZBW Login'
-        ];
-        return View::make('users.login', $data);
+        return View::make('users.login');
     }
 
     public function oauthLogin()
     {
-        $sso = new \Zbw\Users\Auth\Sso();
+        if(\Input::has(['oauth_token', 'oauth_verifier'])) {
+            $oauth_token = $this->input['oauth_token'];
+            $oauth_verifier = $this->input['oauth_verifier'];
+            $response = $this->execute(LoginUserCommand::class, ['token' => $oauth_token, 'verifier' => $oauth_verifier]);
+            $this->setFlash(['flash_success' => 'You have been logged in']);
+            return $this->redirectIntended();
+        } else {
+            $this->auth->getTokenAndRedirect();
+        }
+
+
+/*        $sso = new \Zbw\Users\Auth\Sso();
         $return = \Config::get('zbw.sso.return');
         //vatsim redirected user
         if (\Input::has('oauth_token')) {
@@ -32,7 +52,7 @@ class SessionsController extends BaseController
         } else if ($status = \AuthToken::setupToken($sso)) {
             return Redirect::home()->with('flash_error', $status);
         }
-        else return Redirect::back()->with('flash_error', 'Unable to log you in!');
+        else return Redirect::back()->with('flash_error', 'Unable to log you in!');*/
     }
 
     public function postLogin()

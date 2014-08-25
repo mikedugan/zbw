@@ -10,12 +10,12 @@ return [
     ],
 
     'sso' => [
-        'key' => 'foo',
-        'secret' => 'bar',
-        'cert' => 'baz',
-        'method' => 'RSA',
-        'return' => 'http://zbw.dugandev.com/auth?return',
-        'base' => 'http://sso.hardern.net/server/'
+      'key' => $_ENV['sso_key'],
+      'secret' => $_ENV['sso_secret'],
+      'cert' => $_ENV['sso_cert'],
+      'method' => 'RSA',
+      'return' => 'http://dev.bostonartcc.net/auth?return',
+      'base' => 'https://cert.vatsim.net/sso/'
     ],
 
     'vatsim_status' => 'http://status.vatsim.net/status.txt',
