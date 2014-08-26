@@ -1,4 +1,6 @@
 <?php
+use Robbo\Presenter\PresentableInterface;
+use Zbw\Users\Presenters\StaffingPresenter;
 
 /**
  * Staffing
@@ -21,7 +23,8 @@
  * @method static \Illuminate\Database\Query\Builder|\Staffing whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\Staffing whereUpdatedAt($value)
  */
-class Staffing extends BaseModel {
+class Staffing extends BaseModel implements PresentableInterface
+{
     protected $guarded = ['start', 'stop'];
     protected $table = 'zbw_staffing';
     protected $dates = ['start', 'stop', 'created_at', 'updated_at'];
@@ -36,6 +39,11 @@ class Staffing extends BaseModel {
     public function getDates()
     {
         return ['start', 'stop', 'created_at', 'updated_at'];
+    }
+
+    public function getPresenter()
+    {
+        return new StaffingPresenter($this);
     }
 
     public function user()
@@ -56,5 +64,10 @@ class Staffing extends BaseModel {
     public static function positionsOnline()
     {
         return \Staffing::where('stop', '0000-00-00 00:00:00')->orWhere('stop', null)->lists('position');
+    }
+
+    public static function recentStaffings($n = 5)
+    {
+        return self::limit($n)->with(['user'])->orderBy('created_at', 'DESC')->get();
     }
 }

@@ -28,6 +28,7 @@ class Helpers
      *
      * @param \ControllerExam $exam
      * @return double
+     * @deprecated
      */
     public static function getScore($exam)
     {
@@ -95,44 +96,6 @@ class Helpers
               1
             )->pluck('cid')
           );
-    }
-
-    /**
-     * @static
-     * @deprecated 2.0.7b   left to prevent breakage
-     * @param $rating
-     * @return string
-     */
-    public static function readableRating($rating)
-    {
-        switch($rating) {
-            case 'O':
-                return 'Observer';
-            break;
-            case 'S1':
-                return 'Tower Trainee';
-            break;
-            case 'S2':
-                return 'Tower Controller';
-            break;
-            case 'S3':
-                return 'TMA Controller';
-            break;
-            case 'C1':
-                return 'Enroute Controller';
-            break;
-            case 'C3':
-                return 'Senior Controller';
-            break;
-            case 'I1':
-                return 'Instructor';
-            break;
-            case 'I3':
-                return 'Senior Instructor';
-            default:
-                return 'Controller';
-            break;
-        }
     }
 
     /**

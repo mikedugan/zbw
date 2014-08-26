@@ -1,6 +1,8 @@
-<?php 
+<?php
 
+use Robbo\Presenter\PresentableInterface;
 use Zbw\Base\Helpers;
+use Zbw\Training\Presenters\TrainingRequestPresenter;
 
 /**
  * TrainingRequest
@@ -35,7 +37,7 @@ use Zbw\Base\Helpers;
  * @method static \Illuminate\Database\Query\Builder|\TrainingRequest whereCompletedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\TrainingRequest whereTrainingSessionId($value)
  */
-class TrainingRequest extends BaseModel
+class TrainingRequest extends BaseModel implements PresentableInterface
 {
     public $table = '_training_requests';
     static $rules = [
@@ -53,6 +55,11 @@ class TrainingRequest extends BaseModel
     public function getDates()
     {
         return ['start', 'end', 'completed_at'];
+    }
+
+    public function getPresenter()
+    {
+        return new TrainingRequestPresenter($this);
     }
 
     public function certType()

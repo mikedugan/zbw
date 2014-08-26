@@ -113,6 +113,8 @@ return [
       'Way\Generators\GeneratorsServiceProvider',
       'Cartalyst\Sentry\SentryServiceProvider',
       'Bugsnag\BugsnagLaravel\BugsnagLaravelServiceProvider',
+      'Robbo\Presenter\PresenterServiceProvider',
+      'Laracasts\Commander\CommanderServiceProvider'
     ],
     /*
     |--------------------------------------------------------------------------

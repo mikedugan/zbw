@@ -1,8 +1,8 @@
 <?php namespace Zbw\Cms;
 
 use Zbw\Base\EloquentRepository;
-use Zbw\Users\Contracts\UserRepositoryInterface;
 use Zbw\Cms\Contracts\MessagesRepositoryInterface;
+use Zbw\Users\Contracts\UserRepositoryInterface;
 
 /**
  * @package Zbw\Cms
@@ -35,10 +35,9 @@ class MessagesRepository extends EloquentRepository implements MessagesRepositor
     }
 
     /**
-     * @param array input
+     * @param array   input
      * @param integer cid
      * @param integer origin message id
-     *
      * @return boolean
      */
     public function reply($input, $mid)
@@ -65,30 +64,31 @@ class MessagesRepository extends EloquentRepository implements MessagesRepositor
 
         $errors = [' '];
         $success = true;
-        if(!$this->checkAndSave($m)) {
+        if ( ! $this->checkAndSave($m)) {
             $errors = $this->getErrors();
             $success = false;
         }
-        if(!$this->checkAndSave($mm)) {
-            if(is_array($errors)) {
+        if ( ! $this->checkAndSave($mm)) {
+            if (is_array($errors)) {
                 $errors = array_merge($errors, $this->getErrors());
                 $success = false;
-            }
-            else {
+            } else {
                 $errors = $this->getErrors();
                 $success = false;
             }
         }
-        if(! $success) { return $errors; }
-        else return true;
+        if ( ! $success) {
+            return $errors;
+        } else {
+            return true;
+        }
     }
 
     /**
-     * @param array input
-     * @param array users being cc'd
+     * @param array   input
+     * @param array   users being cc'd
      * @param integer cid of sender
      * @param integer message id
-     *
      * @return void
      */
     public function cc($input, $to, $mid)
@@ -103,80 +103,72 @@ class MessagesRepository extends EloquentRepository implements MessagesRepositor
 
     /**
      * @static
-     * 
-     *
      * @param null $cid
-     *
      * @return int
      */
     public static function newMessageCount($cid = null)
     {
         $cid = is_null($cid) ? \Sentry::getUser()->cid : $cid;
+
         return \Message::where('to', $cid)
-                        ->where('cid', \Sentry::getUser()->cid)
-                        ->where('is_read', 0)->get(['id'])->count();
+                       ->where('cid', \Sentry::getUser()->cid)
+                       ->where('is_read', 0)->get(['id'])->count();
     }
 
     /**
      * @param array $input
-     *
      * @return mixed array|boolean
      */
     public function add($input)
     {
         $errors = '';
-        $recipients = explode(',', $input['to']);
+        $recipients = explode(',', str_replace(' ', '', $input['to']));
         if (count($recipients) == 1) {
-            return $this->create($input);
+            $this->create($recipients[0], $input['subject'], $input['message']);
         } else {
             foreach ($recipients as $r) {
-                $errors .= $this->create(
-                  [
-                    'to'      => $r,
-                    'subject' => $input['subject'],
-                    'message' => $input['message']
-                  ]
-                );
+                $errors .= $this->create($r, $input['subject'], $input['message']);
             }
         }
+
         return $errors;
     }
 
     /**
-     * @param $input
+     * @param $to
+     * @param $subject
+     * @param $content
+     * @internal param $input
      * @return bool|string
      */
-    public function create($input)
+    public function create($to, $subject, $content)
     {
         $from = \Sentry::check() ? \Sentry::getUser()->cid : 100;
-        $to = $this->users->findByInitials($input['to'])->cid;
-        $outbox = new \Message(
-          [
-            'to'      => $to,
-            'subject' => $input['subject'],
-            'content' => $input['message'],
-            'from'    => $from,
-            'cid'     => $from
-          ]
-        );
-        if ($from !== $to) {
-            $inbox = new \Message;
-                $inbox->to =  $to;
-            $inbox->subject =  $input['subject'];
-            $inbox->content =  $input['message'];
-            $inbox->from =  $from;
-            $inbox->cid =  $to;
-            return $this->checkAndSave($inbox) && $this->checkAndSave($outbox);
-        }
-        if(! $this->checkAndSave($outbox)) {
-            return false;
-        }
-        else return '';
+        $to = $this->users->findByInitials($to)->cid;
+
+        $outbox = $this->make();
+        $outbox->to = $to;
+        $outbox->subject = $subject;
+        $outbox->content = $content;
+        $outbox->from = $from;
+        $outbox->cid = $from;
+        $outbox->save();
+
+        if ($from === $to) { return $this->checkAndSave($outbox); }
+
+        $inbox = $this->make();
+        $inbox->to = $to;
+        $inbox->subject = $subject;
+        $inbox->content = $content;
+        $inbox->from = $from;
+        $inbox->cid = $to;
+        $inbox->save();
+
+        return ( ! $this->checkAndSave($outbox) || ! $this->checkAndSave($inbox)) ? $this->getErrors() : '';
     }
 
     /**
      * @param integer message id
-     *
      * @return PrivateMessage
      */
     public function withUsers($id)
@@ -187,28 +179,28 @@ class MessagesRepository extends EloquentRepository implements MessagesRepositor
 
     /**
      * @param integer message id
-     *
      * @return boolean
+     * @deprecated
      */
     public function markRead($mid)
     {
         $message = $this->make()->find($mid);
         $message->is_read = 1;
+
         return $message->save();
     }
 
     /**
      * @param integer cid
-     *
      * @return void
      */
     public function markAllRead()
     {
-        foreach ($this->make()->where('to', \Sentry::getUser()->cid)->get(
-        ) as $message) {
+        foreach ($this->make()->where('to', \Sentry::getUser()->cid)->get() as $message) {
             $message->is_read = 1;
             $message->save();
         }
+
         return true;
     }
 
@@ -226,20 +218,18 @@ class MessagesRepository extends EloquentRepository implements MessagesRepositor
     /**
      * @param integer user cid
      * @param boolean unread messages only
-     *
      * @return Eloquent Collection
      */
     public function to($user, $unread = false)
     {
         $messages = $this->make()->where('to', $user)->where('cid', $user)
                          ->orderBy('created_at', 'DESC');
-        return $unread ? $messages->where('is_read', 0)->get() : $messages->get(
-        );
+
+        return $unread ? $messages->where('is_read', 0)->get() : $messages->get();
     }
 
     /**
      * @param integer user cid
-     *
      * @return Eloquent Collection
      */
     public function from($user)

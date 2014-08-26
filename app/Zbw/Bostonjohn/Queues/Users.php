@@ -52,11 +52,7 @@ class Users {
         $message = \View::make('zbw.messages.s_new_user', $vdata)->render();
         $users = \Sentry::findAllUsersInGroup(\Sentry::findGroupByName('Executive'));
         foreach($users as $user) {
-            $this->messages->create([
-              'subject' => 'New ZBW Controller',
-              'to' => $user->initials,
-              'message' => str_replace('_USER_', $user->initials, $message)
-            ]);
+            $this->messages->create($user->initials,'New ZBW Controller',str_replace('_USER_', $user->initials, $message));
         }
 
         $this->notifier->newUserEmail($data['cid']);

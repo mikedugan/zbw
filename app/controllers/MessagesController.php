@@ -1,7 +1,11 @@
 <?php
 
+use Illuminate\Session\Store;
 use Zbw\Cms\MessagesRepository;
 use Zbw\Users\Contracts\UserRepositoryInterface;
+
+use Zbw\Cms\Commands\SendMessageCommand;
+use Zbw\Cms\Commands\ReplyToMessageCommand;
 
 class MessagesController extends BaseController
 {
@@ -9,46 +13,45 @@ class MessagesController extends BaseController
     private $users;
     private $messages;
 
-    public function __construct(
-      UserRepositoryInterface $users,
-      MessagesRepository $messages
-    ) {
+    public function __construct(UserRepositoryInterface $users, MessagesRepository $messages, Store $store)
+    {
         $this->users = $users;
         $this->messages = $messages;
+        parent::__construct($store);
     }
 
     public function index()
     {
-        $data = [
-          'view'   => \Input::get('v'),
-          'to' => \Input::get('to'),
-          //'messages' => $this->messages->all($cid),
-          'inbox'  => $this->messages->to(
-            \Sentry::getUser()->cid,
-            Input::get('unread')
-          ),
-          'outbox' => $this->messages->from(\Sentry::getUser()->cid),
-          'trash'  => $this->messages->trashed(\Sentry::getUser()->cid),
-          'unread' => Input::get('unread'),
-          'users'  => $this->users->allVitals()
-        ];
+        $view = \Input::get('v');
+        $this->setData('view', $view);
+        $this->setData('unread', \Input::get('unread'));
+        $this->setData('to', \Input::get('to'));
+        $this->setData('users', $this->users->allVitals());
+        switch($view) {
+            case '':
+            case 'inbox':
+            case null:
+                $this->setData('inbox', $this->messages->to(\Sentry::getUser()->cid,Input::get('unread')));
+                break;
+            case 'outbox':
+                $this->setData('outbox', $this->messages->from(\Sentry::getUser()->cid));
+                break;
+            case 'trash':
+                $this->setData('trash', $this->messages->trashed(\Sentry::getUser()->cid));
+                break;
+        }
 
-        return View::make('users.messages.index', $data);
+        $this->view('users.messages.index');
     }
 
     public function outbox()
     {
-        $data = [
-
-        ];
-        return View::make('users.messages.outbox', $data);
+        $this->view('users.messages.outbox');
     }
 
     public function trash()
     {
-        $data = [
-        ];
-        return View::make('users.messages.trash', $data);
+        $this->view('users.messages.trash');
     }
 
     /**
@@ -58,72 +61,60 @@ class MessagesController extends BaseController
      *
      * @return View
      */
-    public function view($message_id)
+    public function viewMessage($message_id)
     {
-        $this->messages->markRead($message_id);
-        $data = [
-          'message' => $this->messages->withUsers($message_id),
-          'users'   => $this->users->allVitals(),
-        ];
-        return View::make('users.messages.view', $data);
+        $message = $this->messages->get($message_id);
+        $message->markRead();
+        $this->setData('view', '');
+        $this->setData('message', $message);
+        $this->setData('users', $this->users->allVitals());
+        $this->view('users.messages.view');
     }
 
     public function create()
     {
-        $data = [
-
-        ];
-        return View::make('users.messages.create', $data);
+        $this->view('users.messages.create');
     }
 
     public function store()
     {
-        $input = \Input::all();
-        $ret = $this->messages->add($input);
-        if ($ret === '') {
-            return Redirect::home()->with(
-              'flash_success',
-              'Message sent successfully'
-            );
-        } else {
-            return Redirect::home()->with('flash_error', $ret);
-        }
+        $response = $this->execute(SendMessageCommand::class, ['input' => \Input::all()]);
+        if($response !== '') $this->setFlash(['flash_error' => $response]);
+        else $this->setFlash(['flash_success' => 'Message sent successfully']);
+
+        return $this->redirectHome();
     }
 
     public function reply($mid)
     {
         $input = Input::all();
-        if ($input['cc'] !== '') {
-            $this->messages->cc($input, $input['cc'], $mid);
-        }
-        $response = $this->messages->reply($input, $mid);
-
+        $response = $this->execute(ReplyToMessageCommand::class, ['message_id' => $mid, 'input' => $input]);
         if($response instanceof Illuminate\Support\MessageBag) {
-            return Redirect::back()->with('flash_error', $response);
+            $this->setFlash(['flash_error' => $response]);
+            return $this->redirectBack()->withInput();
         }
-        else {
-            return Redirect::home()->with('flash_success','Message sent successfully');
-        }
+
+        $this->setFlash(['flash_success' => 'Reply sent successfully']);
+        return $this->redirectRoute('messages');
     }
 
     public function delete($message_id)
     {
         if ($this->messages->delete($message_id)) {
-            return Redirect::route('messages')->with(
-              'flash_success',
-              'Message deleted successfully'
-            );
+            $this->setFlash(['flash_success' => 'Message deleted successfully']);
+            return $this->redirectRoute('messages');
         }
     }
 
     public function restore($message_id)
     {
-        $m = \Message::withTrashed()->find($message_id);
         if (! $this->messages->restore($message_id)) {
-            return Redirect::back()->with('flash_error', $this->messages->getErrors());
+            $this->setFlash(['flash_error' => $this->messages->getErrors()]);
+            return $this->redirectBack();
         }
         else {
-            return Redirect::route('messages')->with('flash_success','Message restored successfully');
+            $this->setFlash(['flash_success' => 'Message restored successfully']);
+            return $this->redirectRoute('messages');
         }
     }
 } 

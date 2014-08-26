@@ -1,5 +1,8 @@
 <?php
 
+use Robbo\Presenter\PresentableInterface;
+use Zbw\Training\Presenters\CertificationPresenter;
+
 /**
  * CertType
  *
@@ -8,7 +11,7 @@
  * @method static \Illuminate\Database\Query\Builder|\CertType whereId($value)
  * @method static \Illuminate\Database\Query\Builder|\CertType whereValue($value)
  */
-class CertType extends BaseModel
+class CertType extends BaseModel implements PresentableInterface
 {
     protected $fillable = ['value'];
     protected $table = '_cert_types';
@@ -16,4 +19,9 @@ class CertType extends BaseModel
     static $rules = [
         'value' => 'required'
     ];
+
+    public function getPresenter()
+    {
+        return new CertificationPresenter($this);
+    }
 }

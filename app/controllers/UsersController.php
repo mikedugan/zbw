@@ -1,6 +1,11 @@
 <?php
 use Zbw\Cms\Contracts\MessagesRepositoryInterface;
 use Zbw\Users\Contracts\UserRepositoryInterface;
+use Illuminate\Session\Store;
+
+use Zbw\Users\Commands\SearchUsersCommand;
+use Zbw\Users\Commands\UpdateSettingsCommand;
+use Zbw\Users\Commands\UpdateNotificationsCommand;
 
 class UsersController extends BaseController
 {
@@ -8,12 +13,14 @@ class UsersController extends BaseController
     private $users;
     private $messages;
 
-    public function __construct(UserRepositoryInterface $users, MessagesRepositoryInterface $messages)
+    public function __construct(Store $store, UserRepositoryInterface $users, MessagesRepositoryInterface $messages)
     {
         $this->users = $users;
         $this->messages = $messages;
+        parent::__construct($store);
     }
 
+    //AJAX
     public function getStatus($cid)
     {
         $curl = new \Curl\Curl();
@@ -24,41 +31,33 @@ class UsersController extends BaseController
 
     public function getIndex()
     {
-        $data = [
-        ];
-        return View::make('zbw.controllers');
+        $this->view('zbw.controllers');
     }
 
     //staff
     public function showUser($id)
     {
-        $data = [
-          'user' => $this->users->get($id)
-        ];
-        return View::make('staff.roster.view', $data);
+        $this->setData('user', $this->users->get($id));
+        $this->view('staff.roster.view');
     }
 
     public function getController($id)
     {
-        $data = [
-          'controller' => $this->users->get($id)
-        ];
 
-        return View::make('users.show', $data);
+        $this->setData('controller', $this->users->get($id));
+        return $this->view('users.show');
     }
 
     public function getSearchResults()
     {
-        $results = $this->users->search(Input::all());
-        $data = [
-          'stype' => 'roster',
-          'results' => $results
-        ];
-
+        $results = $this->execute(SearchUsersCommand::class, ['input' => $this->input]);
         if(count($results) === 0) {
+            $this->setFlash('flash_info', 'No results found');
             return Redirect::back()->with('flash_info', 'No results found');
         }
-        return View::make('zbw.roster.results', $data);
+        $this->setData('stype', 'roster');
+        $this->setData('results', $results);
+        return $this->view('zbw.roster.results');
     }
 
 
@@ -67,51 +66,35 @@ class UsersController extends BaseController
      */
     public function getMe()
     {
-        $data = [
-          'messages' => $this->messages->to(Auth::user()->cid),
-          'view'     => \Input::get('v'),
-          'me'       => \Sentry::getUser()->with(['Exam', 'TrainingSession'])
-        ];
-        return View::make('users.me.index', $data);
+        $this->setData('messages', $this->messages->to(Auth::user()->cid));
+        $this->setData('view', \Input::get('v'));
+        $this->setData('me', \Sentry::getUser()->with(['Exam', 'TrainingSession']));
+        $this->view('users.me.index');
     }
 
     public function getSettings()
     {
-        $data = [
-          'view' => \Input::get('v')
-        ];
-        return View::make('users.me.index', $data);
+        $this->setData('view', \Input::get('v'));
+        $this->view('users.me.index');
     }
 
     public function postSettings()
     {
-        $update_type = \Input::get('update');
-        if($update_type === 'settings') {
-            if ($this->users->updateSettings(\Input::except('update'))) {
-                return Redirect::back()->with('flash_success','Settings updated successfully');
+        if($this->input['update'] === 'settings') {
+            if($this->execute(UpdateSettingsCommand::class, ['input' => \Input::except('update')])) {
+                $this->setFlash(['flash_success' => 'Settings updated successfully']);
             } else {
-                return Redirect::back()->with(
-                  'flash_error',
-                  'Unable to update settings!'
-                );
+                $this->setFlash(['flash_error' => 'Unable to update settings']);
+            }
+
+        } else if ($this->input['update'] === 'notifications') {
+            if($this->execute(UpdateNotificationsCommand::class, ['input' => \Input::except('update')])) {
+                $this->setFlash(['flash_success' => 'Settings updated successfully']);
+            } else {
+                $this->setFlash(['flash_error' => 'Unable to update settings']);
             }
         }
 
-        else if ($update_type === 'notifications') {
-            if($this->users->updateNotifications(\Input::except('update'))) {
-                return Redirect::back()->with('flash_success', 'Settings updated');
-            } else {
-                return Redirect::back()->with('flash_error', 'Unable to update settings!');
-            }
-        } else {
-            return Redirect::back()->with('flash_error', 'Unable to update settings!');
-        }
-
+        return $this->redirectBack();
     }
-
-    public function view($cid)
-    {
-
-    }
-
 }

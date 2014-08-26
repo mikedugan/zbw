@@ -1,6 +1,6 @@
 @extends('layouts.messages')
 @section('title')
-Inbox
+Messages
 @stop
 @section('header')
 @stop

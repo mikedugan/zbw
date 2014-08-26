@@ -73,7 +73,7 @@ Route::group(
             );
             Route::get(
               'm/{mid}',
-              ['as' => 'messages/{mid}', 'uses' => 'MessagesController@view']
+              ['as' => 'messages/{mid}', 'uses' => 'MessagesController@viewMessage']
             );
         }
       );

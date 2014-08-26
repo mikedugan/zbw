@@ -1,4 +1,6 @@
-<?php 
+<?php
+use Robbo\Presenter\PresentableInterface;
+use Zbw\Training\Presenters\TrainingReportPresenter;
 
 /**
  * TrainingReport
@@ -47,7 +49,7 @@
  * @method static \Illuminate\Database\Query\Builder|\TrainingReport whereNegativePoints($value)
  * @method static \Illuminate\Database\Query\Builder|\TrainingReport whereModifier($value)
  */
-class TrainingReport extends BaseModel
+class TrainingReport extends BaseModel implements PresentableInterface
 {
     protected $table = 'controller_training_reports';
     public $timestamps = false;
@@ -73,6 +75,11 @@ class TrainingReport extends BaseModel
         'negative_points' => 'integer',
         'modifier' => 'numeric'
     ];
+
+    public function getPresenter()
+    {
+        return new TrainingReportPresenter($this);
+    }
 
     //relations
     public function training()

@@ -37,7 +37,7 @@ class Message extends BaseModel
     use SoftDeletingTrait;
 
     protected $dates = ['deleted_at', 'created_at', 'updated_at'];
-    protected $guarded = [];
+    protected $fillable = ['to', 'subject', 'content', 'from', 'cid'];
     protected $table = 'zbw_messages';
     static $rules = [
       'from'            => 'cid',
@@ -83,6 +83,12 @@ class Message extends BaseModel
     public function userOutbox($query, $id)
     {
         return $query->where('from', $id);
+    }
+
+    public function markRead()
+    {
+        $this->is_read = 1;
+        return $this->save();
     }
 
 }

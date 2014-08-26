@@ -13,17 +13,13 @@ class AdminController extends BaseController
 
     public function getAdminIndex()
     {
-        $data = [
-        ];
-        return View::make('staff.index', $data);
+        return View::make('staff.index');
     }
 
 
     public function getForumIndex()
     {
-        $data = [
-        ];
-        return View::make('staff.forum.index', $data);
+        return View::make('staff.forum.index');
     }
 
     public function getSearchResults()

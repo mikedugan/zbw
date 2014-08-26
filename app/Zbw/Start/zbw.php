@@ -7,18 +7,25 @@ App::register('Zbw\Training\TrainingServiceProvider');
 App::register('Zbw\Cms\CmsServiceProvider');
 App::register('Zbw\Poker\PokerServiceProvider');
 
+App::bind(
+  'Laracasts\Commander\CommandTranslator',
+  'Zbw\Base\CommandTranslator'
+);
+
 Bugsnag::setAppVersion(\Config::get('zbw.version'));
 Bugsnag::setBeforeNotifyFunction('beforeBugsnagNotify');
 
 function beforeBugsnagNotify($error)
 {
-    if($user = \Sentry::getUser())
+    /*if($user = \Sentry::getUser())
+    if(Sentry::check())
+        $user = \Sentry::getUser();
         $error->setMetaData([
               'user' => [
                   'name' => $user->username,
-                  'email' => $user->email
+                  'email'  => $user->email
               ]
-        ]);
+        ]);*/
 }
 
 //custom validation rules that need a new home

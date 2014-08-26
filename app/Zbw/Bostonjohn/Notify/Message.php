@@ -42,7 +42,7 @@ class Message extends Notifier {
     private function send($to, $subject)
     {
         $this->render();
-        $this->messages->create(['to' => $to, 'subject' => $subject, 'message' => $this->view_data]);
+        $this->messages->create($to, $subject, $this->view_data);
     }
 
     /**

@@ -2,8 +2,6 @@
 
 use Zbw\Base\EloquentRepository;
 use Zbw\Bostonjohn\Emailer;
-use Zbw\Bostonjohn\Files\FileValidator;
-use Zbw\Bostonjohn\ZbwLog;
 use Zbw\Users\Contracts\UserRepositoryInterface;
 
 class UserRepository extends EloquentRepository implements UserRepositoryInterface
@@ -14,13 +12,15 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
     {
     }
 
+    /**
+     * @param $initials
+     * @return mixed
+     */
     public function findByInitials($initials)
     {
         return $this->make()->where('initials', strtoupper($initials))->first();
     }
     /**
-     * @type
-     * @name allVitals
      *  returns vital user data
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
@@ -29,6 +29,10 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
         return $this->make()->all(['first_name', 'last_name', 'cid', 'initials']);
     }
 
+    /**
+     * @param $cid
+     * @return bool
+     */
     public function exists($cid)
     {
         return (count($this->make()->find($cid)) === 1);
@@ -63,7 +67,6 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
     }
 
     /**
-     * @name updateUser
      *  updates an existing user
      * @param $input
      * @param null $cid
@@ -149,6 +152,10 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
         return $this->checkAndSave($user);
     }
 
+    /**
+     * @param $user
+     * @return void
+     */
     public function authUpdate($user)
     {
         $model = \Sentry::findUserById($user->user->id);
@@ -159,16 +166,30 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
         $model->save();
     }
 
+    /**
+     * @return mixed
+     */
     public function activeList()
     {
         return $this->make()->where('activated', 1)->orderBy('updated_at', 'DESC')->get();
     }
 
+    /**
+     * @param int $num
+     * @return mixed
+     */
     public function active($num = 20)
     {
         return $this->make()->with(['rating', 'settings'])->where('activated', 1)->orderBy('activated', 'DESC')->get();
     }
 
+    /**
+     * @param \Zbw\Base\relations $with
+     * @param null                $id
+     * @param string              $pk
+     * @param null                $pagination
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     */
     public function with($with, $id = null, $pk = 'id', $pagination = null)
     {
         if($pagination) {
@@ -180,8 +201,6 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
     }
 
     /**
-     * @type
-     * @name createInitials
      * 
      * @param $fname
      * @param $lname
@@ -209,8 +228,6 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
     }
 
     /**
-     * @type
-     * @name trainingProgress
      * 
      * @param $id
      * @return float
@@ -221,8 +238,6 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
     }
 
     /**
-     * @type
-     * @name search
      * 
      * @param $input
      * @return \Illuminate\Database\Eloquent\Collection|static[]
@@ -262,8 +277,6 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
     }
 
     /**
-     * @type
-     * @name suspendUser
      * 
      * @param $id
      * @return bool
@@ -273,21 +286,10 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
         $user = $this->make()->find($id);
         $user->is_active = 1;
         $user->is_suspended = 1;
-        if($user->save())
-        {
-            ZbwLog::override(\Auth::user()->initials . ' suspended ' . $user->initials);
-            return true;
-        }
-        else
-        {
-            ZbwLog::error(\Auth::user()->initials . ' had an error attempting to suspend ' . $user->initials);
-            return false;
-        }
+        return $this->checkAndSave($user);
     }
 
     /**
-     * @type
-     * @name unsuspendUser
      * 
      * @param $id
      * @return bool
@@ -297,21 +299,10 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
         $user = $this->make()->find($id);
         $user->is_active = true;
         $user->is_suspended = false;
-        if($user->save())
-        {
-            ZbwLog::override(\Auth::user()->initials . ' un-suspended ' . $user->initials);
-            return true;
-        }
-        else
-        {
-            ZbwLog::error(\Auth::user()->initials . ' had an error attempting to un-suspend ' . $user->initials);
-            return false;
-        }
+        return $this->checkAndSave($user);
     }
 
     /**
-     * @type
-     * @name terminateUser
      * 
      * @param $id
      * @return bool
@@ -321,21 +312,10 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
         $user = $this->make()->find($id);
         $user->is_active = false;
         $user->is_terminated = true;
-        if($user->save())
-        {
-            ZbwLog::log(\Auth::user()->initials . ' terminated ' . $user->initials);
-            return true;
-        }
-        else
-        {
-            ZbwLog::error(\Auth::user()->initials . ' had an error attempting to terminate ' . $user->initials);
-            return false;
-        }
+        return $this->checkAndSave($user);
     }
 
     /**
-     * @type
-     * @name unterminateUser
      * 
      * @param $id
      * @return bool
@@ -345,21 +325,10 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
         $user = $this->make()->find($id);
         $user->is_active = true;
         $user->is_terminated = false;
-        if($user->save())
-        {
-            ZbwLog::log(\Auth::user()->initials . ' un-terminated ' . $user->initials);
-            return true;
-        }
-        else
-        {
-            ZbwLog::error(\Auth::user()->initials . ' had an error attempting to un-terminate ' . $user->initials);
-            return false;
-        }
+        return $this->checkAndSave($user);
     }
 
     /**
-     * @type
-     * @name activateUser
      * 
      * @param $id
      * @return bool
@@ -368,9 +337,12 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
     {
         $user = $this->make()->find($id);
         $user->activated = 1;
-        return $user->save();
+        return $this->checkAndSave($user);
     }
 
+    /**
+     * @return array
+     */
     public function getStaff()
     {
         $staff = \Sentry::findGroupByName('Staff');
@@ -379,8 +351,6 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
     }
 
     /**
-     * @type
-     * @name isStaff
      * @deprecated
      * 
      * @param $id
@@ -394,8 +364,6 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
     }
 
     /**
-     * @type
-     * @name isExecutive
      * @deprecated
      * 
      * @param $id
@@ -408,6 +376,10 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
         return $u->inGroup($exec);
     }
 
+    /**
+     * @param string $col
+     * @return mixed
+     */
     public static function canTrain($level, $col = 'cid')
     {
         $start = \Sentry::findAllUsersInGroup(\Sentry::findGroupByName('Mentors'));
@@ -433,6 +405,10 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
         return $this->make()->where('cert', '>=', $level + 2)->lists($col);
     }
 
+    /**
+     * @param $user
+     * @return null|string
+     */
     public function checkUser($user)
     {
         if(is_int($user)) $user = $this->make()->find($user);
@@ -444,44 +420,74 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
         return $status;
     }
 
-    public function updateSettings($input)
+    /**
+     * @param $user
+     * @param $hidden
+     * @return mixed
+     */
+    public function updateEmailHidden($user, $hidden)
     {
-        $u = \Sentry::getUser();
-
-
-        if(isset($input['email_hidden']) && $input['email_hidden'] === 'true') $input['email_hidden'] = 1;
-        else $input['email_hidden'] = 0;
-        unset($input['avatar']);
-        $u->settings->fill($input);
-        if(\Input::hasFile('avatar')) {
-            $path = public_path().'/uploads/avatars/';
-            $avatar = \Input::file('avatar');
-            $file_validator = new FileValidator($avatar);
-            if($file_validator->isValid()) {
-                $avatar->move($path, $u->cid . '.' . $avatar->getClientOriginalExtension());
-                $u->settings->avatar = '/uploads/avatars/' . $u->cid . '.' . $avatar->getClientOriginalExtension();
-            }
-        }
-        return $u->save() && $u->settings->save();
+        $user = \Sentry::getUser();
+        if($hidden && $hidden === 'true') { $user->settings->email_hidden = 1; }
+        else $user->settings->email_hidden = 0;
+        return $user->settings->save();
     }
 
-    public function updateNotifications($input)
+    /**
+     * @param $user
+     * @param $path
+     * @return mixed
+     */
+    public function updateAvatar($user, $path)
     {
-        $settings = \UserSettings::where('cid', \Sentry::getUser()->cid)->firstOrFail();
+        $user->settings->avatar = $path;
+        return $user->settings->save();
+    }
+
+    /**
+     * @param $cid
+     * @param $input
+     * @return bool
+     */
+    public function updateNotifications($cid, $input)
+    {
+        $settings = \UserSettings::where('cid', $cid)->firstOrFail();
         $settings->fill($input);
         return $settings->save();
     }
 
+    /**
+     * @param $cid
+     * @param $input
+     * @return bool
+     */
+    public function updateSettings($cid, $input)
+    {
+        $settings = \UserSettings::where('cid', $cid)->firstOrFail();
+        $settings->fill($input);
+        return $settings->save();
+    }
+
+    /**
+     * @return mixed
+     */
     public function getAdoptableStudents()
     {
         return $this->make()->where('updated_at', '>', \Carbon::createFromFormat('Y-m-d', '2014-07-27'))->where('adopted_by', null)->where('cid', '!=', 100)->where('cert', 0)->orWhere('cert', 1)->get();
     }
 
+    /**
+     * @return mixed
+     */
     public function getAdoptedStudents()
     {
         return $this->make()->where('adopted_by', '>', 100)->with(['adopter'])->get();
     }
 
+    /**
+     * @param $student
+     * @return bool
+     */
     public function dropAdopt($student)
     {
         $student = $this->get($student);
@@ -490,6 +496,11 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
         return $this->checkAndSave($student);
     }
 
+    /**
+     * @param $student
+     * @param $staff
+     * @return bool
+     */
     public function adopt($student, $staff)
     {
         $student = $this->get($student);
@@ -498,6 +509,15 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
         return $this->checkAndSave($student);
     }
 
+    /**
+     * @param $input
+     * @return void
+     */
     public function update($input) {}
+
+    /**
+     * @param $input
+     * @return void
+     */
     public function create($input) {}
 }
