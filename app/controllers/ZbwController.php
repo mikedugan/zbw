@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Session\Store;
 use Zbw\Bostonjohn\Notify\Mail;
 use Zbw\Cms\Contracts\NewsRepositoryInterface;
 use Zbw\Users\Contracts\UserRepositoryInterface;
@@ -13,12 +14,13 @@ class ZbwController extends BaseController
     private $notifier;
     private $visitors;
 
-    public function __construct(NewsRepositoryInterface $news, UserRepositoryInterface $users, Mail $notifier, VisitorApplicantRepositoryInterface $visitors)
+    public function __construct(NewsRepositoryInterface $news, UserRepositoryInterface $users, Mail $notifier, VisitorApplicantRepositoryInterface $visitors, Store $session)
     {
         $this->news = $news;
         $this->users = $users;
         $this->notifier = $notifier;
         $this->visitors = $visitors;
+        parent::__construct($session);
     }
     public function getIndex()
     {
