@@ -1,29 +1,19 @@
-<?php  namespace Zbw\Users\Handlers; 
+<?php  namespace Zbw\Users\Handlers;
 
-use Zbw\Users\Auth\Sso;
+use Zbw\Users\Auth\AuthService;
 use Zbw\Users\Commands\LoginUserCommand;
 
 class LoginUserHandler
 {
+    private $auth;
+
+    public function __construct(AuthService $auth)
+    {
+        $this->auth = $auth;
+    }
     public function handle(LoginUserCommand $command)
     {
-        dd($command);
+        $this->auth->oauthLogin($command->token, $command->verifier);
 
-        $sso = new Sso();
-
-        //vatsim redirected user
-        if(isset($command->input['oauth_token'])) {
-            //does the session have data saved?
-            $status = \AuthToken::checkLogin(\Input::all(), $sso);
-            if (is_string($status))
-                throw new \Exception($status);
-            else
-                return Redirect::intended('/')->with(
-                  'flash_success',
-                  'You have been logged in successfully'
-                );
-        } else if ($status = \AuthToken::setupToken($sso)) {
-            throw new \ErrorException($status);
-        }
     }
 } 

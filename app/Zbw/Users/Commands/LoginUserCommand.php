@@ -2,8 +2,12 @@
 
 class LoginUserCommand
 {
-    public function __construct()
-    {
+    public $token;
+    public $verifier;
 
+    public function __construct($token, $verifier)
+    {
+        $this->token = $token;
+        $this->verifier = $verifier;
     }
 } 
