@@ -10,11 +10,11 @@
         <th>Rating</th>
         </thead>
         @foreach($users as $u)
-        @if($u->is_exec())
+        @if($u->inGroup($executive))
         <tr class="danger">
-        @elseif($u->is_instructor())
+        @elseif($u->inGroup($instructors))
         <tr class="warning">
-        @elseif($u->is_staff() || $u->is_mentor())
+        @elseif($u->inGroup($staff) || $u->inGroup($mentors))
         <tr class="info">
         @elseif($u->artcc !== 'ZBW')
         <tr class="success">

@@ -5,7 +5,6 @@ Route::get('login',['as' => 'login', 'uses' => 'SessionsController@oauthLogin'])
 Route::post('login',['as' => 'login', 'uses' => 'SessionsController@postLogin']);
 Route::get('auth', ['as' => 'auth', 'uses' => 'SessionsController@oauthLogin']);
 Route::get('logout',['as' => 'logout', 'uses' => 'SessionsController@getLogout']);
-Route::controller('password', 'RemindersController');
 
 
 //top level pages

@@ -347,7 +347,13 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
     {
         $staff = \Sentry::findGroupByName('Staff');
 
-        return \Sentry::findAllUsersInGroup($staff);
+        return $staff->users()->with(['rating', 'settings'])->get();
+    }
+
+    public function getSingleStaff($group)
+    {
+        $staff = \Sentry::findGroupByName($group);
+        return $staff->users()->with(['rating','settings'])->select(['cid','username','initials','email'])->first();
     }
 
     /**
