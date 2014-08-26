@@ -40,6 +40,8 @@ class AuthService
         $user = $this->getOauthUser($oauth_token, $oauth_verifier);
 
         $this->loginOauthUser($user);
+
+        return $this->errors;
     }
 
     private function getOauthUser($oauth_token, $oauth_verifier)

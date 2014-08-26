@@ -1,5 +1,6 @@
 <?php  namespace Zbw\Users\Handlers;
 
+use Zbw\Base\BaseCommandResponse;
 use Zbw\Users\Auth\AuthService;
 use Zbw\Users\Commands\LoginUserCommand;
 
@@ -13,7 +14,14 @@ class LoginUserHandler
     }
     public function handle(LoginUserCommand $command)
     {
-        $this->auth->oauthLogin($command->token, $command->verifier);
+        $response = new BaseCommandResponse();
+        $errors = $this->auth->oauthLogin($command->token, $command->verifier);
+        if(! empty($errors)) {
+            $response->setFlashData(['flash_error' => array_flatten($errors)]);
+        } else {
+            $response->setFlashData(['flash_success' => "You have been successfully logged in"]);
+        }
 
+        return $response;
     }
 } 

@@ -29,30 +29,11 @@ class SessionsController extends BaseController
             $oauth_token = $this->input['oauth_token'];
             $oauth_verifier = $this->input['oauth_verifier'];
             $response = $this->execute(LoginUserCommand::class, ['token' => $oauth_token, 'verifier' => $oauth_verifier]);
-            $this->setFlash(['flash_success' => 'You have been logged in']);
+            $this->setFlash($response->getFlashData());
             return $this->redirectIntended();
         } else {
             $this->auth->getTokenAndRedirect();
         }
-
-
-/*        $sso = new \Zbw\Users\Auth\Sso();
-        $return = \Config::get('zbw.sso.return');
-        //vatsim redirected user
-        if (\Input::has('oauth_token')) {
-            //does the session have data saved?
-            $status = \AuthToken::checkLogin(\Input::all(), $sso);
-            if (is_string($status))
-                return Redirect::home()->with('flash_error', $status);
-            else
-                return Redirect::intended('/')->with(
-                  'flash_success',
-                  'You have been logged in successfully'
-                );
-        } else if ($status = \AuthToken::setupToken($sso)) {
-            return Redirect::home()->with('flash_error', $status);
-        }
-        else return Redirect::back()->with('flash_error', 'Unable to log you in!');*/
     }
 
     public function postLogin()
