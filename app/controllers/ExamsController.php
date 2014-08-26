@@ -10,11 +10,13 @@ class ExamsController extends BaseController
     private $comments;
     private $exams;
 
-    public function __construct(CommentsRepositoryInterface $comments, ExamsRepositoryInterface $exams, QuestionsRepositoryInterface $questions)
+    public function __construct(CommentsRepositoryInterface $comments, ExamsRepositoryInterface $exams, QuestionsRepositoryInterface $questions, Store $session)
     {
         $this->comments = $comments;
         $this->exams = $exams;
         $this->questions = $questions;
+        $this->session = $session;
+        parent::__construct($session);
     }
 
     public function getIndex()

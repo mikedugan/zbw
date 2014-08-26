@@ -1,14 +1,16 @@
-<?php 
+<?php
 
+use Illuminate\Session\Store;
 use Zbw\Users\Contracts\UserRepositoryInterface;
 
 class AdminController extends BaseController
 {
     private $users;
 
-    public function __construct(UserRepositoryInterface $users)
+    public function __construct(UserRepositoryInterface $users, Store $session)
     {
         $this->users = $users;
+        parent::__construct($session);
     }
 
     public function getAdminIndex()

@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Session\Store;
 use Zbw\Poker\Contracts\PokerServiceInterface;
 use Zbw\Poker\Exceptions\PilotNotFoundException;
 
@@ -7,9 +8,10 @@ class PokerController extends \BaseController {
 
     private $service;
 
-    public function __construct(PokerServiceInterface $service)
+    public function __construct(PokerServiceInterface $service, Store $session)
     {
         $this->service = $service;
+        parent::__construct($session);
     }
 
     public function getIndex()

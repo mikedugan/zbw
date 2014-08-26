@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Session\Store;
 use Zbw\Users\Contracts\GroupsRepositoryInterface;
 use Zbw\Users\Contracts\UserRepositoryInterface;
 use Zbw\Users\Contracts\VisitorApplicantRepositoryInterface;
@@ -10,11 +11,12 @@ class RosterController extends BaseController {
     private $groups;
     private $visitors;
 
-    function __construct(UserRepositoryInterface $users, GroupsRepositoryInterface $groups, VisitorApplicantRepositoryInterface $visitors)
+    function __construct(UserRepositoryInterface $users, GroupsRepositoryInterface $groups, VisitorApplicantRepositoryInterface $visitors, Store $session)
     {
         $this->users = $users;
         $this->groups = $groups;
         $this->visitors = $visitors;
+        parent::__construct($session);
     }
 
     public function getPublicRoster()

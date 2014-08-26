@@ -1,14 +1,16 @@
 <?php
 
+use Illuminate\Session\Store;
 use Zbw\Cms\Contracts\NewsRepositoryInterface;
 
 class NewsController extends BaseController
 {
     private $news;
 
-    public function __construct(NewsRepositoryInterface $news)
+    public function __construct(NewsRepositoryInterface $news, Store $session)
     {
         $this->news = $news;
+        parent::__construct($session);
     }
 
     public function getIndex()
