@@ -4,6 +4,22 @@ Changelog
 @stop
 @section('content')
 <h1 class="text-center">Changelog</h1>
+<h3>2.0.11b</h3>
+mikedugan wip refactoring auth <br>
+mikedugan adopt a user to command, training controller updated <br>
+mikedugan refactored training session grader to command <br>
+mikedugan damned html <br>
+mikedugan accordions on training index <br>
+mikedugan refactored training index to view presenters <br>
+mikedugan added presenters, removed unused migrations <br>
+mikedugan Merge branch 'working' of git.mjdugan.com:mike/zbw into working <br>
+mikedugan added message nav to individual views <br>
+mikedugan fixed missing cid in messages controller <br>
+mikedugan updated message sending to use commands <br>
+mikedugan converted recent activity on profile to panels <br>
+mikedugan fixed avatar uploads <br>
+mikedugan refactored a bunch of things to command/handler, fixed user settings <br>
+mikedugan updated online indicator size <br>
 <h3>2.0.10b</h3>
 mikedugan fixed position online indicator <br>
 mikedugan added some responsive helpers <br>
