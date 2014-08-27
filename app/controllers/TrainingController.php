@@ -24,12 +24,8 @@ class TrainingController extends BaseController
 
     public function getIndex()
     {
-        $reviews = $this->current_user->exams()->where('reviewed', 0)->get();
-        if(in_array($this->current_user->cert, [2,5,8,10])) { $reviews = 1; }
         $this->setData('availableExams', $this->exams->availableExams(\Sentry::getUser()->cid));
         $this->setData('progress', $this->users->trainingProgress(\Sentry::getUser()->cid));
-        $this->setData('review', count($reviews) > 0 ? true : false);
-        $this->setData('canTake', count($this->current_user->exams) == 0 || $this->exams->lastExam($this->current_user->cid)->reviewed == 1 ? true : false);
 
         $this->view('training.index');
     }

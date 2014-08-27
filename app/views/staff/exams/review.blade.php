@@ -13,9 +13,9 @@ Exam Review
         @if(in_array($exam->student->cert, [2,5,8,10]))
         <p><b>Testing For: </b> {{ \Rating::find($exam->student->rating->id + 1)->long }}</p>
         @else
-        <p><b>Testing for: </b>{{ \Zbw\Base\Helpers::readableCert($exam->cert->id)}}</p>
+        <p><b>Testing for: </b>{{ $exam->cert->readable() }}</p>
         @endif
-        @if(in_array($me->cid, Zbw\Users\UserRepository::canTrain($exam->cert_id)) && ! $exam->reviewed == 1)
+        @if($me->canTrain($exam->cert_id) && ! $exam->reviewed == 1)
             <form data-reload="true" class="axform" action="/staff/exams/review/{{$exam->id}}/complete" method="post">
                 <button class="btn btn-xs btn-success">Exam Review Complete</button>
             </form>
@@ -24,7 +24,7 @@ Exam Review
             <button class="btn btn-xs btn-warning">Reopen Exam Review</button>
         </form>
         @endif
-        @if($me->cid === $exam->cid || in_array($me->cid, Zbw\Users\UserRepository::canTrain($exam->cert_id)))
+        @if($me->cid === $exam->cid || $me->canTrain($exam->cert_id))
             @if($exam->reviewed == 1)
                 <span class="badge bg-success">Exam Review Complete</span>
             @endif
@@ -34,7 +34,7 @@ Exam Review
         <h3>Exam Summary</h3>
         <p><b>Date Assigned:</b> {{ $exam->assigned_on or "??"}}</p>
         <p><b>Total Questions: </b>{{$exam->total_questions}}</p>
-        <p><b>Number Wrong: </b>{{count(explode(',',$exam->wrong_answers)) -1}}</p>
+        <p><b>Number Wrong: </b>{{ $exam->wrong }}</p>
         @if($exam->reviewed == 1)
         <p><b>Signed Off By: </b> {{ $exam->staff->initials }}</p>
         @endif
@@ -43,8 +43,8 @@ Exam Review
         <h3 class="text-center">Review &amp; Discussion</h3>
         <div class="well">
             <h5 class="text-center">Wrong Answers</h5>
-            @if(is_array($wrong))
-              @foreach($wrong as $question)
+            @if(is_array($review_content))
+              @foreach($review_content as $question)
               <p><strong>Question: {{ $question['question']->question }}</strong></p>
               <p>Student's Answer:<em>{{ $question['answer'] }}</em></p>
               <p>Correct Answer: <em> {{ $question['question']->{'answer_'.Zbw\Base\Helpers::digitToLetter($question['question']->correct)} }}</em></p>
@@ -57,7 +57,7 @@ Exam Review
         <p>Discuss corrections with the student below.</p>
     </div>
     <div class="col-md-12 exam-comment">
-        @foreach($exam->comments()->where('comment_type', \MessageType::where('value','c_exam')->first()->id)->get() as $comment)
+        @foreach($comments as $comment)
             <div class="col-md-12 well">
                 <div class="col-md-8">
                     <div>{{ $comment->content }}</div>
@@ -67,7 +67,7 @@ Exam Review
                     {{ $comment->created_at->diffForHumans() }}</p>
                 </div>
                 <div class="col-md-2">
-                    <img src="{{ $comment->user->avatar() }}">
+                    {{ $comment->user->avatar() }}
                 </div>
             </div>
         @endforeach

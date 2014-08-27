@@ -134,4 +134,9 @@ class Exam extends BaseModel implements PresentableInterface
     {
         \Rating::find($this->student['rating_id']+1)->short;
     }
+
+    public function allComments()
+    {
+        return $this->comments()->where('comment_type', \MessageType::where('value','c_exam')->first()->id)->get();
+    }
 }

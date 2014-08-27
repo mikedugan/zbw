@@ -1,8 +1,13 @@
 <?php
 
+use Illuminate\Session\Store;
 use Zbw\Cms\Contracts\CommentsRepositoryInterface;
 use Zbw\Training\Contracts\ExamsRepositoryInterface;
 use Zbw\Training\Contracts\QuestionsRepositoryInterface;
+
+use Zbw\Training\Commands\GetExamReviewCommand;
+use Zbw\Training\Commands\CreateExamCommand;
+use Zbw\Training\Exceptions\RecentExamException;
 
 class ExamsController extends BaseController
 {
@@ -22,102 +27,65 @@ class ExamsController extends BaseController
     public function getIndex()
     {
         if(\Input::has('initials') || \Input::has('reviewed') || \Input::has('before') || \Input::has('after')) {
-            $data = [
-              'exams' => $this->exams->indexFiltered(\Input::all()),
-              'paginate' => false
-            ];
+            $this->setData('exams', $this->exams->indexFiltered(\Input::all()));
+            $this->setData('paginate', false);
         }
         else {
-            $data = [
-                'exams' => $this->exams->indexPaginated(10),
-                'paginate' => true
-            ];
+            $this->setData('exams', $this->exams->indexPaginated(10));
+            $this->setData('paginate', true);
         }
 
-        return View::make('training.exams.all', $data);
+        $this->view('training.exams.all');
     }
 
     public function getStaffReview($eid)
     {
         $exam = $this->exams->get($eid);
-        if($decoded = json_decode($exam->exam)) {
-            $wrongset = property_exists($decoded, 'wrong') ? $decoded->wrong : null;
-            if (count($wrongset) > 0) {
-                foreach ($wrongset as $q) {
-                    $question = \ExamQuestion::find($q->question);
-                    $wrong[] = [
-                      'question' => $question,
-                      'answer'   => $question->{'answer_' . $q->answer}
-                    ];
-                }
-            }
-        }
-        $data = [
-          'exam' => $exam,
-          'wrong' => isset($wrong) && is_array($wrong) ? $wrong : 'Wow, 100%! Great job!'
-        ];
-        return View::make('staff.exams.review', $data);
+        $review_content = $this->execute(GetExamReviewCommand::class, ['exam' => $exam]);
+
+        $this->setData('exam', $exam);
+        $this->setData('comments', $exam->allComments());
+        $this->setData('review_content', $review_content);
+        $this->view('staff.exams.review');
     }
 
     public function getReview()
     {
-        $exam = $this->exams->lastExam(\Sentry::getUser()->cid);
-        if($decoded = json_decode($exam->exam)) {
-            $wrongset = property_exists($decoded, 'wrong') ? $decoded->wrong : null;
-            if (count($exam->wrong) > 0) {
-                foreach ($wrongset as $q) {
-                    $question = \ExamQuestion::find($q->question);
-                    $wrong[] = [
-                      'question' => $question,
-                      'answer'   => $question->{'answer_' . $q->answer}
-                    ];
-                }
-            }
-        }
-        $data = [
-          'exam' => $exam,
-          'wrong' => isset($wrong) && is_array($wrong) ? $wrong : 'Wow, 100%! Great job!'
-        ];
+        $exam = $this->exams->lastExam($this->current_user->cid);
+        $review_content = $this->execute(GetExamReviewCommand::class, ['exam' => $exam]);
+
+        $this->setData('exam', $exam);
+        $this->setData('comments', $exam->allComments());
+        $this->setData('review_content', $review_content);
         if ( ! $exam) {
-            return Redirect::back()->with('flash_info', 'No exams found');
+            $this->setFlash(['flash_info' => 'No exams found']);
+            $this->redirectBack();
         }
-        return View::make('training.exams.review', $data);
+        $this->view('training.exams.review');
     }
 
     public function getIntro($eid)
     {
-        $data = [
-          'title' => 'vZBW Exam Center'
-        ];
-
-        return View::make('training.exams.intro', $data);
+        $this->view('training.exams.intro');
     }
 
     public function getTake($eid)
     {
-        $data = [
-          'title' => 'Take Exam',
-          'exam'  => $this->exams->get($eid)
-        ];
-
-        return View::make('training.exams.take', $data);
+        $this->setData('exam', $this->exams->get($eid));
+        $this->view('training.exams.take');
     }
 
     public function getQuestions()
     {
         if(\Input::has('exam')) {
-            $data = [
-                'questions' => $this->questions->indexFiltered(\Input::all()),
-                'paginate' => false
-            ];
+            $this->setData('questions', $this->questions->indexFiltered(\Input::all()));
+            $this->setData('paginate', false);
         }
         else {
-            $data = [
-              'questions' => $this->questions->indexPaginated(10),
-              'paginate' => true
-            ];
+              $this->setData('questions', $this->questions->indexPaginated(10));
+              $this->setData('paginate', true);
         }
-        return View::make('staff.exams.view-questions', $data);
+        $this->view('staff.exams.view-questions');
     }
 
     public function postComment($eid)
@@ -133,11 +101,8 @@ class ExamsController extends BaseController
 
     public function getEditQuestion($id)
     {
-        $data = [
-            'question' => $this->questions->get($id)
-        ];
-
-        return View::make('staff.exams.edit', $data);
+        $this->setData('question', $this->questions->get($id));
+        $this->view('staff.exams.edit');
     }
 
     public function postEditQuestion($id)
@@ -170,29 +135,17 @@ class ExamsController extends BaseController
 
     public function takeExam()
     {
-        $user = \Sentry::getUser();
-        $next_cert = \CertType::find($user->cert + 1);
-        $count = \Config::get('zbw.exam_length.'.$next_cert->value);
-        $exam = [
-            'cid' => $user->cid,
-            'cert_type_id' => $next_cert->id,
-            'assigned_on' => \Carbon::now(),
-            'total_questions' => $count
-        ];
-
-        $recent = $this->exams->lastDay($user->cid);
-        if(count($recent) > 90) {
-            return Redirect::route('training')->with('flash_error', 'You have taken an exam within the past 24 hours!');
+        try {
+            $response = $this->execute(CreateExamCommand::class, ['user' => $this->current_user]);
+        } catch (Exception $e) {
+            $this->setFlash(['flash_error' => $e]);
+            return $this->redirectBack();
         }
-        if(! $exam = $this->exams->create($exam)) {
-            return Redirect::back()->with('flash_error', $this->exams->getErrors());
-        }
-        $data = [
-            'questions' => $this->questions->exam($user->cert + 1, $count),
-            'exam' => $exam
-        ];
 
-        return View::make('training.exams.take', $data);
+        $this->setData('questions', $response->getData()['questions']);
+        $this->setData('exam', $response->getData()['exam']);
+
+        $this->view('training.exams.take');
     }
 
     public function gradeExam()
