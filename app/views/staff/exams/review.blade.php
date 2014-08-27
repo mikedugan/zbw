@@ -50,8 +50,8 @@ Exam Review
               <p>Correct Answer: <em> {{ $question['question']->{'answer_'.Zbw\Base\Helpers::digitToLetter($question['question']->correct)} }}</em></p>
               @endforeach
             @else
-              <p>{{ $wrong }}</p>
-              <p><i>If this is a VATUSA exam, please copy and paste your corrections in the comments.</i></p>
+              <p>{{ $review_content }}</p>
+              <p><i>If this is a VATUSA exam, please copy and paste your corrections in the forum.</i></p>
             @endif
         </div>
         <p>Discuss corrections with the student below.</p>
