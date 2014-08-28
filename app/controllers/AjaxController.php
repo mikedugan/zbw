@@ -294,8 +294,8 @@ class AjaxController extends BaseController
     public function postVisitorAccept($id)
     {
         $staff = \Sentry::getUser();
-        if($this->visitors->accept($staff, $id)) {
-            Queue::push('Zbw\Bostonjohn\Queues\QueueDispatcher@usersAcceptVisitor', $id);
+        if($cid = $this->visitors->accept($staff, $id)) {
+            Queue::push('Zbw\Bostonjohn\Queues\QueueDispatcher@usersAcceptVisitor', $cid);
             return json_encode([
               'success' => true,
               'message' => 'Visitor application accepted. Page reloading in 3 seconds...'

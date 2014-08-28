@@ -67,7 +67,7 @@ class Users {
      */
     public function acceptVisitor(Job $job, $data)
     {
-        $visitor = \VisitorApplicant::find($data);
+        $visitor = \VisitorApplicant::where('cid', $data)->firstOrFail();
         $this->users->add($visitor->first_name, $visitor->last_name, $visitor->email, $visitor->home, $visitor->cid, $visitor->rating);
         $user = \Sentry::findUserById($data);
         $user->activated = 1;

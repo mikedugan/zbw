@@ -131,6 +131,7 @@ class Mail extends Notifier implements MailInterface
      */
     public function visitorRequestEmail($data)
     {
+        $this->setView('visitor_request');
         $to = \Sentry::findAllUsersInGroup(\Sentry::findGroupByName('DATM'));
         $this->setViewData([
             'to' => $to[0],
