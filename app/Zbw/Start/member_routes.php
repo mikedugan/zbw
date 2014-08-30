@@ -41,6 +41,7 @@ Route::group(
       Route::post('/t/request/{tid}/cancel',['as'   => 'training/cancel-request/{tid}','uses' => 'AjaxController@cancelTrainingRequest']);
       Route::post('/t/request/{tid}/drop',['as' => 'training/drop-request/{tid}', 'uses' => 'AjaxController@dropTrainingRequest']);
       Route::post('/t/request/{tid}/accept',['as'   => 'training/accept-request/{tid}','uses' => 'AjaxController@acceptTrainingRequest']);
+      Route::get('training/{id}', ['as' => 'training/view-session', 'uses' => 'TrainingController@viewSession']);
 
       //private messaging
       Route::group(

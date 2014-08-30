@@ -146,4 +146,15 @@ class TrainingController extends BaseController
         return $this->redirectBack();
     }
 
+    public function viewSession($id)
+    {
+        $session = $this->trainings->get($id);
+        if($this->current_user->cid !== $session->cid) {
+            return $this->redirectRoute('training');
+        } else {
+            $this->setData('tsession', $session);
+            $this->view('training.session');
+        }
+    }
+
 }

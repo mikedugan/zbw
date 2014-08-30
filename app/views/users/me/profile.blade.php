@@ -36,7 +36,11 @@
     <div class="panel-body">
       @unless(count($me->exams) == 0)
         @foreach($me->exams as $exam)
-            <p>{{ Zbw\Core\Helpers::readableCert($exam->cert_type_id) . ' on ' . $exam->created_at->toFormattedDateString() }}</p>
+            @if($exam->reviewed === 0)
+              <a href="/training/review"><p>{{ Zbw\Core\Helpers::readableCert($exam->cert_type_id) . ' on ' . $exam->created_at->toFormattedDateString() }}</p></a>
+            @else
+              <p>{{ Zbw\Core\Helpers::readableCert($exam->cert_type_id) . ' on ' . $exam->created_at->toFormattedDateString() }}</p>
+            @endif
         @endforeach
       @endunless
     </div>
@@ -50,7 +54,7 @@
     <div id="collapseTwo" class="panel-collapse collapse">
       <div class="panel-body">
         @foreach($me->training()->limit(10)->get() as $session)
-                <p>{{ $session->created_at->toFormattedDateString() . ' at ' . $session->facility->value }}</p>
+                <p><a href="/training/{{$session->id}}">{{ $session->created_at->toFormattedDateString() . ' at ' . $session->facility->value }}</a></p>
             @endforeach
       </div>
     </div>
