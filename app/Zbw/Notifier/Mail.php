@@ -1,8 +1,8 @@
-<?php  namespace Zbw\Bostonjohn\Notify;
+<?php  namespace Zbw\Notifier;
 
 use Illuminate\Mail\Mailer;
-use Zbw\Bostonjohn\Notify\Contracts\MailInterface;
-use Zbw\Base\Helpers;
+use Zbw\Notifier\Contracts\MailInterface;
+use Zbw\Core\Helpers;
 use Zbw\Users\Contracts\UserRepositoryInterface;
 
 /**

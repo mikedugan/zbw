@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Zbw\Base;
+namespace Zbw\Core;
 
 interface CommandResponseInterface
 {

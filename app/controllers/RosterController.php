@@ -187,7 +187,7 @@ class RosterController extends BaseController
     {
         $staff = \Sentry::getUser();
         if ($results = $this->visitors->deny($staff, \Input::all())) {
-            Queue::push('Zbw\Bostonjohn\Queues\QueueDispatcher@usersDenyVisitor', $results);
+            Queue::push('Zbw\Queues\QueueDispatcher@usersDenyVisitor', $results);
 
             return Redirect::back()->with('flash_success', 'Visitor request denied');
         } else {

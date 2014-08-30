@@ -8,7 +8,7 @@
 class ControllerEventHandler {
 
     /**
-     * @var \Zbw\Bostonjohn\Notify\Mail
+     * @var \Zbw\Notifier\Mail
      */
     private $emailer;
 
@@ -17,7 +17,7 @@ class ControllerEventHandler {
      */
     public function __construct()
     {
-        $this->emailer = \App::make('Zbw\Bostonjohn\Notify\Mail');
+        $this->emailer = \App::make('Zbw\Notifier\Mail');
     }
 
     /**

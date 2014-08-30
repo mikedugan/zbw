@@ -1,4 +1,4 @@
-<?php  namespace Zbw\Base; 
+<?php  namespace Zbw\Core; 
 
 use Laracasts\Commander\Exception;
 use Laracasts\Commander\HandlerNotRegisteredException;

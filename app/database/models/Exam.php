@@ -43,12 +43,12 @@ use Zbw\Training\Presenters\ExamPresenter;
  * @property string $questions
  * @property boolean $pass
  * @property-read \CertType $cert
- * @method static \Illuminate\Database\Query\Builder|\Exam whereCertTypeId($value) 
- * @method static \Illuminate\Database\Query\Builder|\Exam whereCorrect($value) 
- * @method static \Illuminate\Database\Query\Builder|\Exam whereWrong($value) 
- * @method static \Illuminate\Database\Query\Builder|\Exam whereExam($value) 
- * @method static \Illuminate\Database\Query\Builder|\Exam whereQuestions($value) 
- * @method static \Illuminate\Database\Query\Builder|\Exam wherePass($value) 
+ * @method static \Illuminate\Database\Query\Builder|\Exam whereCertTypeId($value)
+ * @method static \Illuminate\Database\Query\Builder|\Exam whereCorrect($value)
+ * @method static \Illuminate\Database\Query\Builder|\Exam whereWrong($value)
+ * @method static \Illuminate\Database\Query\Builder|\Exam whereExam($value)
+ * @method static \Illuminate\Database\Query\Builder|\Exam whereQuestions($value)
+ * @method static \Illuminate\Database\Query\Builder|\Exam wherePass($value)
  */
 class Exam extends BaseModel implements PresentableInterface
 {

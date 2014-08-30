@@ -12,6 +12,7 @@ Your Training
             <div class="progress-bar" role="progressbar" aria-valuenow="{{ $progress }}" aria-valuemin="0" aria-valuemax="100" style="width:{{ $progress }}%"></div>
         </div>
         <h5>Current VATSIM Rating: <span class="sans">{{ $me->rating->long }}</span></h5>
+        {{--{{ dd($me) }}--}}
         <h5>Current ZBW Certification: <span class="sans">{{ $me->certification->readable() }}</span></h5>
     </div>
     <div class="col-md-6">

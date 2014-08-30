@@ -1,4 +1,4 @@
-<?php  namespace Zbw\Commands;
+<?php  namespace Zbw\Console;
 
 use Illuminate\Console\Command;
 

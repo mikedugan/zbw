@@ -1,4 +1,4 @@
-<?php  namespace Zbw\Base; 
+<?php  namespace Zbw\Core; 
 
 use Carbon\Carbon;
 use Robbo\Presenter\Presenter;

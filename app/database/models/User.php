@@ -59,8 +59,8 @@ use Zbw\Users\UserPresenter;
  * @property integer $adopted_by
  * @property string $adopted_on
  * @property-read \User $adopter
- * @method static \Illuminate\Database\Query\Builder|\User whereAdoptedBy($value) 
- * @method static \Illuminate\Database\Query\Builder|\User whereAdoptedOn($value) 
+ * @method static \Illuminate\Database\Query\Builder|\User whereAdoptedBy($value)
+ * @method static \Illuminate\Database\Query\Builder|\User whereAdoptedOn($value)
  */
 class User extends SentryUser implements PresentableInterface
 {

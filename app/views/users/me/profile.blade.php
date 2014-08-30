@@ -36,7 +36,7 @@
     <div class="panel-body">
       @unless(count($me->exams) == 0)
         @foreach($me->exams as $exam)
-            <p>{{ Zbw\Base\Helpers::readableCert($exam->cert_type_id) . ' on ' . $exam->created_at->toFormattedDateString() }}</p>
+            <p>{{ Zbw\Core\Helpers::readableCert($exam->cert_type_id) . ' on ' . $exam->created_at->toFormattedDateString() }}</p>
         @endforeach
       @endunless
     </div>

@@ -1,4 +1,4 @@
-<?php namespace Zbw\Base;
+<?php namespace Zbw\Core;
 
 /**
  * Simple Machines Forum(SMF) 'REST' API for SMF 2.0

@@ -1,6 +1,6 @@
-<?php  namespace Zbw\Bostonjohn\Notify;
+<?php  namespace Zbw\Notifier;
 
-use Zbw\Base\Helpers;
+use Zbw\Core\Helpers;
 use Zbw\Cms\Contracts\MessagesRepositoryInterface;
 use Zbw\Users\Contracts\UserRepositoryInterface;
 

@@ -1,7 +1,7 @@
-<?php  namespace Zbw\Bostonjohn\Queues;
+<?php  namespace Zbw\Queues;
 
 /**
- * @package Zbw\Bostonjohn\Queues
+ * @package Zbw\Queues
  * @author  Mike Dugan <mike@mjdugan.com>
  * @since   2.0.1b
  */
@@ -18,7 +18,7 @@ class QueueDispatcher {
         $method = preg_split('/(?=[A-Z])/', lcfirst($method));
 
         //the class
-        $service = \App::make('Zbw\Bostonjohn\Queues\\'. ucfirst($method[0]));
+        $service = \App::make('Zbw\Queues\\'. ucfirst($method[0]));
 
         //convert the split method to a proper class method
         $method = lcfirst(implode(array_slice($method, 1, count($method)), ''));

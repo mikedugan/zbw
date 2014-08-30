@@ -4,6 +4,7 @@ use Zbw\Training\Presenters\TrainingSessionPresenter;
 
 /**
  * TrainingSession
+ *
  * @property integer                $id
  * @property integer                $cid
  * @property integer                $sid

@@ -3,7 +3,7 @@
 ZBW Exam
 @stop
 @section('content')
-    <h1>ZBW {{ Zbw\Base\Helpers::readableCert($exam->cert_type_id) }} Exam</h1>
+    <h1>ZBW {{ Zbw\Core\Helpers::readableCert($exam->cert_type_id) }} Exam</h1>
     <?php $counter = 1; ?>
     <div class="well">
         <p>ZBW exams are open book, you may use necessary resources to complete the exam.</p>

@@ -1,7 +1,7 @@
 <?php  namespace Zbw\Training\Presenters; 
 
-use Zbw\Base\BasePresenter;
-use Zbw\Base\Helpers;
+use Zbw\Core\BasePresenter;
+use Zbw\Core\Helpers;
 
 class TrainingRequestPresenter extends BasePresenter
 {

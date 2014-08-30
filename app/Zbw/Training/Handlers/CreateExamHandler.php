@@ -1,6 +1,6 @@
 <?php  namespace Zbw\Training\Handlers;
 
-use Zbw\Base\BaseCommandResponse;
+use Zbw\Core\BaseCommandResponse;
 use Zbw\Training\Commands\CreateExamCommand;
 use Zbw\Training\Contracts\ExamsRepositoryInterface;
 use Zbw\Training\Contracts\QuestionsRepositoryInterface;

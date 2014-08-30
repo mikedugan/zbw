@@ -1,6 +1,6 @@
 <?php  namespace Zbw\Users; 
 
-use Zbw\Base\EloquentRepository;
+use Zbw\Core\EloquentRepository;
 use Zbw\Users\Contracts\VisitorApplicantRepositoryInterface;
 
 /**

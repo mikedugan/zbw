@@ -1,14 +1,11 @@
-<?php namespace Zbw\Commands;
+<?php namespace Zbw\Console;
 
 use Illuminate\Console\Command;
-use Zbw\Bostonjohn\Datafeed\Vatsim;
 
 /**
- * @package Zbw\Commands
- * @author  Mike Dugan <mike@mjdugan.com>
- * @since   2.0.1b
+ *
  */
-class UpdateUrls extends Command
+class UpdateClients extends Command
 {
 
     /**
@@ -16,18 +13,15 @@ class UpdateUrls extends Command
      *
      * @var string
      */
-    protected $name = 'vatsim:urls';
+    protected $name = 'vatsim:clients';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Updates the VATSIM server URLs.';
+    protected $description = 'Updates VATSIM ATC and pilot clients.';
 
-    /**
-     *
-     */
     public function __construct()
     {
         parent::__construct();
@@ -40,8 +34,10 @@ class UpdateUrls extends Command
      */
     public function fire()
     {
-        $vatsim = new Vatsim();
-        $vatsim->updateStatus();
+        \ZbwFlight::truncate();
+        $df = new \Zbw\Bostonjohn\Datafeed\DatafeedParser();
+        $df->parseDatafeed();
+        $this->info('Clients list updated successfully');
     }
 
     /**
@@ -52,7 +48,6 @@ class UpdateUrls extends Command
     protected function getArguments()
     {
         return [
-
         ];
     }
 
@@ -64,7 +59,6 @@ class UpdateUrls extends Command
     protected function getOptions()
     {
         return [
-
         ];
     }
 

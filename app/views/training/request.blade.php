@@ -9,7 +9,7 @@ Training Request
     <h1 class="text-center">Request Training Session</h1>
     <div class="col-md-12">
     <form id="request-training">
-        <p>Your training request will be for <i>{{Zbw\Base\Helpers::readableCert($me->cert)}}</i></p>
+        <p>Your training request will be for <i>{{Zbw\Core\Helpers::readableCert($me->cert)}}</i></p>
         <input id="cert" type="hidden" value="{{ $me->cert }}">
         <input id="cid" type="hidden" value="{{$me->cid }}">
         <div class="well col-md-12">

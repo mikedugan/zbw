@@ -1,6 +1,6 @@
 <?php namespace Zbw\Training;
 
-use Zbw\Base\EloquentRepository;
+use Zbw\Core\EloquentRepository;
 use Zbw\Training\Contracts\TrainingSessionRepositoryInterface;
 use Zbw\Users\UserRepository;
 

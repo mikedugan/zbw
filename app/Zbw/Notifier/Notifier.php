@@ -1,4 +1,4 @@
-<?php  namespace Zbw\Bostonjohn\Notify; 
+<?php  namespace Zbw\Notifier; 
 
 use Zbw\Users\Contracts\UserRepositoryInterface;
 

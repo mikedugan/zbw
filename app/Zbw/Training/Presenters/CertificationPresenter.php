@@ -1,6 +1,6 @@
 <?php  namespace Zbw\Training\Presenters; 
 
-use Zbw\Base\BasePresenter;
+use Zbw\Core\BasePresenter;
 
 class CertificationPresenter extends BasePresenter
 {
@@ -12,7 +12,7 @@ class CertificationPresenter extends BasePresenter
     public function readable()
     {
         switch($this->id) {
-            case '0':
+            case '0': return 'Observer'; break;
             case '1': return 'Observer'; break;
             case '2': return "Class C/D Ground"; break;
             case '3': return "Class B Ground (Off Peak)"; break;

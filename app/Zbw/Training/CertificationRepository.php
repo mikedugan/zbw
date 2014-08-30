@@ -1,7 +1,7 @@
 <?php namespace Zbw\Training;
 
-use Zbw\Base\Helpers;
-use Zbw\Base\EloquentRepository;
+use Zbw\Core\Helpers;
+use Zbw\Core\EloquentRepository;
 use Zbw\Training\Contracts\CertificationRepositoryInterface;
 use Zbw\Training\Contracts\ExamsRepositoryInterface;
 

@@ -1,4 +1,4 @@
-<?php  namespace Zbw\Base;
+<?php  namespace Zbw\Core;
 
 class BaseCommandResponse implements CommandResponseInterface
 {

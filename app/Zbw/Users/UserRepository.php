@@ -1,6 +1,6 @@
 <?php  namespace Zbw\Users;
 
-use Zbw\Base\EloquentRepository;
+use Zbw\Core\EloquentRepository;
 use Zbw\Bostonjohn\Emailer;
 use Zbw\Users\Contracts\UserRepositoryInterface;
 
@@ -184,7 +184,7 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
     }
 
     /**
-     * @param \Zbw\Base\relations $with
+     * @param \Zbw\Core\relations $with
      * @param null                $id
      * @param string              $pk
      * @param null                $pagination

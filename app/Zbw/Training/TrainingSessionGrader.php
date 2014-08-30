@@ -67,7 +67,7 @@ class TrainingSessionGrader implements TrainingGraderInterface
         $report->save();
 
         if($this->ots == 1) {
-            \Queue::push('Zbw\Bostonjohn\Queues\QueueDispatcher@usersPromote', $session->cid);
+            \Queue::push('Zbw\Queues\QueueDispatcher@usersPromote', $session->cid);
         }
 
         return $session;

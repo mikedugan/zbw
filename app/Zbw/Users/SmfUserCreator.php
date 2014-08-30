@@ -1,6 +1,6 @@
 <?php  namespace Zbw\Users;
 
-use Zbw\Base\SmfRestClient;
+use Zbw\Core\SmfRestClient;
 
 class SmfUserCreator {
 

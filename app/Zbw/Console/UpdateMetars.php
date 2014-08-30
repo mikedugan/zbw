@@ -1,9 +1,14 @@
-<?php namespace Zbw\Commands;
+<?php namespace Zbw\Console;
 
 use Illuminate\Console\Command;
-use Zbw\Training\ExamImporter;
+use Zbw\Bostonjohn\Datafeed\MetarCreator;
 
-class ImportExamQuestions extends Command
+/**
+ * @package Zbw\Commands
+ * @author  Mike Dugan <mike@mjdugan.com>
+ * @since   2.0.1b
+ */
+class UpdateMetars extends Command
 {
 
     /**
@@ -11,19 +16,19 @@ class ImportExamQuestions extends Command
      *
      * @var string
      */
-    protected $name = 'vatsim:questions';
+    protected $name = 'vatsim:metars';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Update the exam questions from csv';
+    protected $description = 'Update the METARs from the VATSIM server';
 
     /**
      * Create a new command instance.
      *
-     * @return ImportExamQuestions
+     * @return UpdateMetars
      */
     public function __construct()
     {
@@ -37,9 +42,13 @@ class ImportExamQuestions extends Command
      */
     public function fire()
     {
-        $importer = new ExamImporter();
-        $total = $importer->import();
-        $this->info($total . ' questions were added');
+        $metar = new MetarCreator();
+        $metar->updateMetars();
+        $this->info('METARs updated successfully!');
+        /*$deletes = \Metar::where(
+          'created_at', '<', \Carbon::now()->subMinutes(2)
+        )->lists('id');
+        \Metar::destroy($deletes);*/
     }
 
     /**

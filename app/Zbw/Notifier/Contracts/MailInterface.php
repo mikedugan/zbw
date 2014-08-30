@@ -1,5 +1,5 @@
 <?php
-namespace Zbw\Bostonjohn\Notify\Contracts;
+namespace Zbw\Notifier\Contracts;
 
 interface MailInterface
 {

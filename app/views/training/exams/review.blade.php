@@ -45,7 +45,7 @@ Exam Review
         @foreach($review_content as $question)
             <p><strong>Question: {{ $question['question']->question }}</strong></p>
             <p>Your Answer:<em>{{ $question['answer'] }}</em></p>
-            <p>Correct Answer: <em> {{ $question['question']->{'answer_'.Zbw\Base\Helpers::digitToLetter($question['question']->correct)} }}</em></p>
+            <p>Correct Answer: <em> {{ $question['question']->{'answer_'.Zbw\Core\Helpers::digitToLetter($question['question']->correct)} }}</em></p>
         @endforeach
         @else
           <p>{{ $review_content }}</p>

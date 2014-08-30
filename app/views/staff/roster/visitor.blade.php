@@ -1,9 +1,8 @@
 <h1 class="text-center">Visitor Applications</h1>
 <hr/>
-<div class="row">
   @foreach($applicants as $applicant)
   <div class="row" style="border-bottom: 3px solid #bbb">
-  <div class="col-md-12" style="margin:10px 0;border-bottom: 1px solid #ddd">
+  <div class="row" style="margin:10px 0;border-bottom: 1px solid #ddd">
       <div class="col-md-4">
         <h3>Applicant Information</h3>
         <p><b>Name:</b> {{ $applicant->first_name . ' ' . $applicant->last_name }}</p>
@@ -86,6 +85,4 @@
       </div>
     </div>
   </div>
-  </div>
   @endforeach
-</div>

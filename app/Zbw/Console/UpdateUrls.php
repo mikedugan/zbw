@@ -1,14 +1,14 @@
-<?php namespace Zbw\Commands;
+<?php namespace Zbw\Console;
 
 use Illuminate\Console\Command;
-use Zbw\Bostonjohn\Datafeed\MetarCreator;
+use Zbw\Bostonjohn\Datafeed\Vatsim;
 
 /**
  * @package Zbw\Commands
  * @author  Mike Dugan <mike@mjdugan.com>
  * @since   2.0.1b
  */
-class UpdateMetars extends Command
+class UpdateUrls extends Command
 {
 
     /**
@@ -16,19 +16,17 @@ class UpdateMetars extends Command
      *
      * @var string
      */
-    protected $name = 'vatsim:metars';
+    protected $name = 'vatsim:urls';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Update the METARs from the VATSIM server';
+    protected $description = 'Updates the VATSIM server URLs.';
 
     /**
-     * Create a new command instance.
      *
-     * @return UpdateMetars
      */
     public function __construct()
     {
@@ -42,13 +40,8 @@ class UpdateMetars extends Command
      */
     public function fire()
     {
-        $metar = new MetarCreator();
-        $metar->updateMetars();
-        $this->info('METARs updated successfully!');
-        /*$deletes = \Metar::where(
-          'created_at', '<', \Carbon::now()->subMinutes(2)
-        )->lists('id');
-        \Metar::destroy($deletes);*/
+        $vatsim = new Vatsim();
+        $vatsim->updateStatus();
     }
 
     /**
@@ -59,6 +52,7 @@ class UpdateMetars extends Command
     protected function getArguments()
     {
         return [
+
         ];
     }
 

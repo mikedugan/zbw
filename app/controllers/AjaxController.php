@@ -1,6 +1,6 @@
 <?php
 
-use Zbw\Bostonjohn\Notify\Mail;
+use Zbw\Notifier\Mail;
 use Zbw\Cms\Contracts\MessagesRepositoryInterface;
 use Zbw\Training\Contracts\CertificationRepositoryInterface;
 use Zbw\Training\Contracts\ExamsRepositoryInterface;
@@ -295,7 +295,7 @@ class AjaxController extends BaseController
     {
         $staff = \Sentry::getUser();
         if($cid = $this->visitors->accept($staff, $id)) {
-            Queue::push('Zbw\Bostonjohn\Queues\QueueDispatcher@usersAcceptVisitor', $cid);
+            Queue::push('Zbw\Queues\QueueDispatcher@usersAcceptVisitor', $cid);
             return json_encode([
               'success' => true,
               'message' => 'Visitor application accepted. Page reloading in 3 seconds...'
@@ -315,7 +315,7 @@ class AjaxController extends BaseController
     {
         $student = \Sentry::getUser();
         $exam = \Rating::find($student->rating_id + 1)->long;
-        Queue::push('Zbw\Bostonjohn\Queues\QueueDispatcher@usersRequestVatusaExam', $student->cid);
+        Queue::push('Zbw\Queues\QueueDispatcher@usersRequestVatusaExam', $student->cid);
         return json_encode([
           'success' => true,
           'message' => 'VATUSA '.$exam.' exam requested.'

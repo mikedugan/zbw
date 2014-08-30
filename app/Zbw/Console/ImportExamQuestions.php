@@ -1,11 +1,9 @@
-<?php namespace Zbw\Commands;
+<?php namespace Zbw\Console;
 
 use Illuminate\Console\Command;
+use Zbw\Training\ExamImporter;
 
-/**
- *
- */
-class UpdateClients extends Command
+class ImportExamQuestions extends Command
 {
 
     /**
@@ -13,15 +11,20 @@ class UpdateClients extends Command
      *
      * @var string
      */
-    protected $name = 'vatsim:clients';
+    protected $name = 'vatsim:questions';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Updates VATSIM ATC and pilot clients.';
+    protected $description = 'Update the exam questions from csv';
 
+    /**
+     * Create a new command instance.
+     *
+     * @return ImportExamQuestions
+     */
     public function __construct()
     {
         parent::__construct();
@@ -34,10 +37,9 @@ class UpdateClients extends Command
      */
     public function fire()
     {
-        \ZbwFlight::truncate();
-        $df = new \Zbw\Bostonjohn\Datafeed\DatafeedParser();
-        $df->parseDatafeed();
-        $this->info('Clients list updated successfully');
+        $importer = new ExamImporter();
+        $total = $importer->import();
+        $this->info($total . ' questions were added');
     }
 
     /**
@@ -59,6 +61,7 @@ class UpdateClients extends Command
     protected function getOptions()
     {
         return [
+
         ];
     }
 

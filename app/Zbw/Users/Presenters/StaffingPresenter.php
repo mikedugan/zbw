@@ -1,6 +1,6 @@
 <?php  namespace Zbw\Users\Presenters; 
 
-use Zbw\Base\BasePresenter;
+use Zbw\Core\BasePresenter;
 
 class StaffingPresenter extends BasePresenter
 {

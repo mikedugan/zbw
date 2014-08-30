@@ -1,13 +1,13 @@
-<?php  namespace Zbw\Bostonjohn\Queues; 
+<?php  namespace Zbw\Queues; 
 
 use Illuminate\Queue\Jobs\Job;
-use Zbw\Base\Helpers;
+use Zbw\Core\Helpers;
 use Zbw\Users\Contracts\UserRepositoryInterface;
-use Zbw\Bostonjohn\Notify\Mail;
+use Zbw\Notifier\Mail;
 use Zbw\Cms\Contracts\MessagesRepositoryInterface;
 
 /**
- * @package Zbw\Bostonjohn\Queues
+ * @package Zbw\Queues
  * @author  Mike Dugan <mike@mjdugan.com>
  * @since   2.0.b
  */

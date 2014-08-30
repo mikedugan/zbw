@@ -9,7 +9,7 @@ App::register('Zbw\Poker\PokerServiceProvider');
 
 App::bind(
   'Laracasts\Commander\CommandTranslator',
-  'Zbw\Base\CommandTranslator'
+  'Zbw\Core\CommandTranslator'
 );
 
 Bugsnag::setAppVersion(\Config::get('zbw.version'));

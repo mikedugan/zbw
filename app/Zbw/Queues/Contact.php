@@ -1,8 +1,8 @@
-<?php  namespace Zbw\Bostonjohn\Queues;
+<?php  namespace Zbw\Queues;
 
 use Illuminate\Queue\Jobs\Job;
 use Zbw\Users\Contracts\UserRepositoryInterface;
-use Zbw\Bostonjohn\Notify\Mail;
+use Zbw\Notifier\Mail;
 use Zbw\Cms\Contracts\MessagesRepositoryInterface;
 
 /**
@@ -17,7 +17,7 @@ class Contact {
      */
     private $users;
     /**
-     * @var \Zbw\Bostonjohn\Notify\Mail
+     * @var \Zbw\Notifier\Mail
      */
     private $notifier;
     /**
@@ -27,7 +27,7 @@ class Contact {
 
     /**
      * @param UserRepositoryInterface     $users
-     * @param \Zbw\Bostonjohn\Notify\Mail                    $notifier
+     * @param \Zbw\Notifier\Mail                    $notifier
      * @param MessagesRepositoryInterface $messages
      */
     public function __construct(UserRepositoryInterface $users, Mail $notifier, MessagesRepositoryInterface $messages)

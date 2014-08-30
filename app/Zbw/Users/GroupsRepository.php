@@ -1,5 +1,5 @@
 <?php namespace Zbw\Users;
-use Zbw\Base\EloquentRepository;
+use Zbw\Core\EloquentRepository;
 use Zbw\Users\Contracts\GroupsRepositoryInterface;
 use Zbw\Users\Contracts\UserRepositoryInterface;
 

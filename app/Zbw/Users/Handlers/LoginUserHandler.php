@@ -1,6 +1,6 @@
 <?php  namespace Zbw\Users\Handlers;
 
-use Zbw\Base\BaseCommandResponse;
+use Zbw\Core\BaseCommandResponse;
 use Zbw\Users\Auth\AuthService;
 use Zbw\Users\Commands\LoginUserCommand;
 

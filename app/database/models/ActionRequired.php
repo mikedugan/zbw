@@ -1,6 +1,6 @@
 <?php
 
-use \Zbw\Base\Helpers as Helpers;
+use \Zbw\Core\Helpers as Helpers;
 
 /**
  * ActionRequired
