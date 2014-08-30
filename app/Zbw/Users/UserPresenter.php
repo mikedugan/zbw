@@ -1,6 +1,7 @@
 <?php  namespace Zbw\Users; 
 
 use Robbo\Presenter\Presenter;
+use Zbw\Core\Helpers;
 
 class UserPresenter extends Presenter
 {
@@ -16,7 +17,7 @@ class UserPresenter extends Presenter
      *
      * @return string
      */
-    public function avatar($s = 100, $d = 'mm', $r = 'r', $img = false, $atts = array() ) {
+    public function avatar($s = 100, $d = 'mm', $r = 'r', $img = false, $atts = [] ) {
         if(empty($this->settings->avatar)) {
             $url = 'http://www.gravatar.com/avatar/';
             $url .= md5(strtolower(trim($this->email)));
@@ -34,12 +35,12 @@ class UserPresenter extends Presenter
 
     public function nextCert()
     {
-        dd(\CertType::find($this->cert + 1));
-        return \CertType::find($this->cert + 1)->readable();
+
+        return Helpers::readableCert($this->cert + 1);
     }
 
     public function lastCert()
     {
-        return \CertType::find($this->cert - 1)->readable();
+        return Helpers::readableCert($this->cert - 1);
     }
 } 

@@ -3,7 +3,7 @@
 Route::group(
   array('before' => 'controller'),
   function () {
-      $cid = \Sentry::check() ? 0 : \Sentry::getUser()->cid;
+      $cid = \Sentry::check() ? \Sentry::getUser()->cid : 0;
       //routes for the logged in users
       Route::get('news', ['as' => 'news', 'uses' => 'NewsController@getIndex']);
 

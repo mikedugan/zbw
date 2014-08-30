@@ -108,6 +108,8 @@ class Helpers
     {
         switch ($cert) {
             case '0':
+                return 'Observer';
+                break;
             case '1':
                 return 'Observer';
                 break;

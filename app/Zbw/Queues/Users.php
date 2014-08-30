@@ -104,11 +104,7 @@ class Users {
         ];
         $messages = \App::make('Zbw\Cms\Contracts\MessagesRepositoryInterface');
         $message = \View::make('zbw.messages.controller_promotion', $vData)->render();
-        $messages->create([
-            'subject' => 'ZBW Promotion',
-            'to' => $user->initials,
-            'message' => str_replace('_USER_', $user->initials, $message)
-        ]);
+        $messages->create($user->initials, 'ZBW Promotion', str_replace('_USER_', $user->initials, $message));
 
         $job->delete();
     }
@@ -121,19 +117,15 @@ class Users {
     public function demote(Job $job, $data)
     {
         $user = $this->users->get($data);
-        $user->cert = $user->cert - 1;
+        $user->cert -= 1;
         $user->save();
         $vData = [
           'student' => $user,
           'cert' => Helpers::readableCert($user->cert)
         ];
         $messages = \App::make('Zbw\Cms\Contracts\MessagesRepositoryInterface');
-        $message = \View::make('zbw.messages.controller_promotion', $vData)->render();
-        $messages->create([
-          'subject' => 'ZBW Promotion',
-          'to' => $user->initials,
-          'message' => str_replace('_USER_', $user->initials, $message)
-        ]);
+        $message = \View::make('zbw.messages.controller_demotion', $vData)->render();
+        $messages->create($user->initials, 'ZBW Demotion', str_replace('_USER_', $user->initials, $message));
 
         $job->delete();
     }

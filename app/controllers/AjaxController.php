@@ -324,7 +324,7 @@ class AjaxController extends BaseController
 
     public function promoteUser($cid)
     {
-        \Queue::push('Zbw\Queues\QueueDispatcher@usersDemote', $cid);
+        \Queue::push('Zbw\Queues\QueueDispatcher@usersPromote', $cid);
         return json_encode([
           'success' => true,
           'message' => 'User promoted'
