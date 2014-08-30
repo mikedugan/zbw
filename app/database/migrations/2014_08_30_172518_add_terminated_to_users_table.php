@@ -14,6 +14,7 @@ class AddTerminatedToUsersTable extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->boolean('terminated')->default(false);
+            $table->boolean('guest')->default(true);
         });
     }
 
@@ -25,6 +26,7 @@ class AddTerminatedToUsersTable extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->dropColumn('terminated');
+            $table->dropColumn('guest');
         });
     }
 

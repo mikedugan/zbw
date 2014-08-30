@@ -3,29 +3,17 @@
 Route::group(
   array('before' => 'controller'),
   function () {
-      $cid = is_null(Auth::user()) ? 0 : Auth::user()->cid;
+      $cid = \Sentry::check() ? 0 : \Sentry::getUser()->cid;
       //routes for the logged in users
       Route::get('news', ['as' => 'news', 'uses' => 'NewsController@getIndex']);
 
-      Route::post(
-        '/me/markallread',
-        ['as' => '/me/markallread', 'uses' => 'AjaxController@markInboxRead']
-      );
-      Route::get('changelog', function() {
-            return View::make('zbw.changelog');
-        });
-      Route::get(
-        '/u/' . $cid,
-        array('as' => 'me', 'uses' => 'UsersController@getMe')
-      );
-      Route::get(
-        'me/profile',
-        ['as' => 'profile', 'uses' => 'UsersController@getSettings']
-      );
-      Route::post(
-        'me/profile',
-        ['as' => 'profile', 'uses' => 'UsersController@postSettings']
-      );
+      Route::get('controllers/resources', ['as' => 'controllers.resources', 'uses' => 'StaticController@getControllersResources']);
+
+      Route::post('/me/markallread',['as' => '/me/markallread', 'uses' => 'AjaxController@markInboxRead']);
+      Route::get('changelog', function() {return View::make('zbw.changelog');});
+      Route::get('/u/' . $cid,array('as' => 'me', 'uses' => 'UsersController@getMe'));
+      Route::get('me/profile',['as' => 'profile', 'uses' => 'UsersController@getSettings']);
+      Route::post('me/profile',['as' => 'profile', 'uses' => 'UsersController@postSettings']);
       //training and exam routes
       Route::get('training/request/all', ['as' => 'training/request/all', 'uses' => 'TrainingController@getAllRequests']);
       Route::get('training/request/new', ['as'   => 'training/new-request','uses' => 'TrainingController@getRequest']);
