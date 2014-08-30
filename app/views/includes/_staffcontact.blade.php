@@ -8,6 +8,7 @@
                 <option value="ATM">Air Traffic Manager</option>
                 <option value="DATM">Deputy Air Traffic Manager</option>
                 <option value="TA">Training Administrator</option>
+                <option value="Events">Events Coordinator</option>
                 <option value="WEB">Webmaster</option>
                 <option value="FE">Facilities Engineer</option>
             </select>

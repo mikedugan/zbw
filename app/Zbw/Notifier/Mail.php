@@ -56,7 +56,7 @@ class Mail extends Notifier implements MailInterface
     public function newUserEmail($cid)
     {
         $user = $this->users->get($cid);
-        $this->setView('zbw.emails.new-user');
+        $this->setView('new-user');
         $this->setViewData(['user' => $user]);
         $this->send($user->email, $user->username, 'Welcome to ZBW');
     }

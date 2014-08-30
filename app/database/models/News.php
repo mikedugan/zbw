@@ -41,7 +41,6 @@ class News extends BaseModel
 {
     protected $guarded = ['audience', 'deleted_at'];
     protected $table = 'zbw_news';
-    protected $dates = ['starts', 'ends', 'created_at', 'updated_at'];
     static $rules = [
         'news_type_id' => 'required|integer|between:0,6',
         'audience_type_id' => 'required|integer|between:0,6',
@@ -54,7 +53,7 @@ class News extends BaseModel
 
     public function getDates()
     {
-        return ['starts', 'ends'];
+        return ['starts', 'ends', 'created_at', 'updated_at'];
     }
     //scopes
     /**
