@@ -146,12 +146,11 @@ class RosterController extends BaseController
 
     public function getEditUser($id)
     {
-        $data = [
-          'user'   => \User::find($id),
-          'groups' => $this->groups->all()
-        ];
-
-        return View::make('staff.roster.edit', $data);
+        $this->setData('user', $this->users->get($id));
+        $this->setData('groups', $this->groups->all());
+        $this->setData('certs', \CertType::all());
+        $this->setData('ratings', \Rating::all());
+        $this->view('staff.roster.edit');
     }
 
     public function postEditUser($id)

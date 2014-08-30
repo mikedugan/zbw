@@ -27,7 +27,7 @@ class UserPromoter {
 
     public function setStudent($student)
     {
-        $this->student = \Sentry::findUserById($student);
+        $this->student = $this->users->get($student);
     }
 
 

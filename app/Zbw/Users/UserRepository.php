@@ -1,7 +1,7 @@
 <?php  namespace Zbw\Users;
 
-use Zbw\Core\EloquentRepository;
 use Zbw\Bostonjohn\Emailer;
+use Zbw\Core\EloquentRepository;
 use Zbw\Users\Contracts\UserRepositoryInterface;
 
 class UserRepository extends EloquentRepository implements UserRepositoryInterface
@@ -74,11 +74,13 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
      */
     public function updateUser($cid, $input)
     {
-        $user = $cid ? \Sentry::findUserById($cid) :\Sentry::findUserById($input['cid']);
+        $user = $cid ? \Sentry::findUserById($cid) : \Sentry::findUserById($input['cid']);
         $user->first_name = $input['fname'];
         $user->last_name = $input['lname'];
         $user->initials = $input['initials'];
         $user->artcc = $input['artcc'];
+        $user->rating_id = $input['rating_id'];
+        $user->cert = $input['cert'];
 
         if(isset($input['ismentor'])) {
             $user->addGroup(\Sentry::findGroupByName('Mentors'));

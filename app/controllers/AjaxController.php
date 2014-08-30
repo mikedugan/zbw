@@ -1,7 +1,7 @@
 <?php
 
-use Zbw\Notifier\Mail;
 use Zbw\Cms\Contracts\MessagesRepositoryInterface;
+use Zbw\Notifier\Mail;
 use Zbw\Training\Contracts\CertificationRepositoryInterface;
 use Zbw\Training\Contracts\ExamsRepositoryInterface;
 use Zbw\Users\Contracts\UserRepositoryInterface;
@@ -324,6 +324,7 @@ class AjaxController extends BaseController
 
     public function promoteUser($cid)
     {
+        \Queue::push('Zbw\Queues\QueueDispatcher@usersDemote', $cid);
         return json_encode([
           'success' => true,
           'message' => 'User promoted'
@@ -332,6 +333,7 @@ class AjaxController extends BaseController
 
     public function demoteUser($cid)
     {
+        \Queue::push('Zbw\Queues\QueueDispatcher@usersDemote', $cid);
         return json_encode([
           'success' => true,
           'message' => 'User demoted'
