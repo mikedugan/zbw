@@ -531,6 +531,11 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
         return $users;
     }
 
+    public function getPaginatedRoster($pag = 15)
+    {
+        return $this->make()->with(['rating','settings'])->orderBy('activated', 'DESC')->orderBy('last_name', 'ASC')->paginate($pag);
+    }
+
     /**
      * @param $input
      * @return void

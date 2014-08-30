@@ -37,7 +37,7 @@ Edit Controller
               <div class="row">
                 <div class="form-group col-md-12">
                     <label class="control-label" for="groups">Select Group(s)</label>
-                    <select multiple name="groups[]" id="groups" class="form-control">
+                    <select style="height:270px" multiple name="groups[]" id="groups" class="form-control">
                         @foreach($groups as $group)
                             <option value="{{$group->id}}" <?php if($user->inGroup($group)) echo "selected"; ?>>{{ $group->name }}</option>
                         @endforeach
@@ -48,36 +48,36 @@ Edit Controller
             <div class="col-md-5">
               <h4>Actions</h4>
                 @if($user->activated == 1)
-                <form class="axform col-md-12" action="/m/staff-welcome/{{$user->cid}}" method="post">
-                    <button type="submit" class="btn col-md-12 btn-success btn-xs" id="staff-welcome">Send Staff Welcome Email</button>
-                </form>
-                @if($user->cert < 14)
-                <form class="axform col-md-12" action="/r/promote/{{$user->cid}}" method="post">
-                    <button type="submit" class="btn col-md-12 btn-success btn-xs" id="cert-promote">Promote User to {{ $user->nextCert() }}</button>
-                </form>
-                @endif
-                @if($user->cert > 0)
-                <form class="axform col-md-12" action="/r/demote/{{$user->cid}}" method="post">
-                    <button type="submit" class="btn col-md-12 btn-warning btn-xs" id="cert-demote">Demote User to {{ $user->lastCert() }}</button>
-                </form>
-                @endif
-                <form class="axform col-md-12" action="/r/suspend/{{$user->cid}}" method="post">
-                    <button type="submit" class="btn col-md-12 btn-warning btn-xs">Suspend User</button>
-                </form>
-                <form class="axform col-md-12" action="/r/terminate/{{$user->cid}}" method="post">
-                    <button type="submit" class="btn col-md-12 btn-xs btn-danger">Terminate User</button>
-                </form>
-                @elseif($user->activated == 0)
-                <form class="axform col-md-12" action="/r/activate/{{$user->cid}}" method="post">
-                    <button type="submit" class="btn col-md-12 btn-xs btn-success">Activate User</button>
-                </form>
-                <form class="axform col-md-12" action="/r/terminate/{{$user->cid}}" method="post">
-                    <button type="submit" class="btn col-md-12 btn-xs btn-danger">Terminate User</button>
-                </form>
-                @elseif($user->activated == -1)
-                <form class="axform col-md-12" action="/r/activate/{{$user->cid}}" method="post">
-                    <button type="submit" class="btn col-md-12 btn-xs btn-success">Activate User</button>
-                </form>
+                  <form class="axform col-md-12" action="/m/staff-welcome/{{$user->cid}}" method="post">
+                      <button type="submit" class="btn col-md-12 btn-success btn-xs" id="staff-welcome">Send Staff Welcome Email</button>
+                  </form>
+                  @if($user->cert < 14)
+                  <form class="axform col-md-12" action="/r/promote/{{$user->cid}}" method="post">
+                      <button type="submit" class="btn col-md-12 btn-success btn-xs" id="cert-promote">Promote User to {{ $user->nextCert() }}</button>
+                  </form>
+                  @endif
+                  @if($user->cert > 0)
+                  <form class="axform col-md-12" action="/r/demote/{{$user->cid}}" method="post">
+                      <button type="submit" class="btn col-md-12 btn-warning btn-xs" id="cert-demote">Demote User to {{ $user->lastCert() }}</button>
+                  </form>
+                  @endif
+                  <form class="axform col-md-12" action="/r/suspend/{{$user->cid}}" method="post">
+                      <button type="submit" class="btn col-md-12 btn-warning btn-xs">Suspend User</button>
+                  </form>
+                  <form class="axform col-md-12" action="/r/terminate/{{$user->cid}}" method="post">
+                      <button type="submit" class="btn col-md-12 btn-xs btn-danger">Terminate User</button>
+                  </form>
+                  @elseif($user->activated == 0)
+                  <form class="axform col-md-12" action="/r/activate/{{$user->cid}}" method="post">
+                      <button type="submit" class="btn col-md-12 btn-xs btn-success">Activate User</button>
+                  </form>
+                  <form class="axform col-md-12" action="/r/terminate/{{$user->cid}}" method="post">
+                      <button type="submit" class="btn col-md-12 btn-xs btn-danger">Terminate User</button>
+                  </form>
+                  @elseif($user->activated == -1)
+                  <form class="axform col-md-12" action="/r/activate/{{$user->cid}}" method="post">
+                      <button type="submit" class="btn col-md-12 btn-xs btn-success">Activate User</button>
+                  </form>
                 @endif
             </div>
             <div class="col-md-4">

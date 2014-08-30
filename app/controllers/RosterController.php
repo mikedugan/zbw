@@ -75,19 +75,9 @@ class RosterController extends BaseController
         $view = \Input::get('v');
         $action = \Input::get('action');
         $id = \Input::get('id');
-        $pag = 15;
         $users = '';
         if($view !== 'staff') {
-            if (\Input::has('num') && \Input::get('num') === 'active') {
-                $users = $this->users->active($pag);
-            } else {
-                if (\Input::has('num')) {
-                    $pag = \Input::get('num');
-                    $users = $this->users->with(['rating', 'settings'], null, 'cid', $pag);
-                } else {
-                    $users = $this->users->with(['rating', 'settings'], null, 'cid', $pag);
-                }
-            }
+            $users = $this->users->getPaginatedRoster();
         }
         $data = [
           'users'  => $users,
@@ -128,7 +118,6 @@ class RosterController extends BaseController
             $data['users'] = $this->users->getInactive();
             $data['staffings'] = $staffings->getMostRecentAll();
         }
-
         return View::make('staff.roster.index', $data);
     }
 

@@ -46,8 +46,8 @@
         </tr>
         @endforeach
     </table>
-    @if(\Input::has('num') && \Input::get('num') != 'active')
-        {{ $users->links }}
+    @if(! \Input::has('num'))
+        {{ $users->links() }}
     @endif
 </div>
 <div class="col-md-3">
