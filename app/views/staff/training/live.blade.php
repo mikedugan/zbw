@@ -121,7 +121,7 @@ Training Session
             <h5 class="text-center">Markups</h5>
             <button id="mu-flow-r" class="btn btn-info col-sm-2 markupr">-</button><button data-points="2" class="markup btn col-sm-10 btn-success" id="mu-flow">Traffic Flow <span class="badge">0</span></button>
             <button id="mu-separation-r" class="btn btn-info col-sm-2 markupr">-</button><button data-points="3" class="markup btn col-sm-10 btn-success" id="mu-separation">Separation <span class="badge">0</span></button>
-            <button id="mu-pharseology-r" class="btn btn-info col-sm-2 markupr">-</button><button data-points="2" class="markup btn col-sm-10 btn-success" id="mu-phraseology">Phraseology <span class="badge">0</span></button>
+            <button id="mu-phraseology-r" class="btn btn-info col-sm-2 markupr">-</button><button data-points="2" class="markup btn col-sm-10 btn-success" id="mu-phraseology">Phraseology <span class="badge">0</span></button>
             <button id="mu-situation-r" class="btn btn-info col-sm-2 markupr">-</button><button data-points="2" class="markup btn col-sm-10 btn-success" id="mu-situation">Situation Handling <span class="badge">0</span></button>
             <button id="mu-pointouts-r" class="btn btn-info col-sm-2 markupr">-</button><button data-points="3" class="markup btn col-sm-10 btn-success" id="mu-pointouts">Alerts & Pointouts <span class="badge">0</span></button>
             <button id="mu-sequencing-r" class="btn btn-info col-sm-2 markupr">-</button><button data-points="2" class="markup btn col-sm-10 btn-success" id="mu-sequencing">Speed & Sequencing <span class="badge">0</span></button>

@@ -137,6 +137,42 @@ return [
       ['label' => 'Duty Priority', 'review_name' => 'priority', 'grade_name' => 'priority', 'subject' => 'duty priorities'],
     ],
 
+    'live_training_criteria' => [
+        'down' => [
+            'wafdof' => 'Wrong altitude for direction',
+            'squawk' => 'Wrong squawk code',
+            'cl_late' => 'Late clearance',
+            'cl_wrong' => 'Incorrect clearance',
+            'taxi' => 'Incorrect taxi instructions',
+            'landing' => 'Invalid landing clearance',
+            'takeoff' => 'Invalid takeoff clearance',
+            'luaw' => 'Invalid line up and wait',
+            'waketurb' => 'Wake turbulence violation',
+            'cl_approach' => 'Incorrect approach clearance',
+            'mva' => 'Vectors below MVA',
+            'sop' => 'SOP violation',
+            'fix' => 'Incorrect/invalid fix',
+            'final' => 'Late/incorrect vectors to final',
+            'flow' => 'Inadequate traffic flow',
+            'separation' => 'Insufficient separation',
+            'phraseology' => 'Incorrect phraseology',
+            'near_incident' => 'Near incident',
+            'incident' => 'Aircraft incident',
+            'coordination' => 'Lack of coordination',
+            'readback' => 'Invalid/missing readback',
+        ],
+        //UP
+        'up' => [
+            'phraseology' => 'Good phraseology',
+            'flow' => 'Good traffic flow',
+            'separation' => 'Good separation',
+            'situation' => 'Good situational awareness',
+            'pointouts' => 'Good pointouts',
+            'sequencing' => 'Good sequencing'
+        ]
+
+    ],
+
     'poker' => [
         'initial_draw' => 2,
         'max_hand' => 5,
