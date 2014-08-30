@@ -1,6 +1,7 @@
 <?php  namespace Zbw\Users\Handlers; 
 
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Zbw\Bostonjohn\Files\Exceptions\FileNotAllowedException;
 use Zbw\Users\Commands\UpdateSettingsCommand;
 use Zbw\Bostonjohn\Files\FileValidator;
 use Zbw\Users\Contracts\UserRepositoryInterface;
@@ -25,12 +26,18 @@ class UpdateSettingsHandler
         if(\Input::hasFile('avatar')) {
             $path = public_path().'/uploads/avatars/';
             $avatar = \Input::file('avatar');
-            if((new FileValidator($avatar))->isValid()) {
-                $avatar->move($path, $u->cid . '.' . $avatar->getClientOriginalExtension());
-                $newPath = '/uploads/avatars/' . $u->cid . '.' . $avatar->getClientOriginalExtension();
-                $success = $this->users->updateAvatar($u, $newPath) === true ?: false;
-            } else {
-                throw new FileException;
+            try {
+                if ((new FileValidator($avatar))->isValid(['jpg', 'png', 'gif'])) {
+                    $avatar->move($path, $u->cid . '.' . $avatar->getClientOriginalExtension());
+                    $newPath = '/uploads/avatars/' . $u->cid . '.' . $avatar->getClientOriginalExtension();
+                    $success = $this->users->updateAvatar($u, $newPath) === true ?: false;
+                } else {
+                    throw new FileException;
+                }
+            } catch (MaxFilesizeExceededException $e) {
+                \Session::flash('flash_error', $e->getMessage());
+            } catch (FileNotAllowedException $e) {
+                \Session::flash('flash_error', $e->getMessage());
             }
         }
 

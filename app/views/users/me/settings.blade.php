@@ -18,15 +18,16 @@
             <label class="label-control" for="ts_key">Teamspeak Key</label>
             <input class="form-control" name="ts_key" id="ts_key" value="{{ $me->settings->ts_key }}" type="text">
         </div>
-        <div class="form-group col-md-6">
-            {{ Form::label('avatar', 'Avatar') }}
-            {{ Form::file('avatar', ['class' => 'file-control btn btn-default', 'title' => 'Browse for Avatar']) }}
-            <p class="small">We will use <a href="http://gravatar.com">Gravatar</a> by default</p>
+        <div class="row">
+          <div class="form-group col-md-6">
+              {{ Form::label('avatar', 'Avatar') }}
+              {{ Form::file('avatar', ['class' => 'file-control btn btn-default', 'title' => 'Browse for Avatar']) }}
+              <p class="small">We will use <a href="http://gravatar.com">Gravatar</a> by default</p>
+          </div>
+          <div class="col-md-6">
+              <img src="{{ $me->avatar() }}" class="responsive avatar pull-right">
+          </div>
         </div>
-        <div class="col-md-6">
-            <img src="{{ $me->avatar() }}" class="responsive avatar pull-right">
-        </div>
-        <br>
         <button type="submit" class="btn btn-block btn-primary">Update</button>
     </form>
     </div>
