@@ -20,4 +20,14 @@ class StaffingRepository implements StaffingRepositoryInterface
     {
         return \Staffing::where('cid', '=', $cid);
     }
+
+    public function getMostRecentAll()
+    {
+        $results = \DB::select("SELECT cid, MAX(start) as start from zbw_staffing GROUP BY cid");
+        $ret = [];
+        array_map(function($obj) use (&$ret) {
+            $ret[$obj->cid] = \Carbon::createFromFormat('Y-m-d H:i:s', $obj->start);
+        }, $results);
+        return $ret;
+    }
 } 

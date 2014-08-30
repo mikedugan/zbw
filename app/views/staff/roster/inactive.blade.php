@@ -1,5 +1,5 @@
 <h1 class="text-center">Inactive Controllers</h1>
-<table>
+<table class="table table-bordered">
     <thead>
     <tr>
         <td>CID</td>
@@ -16,8 +16,8 @@
         <td>{{ $user->cid }}</td>
         <td>{{ $user->initials }}</td>
         <td>{{ $user->email }}</td>
-        <td>{{ \Staffing::whereCid($user->cid)->latest()->first()->created_at->toDayDateTimeString() }}</td>
-        <td>{{ $user->last_login->toDayDateTimeString() }}</td>
+        <td>{{ $staffings[$user->cid] or 'N/A' }}</td>
+        <td>{{ $user->last_login or 'N/A' }}</td>
         <td>
         <form class="axform col-md-12" action="/r/terminate/{{$user->cid}}" method="post">
                 <button type="submit" class="btn col-md-6 btn-xs btn-danger">Terminate User</button>

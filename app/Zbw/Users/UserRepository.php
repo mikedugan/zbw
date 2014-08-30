@@ -286,8 +286,7 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
     public function suspendUser($id)
     {
         $user = $this->make()->find($id);
-        $user->is_active = 1;
-        $user->is_suspended = 1;
+        $user->activated = 1;
         return $this->checkAndSave($user);
     }
 
@@ -299,8 +298,7 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
     public function unsuspendUser($id)
     {
         $user = $this->make()->find($id);
-        $user->is_active = true;
-        $user->is_suspended = false;
+        $user->activated = 1;
         return $this->checkAndSave($user);
     }
 
@@ -312,8 +310,8 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
     public function terminateUser($id)
     {
         $user = $this->make()->find($id);
-        $user->is_active = false;
-        $user->is_terminated = true;
+        $user->activated = 0;
+        $user->terminated = 1;
         return $this->checkAndSave($user);
     }
 
@@ -325,8 +323,8 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
     public function unterminateUser($id)
     {
         $user = $this->make()->find($id);
-        $user->is_active = true;
-        $user->is_terminated = false;
+        $user->activated = 1;
+        $user->terminated = 0;
         return $this->checkAndSave($user);
     }
 
@@ -521,7 +519,14 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
     {
         //get all the users where cid in (select all from staffing where cid and last_login > (now - 60 days ago)
         $limit = \Carbon::now()->subDays(60);
-        $safe = \DB::select("SELECT DISTINCT(cid) FROM zbw_staffing WHERE start > $limit");
+        $users = \DB::select("SELECT DISTINCT(cid) FROM zbw_staffing WHERE start > \"$limit\"");
+        $safe = [];
+        array_map(function($obj) use (&$safe) {
+            array_push($safe, $obj->cid);
+        }, $users);
+
+        array_push($safe, 100);
+
         $users = $this->make()->whereNotIn('cid', $safe)->get();
         return $users;
     }

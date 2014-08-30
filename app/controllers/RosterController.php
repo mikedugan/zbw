@@ -124,7 +124,9 @@ class RosterController extends BaseController
         }
 
         if($view === 'inactive') {
+            $staffings = \App::make('Zbw\Users\StaffingRepository');
             $data['users'] = $this->users->getInactive();
+            $data['staffings'] = $staffings->getMostRecentAll();
         }
 
         return View::make('staff.roster.index', $data);
