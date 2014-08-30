@@ -321,4 +321,20 @@ class AjaxController extends BaseController
           'message' => 'VATUSA '.$exam.' exam requested.'
         ]);
     }
+
+    public function promoteUser($cid)
+    {
+        return json_encode([
+          'success' => true,
+          'message' => 'User promoted'
+        ]);
+    }
+
+    public function demoteUser($cid)
+    {
+        return json_encode([
+          'success' => true,
+          'message' => 'User demoted'
+        ]);
+    }
 }

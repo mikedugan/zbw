@@ -18,7 +18,6 @@ class UpdateSettingsHandler
     public function handle(UpdateSettingsCommand $command)
     {
         $u = \Sentry::getUser();
-        $success = true;
 
         $data = $command->getInput();
         $success = $this->users->updateSettings($u->cid, $data) === true ?: false;
@@ -35,8 +34,10 @@ class UpdateSettingsHandler
                     throw new FileException;
                 }
             } catch (MaxFilesizeExceededException $e) {
+                $success = false;
                 \Session::flash('flash_error', $e->getMessage());
             } catch (FileNotAllowedException $e) {
+                $success = false;
                 \Session::flash('flash_error', $e->getMessage());
             }
         }

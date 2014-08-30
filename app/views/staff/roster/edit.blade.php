@@ -34,36 +34,43 @@ Edit Controller
                         @endforeach
                     </select>
                 </div>
+                <div class="col-md-9">
+                    @if($user->activated == 1)
+                    <form class="axform col-md-12" action="/m/staff-welcome/{{$user->cid}}" method="post">
+                        <button type="submit" class="btn col-md-3 btn-success btn-xs" id="staff-welcome">Send Staff Welcome Email</button>
+                    </form>
+                    <form class="axform col-md-12" action="/r/promote/{{$user->cid}}" method="post">
+                        <button type="submit" class="btn col-md-3 btn-success btn-xs" id="cert-promote">Promote User to {{ $user->nextCert() }}</button>
+                    </form>
+                    <form class="axform col-md-12" action="/r/demote/{{$user->cid}}" method="post">
+                        <button type="submit" class="btn col-md-3 btn-warning btn-xs" id="cert-demote">Demote User to {{ $user->lastCert() }}</button>
+                    </form>
+                    <form class="axform col-md-12" action="/r/suspend/{{$user->cid}}" method="post">
+                        <button type="submit" class="btn col-md-3 btn-warning btn-xs">Suspend User</button>
+                    </form>
+                    <form class="axform col-md-12" action="/r/terminate/{{$user->cid}}" method="post">
+                        <button type="submit" class="btn col-md-3 btn-xs btn-danger">Terminate User</button>
+                    </form>
+                    @elseif($user->activated == 0)
+                    <form class="axform col-md-12" action="/r/activate/{{$user->cid}}" method="post">
+                        <button type="submit" class="btn col-md-3 btn-xs btn-success">Activate User</button>
+                    </form>
+                    <form class="axform col-md-12" action="/r/terminate/{{$user->cid}}" method="post">
+                        <button type="submit" class="btn col-md-3 btn-xs btn-danger">Terminate User</button>
+                    </form>
+                    @elseif($user->activated == -1)
+                    <form class="axform col-md-12" action="/r/activate/{{$user->cid}}" method="post">
+                        <button type="submit" class="btn col-md-3 btn-xs btn-success">Activate User</button>
+                    </form>
+                    @endif
+                </div>
             </div>
             <div class="row">
-                <div class="col-md-3">
+              <div class="col-md-3">
                 <button class="btn btn-primary" type="submit">Save</button>
-                    </div>
-        </form>
-            <div class="col-md-9">
-                @if($user->activated == 1)
-                <form class="axform col-md-4" action="/m/staff-welcome/{{$user->cid}}" method="post">
-                    <button type="submit" class="btn btn-sm" id="staff-welcome">Send Staff Welcome Email</button>
-                </form>
-                <form class="axform col-md-4" action="/r/suspend/{{$user->cid}}" method="post">
-                    <button type="submit" class="btn btn-warning">Suspend User</button>
-                </form>
-                <form class="axform col-md-4" action="/r/terminate/{{$user->cid}}" method="post">
-                    <button type="submit" class="btn btn-danger">Terminate User</button>
-                </form>
-                @elseif($user->activated == 0)
-                <form class="axform col-md-4" action="/r/activate/{{$user->cid}}" method="post">
-                    <button type="submit" class="btn btn-success">Activate User</button>
-                </form>
-                <form class="axform col-md-4" action="/r/terminate/{{$user->cid}}" method="post">
-                    <button type="submit" class="btn btn-danger">Terminate User</button>
-                </form>
-                @elseif($user->activated == -1)
-                <form class="axform col-md-4" action="/r/activate/{{$user->cid}}" method="post">
-                    <button type="submit" class="btn btn-success">Activate User</button>
-                </form>
-                @endif
+              </div>
             </div>
+        </form>
         </div>
     </div>
 @stop

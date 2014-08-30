@@ -54,14 +54,21 @@ Edit Controller
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-3">
+              <div class="col-md-3">
                 <button class="btn btn-primary" type="submit">Save</button>
-                    </div>
+              </div>
+            </div>
         </form>
             <div class="col-md-9">
                 @if($user->is_active == 1)
                 <form class="axform col-md-4" action="/m/staff-welcome/{{$user->cid}}" method="post">
-                    <button type="submit" class="btn btn-sm" id="staff-welcome">Send Staff Welcome Email</button>
+                    <button type="submit" class="btn btn-success btn-sm" id="cert-promote">Promote User</button>
+                </form>
+                <form class="axform col-md-4" action="/m/staff-welcome/{{$user->cid}}" method="post">
+                    <button type="submit" class="btn btn-warning btn-sm" id="cert-demote">Demote User</button>
+                </form>
+                <form class="axform col-md-4" action="/m/staff-welcome/{{$user->cid}}" method="post">
+                    <button type="submit" class="btn btn-primary btn-sm" id="staff-welcome">Send Staff Welcome Email</button>
                 </form>
                 <form class="axform col-md-4" action="/r/suspend/{{$user->cid}}" method="post">
                     <button type="submit" class="btn btn-warning">Suspend User</button>

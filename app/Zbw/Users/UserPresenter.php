@@ -31,4 +31,15 @@ class UserPresenter extends Presenter
         }
         else return $this->settings->avatar;
     }
+
+    public function nextCert()
+    {
+        dd(\CertType::find($this->cert + 1));
+        return \CertType::find($this->cert + 1)->readable();
+    }
+
+    public function lastCert()
+    {
+        return \CertType::find($this->cert - 1)->readable();
+    }
 } 
