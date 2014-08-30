@@ -123,6 +123,10 @@ class RosterController extends BaseController
             $data['adopted'] = $this->users->getAdoptedStudents();
         }
 
+        if($view === 'inactive') {
+            $data['users'] = $this->users->getInactive();
+        }
+
         return View::make('staff.roster.index', $data);
     }
 

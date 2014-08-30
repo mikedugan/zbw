@@ -517,6 +517,15 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
         return $this->checkAndSave($student);
     }
 
+    public function getInactive()
+    {
+        //get all the users where cid in (select all from staffing where cid and last_login > (now - 60 days ago)
+        $limit = \Carbon::now()->subDays(60);
+        $safe = \DB::select("SELECT DISTINCT(cid) FROM zbw_staffing WHERE start > $limit");
+        $users = $this->make()->whereNotIn('cid', $safe)->get();
+        return $users;
+    }
+
     /**
      * @param $input
      * @return void
