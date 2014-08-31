@@ -8,7 +8,8 @@
             <li>{{ HTML::linkRoute('news', 'NOTAMS') }}</li>
             @endif
             <li>{{ HTML::linkRoute('controllers/policies', 'ZBW Policies') }}</li>
-            <li><a href="/pages/resources">Other Resources</a></li>
+            <li>{{ HTML::linkRoute('controllers.resources', 'Resources') }}</li>
+            <li>{{ HTML::linkRoute('statistics', 'Statistics') }}</li>
             <li><a href="#">ATC Pages</a>
                 <ul>
                     @foreach($pages as $page)

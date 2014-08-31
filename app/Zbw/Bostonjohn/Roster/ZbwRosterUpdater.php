@@ -3,7 +3,7 @@
 use Zbw\Bostonjohn\Roster\Contracts\RosterUpdater;
 use Zbw\Users\Contracts\UserRepositoryInterface;
 use Curl\Curl;
-use Zbw\Base\Helpers;
+use Zbw\Core\Helpers;
 use Zbw\Bostonjohn\Roster\Exceptions\RosterUpdaterException;
 
 /**

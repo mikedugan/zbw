@@ -24,12 +24,8 @@ class TrainingController extends BaseController
 
     public function getIndex()
     {
-        $reviews = $this->current_user->exams()->where('reviewed', 0)->get();
-        if(in_array($this->current_user->cert, [2,5,8,10])) { $reviews = 1; }
         $this->setData('availableExams', $this->exams->availableExams(\Sentry::getUser()->cid));
         $this->setData('progress', $this->users->trainingProgress(\Sentry::getUser()->cid));
-        $this->setData('review', count($reviews) > 0 ? true : false);
-        $this->setData('canTake', count($this->current_user->exams) == 0 || $this->exams->lastExam($this->current_user->cid)->reviewed == 1 ? true : false);
 
         $this->view('training.index');
     }
@@ -148,6 +144,17 @@ class TrainingController extends BaseController
             $this->setFlash(['flash_error' => $this->users->getErrors()]);
         }
         return $this->redirectBack();
+    }
+
+    public function viewSession($id)
+    {
+        $session = $this->trainings->get($id);
+        if($this->current_user->cid !== $session->cid) {
+            return $this->redirectRoute('training');
+        } else {
+            $this->setData('tsession', $session);
+            $this->view('training.session');
+        }
     }
 
 }

@@ -9,7 +9,7 @@
     <p>Hey {{ $to->initials }},</p>
     <p>This is an email to notify you a controller has submitted a training request on the ZBW website.</p>
     <p><b>Controller</b>: {{ $user->initials }}</p>
-    <p><b>Training Requested</b>: {{ \Zbw\Base\Helpers::readableCert($request->cert_id) }}</p>
+    <p><b>Training Requested</b>: {{ \Zbw\Core\Helpers::readableCert($request->cert_id) }}</p>
 
     <p><b>Requested Start Time:</b> {{ $request->start->toDayDateTimeString() }}</p>
     <p><b>Requested End Time:</b> {{ $request->end->toDayDateTimeString() }}</p>

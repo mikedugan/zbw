@@ -1,6 +1,6 @@
 <?php namespace Zbw\Cms;
 
-use Zbw\Base\EloquentRepository;
+use Zbw\Core\EloquentRepository;
 use Zbw\Cms\Contracts\NewsRepositoryInterface;
 
 /**

@@ -10,6 +10,7 @@ Thumbs.db
 zbw.sublime-project
 /.vagrant
 /_ide_helper.php
+._ide_helper_models.php
 /zbw.sublime-*
 /vendor
 _ide_helper.php

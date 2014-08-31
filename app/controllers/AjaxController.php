@@ -1,11 +1,14 @@
 <?php
 
-use Zbw\Bostonjohn\Notify\Mail;
+use Illuminate\Session\Store;
 use Zbw\Cms\Contracts\MessagesRepositoryInterface;
+use Zbw\Notifier\Mail;
 use Zbw\Training\Contracts\CertificationRepositoryInterface;
 use Zbw\Training\Contracts\ExamsRepositoryInterface;
 use Zbw\Users\Contracts\UserRepositoryInterface;
 use Zbw\Users\Contracts\VisitorApplicantRepositoryInterface;
+
+use Zbw\Users\Commands\AcceptVisitorCommand;
 
 class AjaxController extends BaseController
 {
@@ -38,7 +41,7 @@ class AjaxController extends BaseController
      * @param ExamsRepositoryInterface            $exams
      * @param VisitorApplicantRepositoryInterface $visitors
      */
-    public function __construct(UserRepositoryInterface $users, MessagesRepositoryInterface $messages, Mail $emailer, CertificationRepositoryInterface $certs, ExamsRepositoryInterface $exams, VisitorApplicantRepositoryInterface $visitors)
+    public function __construct(UserRepositoryInterface $users, MessagesRepositoryInterface $messages, Mail $emailer, CertificationRepositoryInterface $certs, ExamsRepositoryInterface $exams, VisitorApplicantRepositoryInterface $visitors, Store $session)
     {
         $this->users = $users;
         $this->messages = $messages;
@@ -46,6 +49,7 @@ class AjaxController extends BaseController
         $this->certs = $certs;
         $this->exams = $exams;
         $this->visitors = $visitors;
+        parent::__construct($session);
     }
 
     //handles an ajax request
@@ -293,9 +297,8 @@ class AjaxController extends BaseController
      */
     public function postVisitorAccept($id)
     {
-        $staff = \Sentry::getUser();
-        if($this->visitors->accept($staff, $id)) {
-            Queue::push('Zbw\Bostonjohn\Queues\QueueDispatcher@usersAcceptVisitor', $id);
+        $response = $this->execute(AcceptVisitorCommand::class, ['cid' => $id, 'sid' => $this->current_user->cid]);
+        if($response === true) {
             return json_encode([
               'success' => true,
               'message' => 'Visitor application accepted. Page reloading in 3 seconds...'
@@ -315,10 +318,28 @@ class AjaxController extends BaseController
     {
         $student = \Sentry::getUser();
         $exam = \Rating::find($student->rating_id + 1)->long;
-        Queue::push('Zbw\Bostonjohn\Queues\QueueDispatcher@usersRequestVatusaExam', $student->cid);
+        Queue::push('Zbw\Queues\QueueDispatcher@usersRequestVatusaExam', $student->cid);
         return json_encode([
           'success' => true,
           'message' => 'VATUSA '.$exam.' exam requested.'
+        ]);
+    }
+
+    public function promoteUser($cid)
+    {
+        \Queue::push('Zbw\Queues\QueueDispatcher@usersPromote', $cid);
+        return json_encode([
+          'success' => true,
+          'message' => 'User promoted'
+        ]);
+    }
+
+    public function demoteUser($cid)
+    {
+        \Queue::push('Zbw\Queues\QueueDispatcher@usersDemote', $cid);
+        return json_encode([
+          'success' => true,
+          'message' => 'User demoted'
         ]);
     }
 }

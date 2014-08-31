@@ -1,7 +1,7 @@
 <?php
 
 use Robbo\Presenter\PresentableInterface;
-use Zbw\Base\Helpers;
+use Zbw\Core\Helpers;
 use Zbw\Training\Presenters\TrainingRequestPresenter;
 
 /**
@@ -85,7 +85,7 @@ class TrainingRequest extends BaseModel implements PresentableInterface
         $tr->end = \Carbon::createFromFormat('m-d-Y H:i:s', $input['end']);
         $tr->cert_id = $input['cert'];
         if($tr->save()) {
-            \Queue::push('Zbw\Bostonjohn\Queues\QueueDispatcher@trainingNewRequest', $tr);
+            \Queue::push('Zbw\Queues\QueueDispatcher@trainingNewRequest', $tr);
             return true;
         } else return false;
     }
@@ -97,7 +97,7 @@ class TrainingRequest extends BaseModel implements PresentableInterface
         $tr->sid = $cid;
         $tr->accepted_at = \Carbon::now();
         if($tr->save()) {
-            \Queue::push('Zbw\Bostonjohn\Queues\QueueDispatcher@trainingAcceptRequest', $tr);
+            \Queue::push('Zbw\Queues\QueueDispatcher@trainingAcceptRequest', $tr);
             return true;
         } else return false;
     }
@@ -109,7 +109,7 @@ class TrainingRequest extends BaseModel implements PresentableInterface
             $tr->sid = null;
             $tr->accepted_at = null;
             if($tr->save()) {
-                \Queue::push('Zbw\Bostonjohn\Queues\QueueDispatcher@trainingDropRequest', $tr);
+                \Queue::push('Zbw\Queues\QueueDispatcher@trainingDropRequest', $tr);
                 return true;
             } else return false;
         }

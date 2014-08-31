@@ -18,9 +18,9 @@ ZBW Exams
                     <a href="/staff/exams/review/{{$exam->id}}">
                         {{ strtoupper($exam->student['initials']) }}
                         took
-                        {{ Zbw\Base\Helpers::readableCert($exam->cert['id']) }}
+                        {{ Zbw\Core\Helpers::readableCert($exam->cert['id']) }}
                         , scored
-                        <?php $score = \Zbw\Base\Helpers::getScore($exam); echo $score ?>%
+                        <?php $score = \Zbw\Core\Helpers::getScore($exam); echo $score ?>%
                     </a>
                     @if($score < 80)
                     <span class="col-md-2 badge bg-danger pull-right">Failed</span>

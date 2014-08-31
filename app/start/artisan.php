@@ -11,9 +11,9 @@
 |
 */
 
-Artisan::add(new Zbw\Commands\UpdateMetars);
-Artisan::add(new Zbw\Commands\UpdateUrls);
-Artisan::add(new Zbw\Commands\UpdateClients);
-Artisan::add(new Zbw\Commands\UpdateRoster);
-Artisan::add(new Zbw\Commands\MigrateOldRoster);
-Artisan::add(new Zbw\Commands\ImportExamQuestions);
+Artisan::add(new Zbw\Console\UpdateMetars);
+Artisan::add(new Zbw\Console\UpdateUrls);
+Artisan::add(new Zbw\Console\UpdateClients);
+Artisan::add(new Zbw\Console\UpdateRoster);
+Artisan::add(new Zbw\Console\MigrateOldRoster);
+Artisan::add(new Zbw\Console\ImportExamQuestions);

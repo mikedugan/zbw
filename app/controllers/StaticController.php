@@ -23,6 +23,11 @@ class StaticController extends BaseController
     }
 
     /** Controller Pages */
+    public function getControllersResources()
+    {
+        $this->view('static.controllers.resources');
+    }
+
     public function getControllersTrainingOutline()
     {
         $this->view('static.controllers.training_outline');

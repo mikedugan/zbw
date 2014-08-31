@@ -12,6 +12,8 @@ Roster Admin
     @include('staff.roster.staff')
     @elseif($view === 'adopt')
     @include('staff.roster.adopt')
+    @elseif($view === 'inactive')
+    @include('staff.roster.inactive')
     @elseif($view === 'controller')
     @include('staff.roster.addcontroller')
     @elseif($view === 'staff')

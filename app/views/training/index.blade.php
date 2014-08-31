@@ -12,7 +12,8 @@ Your Training
             <div class="progress-bar" role="progressbar" aria-valuenow="{{ $progress }}" aria-valuemin="0" aria-valuemax="100" style="width:{{ $progress }}%"></div>
         </div>
         <h5>Current VATSIM Rating: <span class="sans">{{ $me->rating->long }}</span></h5>
-        <h5>Current ZBW Certification: <span class="sans">{{ \Zbw\Base\Helpers::readableCert($me->cert) }}</span></h5>
+        {{--{{ dd($me) }}--}}
+        <h5>Current ZBW Certification: <span class="sans">{{ $me->certification->readable() }}</span></h5>
     </div>
     <div class="col-md-6">
         @if($me->cert < 11)
@@ -32,12 +33,12 @@ Your Training
             <form class="axform" action="/me/request/vatusa" method="post">
                 <button type="submit" class="btn btn-primary">Request VATUSA C1 Exam</button>
             </form>
-            @endif
+        @endif
         <a class="btn btn-primary" href="/training/request/new">Request Training</a>
-        @if($canTake && ! in_array($me->cert, [2,5,8,10]))
+        @if($me->canTakeNextExam())
           <a class="btn btn-primary" href="/training/exam">Take Exam</a>
         @endif
-        @if($review)
+        @if($me->hasReviews())
             <a class="btn btn-primary" href="/training/review">Review Exams</a>
         @endif
         @else

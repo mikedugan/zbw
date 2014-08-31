@@ -13,9 +13,9 @@ Exam Review
     @if(in_array($exam->student->cert, [2,5,8,10]))
       <p><b>Testing For: </b> {{ \Rating::find($exam->student->rating->id + 1)->long }}</p>
     @else
-      <p><b>Testing for: </b>{{ \Zbw\Base\Helpers::readableCert($exam->cert->id)}}</p>
+      <p><b>Testing for: </b>{{ $exam->cert->readable() }}</p>
     @endif
-    @if($me->cid === $exam->cid || in_array($me->cid, Zbw\Users\UserRepository::canTrain($exam->cert_type_id)))
+    @if($me->cid === $exam->cid || $me->canTrain($exam->cert_type_id))
         @if($exam->reviewed == 1)
         <span class="badge bg-success">Exam Review Complete</span>
         @endif
@@ -32,7 +32,7 @@ Exam Review
             <span class="badge bg-danger">Failed</span>
         @endif
     </p>
-    <p><b>Score:</b> {{ round($exam->correct / $exam->total_questions * 100, 2) }}%</p>
+    <p><b>Score:</b> {{ $exam->score() }}%</p>
     @if($exam->reviewed == 1)
         <p><b>Signed Off By: </b> {{ $exam->staff->initials }}</p>
     @endif
@@ -41,20 +41,21 @@ Exam Review
     <h3 class="text-center">Review &amp; Discussion</h3>
     <div class="well">
         <h5 class="text-center">Wrong Answers</h5>
-        @if(is_array($wrong))
-        @foreach($wrong as $question)
+        @if(is_array($review_content))
+        @foreach($review_content as $question)
             <p><strong>Question: {{ $question['question']->question }}</strong></p>
             <p>Your Answer:<em>{{ $question['answer'] }}</em></p>
-            <p>Correct Answer: <em> {{ $question['question']->{'answer_'.Zbw\Base\Helpers::digitToLetter($question['question']->correct)} }}</em></p>
+            <p>Correct Answer: <em> {{ $question['question']->{'answer_'.Zbw\Core\Helpers::digitToLetter($question['question']->correct)} }}</em></p>
         @endforeach
         @else
-          <p>{{ $wrong }}</p>
+          <p>{{ $review_content }}</p>
+          <p><i>If this is a VATUSA exam, please copy and paste your corrections in the forum.</i></p>
         @endif
     </div>
     <p>Please discuss your corrections with the staff here.</p>
 </div>
 <div class="col-md-12 exam-comment">
-    @foreach($exam->comments()->where('comment_type', 5)->get() as $comment)
+    @foreach($comments as $comment)
     <div class="col-md-12 well">
         <div class="col-md-8">
             <div>{{ $comment->content }}</div>

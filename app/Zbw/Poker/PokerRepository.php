@@ -1,7 +1,7 @@
 <?php  namespace Zbw\Poker; 
 
 use Zbw\Poker\Contracts\PokerRepositoryInterface;
-use Zbw\Base\EloquentRepository;
+use Zbw\Core\EloquentRepository;
 use Curl\Curl;
 use Zbw\Poker\Exceptions\PilotNotFoundException;
 

@@ -1,7 +1,7 @@
 <?php  namespace Zbw\Users;
 
-use Zbw\Base\EloquentRepository;
 use Zbw\Bostonjohn\Emailer;
+use Zbw\Core\EloquentRepository;
 use Zbw\Users\Contracts\UserRepositoryInterface;
 
 class UserRepository extends EloquentRepository implements UserRepositoryInterface
@@ -62,8 +62,48 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
         $u->initials = $this->createInitials($fname, $lname);
         $s = new \UserSettings();
         $s->cid = $u->cid;
+        if($u->save() && $s->save()) {
+            $creator = new SmfUserCreator();
+            $creator->create($u);
+            return $u;
+        } else {
+            return false;
+        }
+    }
 
-        return $u->save() && $s->save();
+    /**
+     * @param string
+     * @param string
+     * @param string
+     * @param string
+     * @param integer
+     * @param integer
+     * @return boolean
+     */
+    public function addGuest($fname, $lname, $email, $artcc, $cid, $rating)
+    {
+        $tempPassword = str_random(20);
+        $u = new \User();
+        $u->cid = $cid;
+        $u->first_name = $fname;
+        $u->last_name = $lname;
+        $u->username = $fname . ' ' . $lname;
+        $u->artcc = $artcc;
+        $u->email = $email;
+        $u->guest = 1;
+        $u->activated = 1;
+        $u->password = $tempPassword;
+        $u->rating_id = $rating;
+        $u->initials = $this->createInitials($fname, $lname);
+        $s = new \UserSettings();
+        $s->cid = $u->cid;
+        if($u->save() && $s->save()) {
+            $creator = new SmfUserCreator();
+            $creator->create($u);
+            return $u;
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -74,11 +114,13 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
      */
     public function updateUser($cid, $input)
     {
-        $user = $cid ? \Sentry::findUserById($cid) :\Sentry::findUserById($input['cid']);
+        $user = $cid ? \Sentry::findUserById($cid) : \Sentry::findUserById($input['cid']);
         $user->first_name = $input['fname'];
         $user->last_name = $input['lname'];
         $user->initials = $input['initials'];
         $user->artcc = $input['artcc'];
+        $user->rating_id = $input['rating_id'];
+        $user->cert = $input['cert'];
 
         if(isset($input['ismentor'])) {
             $user->addGroup(\Sentry::findGroupByName('Mentors'));
@@ -184,7 +226,7 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
     }
 
     /**
-     * @param \Zbw\Base\relations $with
+     * @param \Zbw\Core\relations $with
      * @param null                $id
      * @param string              $pk
      * @param null                $pagination
@@ -284,8 +326,7 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
     public function suspendUser($id)
     {
         $user = $this->make()->find($id);
-        $user->is_active = 1;
-        $user->is_suspended = 1;
+        $user->activated = 1;
         return $this->checkAndSave($user);
     }
 
@@ -297,8 +338,7 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
     public function unsuspendUser($id)
     {
         $user = $this->make()->find($id);
-        $user->is_active = true;
-        $user->is_suspended = false;
+        $user->activated = 1;
         return $this->checkAndSave($user);
     }
 
@@ -310,8 +350,8 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
     public function terminateUser($id)
     {
         $user = $this->make()->find($id);
-        $user->is_active = false;
-        $user->is_terminated = true;
+        $user->activated = 0;
+        $user->terminated = 1;
         return $this->checkAndSave($user);
     }
 
@@ -323,8 +363,8 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
     public function unterminateUser($id)
     {
         $user = $this->make()->find($id);
-        $user->is_active = true;
-        $user->is_terminated = false;
+        $user->activated = 1;
+        $user->terminated = 0;
         return $this->checkAndSave($user);
     }
 
@@ -347,7 +387,13 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
     {
         $staff = \Sentry::findGroupByName('Staff');
 
-        return \Sentry::findAllUsersInGroup($staff);
+        return $staff->users()->with(['rating', 'settings'])->get();
+    }
+
+    public function getSingleStaff($group)
+    {
+        $staff = \Sentry::findGroupByName($group);
+        return $staff->users()->with(['rating','settings'])->select(['cid','username','initials','email'])->first();
     }
 
     /**
@@ -507,6 +553,27 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
         $student->adopted_by = $staff;
         $student->adopted_on = \Carbon::now();
         return $this->checkAndSave($student);
+    }
+
+    public function getInactive()
+    {
+        //get all the users where cid in (select all from staffing where cid and last_login > (now - 60 days ago)
+        $limit = \Carbon::now()->subDays(60);
+        $users = \DB::select("SELECT DISTINCT(cid) FROM zbw_staffing WHERE start > \"$limit\"");
+        $safe = [];
+        array_map(function($obj) use (&$safe) {
+            array_push($safe, $obj->cid);
+        }, $users);
+
+        array_push($safe, 100);
+
+        $users = $this->make()->whereNotIn('cid', $safe)->get();
+        return $users;
+    }
+
+    public function getPaginatedRoster($pag = 15)
+    {
+        return $this->make()->with(['rating','settings'])->orderBy('activated', 'DESC')->orderBy('last_name', 'ASC')->paginate($pag);
     }
 
     /**

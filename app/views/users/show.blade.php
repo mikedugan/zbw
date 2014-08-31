@@ -10,9 +10,9 @@ View {{ $controller->initials }}
     <div class="col-md-6">
         <p><b>Initials: </b>{{$controller->initials}}</p>
         <p><b>Rating: </b>{{$controller->rating->long}}</p>
-        <p><b>Certification: </b>{{ \Zbw\Base\Helpers::readableCert($controller->cert) }}</p>
+        <p><b>Certification: </b>{{ \Zbw\Core\Helpers::readableCert($controller->cert) }}</p>
         @if($controller->is_staff)
-        <p><b>Staff Status: </b>{{ \Zbw\Base\Helpers::staffStatusString($controller) }}</p>
+        <p><b>Staff Status: </b>{{ \Zbw\Core\Helpers::staffStatusString($controller) }}</p>
         @endif
     </div>
     <div class="col-md-6">

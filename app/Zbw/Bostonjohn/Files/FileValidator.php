@@ -22,17 +22,23 @@ class FileValidator
     }
 
     /**
-     * @throws Exceptions\FileNotAllowedException
-     * @throws Exceptions\MaxFilesizeExceededException
-     * @throws Exceptions\MimeExtensionMismatchException
+     * @param array $ext
+     * @throws FileNotAllowedException
+     * @throws MaxFilesizeExceededException
+     * @throws MimeExtensionMismatchException
      * @return bool
      */
-    public function isValid()
+    public function isValid(array $ext = null)
     {
         try {
-            $matches = \Config::get('file.mimes')[$this->file->getClientOriginalExtension()] === $this->file->getMimeType();
+            if($ext) {
+                $matches = in_array($this->file->getExtension(), $ext);
+            } else {
+                $matches = \Config::get('file.mimes')[$this->file->getClientOriginalExtension()] === $this->file->getMimeType();
+            }
         } catch (\ErrorException $e) {
-            throw new FileNotAllowedException('Files with extension '.$this->file->getClientOriginalExtension().' not allowed');
+            $ext = $this->file->getClientOriginalExtension();
+            throw new FileNotAllowedException("Files with extension $ext not allowed");
         }
 
         if($matches) {
@@ -41,9 +47,9 @@ class FileValidator
             if($this->file->getSize() < $max_filesize) {
                 return true;
             }
-            throw new MaxFilesizeExceededException('File must be under '.($max_filesize/1000).' kbytes');
+            throw new MaxFilesizeExceededException("File must be under { $max_filesize/1000 } kbytes");
         } else {
-            throw new MimeExtensionMismatchException('Detected mime does not match the file extension');
+            throw new FileNotAllowedException('This file is not an allowed type or there was a mime type mismatch');
         }
         return ! $this->errors;
     }

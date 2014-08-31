@@ -1,52 +1,48 @@
-<?php 
+<?php
 
+use Illuminate\Session\Store;
 use Zbw\Users\Contracts\UserRepositoryInterface;
 
 class AdminController extends BaseController
 {
     private $users;
 
-    public function __construct(UserRepositoryInterface $users)
+    public function __construct(UserRepositoryInterface $users, Store $session)
     {
         $this->users = $users;
+        parent::__construct($session);
     }
 
     public function getAdminIndex()
     {
-        return View::make('staff.index');
+        $this->view('staff.index');
     }
 
 
     public function getForumIndex()
     {
-        return View::make('staff.forum.index');
+        $this->view('staff.forum.index');
     }
 
     public function getSearchResults()
     {
         $results = $this->users->search(Input::all());
-        $data = [
-            'stype' => 'roster',
-            'results' => $results
-        ];
+        $this->setData('stype', 'roster');
+        $this->setData('results', $results);
 
         if(count($results) === 0) {
             return Redirect::back()->with('flash_info', 'No results found');
         }
-        return View::make('staff.roster.results', $data);
+        $this->view('staff.roster.results');
     }
 
     public function getTsIndex()
     {
-        $data = [];
-        return View::make('staff.ts', $data);
+        $this->view('staff.ts');
     }
 
     public function getLog()
     {
-        $data = [
-            'title' => 'View ZBW Log'
-        ];
-        return View::make('staff.log', $data);
+        $this->view('staff.log');
     }
 } 

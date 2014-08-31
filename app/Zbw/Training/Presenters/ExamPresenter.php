@@ -1,6 +1,6 @@
 <?php  namespace Zbw\Training\Presenters; 
 
-use Zbw\Base\BasePresenter;
+use Zbw\Core\BasePresenter;
 
 class ExamPresenter extends BasePresenter
 {

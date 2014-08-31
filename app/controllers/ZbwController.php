@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Session\Store;
-use Zbw\Bostonjohn\Notify\Mail;
+use Zbw\Notifier\Mail;
 use Zbw\Cms\Contracts\NewsRepositoryInterface;
 use Zbw\Users\Contracts\UserRepositoryInterface;
 use Zbw\Users\Contracts\VisitorApplicantRepositoryInterface;
@@ -97,8 +97,18 @@ class ZbwController extends BaseController
 
     public function postContact()
     {
-        Queue::push('Zbw\Bostonjohn\Queues\QueueDispatcher@contactStaffPublic', \Input::all());
+        Queue::push('Zbw\Queues\QueueDispatcher@contactStaffPublic', \Input::all());
         return Redirect::back()->with('flash_success', 'Your message has been sent successfully. We\'ll be in touch!');
+    }
+
+    public function getStatistics()
+    {
+        $engine = App::make('Zbw\Core\StatisticsEngine');
+        $this->setData('tracon', $engine->tracon(10));
+        $this->setData('ground', $engine->ground(10));
+        $this->setData('overall', $engine->overall(10));
+        $this->setData('tower', $engine->tower(10));
+        $this->view('zbw.statistics');
     }
 
 }

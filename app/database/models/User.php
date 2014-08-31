@@ -59,8 +59,8 @@ use Zbw\Users\UserPresenter;
  * @property integer $adopted_by
  * @property string $adopted_on
  * @property-read \User $adopter
- * @method static \Illuminate\Database\Query\Builder|\User whereAdoptedBy($value) 
- * @method static \Illuminate\Database\Query\Builder|\User whereAdoptedOn($value) 
+ * @method static \Illuminate\Database\Query\Builder|\User whereAdoptedBy($value)
+ * @method static \Illuminate\Database\Query\Builder|\User whereAdoptedOn($value)
  */
 class User extends SentryUser implements PresentableInterface
 {
@@ -225,6 +225,18 @@ class User extends SentryUser implements PresentableInterface
         return false;
     }
 
+    public function canTakeNextExam()
+    {
+        return count($this->exams) === 0 ||
+        ($this->exams()->latest()->first()->reviewed == 1 && ! in_array($this->cert, ['3','6','9','11','12','13','14','15','16']));
+    }
+
+    public function hasReviews()
+    {
+        return count($this->exams()->where('reviewed', 0)->get()) > 0;
+    }
+
+
     public function canRequest($exam_id = null)
     {
         $max = 0;
@@ -246,5 +258,10 @@ class User extends SentryUser implements PresentableInterface
             return $this->cert > 11;
         }
         else return $this->cert >= $cert + 2;
+    }
+
+    public function avatar()
+    {
+        return "<img class='responsive' src='{$this->settings->avatar}'>";
     }
 }

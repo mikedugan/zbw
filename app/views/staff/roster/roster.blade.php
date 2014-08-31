@@ -14,11 +14,11 @@
         <th>Training</th>
         </thead>
         @foreach($users as $u)
-        @if($u->is_exec())
+        @if(in_array($u->cid, $executive))
         <tr class="danger">
-        @elseif($u->is_instructor())
+        @elseif(in_array($u->cid, $instructors))
         <tr class="warning">
-        @elseif($u->is_staff() || $u->is_mentor())
+        @elseif(in_array($u->cid, $staff))
         <tr class="info">
         @elseif($u->artcc !== 'ZBW')
         <tr class="success">
@@ -46,8 +46,8 @@
         </tr>
         @endforeach
     </table>
-    @if(\Input::has('num') && \Input::get('num') != 'active')
-        {{ $users->links }}
+    @if(! \Input::has('num'))
+        {{ $users->links() }}
     @endif
 </div>
 <div class="col-md-3">

@@ -1,7 +1,6 @@
 <?php  namespace Zbw\Bostonjohn\Roster;
 
 use Curl\Curl;
-use Zbw\Bostonjohn\Queue;
 use Zbw\Bostonjohn\Roster\Contracts\RosterUpdater;
 use Zbw\Users\Contracts\UserRepositoryInterface;
 
@@ -56,7 +55,7 @@ class VatusaRosterUpdater implements RosterUpdater
             if($this->users->exists($member->cid)) { continue; }
             $this->users->add($member->fname, $member->lname, $member->email, 'ZBW',
                               $member->cid, $member->rating, false);
-            Queue::push('Zbw\Bostonjohn\Queues\QueueDispatcher@usersNewUser', $member);
+            \Queue::push('Zbw\Queues\QueueDispatcher@usersNewUser', $member);
             $counter++;
         }
         return $counter;

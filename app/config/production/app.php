@@ -178,7 +178,7 @@ return [
       'Carbon'      => 'Carbon\Carbon',
       'Sentry'      => 'Cartalyst\Sentry\Facades\Laravel\Sentry',
       'Bugsnag'     => 'Bugsnag\BugsnagLaravel\BugsnagFacade',
-      'Dispatcher'  => 'Zbw\Bostonjohn\Queues\QueueDispatcher',
+      'Dispatcher'  => 'Zbw\Queues\QueueDispatcher',
     ],
 
 ];

@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Session\Store;
 use Zbw\Cms\FeedbackRepository;
 use Zbw\Users\Contracts\UserRepositoryInterface;
 
@@ -8,10 +9,11 @@ class FeedbackController extends BaseController
     private $feedbacks;
     private $users;
 
-    public function __construct(FeedbackRepository $feedbacks, UserRepositoryInterface $users)
+    public function __construct(FeedbackRepository $feedbacks, UserRepositoryInterface $users, Store $session)
     {
         $this->feedbacks = $feedbacks;
         $this->users = $users;
+        parent::__construct($session);
     }
 
     public function getFeedback()

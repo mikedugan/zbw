@@ -39,7 +39,7 @@
  * @method static \Illuminate\Database\Query\Builder|\VisitorApplicant whereUpdatedAt($value)
  * @property integer $accepted_by
  * @property-read \User $staff
- * @method static \Illuminate\Database\Query\Builder|\VisitorApplicant whereAcceptedBy($value) 
+ * @method static \Illuminate\Database\Query\Builder|\VisitorApplicant whereAcceptedBy($value)
  */
 class VisitorApplicant extends BaseModel
 {

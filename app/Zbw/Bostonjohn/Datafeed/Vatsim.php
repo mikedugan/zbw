@@ -1,7 +1,7 @@
 <?php  namespace Zbw\Bostonjohn\Datafeed;
 
 use Curl\Curl;
-use Zbw\Base\Helpers;
+use Zbw\Core\Helpers;
 use Carbon\Carbon;
 use Zbw\Bostonjohn\Datafeed\Contracts\VatsimDataInterface;
 

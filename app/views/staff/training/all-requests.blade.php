@@ -14,7 +14,7 @@ All Training Requests
             @endif
             @foreach($requests as $request)
             <div class="well">
-                <p>{{ $request->student->initials }} has requested training on {{ Zbw\Base\Helpers::readableCert($request->certType->id) }}</p>
+                <p>{{ $request->student->initials }} has requested training on {{ Zbw\Core\Helpers::readableCert($request->certType->id) }}</p>
                 <p>Between {{ $request->start->toDayDateTimeString() }} and {{ $request->end->toDayDateTimeString() }}</p>
                 @if($request->accepted_at)
                 <p>Training session has been accepted by {{ $request->staff->initials }}

@@ -10,7 +10,7 @@
   <ul>
     <li>Student: {{ $student->initials }}</li>
     <li>CID: {{ $student->cid }}</li>
-    <li>Current Cert: {{ Zbw\Base\Helpers::readableCert($student->cert) }}</li>
+    <li>Current Cert: {{ Zbw\Core\Helpers::readableCert($student->cert) }}</li>
     <li>Current Rating: {{ $student->rating->long }}</li>
     <?php $next = \Rating::find($student->rating_id + 1); ?>
     <li>Exam Requested: {{ $next->long }} ({{$next->short}})</li>
