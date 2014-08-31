@@ -1,7 +1,8 @@
+<div class="row">
 @unless(is_null($metars[0]))
 <?php $index = 1; ?>
 @foreach($metars as $metar)
-@if($index % 2 == 0)
+@if($index % 2 == 1)
 <div class="row">
 @endif
     <div class="metar text-left col-md-6">
@@ -37,3 +38,4 @@
 <?php $index++; ?>
 @endforeach
 @endunless
+</div>

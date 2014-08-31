@@ -43,8 +43,10 @@ abstract class BaseController extends Controller
         $this->data = [];
 
         if(\Sentry::check()) {
-            $this->current_user = \Sentry::getUser();
+            $user = \Sentry::getUser();
+            $this->current_user = $user;
             \View::share('me', $this->current_user);
+            \View::share('messages', Zbw\Cms\MessagesRepository::newMessageCount($user->cid));
         }
     }
 

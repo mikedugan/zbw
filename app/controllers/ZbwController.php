@@ -24,12 +24,14 @@ class ZbwController extends BaseController
     }
     public function getIndex()
     {
-      $this->setData('news', $this->news->front(5));
-      $this->setData('metars', \Metar::frontPage());
-      $this->setData('atcs', \Staffing::frontPage());
-      $this->setData('flights', \ZbwFlight::frontPage(5));
-      $this->setData('positions', \Staffing::positionsOnline());
-      $this->view('zbw');
+        $this->setData('news', $this->news->front(5));
+        $this->setData('metars', \Metar::frontPage());
+        $this->setData('atcs', \Staffing::frontPage());
+        $this->setData('flights', \ZbwFlight::frontPage(5));
+        $this->setData('inbounds', \ZbwFlight::countInbound());
+        $this->setData('outbounds', \ZbwFlight::countOutbound());
+        $this->setData('positions', \Staffing::positionsOnline());
+        $this->view('zbw');
     }
 
     public function getControllerIndex()

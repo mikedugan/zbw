@@ -28,10 +28,6 @@
                               data-bv-notempty="true"
                               data-bv-notempty-message="Please enter your password">
                         </div>
-                        <div class="form-group">
-                            <span class="form-group-addon"><input type="checkbox"></span>
-                            <input disabled value="Remember Me" type="text" class="form-control">
-                        </div>
                 </div>
                 <div class="col-md-6">
                     <img src='/images/zbw_logo.png'>

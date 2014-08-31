@@ -38,11 +38,12 @@ Welcome
         @endif
     </div>
     <div class="col-md-6">
-        <h3 class="text-left">ATC Online</h3>
+        <h3 class="row text-left">ATC Online</h3>
         @include('includes.bj._atc')
-        <h3 class="text-left">Air Traffic</h3>
+        <h3 class="row text-left">Air Traffic</h3>
+        <p class="row"><b>Inbound: </b><span class="badge bg-info">{{$inbounds}}</span> <b>Outbound: </b> <span class="badge bg-info">{{$outbounds}}</span></p>
         @include('includes.bj._flightstrip')
-        <h3 class="text-left col-md-6">Weather
+        <h3 class="row text-left">Weather
         <span class="small">
             <a id="parse" href="javascript:void()">raw</a>
         </span>

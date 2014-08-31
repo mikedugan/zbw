@@ -1,4 +1,4 @@
-<div class="col-md-12 online">
+<div class="row online">
     <table class="table table-striped">
         <thead>
         <tr>

@@ -47,4 +47,14 @@ class ZbwFlight extends BaseModel {
     {
         return ZbwFlight::limit($lim)->get();
     }
+
+    public static function countInbound()
+    {
+        return ZbwFlight::whereIn('destination', \Config::get('zbw.airports'))->count();
+    }
+
+    public static function countOutbound()
+    {
+        return ZbwFlight::whereNotIn('destination', \Config::get('zbw.airports'))->count();
+    }
 }

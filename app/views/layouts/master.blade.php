@@ -1,6 +1,6 @@
 <?php use Zbw\Cms\MessagesRepository;
-$me = Sentry::getUser();
-$messages = $me ? MessagesRepository::newMessageCount($me->cid) : 0;
+$me = \Sentry::check() ? \Sentry::getUser() : '0';
+$messages = \Sentry::check() ? MessagesRepository::newMessageCount($me->cid) : 0;
 ?>
 <!DOCTYPE html>
 <html>
@@ -15,14 +15,6 @@ $messages = $me ? MessagesRepository::newMessageCount($me->cid) : 0;
     <nav class="navbar-default navbar">
         <?php $pages = \Page::all(); ?>
         @include('includes.nav._primary')
-        @if($me)
-            @include('includes.nav._user')
-            @if($me->inGroup(\Sentry::findGroupByName('Staff')))
-            @include('includes.nav._staff')
-            @endif
-        @else
-            @include('includes.nav._login')
-        @endif
         @yield('header')
     </nav>
 

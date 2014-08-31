@@ -1,4 +1,4 @@
-<div class="strip col-md-12 text-left">
+<div class="strip row text-left">
     <table class="table">
     <tbody>
     @foreach($flights as $flight)
