@@ -4,6 +4,27 @@ Changelog
 @stop
 @section('content')
 <h1 class="text-center">Changelog</h1>
+<h3>2.0.12b</h3>
+mikedugan statistics engine <br>
+mikedugan added automagic guest and forum account creators <br>
+mikedugan fixed roster pagination <br>
+mikedugan finished up promotion/demotion stuff <br>
+mikedugan added IDS link in resources <br>
+mikedugan added inactive users report <br>
+mikedugan added inactive roster report <br>
+mikedugan added manual promotion/deletion in roster admin <br>
+mikedugan working on manual promote/demote <br>
+mikedugan wip file validation <br>
+mikedugan added training session view for students <br>
+mikedugan fixed a typo, added readable markups/markdowns to training report <br>
+mikedugan fixed a few mail bugs with queues <br>
+mikedugan refactored a bunch of namespaces <br>
+mikedugan fixed visiting controller application cid bug <br>
+mikedugan fixed some variables and conditionals <br>
+mikedugan refactored part of the exam system <br>
+mikedugan optimizing database queries <br>
+mikedugan rm old controllers, made sure all controllers construct parents <br>
+mikedugan parent constructor <br>
 <h3>2.0.11b</h3>
 mikedugan wip refactoring auth <br>
 mikedugan adopt a user to command, training controller updated <br>
