@@ -1,23 +1,28 @@
 <?php  namespace Zbw\Users;
 
-use Zbw\Core\SmfRestClient;
-
 class SmfUserCreator {
-
-    private $api;
-
-    public function __construct()
-    {
-        $this->api = new SmfRestClient('WAhZHbLIKNqBZ2nVvHrs');
-    }
 
     public function create(\User $user)
     {
-        $member_id = $this->api->register_member([
+        $password = str_random(8);
+        $member_id = smfapi_registerMember([
               'member_name' => $user->username,
               'email' => $user->email,
-              'password' => str_random(16)
-          ]);
-        return $member_id;
+              'password' => $password,
+              'real_name' => $user->initials
+        ]);
+        echo "\nmember id\n";
+        echo $member_id;
+        echo "\n\n";
+        if($member_id) {
+            $data = [
+                'user' => $user->cid,
+                'password' => $password
+            ];
+            \Queue::push('Zbw\Queues\QueueDispatcher@usersNewForumAccount', $data);
+            return $member_id;
+        } else {
+            return false;
+        }
     }
 }

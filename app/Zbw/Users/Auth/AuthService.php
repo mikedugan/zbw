@@ -1,5 +1,6 @@
 <?php  namespace Zbw\Users\Auth;
 
+use Cartalyst\Sentry\Users\UserNotFoundException;
 use Zbw\Users\Contracts\UserRepositoryInterface;
 
 class AuthService
@@ -62,7 +63,11 @@ class AuthService
         //delete the token for security
         $this->token->delete();
         //fetch the user
-        $loggedinuser = \Sentry::findUserById($oauth_user->user->id);
+        try {
+            $loggedinuser = \Sentry::findUserById($oauth_user->user->id);
+        } catch (UserNotFoundException $e) {
+            $loggedinuser = $this->users->addGuest($oauth_user->name_first, $oauth_user->name_last, $oauth_user->email, $oauth_user->divison->code, $oauth_user->id, $oauth_user->rating->id);
+        }
         //make sure they are active
         $userStatus = $this->users->checkUser($loggedinuser);
         if ($userStatus) {

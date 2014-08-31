@@ -22,9 +22,10 @@ class VisitorApplicantRepository extends EloquentRepository implements VisitorAp
      */
     public function accept($staff, $visitor_id)
     {
+        \Log::debug($staff . "\n" . $visitor_id);
         $visitor = $this->make()->find($visitor_id);
         $visitor->accepted = 1;
-        $visitor->accepted_by = $staff->cid;
+        $visitor->accepted_by = $staff;
         $visitor->accepted_on = \Carbon::now();
         if($this->checkAndSave($visitor)) {
             return $visitor->cid;

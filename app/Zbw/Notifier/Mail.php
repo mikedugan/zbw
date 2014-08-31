@@ -225,4 +225,15 @@ class Mail extends Notifier implements MailInterface
         ]);
         $this->send($student->email, $student->username, $subject);
     }
+
+    public function newForumAccountEmail($cid, $password)
+    {
+        $user = $this->users->get($cid);
+        $this->setView('new_forum_account');
+        $this->setViewData([
+            'user' => $user,
+            'password' => $password
+        ]);
+        $this->send($user->email, $user->username, 'Your vZBW Forum Account');
+    }
 } 

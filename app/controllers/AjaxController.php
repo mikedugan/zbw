@@ -1,11 +1,14 @@
 <?php
 
+use Illuminate\Session\Store;
 use Zbw\Cms\Contracts\MessagesRepositoryInterface;
 use Zbw\Notifier\Mail;
 use Zbw\Training\Contracts\CertificationRepositoryInterface;
 use Zbw\Training\Contracts\ExamsRepositoryInterface;
 use Zbw\Users\Contracts\UserRepositoryInterface;
 use Zbw\Users\Contracts\VisitorApplicantRepositoryInterface;
+
+use Zbw\Users\Commands\AcceptVisitorCommand;
 
 class AjaxController extends BaseController
 {
@@ -38,7 +41,7 @@ class AjaxController extends BaseController
      * @param ExamsRepositoryInterface            $exams
      * @param VisitorApplicantRepositoryInterface $visitors
      */
-    public function __construct(UserRepositoryInterface $users, MessagesRepositoryInterface $messages, Mail $emailer, CertificationRepositoryInterface $certs, ExamsRepositoryInterface $exams, VisitorApplicantRepositoryInterface $visitors)
+    public function __construct(UserRepositoryInterface $users, MessagesRepositoryInterface $messages, Mail $emailer, CertificationRepositoryInterface $certs, ExamsRepositoryInterface $exams, VisitorApplicantRepositoryInterface $visitors, Store $session)
     {
         $this->users = $users;
         $this->messages = $messages;
@@ -46,6 +49,7 @@ class AjaxController extends BaseController
         $this->certs = $certs;
         $this->exams = $exams;
         $this->visitors = $visitors;
+        parent::__construct($session);
     }
 
     //handles an ajax request
@@ -293,9 +297,8 @@ class AjaxController extends BaseController
      */
     public function postVisitorAccept($id)
     {
-        $staff = \Sentry::getUser();
-        if($cid = $this->visitors->accept($staff, $id)) {
-            Queue::push('Zbw\Queues\QueueDispatcher@usersAcceptVisitor', $cid);
+        $response = $this->execute(AcceptVisitorCommand::class, ['cid' => $id, 'sid' => $this->current_user->cid]);
+        if($response === true) {
             return json_encode([
               'success' => true,
               'message' => 'Visitor application accepted. Page reloading in 3 seconds...'

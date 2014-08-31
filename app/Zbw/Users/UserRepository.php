@@ -62,8 +62,48 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
         $u->initials = $this->createInitials($fname, $lname);
         $s = new \UserSettings();
         $s->cid = $u->cid;
+        if($u->save() && $s->save()) {
+            $creator = new SmfUserCreator();
+            $creator->create($u);
+            return $u;
+        } else {
+            return false;
+        }
+    }
 
-        return $u->save() && $s->save();
+    /**
+     * @param string
+     * @param string
+     * @param string
+     * @param string
+     * @param integer
+     * @param integer
+     * @return boolean
+     */
+    public function addGuest($fname, $lname, $email, $artcc, $cid, $rating)
+    {
+        $tempPassword = str_random(20);
+        $u = new \User();
+        $u->cid = $cid;
+        $u->first_name = $fname;
+        $u->last_name = $lname;
+        $u->username = $fname . ' ' . $lname;
+        $u->artcc = $artcc;
+        $u->email = $email;
+        $u->guest = 1;
+        $u->activated = 1;
+        $u->password = $tempPassword;
+        $u->rating_id = $rating;
+        $u->initials = $this->createInitials($fname, $lname);
+        $s = new \UserSettings();
+        $s->cid = $u->cid;
+        if($u->save() && $s->save()) {
+            $creator = new SmfUserCreator();
+            $creator->create($u);
+            return $u;
+        } else {
+            return false;
+        }
     }
 
     /**

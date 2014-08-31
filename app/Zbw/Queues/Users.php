@@ -67,13 +67,7 @@ class Users {
      */
     public function acceptVisitor(Job $job, $data)
     {
-        $visitor = \VisitorApplicant::where('cid', $data)->firstOrFail();
-        $this->users->add($visitor->first_name, $visitor->last_name, $visitor->email, $visitor->home, $visitor->cid, $visitor->rating);
-        $user = \Sentry::findUserById($data);
-        $user->activated = 1;
-        $user->cert = 0;
-        $user->save();
-        $this->notifier->acceptVisitorEmail(\User::find($visitor->cid));
+        $this->notifier->acceptVisitorEmail(\User::find($data));
         $job->delete();
     }
 
@@ -164,6 +158,12 @@ class Users {
     public function adopt(Job $job, $data)
     {
         $this->notifier->adoptUserEmail($data['student'], $data['staff'], $data['subject'], $data['message'], $data['meeting']);
+        $job->delete();
+    }
+
+    public function newForumAccount(Job $job, $data)
+    {
+        $this->notifier->newForumAccountEmail($data['user'], $data['password']);
         $job->delete();
     }
 } 
