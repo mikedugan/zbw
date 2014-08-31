@@ -38,7 +38,7 @@ class StaffingRepository implements StaffingRepositoryInterface
      */
     public function getMostRecentAll()
     {
-        $results = \DB::select("SELECT cid, MAX(start) as start from zbw_staffing GROUP BY cid");
+        $results = \DB::select("SELECT cid, MAX(created_at) as start from zbw_staffing GROUP BY cid");
         $ret = [];
         array_map(function($obj) use (&$ret) {
             $ret[$obj->cid] = \Carbon::createFromFormat('Y-m-d H:i:s', $obj->start);
@@ -53,7 +53,7 @@ class StaffingRepository implements StaffingRepositoryInterface
     public function getTopOverall($lim = 10)
     {
         $results = \DB::select(
-            "SELECT u.username, u.initials, s.cid, s.position, (SUM(UNIX_TIMESTAMP(s.stop) - UNIX_TIMESTAMP(s.start))/3600) AS onlinetime
+            "SELECT u.username, u.initials, s.cid, s.position, (SUM(UNIX_TIMESTAMP(s.stop) - UNIX_TIMESTAMP(s.created_at))/3600) AS onlinetime
             FROM zbw_staffing AS s LEFT JOIN users AS u ON u.cid=s.cid GROUP BY s.cid ORDER BY onlinetime DESC LIMIT ?", [$lim]);
         return $results;
     }
@@ -65,7 +65,7 @@ class StaffingRepository implements StaffingRepositoryInterface
     public function getTopTracon($lim = 10)
     {
         $results = \DB::select(
-            "SELECT u.username, u.initials, s.cid, s.position, (SUM(UNIX_TIMESTAMP(s.stop) - UNIX_TIMESTAMP(s.start))/3600) AS onlinetime
+            "SELECT u.username, u.initials, s.cid, s.position, (SUM(UNIX_TIMESTAMP(s.stop) - UNIX_TIMESTAMP(s.created_at))/3600) AS onlinetime
             FROM zbw_staffing AS s LEFT JOIN users AS u ON u.cid=s.cid WHERE position LIKE '%_APP' OR position LIKE '%_DEP' GROUP BY s.cid ORDER BY onlinetime DESC LIMIT ?", [$lim]);
         return $results;
     }
@@ -77,7 +77,7 @@ class StaffingRepository implements StaffingRepositoryInterface
     public function getTopGround($lim = 10)
     {
         $results = \DB::select("
-            SELECT u.username, u.initials, s.cid, s.position, (SUM(UNIX_TIMESTAMP(s.stop) - UNIX_TIMESTAMP(s.start))/3600) AS onlinetime
+            SELECT u.username, u.initials, s.cid, s.position, (SUM(UNIX_TIMESTAMP(s.stop) - UNIX_TIMESTAMP(s.created_at))/3600) AS onlinetime
             FROM zbw_staffing AS s LEFT JOIN users AS u ON u.cid=s.cid WHERE position LIKE '%_GND' OR position LIKE '%_DEL' GROUP BY s.cid ORDER BY onlinetime DESC LIMIT ?", [$lim]);
         return $results;
     }
@@ -89,7 +89,7 @@ class StaffingRepository implements StaffingRepositoryInterface
     public function getTopTower($lim = 10)
     {
         $results = \DB::select("
-            SELECT u.username, u.initials, s.cid, s.position, (SUM(UNIX_TIMESTAMP(s.stop) - UNIX_TIMESTAMP(s.start))/3600) AS onlinetime
+            SELECT u.username, u.initials, s.cid, s.position, (SUM(UNIX_TIMESTAMP(s.stop) - UNIX_TIMESTAMP(s.created_at))/3600) AS onlinetime
             FROM zbw_staffing AS s LEFT JOIN users AS u ON u.cid=s.cid WHERE position LIKE '%_TWR' GROUP BY s.cid ORDER BY onlinetime DESC LIMIT ?", [$lim]);
         return $results;
     }
