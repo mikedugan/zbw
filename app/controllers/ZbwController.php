@@ -104,10 +104,14 @@ class ZbwController extends BaseController
     public function getStatistics()
     {
         $engine = App::make('Zbw\Core\StatisticsEngine');
+        $this->setData('this_month', $engine->month(10));
+        $this->setData('last_month', $engine->lastMonth(10));
+        $this->setData('center', $engine->center(10));
         $this->setData('tracon', $engine->tracon(10));
         $this->setData('ground', $engine->ground(10));
         $this->setData('overall', $engine->overall(10));
         $this->setData('tower', $engine->tower(10));
+        $this->setData('positions', $engine->positions(10));
         $this->view('zbw.statistics');
     }
 

@@ -50,11 +50,75 @@ class StaffingRepository implements StaffingRepositoryInterface
      * @param int $lim
      * @return array
      */
+    public function getTopPositions($lim = 10)
+    {
+        $results = \DB::select(
+          "SELECT cid, position, (SUM(UNIX_TIMESTAMP(s.stop) - UNIX_TIMESTAMP(s.created_at))/3600) AS onlinetime
+            FROM zbw_staffing GROUP BY position ORDER BY onlinetime DESC LIMIT ?", [$lim]);
+        return $results;
+    }
+
+    /**
+     * @param int $lim
+     * @return array
+     */
+    public function getAllPositions($lim = 10)
+    {
+        $results = \DB::select(
+          "SELECT cid, position, (SUM(UNIX_TIMESTAMP(stop) - UNIX_TIMESTAMP(created_at))/3600) AS onlinetime
+            FROM zbw_staffing GROUP BY position ORDER BY onlinetime DESC LIMIT ?", [$lim]);
+        return $results;
+    }
+
+
+    /**
+     * @param int $lim
+     * @return array
+     */
     public function getTopOverall($lim = 10)
     {
         $results = \DB::select(
             "SELECT u.username, u.initials, s.cid, s.position, (SUM(UNIX_TIMESTAMP(s.stop) - UNIX_TIMESTAMP(s.created_at))/3600) AS onlinetime
             FROM zbw_staffing AS s LEFT JOIN users AS u ON u.cid=s.cid GROUP BY s.cid ORDER BY onlinetime DESC LIMIT ?", [$lim]);
+        return $results;
+    }
+
+    /**
+     * @param int $lim
+     * @return array
+     */
+    public function getTopCenter($lim = 10)
+    {
+        $results = \DB::select(
+          "SELECT u.username, u.initials, s.cid, s.position, (SUM(UNIX_TIMESTAMP(s.stop) - UNIX_TIMESTAMP(s.created_at))/3600) AS onlinetime
+            FROM zbw_staffing AS s LEFT JOIN users AS u ON u.cid=s.cid WHERE position LIKE '%_CTR' GROUP BY s.cid ORDER BY onlinetime DESC LIMIT ?", [$lim]);
+        return $results;
+    }
+
+    /**
+     * @param int $lim
+     * @return array
+     */
+    public function getTopMonth($lim = 10)
+    {
+        $start = \Carbon::now()->subMonth();
+        $results = \DB::select(
+          "SELECT u.username, u.initials, s.cid, s.position, (SUM(UNIX_TIMESTAMP(s.stop) - UNIX_TIMESTAMP(s.created_at))/3600) AS onlinetime
+            FROM zbw_staffing AS s LEFT JOIN users AS u ON u.cid=s.cid WHERE s.created_at > ? GROUP BY s.cid ORDER BY onlinetime DESC LIMIT ?", [$start, $lim]);
+        return $results;
+    }
+
+    /**
+     * @param int $lim
+     * @return array
+     */
+    public function getTopLastMonth($lim = 10)
+    {
+        $start = \Carbon::now()->subMonths(2);
+        $end = \Carbon::now()->subMonth();
+        $results = \DB::select(
+          "SELECT u.username, u.initials, s.cid, s.position, (SUM(UNIX_TIMESTAMP(s.stop) - UNIX_TIMESTAMP(s.created_at))/3600) AS onlinetime
+            FROM zbw_staffing AS s LEFT JOIN users AS u ON u.cid=s.cid WHERE s.created_at BETWEEN ? AND ? GROUP BY s.cid ORDER BY onlinetime DESC LIMIT ?", [$start, $end, $lim]);
         return $results;
     }
 
