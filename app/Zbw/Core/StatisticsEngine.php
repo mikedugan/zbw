@@ -38,8 +38,14 @@ class StatisticsEngine
     public function total($set)
     {
         $total = 0;
-        foreach ($set as $obj) {
-            $total += $obj->onlinetime;
+        if(is_array($set[0])) {
+            foreach ($set as $obj) {
+                $total += $obj['time'];
+            }
+        } else {
+            foreach ($set as $obj) {
+                $total += $obj->onlinetime;
+            }
         }
 
         return $this->timeDecimalToHi($total);
@@ -90,21 +96,29 @@ class StatisticsEngine
      */
     private function reducePositions($set)
     {
-        $ret = [];
+        $raw_ret = [];
         foreach($set as $obj) {
             $parts = explode('_', $obj->position);
             $facility = $parts[0];
             $position = array_pop($parts);
             $new_facility = $facility.'_'.$position;
-            if(array_key_exists($parts[0], $ret) && array_key_exists(array_pop($parts), $ret)) {
-                $ret[$new_facility]['time'] += $obj->onlinetime;
-                $ret[$new_facility]['position'] = $new_facility;
+            if(array_key_exists($parts[0], $raw_ret) && array_key_exists(array_pop($parts), $raw_ret)) {
+                $raw_ret[$new_facility]['time'] += $obj->onlinetime;
+                $raw_ret[$new_facility]['position'] = $new_facility;
             } else {
-                $ret[$new_facility]['time'] = $obj->onlinetime;
-                $ret[$new_facility]['position'] = $new_facility;
+                $raw_ret[$new_facility]['time'] = $obj->onlinetime;
+                $raw_ret[$new_facility]['position'] = $new_facility;
             }
         }
-        rsort($ret);
+
+        rsort($raw_ret);
+
+        $ret = [];
+        foreach($raw_ret as $facility => $arr) {
+            $arr['time'] = $this->timeDecimalToHi($arr['time']);
+            $ret[$facility] = $arr;
+        }
+
         return $ret;
     }
 } 

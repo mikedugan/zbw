@@ -147,7 +147,7 @@ ZBW Controller Statistics
     @endforeach
     <tr>
           <td>Total</td>
-          <td>{{$overall['total']}}</td>
+          <td>{{$this_month['total']}}</td>
         </tr>
     </tbody>
       </table>
@@ -171,7 +171,7 @@ ZBW Controller Statistics
       @endforeach
       <tr>
             <td>Total</td>
-            <td>{{$overall['total']}}</td>
+            <td>{{$last_month['total']}}</td>
           </tr>
       </tbody>
         </table>
