@@ -75,6 +75,11 @@ Route::group(
   }
 );
 
+Route::group(['before' => 'facilities'], function() {
+    Route::get('/staff/files', ['as' => 'staff.files', 'uses' => 'AdminController@getFacilityFiles']);
+    Route::get('/staff/files/delete/{name}', ['as' => 'staff.files.delete', 'uses' => 'AdminController@getDeleteFile']);
+});
+
 Route::group(['before' => 'executive'], function () {
       Route::post('/staff/poker/wipe', 'PokerController@postWipe');
       Route::post('r/activate/{cid}', ['as' => 'controllers/{cid}/active', 'uses' => 'AjaxController@activateUser']);

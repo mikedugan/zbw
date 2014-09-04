@@ -9,7 +9,10 @@
             <li>{{ HTML::link('staff/training', 'Training') }}</li>
             @endif
             <li style="display:none">{{ HTML::link('staff/ts', 'Teamspeak') }}</li>
-            <li>{{ HTML::link('staff/news', 'News & Events') }}</li>
+            <li>{{ HTML::link('staff/news', 'News & Eventss') }}</li>
+            @if($me->hasAccess('files.sector'))
+            <li>{{ HTML::linkRoute('staff.files', 'Files') }}</li>
+            @endif
             @if($me->hasAccess('pages.all'))
             <li>{{ HTML::linkRoute('poker', 'Poker') }}</li>
             <li>{{ HTML::linkRoute('staff/feedback', 'Feedback') }}</li>

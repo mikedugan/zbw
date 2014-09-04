@@ -93,7 +93,10 @@ Route::filter('controller', function() {
 });
 
 Route::filter('staff', function() {
-    if(! \Sentry::check() || ! \Sentry::getUser()->is('Staff')) {
+    if(! \Sentry::check() ) {
+        return Redirect::route('login');
+    }
+    if(! \Sentry::getUser()->is('Staff')) {
         $data = [
             'page' => Request::url(),
             'needed' => 'general staff member'
@@ -103,7 +106,10 @@ Route::filter('staff', function() {
 });
 
 Route::filter('executive', function() {
-    if(! \Sentry::check() || ! \Sentry::getUser()->is('Executive'))
+    if(! \Sentry::check() ) {
+        return Redirect::route('login');
+    }
+    if(! \Sentry::getUser()->is('Executive'))
     {
         $data = [
             'page' => Request::url(),
@@ -114,7 +120,10 @@ Route::filter('executive', function() {
 });
 
 Route::filter('instructor', function() {
-    if(! \Sentry::check() || ! \Sentry::getUser()->is('Instructors'))
+    if(! \Sentry::check() ) {
+        return Redirect::route('login');
+    }
+    if(! \Sentry::getUser()->is('Instructors'))
     {
         $data = [
             'page' => Request::url(),
@@ -125,7 +134,10 @@ Route::filter('instructor', function() {
 });
 
 Route::filter('mentor', function() {
-    if(! \Sentry::check() || ! \Sentry::getUser()->is('Mentors'))
+    if(! \Sentry::check() ) {
+        return Redirect::route('login');
+    }
+    if(! \Sentry::getUser()->is('Mentors'))
     {
         $data = [
             'page' => Request::url(),
@@ -135,8 +147,22 @@ Route::filter('mentor', function() {
     }
 });
 
+Route::filter('facilities', function() {
+    if(! \Sentry::check() ) {
+        return Redirect::route('login');
+    }
+    if(! \Sentry::getUser()->hasAccess('files.sector'))
+    {
+        $data = [
+          'page' => Request::url(),
+          'needed' => 'facilities engineer'
+        ];
+        return View::make('zbw.errors.403', $data);
+    }
+});
+
 Route::filter('suspended', function() {
-      if(!\Sentry::check() || \Sentry::getUser()->rating->id === 0 || \Sentry::getUser()->is_suspended || \Sentry::getUser()->is_terminated) {
+      if(!\Sentry::check() || \Sentry::getUser()->rating->id === 0 || \Sentry::getUser()->activated === 0 || \Sentry::getUser()->terminated) {
           $data = [
               'page' => Request::url(),
               'needed' => 'active (your account is suspended by ZBW or VATUSA)'
@@ -146,7 +172,7 @@ Route::filter('suspended', function() {
   });
 
 Route::filter('terminated', function() {
-     if(\Sentry::check() && \Sentry::getUser()->is_terminated) {
+     if(\Sentry::check() && \Sentry::getUser()->terminated) {
          $data = [
              'page' => Request::url(),
              'needed' => 'active (your accout has been terminated)'

@@ -3,9 +3,7 @@
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
- * @package Bostonjohn
  * @author  Mike Dugan <mike@mjdugan.com>
- * @since   2.0.1b
  */
 class FileUploader
 {
@@ -80,5 +78,22 @@ class FileUploader
               $this->file->getClientOriginalName()
             );
         }
+    }
+
+    public function uploadFiles()
+    {
+        $filesnames = [];
+        if (\Input::hasFile('image1')) {
+            for ($i = 1; $i < 5; $i++) {
+                $file = \Input::hasFile('image' . $i) ? \Input::file('image' . $i) : null;
+                if (is_null($file)) break;
+                if (!$file->isValid()) continue;
+                $dir = 'uploads/sectorfiles';
+                $file->move($dir, $file->getClientOriginalName());
+                $filesnames[$i] = $dir . '/' . $file->getClientOriginalName();
+            }
+            return $filesnames;
+        }
+        return $filesnames;
     }
 } 

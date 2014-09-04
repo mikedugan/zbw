@@ -32,6 +32,9 @@
                 @endif
                 <li style="display:none">{{ HTML::link('staff/ts', 'Teamspeak') }}</li>
                 <li>{{ HTML::link('staff/news', 'News & Events') }}</li>
+                @if($me->hasAccess('files.sector'))
+                <li>{{ HTML::linkRoute('staff.files', 'Files') }}</li>
+                @endif
                 @if($me->hasAccess('pages.all'))
                 <li>{{ HTML::linkRoute('poker', 'Poker') }}</li>
                 <li>{{ HTML::linkRoute('staff/feedback', 'Feedback') }}</li>
