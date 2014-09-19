@@ -27,7 +27,9 @@ class CommentsRepository extends EloquentRepository implements CommentsRepositor
         $comment->parent_id = $input['parent_id'];
         $comment->comment_type = $input['comment_type'];
         $comment->author = \Sentry::getUser()->cid;
-        return $this->checkAndSave($comment);
+        $result = $this->checkAndSave($comment);
+        \Queue::push('Zbw\Queues\QueueDispatcher@trainingNewExamComment', $comment);
+        return $result;
     }
 
     /**

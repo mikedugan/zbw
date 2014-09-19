@@ -80,6 +80,7 @@ class MessagesRepository extends EloquentRepository implements MessagesRepositor
         if ( ! $success) {
             return $errors;
         } else {
+            \Queue::push('Zbw\Queues\QueueDispatcher@contactNewPm', $m);
             return true;
         }
     }
@@ -163,7 +164,7 @@ class MessagesRepository extends EloquentRepository implements MessagesRepositor
         $inbox->from = $from;
         $inbox->cid = $to;
         $inbox->save();
-
+        \Queue::push('Zbw\Queues\QueueDispatcher@contactNewPm', $inbox);
         return ( ! $this->checkAndSave($outbox) || ! $this->checkAndSave($inbox)) ? $this->getErrors() : '';
     }
 

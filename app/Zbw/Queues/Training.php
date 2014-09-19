@@ -155,4 +155,10 @@ class Training {
         $job->delete();
     }
 
+    public function newExamComment(Job $job, $data)
+    {
+        $notify = array_unique(\Comment::whereParentId($data['parent_id'])->lists('author'));
+        $this->notifier->newExamCommentEmail($data, $notify);
+    }
+
 } 

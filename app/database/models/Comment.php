@@ -32,4 +32,9 @@ class Comment extends BaseModel {
     {
         return $this->belongsTo('User', 'author', 'cid');
     }
+
+    public function exam()
+    {
+        return $this->belongsTo('Exam', 'parent_id', 'id');
+    }
 }

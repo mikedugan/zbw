@@ -236,4 +236,43 @@ class Mail extends Notifier implements MailInterface
         ]);
         $this->send($user->email, $user->username, 'Your vZBW Forum Account');
     }
+
+    public function newPmEmail($message)
+    {
+        $message = \Message::find($message['id']);
+        $user = $this->users->get($message->cid);
+        if(! $user->wants('email', 'private_message')) return;
+        $this->setView('new_pm');
+        $this->setViewData([
+            'user' => $user,
+            'pm' => $message
+        ]);
+        $this->send($user->email, $user->username, 'ZBW Private Message from '.$message->sender->initials);
+    }
+
+    public function newExamCommentEmail($comment, array $notify)
+    {
+        $comment = \Comment::find($comment['id']);
+        foreach($notify as $user)
+        {
+            if($user == $comment->author) { return; }
+            $u = $this->users->get($user);
+            if(! $u->wants('email', 'exam_comment')) return;
+            $this->setView('new_exam_comment');
+            $this->setViewData([
+                'user' => $u,
+                'comment' => $comment
+            ]);
+            $this->send($u->email, $u->username, 'ZBW - New Exam Comment');
+        }
+
+        $u = $this->users->get($comment->exam->cid);
+        if(! $u->wants('email', 'exam_comment')) return;
+        $this->setView('new_exam_comment');
+        $this->setViewData([
+            'user' => $u,
+            'comment' => $comment
+        ]);
+        $this->send($u->email, $u->username, 'ZBW - New Exam Comment');
+    }
 } 

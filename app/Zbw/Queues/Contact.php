@@ -48,4 +48,10 @@ class Contact {
         $this->notifier->staffContactEmail($data);
         $job->delete();
     }
+
+    public function newPm(Job $job, $data)
+    {
+        $this->notifier->newPmEmail($data);
+        $job->delete();
+    }
 } 
