@@ -12,26 +12,30 @@ ZBW Exam
     </div>
     <form action="" method="post">
     <ol>
-    @foreach($questions as $id => $question)
+    @foreach($questions as $question)
         <li>
-            <input type="hidden" name="question{{$counter}}" value="{{$id}}">
-            <h5>{{ $question->question }}</h5>
+            <input type="hidden" name="question{{$counter}}" value="{{$question->id}}">
+            <h5 style="font-family:'Courier New', Monospace">{{ $question->question }}</h5>
+            <p><em>Correct:</em><strong>{{ $question->answer_a }}</strong></p>
             <?php
+              $max = 4;
               $q = ['answer_a','answer_b','answer_c','answer_d'];
-              if(! empty($question->answer_f)) array_push($q, ['answer_f', 'answer_e']);
-              else if (! empty($question->answer_e)) array_push($q, ['answer_e']);
+              if(! empty($question->answer_f)) {
+                array_push($q, ['answer_f', 'answer_e']);
+                $max++;
+              }
+              else if (! empty($question->answer_e)) {
+                array_push($q, ['answer_e']);
+                $max += 2;
+              }
+
               shuffle($q);
-              ?>
-            <p><input type="radio" name="answer{{$counter}}" value="a"> {{ $question->{array_pop($q)} }}</p>
-            <p><input type="radio" name="answer{{$counter}}" value="b"> {{ $question->{array_pop($q)} }}</p>
-            <p><input type="radio" name="answer{{$counter}}" value="c"> {{ $question->{array_pop($q)} }}</p>
-            <p><input type="radio" name="answer{{$counter}}" value="d"> {{ $question->{array_pop($q)} }}</p>
-            @if(! empty($question->answer_e))
-            <p><input type="radio" name="answer{{$counter}}" value="e"> {{ $question->{array_pop($q)} }}</p>
-                @if(! empty($question->answer_f))
-                <p><input type="radio" name="answer{{$counter}}" value="f"> {{ $question->{array_pop($q)} }}</p>
-                @endif
-            @endif
+            ?>
+
+            @for($i = 0; $i < $max; $i++)
+              <?php $answer = array_pop($q); $value = explode('_',$answer)[1]; ?>
+              <p><input type="radio" name="answer{{$counter}}" value="{{$value}}"> {{ $question->$answer }}</p>
+            @endfor
         </li>
         <hr/>
     <?php $counter++; ?>

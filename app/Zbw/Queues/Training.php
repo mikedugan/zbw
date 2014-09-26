@@ -52,7 +52,7 @@ class Training {
         $data = \TrainingRequest::find($data['id']);
 
         //get a list of who can train this student
-        $notify = UserRepository::canTrain($data->cert_id);
+        $notify = \Zbw\Users\UserRepository::canTrain($data->cert_id);
         $student = $this->users->get($data->cid); //the student
         //setup the data to be passed to the private message view
         $vdata = [
