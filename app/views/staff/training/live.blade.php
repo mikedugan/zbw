@@ -16,7 +16,7 @@ Training Session
     </div>
 </div>
 <div class="row">
-  <div class="col-md-4">
+  <div class="col-lg-4 col-md-12">
       <div class="row form-horizontal">
           <label class="control-label col-md-7">Training Facility</label>
           <div class="form-group col-md-5">
@@ -52,7 +52,7 @@ Training Session
           </div>
       </div>
   </div>
-  <div class="col-md-8">
+  <div class="col-lg-8 col-md-12">
 
     <h3 class="text-center">Markups & Markdowns</h3>
     <div class="row">
@@ -82,7 +82,7 @@ Training Session
     </div>
     <br>
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-lg-4">
             <h5 class="text-center">Conditions</h5>
             <div class="row">
                 <label class="control-label">Weather</label>
@@ -119,7 +119,7 @@ Training Session
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-lg-4">
             <h5 class="text-center">Markups</h5>
             <button id="mu-flow-r" class="btn btn-info col-sm-2 markupr">-</button><button data-points="2" class="markup btn col-sm-10 btn-success" id="mu-flow">Traffic Flow <span class="badge">0</span></button>
             <button id="mu-separation-r" class="btn btn-info col-sm-2 markupr">-</button><button data-points="3" class="markup btn col-sm-10 btn-success" id="mu-separation">Separation <span class="badge">0</span></button>
@@ -128,7 +128,7 @@ Training Session
             <button id="mu-pointouts-r" class="btn btn-info col-sm-2 markupr">-</button><button data-points="3" class="markup btn col-sm-10 btn-success" id="mu-pointouts">Alerts & Pointouts <span class="badge">0</span></button>
             <button id="mu-sequencing-r" class="btn btn-info col-sm-2 markupr">-</button><button data-points="2" class="markup btn col-sm-10 btn-success" id="mu-sequencing">Speed & Sequencing <span class="badge">0</span></button>
         </div>
-        <div class="col-md-4">
+        <div class="col-lg-4 col-sm-12">
             <h5 class="text-center">Other Markdows</h5>
             <button id="md-flow-r" class="btn btn-info col-sm-2 markdownr">-</button><button data-points="1" class="markdown btn col-sm-10 btn-warning" id="md-flow">Slow Traffic Flow <span class="badge">0</span></button>
             <button id="md-separation-r" class="btn btn-info col-sm-2 markdownr">-</button><button data-points="2" class="markdown btn col-sm-10 btn-warning" id="md-separation">Loss of Separation <span class="badge">0</span></button>
@@ -143,12 +143,12 @@ Training Session
         <div class="col-sm-12 form-inline">
             <label style="padding-top:7px" class="col-sm-2">Comment:</label><input class="col-sm-5 form-control" type="text" name="mu-other" id="mu-other">
             <label style="padding-top:7px" class="col-sm-1">Points</label><input style="max-width: 100px;" class="col-sm-1 form-control" type="number" name="mu-other-points" id="mu-other-points">
-            <button class="col-sm-2 col-sm-offset-1 btn btn-success" id="mu-other-add">Add Markup <span class="badge">0</span></button>
+            <button class="col-sm-3 btn btn-success" id="mu-other-add">Add Markup <span class="badge">0</span></button>
         </div>
         <div style="margin-top:5px" class="col-sm-12 form-inline">
             <label style="padding-top:7px" class="col-sm-2">Comment:</label><input class="col-sm-5 form-control" type="text" name="md-other" id="md-other">
             <label style="padding-top:7px" class="col-sm-1">Points</label><input style="max-width: 100px;" class="col-sm-1 form-control" type="number" name="md-other-points" id="md-other-points">
-            <button class="col-sm-2 col-md-offset-1 btn btn-danger" id="md-other-add">Add Markdown <span class="badge">0</span></button>
+            <button class="col-sm-3 btn btn-danger" id="md-other-add">Add Markdown <span class="badge">0</span></button>
         </div>
     </div>
     <div class="row">
@@ -162,20 +162,20 @@ Training Session
 </div>
     </div>
 <div class="row">
-    <div class="col-md-6" style="width:790px;">
+    <div class="col-md-6">
         <h3 class="text-center">Staff Comment</h3>
         <textarea class="editor" name="comment-db" id="comment-db" cols="30"
                   rows="10"></textarea>
     </div>
-    <div class="col-md-6" style="width:790px;">
+    <div class="col-md-6">
         <h3 class="text-center">Student Comment</h3>
         <textarea class="editor" name="comment-student" id="comment-student" cols="30"
                   rows="10"></textarea>
     </div>
-    <div class="col-md-6" style="width:790px;">
+    <div class="col-md-6">
         <button data-timer="debrief" id="debrief" disabled class="timer btn btn-primary btn-block">Start Debrief/Review</button>
     </div>
-    <div class="col-md-6" style="width:790px;">
+    <div class="col-md-6">
         <input type="hidden" name="pos_points" id="pos_points" value="0">
         <input type="hidden" name="neg_points" id="neg_points" value="0">
         <input type="hidden" name="modifier" id="modifier" value="1">
