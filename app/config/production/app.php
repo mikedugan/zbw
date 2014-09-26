@@ -107,6 +107,7 @@ return [
       'Illuminate\Validation\ValidationServiceProvider',
       'Illuminate\View\ViewServiceProvider',
       'Illuminate\Workbench\WorkbenchServiceProvider',
+
       'Cartalyst\Sentry\SentryServiceProvider',
       'Bugsnag\BugsnagLaravel\BugsnagLaravelServiceProvider',
       'Robbo\Presenter\PresenterServiceProvider',

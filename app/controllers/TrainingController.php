@@ -75,7 +75,7 @@ class TrainingController extends BaseController
 
     public function getRequest()
     {
-        if($this->current_user->cert == 0 <= 1) {
+        if($this->current_user->cert == 0) {
             $this->setFlash(['flash_error' => 'You must pass the ZBW class C ground exam to request training!']);
             $this->redirectRoute('training');
         }

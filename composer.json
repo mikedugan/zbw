@@ -27,7 +27,7 @@
     "require-dev": {
         "barryvdh/laravel-ide-helper": "dev-master",
         "barryvdh/laravel-debugbar": "dev-master",
-        "way/generators": "dev-master",
+        "way/generators": "~2.0",
         "fzaninotto/faker": "dev-master"
     },
     "autoload": {

@@ -3,54 +3,56 @@
 Training Session
 @stop
 @section('content')
+<div class="row">
+<div class="col-md-12">
 <form id="training_session" action="" method="post">
 <h1 class="text-center">Training Session</h1>
 <div class="row">
-    <div class="col-md-6" style="width:790px;">
+    <div class="col-md-4">
         <button data-timer="start" id="start" class="timer btn btn-primary btn-block">Start Brief/Review</button>
     </div>
-    <div class="col-md-6" style="width:790px;">
+    <div class="col-md-8">
         <button data-timer="live" id="live" disabled class="timer btn btn-primary btn-block">Start Live Session</button>
     </div>
 </div>
-    <div class="row">
-<div class="col-md-6" style="width:790px;">
-    <div class="row form-horizontal">
-        <label class="control-label col-md-6">Training Facility</label>
-        <div class="form-group col-md-6">
-            <select class="form-control" name="facility" id="facility">
-                <option value="reqd">Select One</option>
-                @foreach($facilities as $facility)
-                <option value="{{$facility->id}}">{{$facility->value}}</option>
-                @endforeach
-            </select>
-        </div>
-    </div>
-    <div class="row form-horizontal">
-        <label class="control-label col-md-6">Training Type</label>
-        <div class="form-group col-md-6">
-            <select class="form-control" name="training_type" id="training_type">
-                <option value="reqd">Select One</option>
-                @foreach($types as $type)
-                <option value="{{$type->id}}">{{$type->value}}</option>
-                @endforeach
-            </select>
-        </div>
-    </div>
-    <h3 class="text-center">General Performance</h3>
-    @foreach(\Config::get('zbw.live_training_performance') as $options)
-        @include('includes.options._live_performance', ['options' => $options])
-    @endforeach
-    <div class="row">
-        <div class="col-md-4">
-            <button class="btn btn-default btn-block" id="update-score">Update Score</button>
-        </div>
-        <div class="col-md-8">
-            <div class="score"></div>
-        </div>
-    </div>
-</div>
-<div class="col-md-6" style="width:790px;">
+<div class="row">
+  <div class="col-md-4">
+      <div class="row form-horizontal">
+          <label class="control-label col-md-7">Training Facility</label>
+          <div class="form-group col-md-5">
+              <select class="form-control" name="facility" id="facility">
+                  <option value="reqd">Select One</option>
+                  @foreach($facilities as $facility)
+                  <option value="{{$facility->id}}">{{$facility->value}}</option>
+                  @endforeach
+              </select>
+          </div>
+      </div>
+      <div class="row form-horizontal">
+          <label class="control-label col-md-7">Training Type</label>
+          <div class="form-group col-md-5">
+              <select class="form-control" name="training_type" id="training_type">
+                  <option value="reqd">Select One</option>
+                  @foreach($types as $type)
+                  <option value="{{$type->id}}">{{$type->value}}</option>
+                  @endforeach
+              </select>
+          </div>
+      </div>
+      <h3 class="text-center">General Performance</h3>
+      @foreach(\Config::get('zbw.live_training_performance') as $options)
+          @include('includes.options._live_performance', ['options' => $options])
+      @endforeach
+      <div class="row">
+          <div class="col-md-4">
+              <button class="btn btn-default btn-block" id="update-score">Update Score</button>
+          </div>
+          <div class="col-md-8">
+              <div class="score"></div>
+          </div>
+      </div>
+  </div>
+  <div class="col-md-8">
 
     <h3 class="text-center">Markups & Markdowns</h3>
     <div class="row">
@@ -141,12 +143,12 @@ Training Session
         <div class="col-sm-12 form-inline">
             <label style="padding-top:7px" class="col-sm-2">Comment:</label><input class="col-sm-5 form-control" type="text" name="mu-other" id="mu-other">
             <label style="padding-top:7px" class="col-sm-1">Points</label><input style="max-width: 100px;" class="col-sm-1 form-control" type="number" name="mu-other-points" id="mu-other-points">
-            <button style="width:160px;" class="col-sm-2 col-sm-offset-1 btn btn-success" id="mu-other-add">Add Markup <span class="badge">0</span></button>
+            <button class="col-sm-2 col-sm-offset-1 btn btn-success" id="mu-other-add">Add Markup <span class="badge">0</span></button>
         </div>
         <div style="margin-top:5px" class="col-sm-12 form-inline">
             <label style="padding-top:7px" class="col-sm-2">Comment:</label><input class="col-sm-5 form-control" type="text" name="md-other" id="md-other">
             <label style="padding-top:7px" class="col-sm-1">Points</label><input style="max-width: 100px;" class="col-sm-1 form-control" type="number" name="md-other-points" id="md-other-points">
-            <button style="width:160px;" class="col-sm-2 col-md-offset-1 btn btn-danger" id="md-other-add">Add Markdown <span class="badge">0</span></button>
+            <button class="col-sm-2 col-md-offset-1 btn btn-danger" id="md-other-add">Add Markdown <span class="badge">0</span></button>
         </div>
     </div>
     <div class="row">
@@ -189,6 +191,8 @@ Training Session
     </div>
 </div>
 </form>
+</div>
+</div>
 @stop
 @section('scripts')
     {{ HTML::script('js/live-session.js') }}

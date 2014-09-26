@@ -27,7 +27,6 @@ class GroupsRepository extends EloquentRepository implements GroupsRepositoryInt
             }
         }
         $group->permissions = $this->flattenPermissions($new_permissions);
-        dd($group->permissions);
         return $group->save();
     }
 
