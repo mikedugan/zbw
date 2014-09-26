@@ -52,7 +52,7 @@ class UsersController extends BaseController
     {
         $results = $this->execute(SearchUsersCommand::class, ['input' => $this->input]);
         if(count($results) === 0) {
-            $this->setFlash('flash_info', 'No results found');
+            //$this->setFlash(['flash_info' => 'No results found']);
             return Redirect::back()->with('flash_info', 'No results found');
         }
         $this->setData('stype', 'roster');
