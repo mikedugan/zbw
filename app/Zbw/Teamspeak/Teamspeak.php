@@ -49,27 +49,38 @@ class Teamspeak
     }
 
     // Set the user's permissions
-    public function set_perms($roster_id)
+    public function set_perms($cldbid, $cid)
     {
-
+        $cldbid = $cldbid['data']['cldbid'];
+        echo "setting perms\n";
         // Load the user's data
-        $user = $this->users->get($roster_id);
+        $user = $this->users->get($cid);
 
         // Find all the permissions the TS3 user should have
-        $userGroups = array();
-        $userGroups[] = $this->groupIDs[$user->rating->id];
-        if ($user->inGroup(\Sentry::findGroupByName('Mentors')) == 1) $userGroups[] = $this->groupIDs['MTR'];
+        if ($user->inGroup(\Sentry::findGroupByName('Mentors'))) {
+            $this->ts3->serverGroupAddClient($this->groupIDs['MTR'], $cldbid);
+        }
 
-        // Remove user from expired groups
-        $currentUserGroups = $this->ts3->serverGroupsByClientID($this->cid);
-        $cugs = array(); // cugs stands for currentUserGroup
+        switch($user->rating_id) {
+            case -1: $this->ts3->serverGroupAddClient($this->groupIDs['OBS'], $cldbid); break;
+            case 0: $this->ts3->serverGroupAddClient($this->groupIDs['OBS'], $cldbid); break;
+            case 1: $this->ts3->serverGroupAddClient($this->groupIDs['OBS'], $cldbid); break;
+            case 2: $this->ts3->serverGroupAddClient($this->groupIDs['S1'], $cldbid); break;
+            case 3: $this->ts3->serverGroupAddClient($this->groupIDs['S2'], $cldbid); break;
+            case 4: $this->ts3->serverGroupAddClient($this->groupIDs['S3'], $cldbid); break;
+            case 5: $this->ts3->serverGroupAddClient($this->groupIDs['C1'], $cldbid); break;
+            case 6: $this->ts3->serverGroupAddClient($this->groupIDs['C1'], $cldbid); break;
+            case 7: $this->ts3->serverGroupAddClient($this->groupIDs['C3'], $cldbid); break;
+            case 8: $this->ts3->serverGroupAddClient($this->groupIDs['I1'], $cldbid); break;
+            case 9: $this->ts3->serverGroupAddClient($this->groupIDs['I1'], $cldbid); break;
+            case 10: $this->ts3->serverGroupAddClient($this->groupIDs['I3'], $cldbid); break;
+            case 11: $this->ts3->serverGroupAddClient($this->groupIDs['SUP'], $cldbid); break;
+            case 12: $this->ts3->serverGroupAddClient($this->groupIDs['SUP'], $cldbid); break;
+            default: $this->ts3->serverGroupAddClient(5, $cldbid); break;
+        }
 
-        // Add user to new groups
-        foreach ($userGroups as $userGroup) {
-            if (!in_array($userGroup, $cugs)) {
-                $this->ts3->serverGroupAddClient($userGroup, $this->cid);
-                echo "Done setting user permissions\n";
-            }
+        if(in_array($user->cid, \Config::get('zbw.teamspeak.serveradmins'))) {
+            $this->ts3->serverGroupAddClient(6, $cldbid);
         }
 
     }
@@ -95,7 +106,8 @@ class Teamspeak
         $tskey->uid = $current_uid;
         $tskey->used = 1;
         $tskey->save();
-        $this->set_perms($tskey->cid);
+        $cldbid = $this->ts3->clientGetDbIdFromUid($current_uid);
+        $this->set_perms($cldbid, $tskey->cid);
         $this->notify_nickname_change($tskey->cid);
     }
 
@@ -139,7 +151,7 @@ class Teamspeak
         $computer_id = $tskey->uid;
         if ($computer_id == $current_uid) {
             // The key is valid, prompt the user for a nickname change
-            $this->set_perms($tskey->cid);
+            $this->set_perms($tskey->cid, $this->ts3->clientGetDbIdFromUid($current_uid));
             $this->notify_nickname_change($tskey->cid);
         } else {
             // The key is not valid for this computer
@@ -154,10 +166,15 @@ class Teamspeak
      */
     private function validateUser($current_uid, $user)
     {
+        echo "validating user\n";
+        echo $user->cid."\n";
+        echo $current_uid."\n";
         $valid = \TsKey::where('uid', $current_uid)->where('cid', $user->cid)->get();
+        echo count($valid)."\n";
         if (count($valid) > 0) {
+            echo "user is valid\n";
             // The user is all setup, just update the permissions if neccessary
-            $this->set_perms($user->cid);
+            $this->set_perms($this->ts3->clientGetDbIdFromUid($current_uid), $user->cid);
         } else {
             // The user is either a fake or is on a new computer. Remind the user
             $this->ts3->clientPoke($this->clid, 'You need to activate vZBW TS3 on this computer. Go here: http://bostonartcc.net/me/profile?v=settings');
@@ -216,7 +233,9 @@ class Teamspeak
                 }
             } else {
                 // The user is logged in with a full name
-
+                if($firstname === 'serveradmin' || $firstname === 'Boston') { return; }
+                echo "First Name: {$firstname}\n";
+                echo "Last Name: {$lastname}\n";
                 $user = $this->users->findByFirstLastName($firstname, $lastname)[0];
                 $this->validateUser($current_uid, $user);
             }

@@ -1,7 +1,6 @@
 <h1 class="text-center">ZBW Controllers</h1>
 <div class="col-md-8">
     <h3>Current Roster</h3>
-    <a href="?num=all">View All</a>
     <table class="full table-bordered">
         <thead>
         <th>Name</th>

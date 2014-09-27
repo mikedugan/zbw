@@ -8,7 +8,8 @@ return [
         'user' => $_ENV['ts_user'],
         'password' => $_ENV['ts_pass'],
         'query_port' => $_ENV['ts_queryport'],
-        'port' => $_ENV['ts_port']
+        'port' => $_ENV['ts_port'],
+        'serveradmins' => [1240047, 1029885, 1093141, 1134052]
     ],
 
     'off_peak' =>

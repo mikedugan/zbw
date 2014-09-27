@@ -17,7 +17,7 @@ Bugsnag::setBeforeNotifyFunction('beforeBugsnagNotify');
 
 function beforeBugsnagNotify($error)
 {
-    if(Sentry::check())
+    if(\Sentry::getUser())
         $user = \Sentry::getUser();
         $error->setMetaData([
               'user' => [
