@@ -1,16 +1,15 @@
 <?php namespace Zbw\Teamspeak;
 
-use Ts3Admin;
 use Zbw\Users\UserRepository;
 
 class Teamspeak
 {
 
     // TS3 server settings
-    public $ip = "192.241.125.73";
+    public $ip = "192.99.252.122";
     public $queryport = 10011;
     public $username = 'serveradmin';
-    public $password = 'foobarbaz'; //TODO update
+    public $password = 'Mickeyd2!'; //TODO update
     public $port = 9987;
     public $groupIDs = array(
         'OBS' => 9,
@@ -28,11 +27,12 @@ class Teamspeak
     public $conf;
     public $cid;
     public $clid;
+    private $users;
 
     public function __construct()
     {
         $this->ts3 = new Ts3Admin($this->ip, $this->queryport);
-        $this->conf = $conf;
+        $this->users = \App::make(UserRepository::class);
 
         // Connect to the TS3 server
         if ($this->ts3->getElement('success', $this->ts3->connect())) {
@@ -53,13 +53,12 @@ class Teamspeak
     {
 
         // Load the user's data
-        $user = new DBRecord('roster_member', $this->conf);
-        $user->load_by_id($roster_id);
+        $user = $this->users->get($roster_id);
 
         // Find all the permissions the TS3 user should have
         $userGroups = array();
-        $userGroups[] = $this->groupIDs[$user->get_field('rating')];
-        if ($user->get_field('is_mentor') == 1) $userGroups[] = $this->groupIDs['MTR'];
+        $userGroups[] = $this->groupIDs[$user->rating->id];
+        if ($user->inGroup(\Sentry::findGroupByName('Mentors')) == 1) $userGroups[] = $this->groupIDs['MTR'];
 
         // Remove user from expired groups
         $currentUserGroups = $this->ts3->serverGroupsByClientID($this->cid);
@@ -69,7 +68,7 @@ class Teamspeak
         foreach ($userGroups as $userGroup) {
             if (!in_array($userGroup, $cugs)) {
                 $this->ts3->serverGroupAddClient($userGroup, $this->cid);
-                echo "Done setting user permissions\r\n";
+                echo "Done setting user permissions\n";
             }
         }
 
@@ -78,9 +77,8 @@ class Teamspeak
     // Tell the user to make a nickname change
     public function notify_nickname_change($roster_id)
     {
-        $user = new DBRecord('roster_member', $this->conf);
-        $user->load_by_id($roster_id);
-        $nickname = $user->get_field('first_name') . ' ' . $user->get_field('last_name') . ' (' . $user->get_field('initials') . ')';
+        $user = $this->users->get($roster_id);
+        $nickname = $user->username . ' ('.$user->initials.')';
         $this->ts3->clientPoke($this->clid, 'Please change your nickname to: ' . $nickname);
     }
 
@@ -102,9 +100,6 @@ class Teamspeak
     }
 
     /**
-     * nonstatic
-     * @name parseNickname
-     * 
      * @param $client
      * @return array
      */
@@ -120,9 +115,6 @@ class Teamspeak
     }
 
     /**
-     * nonstatic
-     * @name loadServerClients
-     * 
      * @return mixed
      */
     private function loadServerClients()
@@ -156,29 +148,23 @@ class Teamspeak
     }
 
     /**
-     * nonstatic
-     * @name validateUser
-     * 
      * @param $current_uid
      * @param $user
      * @return void
      */
     private function validateUser($current_uid, $user)
     {
-        $valid = \TsKey::where('uid', $current_uid)->where('cid', $user->cid);
-        if ($valid->count() > 0) {
+        $valid = \TsKey::where('uid', $current_uid)->where('cid', $user->cid)->get();
+        if (count($valid) > 0) {
             // The user is all setup, just update the permissions if neccessary
             $this->set_perms($user->cid);
         } else {
             // The user is either a fake or is on a new computer. Remind the user
-            $this->ts3->clientPoke($this->clid, 'You need to activate vZBW TS3 on this computer. Go here: http://bostonartcc.net/ts/');
+            $this->ts3->clientPoke($this->clid, 'You need to activate vZBW TS3 on this computer. Go here: http://bostonartcc.net/me/profile?v=settings');
         }
     }
 
     /**
-     * nonstatic
-     * @name manageUser
-     * 
      * @param $clientList
      * @return void
      */
@@ -190,13 +176,13 @@ class Teamspeak
             $this->cid = $client['client_database_id'];
             $this->clid = $client['clid'];
 
-            echo "parsing name...\r\n";
+            echo "parsing name...\n";
 
             list($name, $name_parts) = $this->parseNickname($client);
 
-            echo "done parsing name...\r\n";
+            echo "name: {$name}\n";
 
-            if (count($name_parts) == 1 && strlen($name_parts[0]) == 8) {
+            if (count($name_parts) == 1 && strlen($name_parts[0]) <= 8) {
                 $key = $name;
             } else {
                 $key = false;
@@ -210,10 +196,10 @@ class Teamspeak
             // Treat the user appropriately
             if ($key) {
                 // The user has a key as a nickname
-                $tskey = \TsKey::where('key', $key)
+                $tskey = \TsKey::where('ts_key', $key)
                     ->where('used', false)
-                    ->where('expired', '>', \Carbon::now())
-                    ->with('User')->get();
+                    ->where('expires', '>', \Carbon::now())
+                    ->with('user')->first();
 
                 //search ts3keys table (cid, key, expires)
                 if (count($tskey) == 1) {
@@ -231,9 +217,8 @@ class Teamspeak
             } else {
                 // The user is logged in with a full name
 
-                $user = UserRepository::findByFirstLastName($firstname, $lastname);
-                if ($user->count() == 1)
-                    $this->validateUser($current_uid, $user);
+                $user = $this->users->findByFirstLastName($firstname, $lastname)[0];
+                $this->validateUser($current_uid, $user);
             }
 
         }
@@ -241,4 +226,4 @@ class Teamspeak
 
 }
 
-new Teamspeak;
+//new Teamspeak;

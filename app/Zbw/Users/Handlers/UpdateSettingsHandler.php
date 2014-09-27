@@ -21,7 +21,17 @@ class UpdateSettingsHandler
 
         $data = $command->getInput();
         $success = $this->users->updateSettings($u->cid, $data) === true ?: false;
-
+        if(isset($data['ts_key'])) {
+            $key = new \TsKey([
+                'cid' => $u->cid,
+                'ts_key' => $data['ts_key'],
+                'expires' => \Carbon::now()->addDay(),
+                'used' => 0,
+                'uid' => '',
+                'status' => 0
+            ]);
+            $key->save();
+        }
         if(\Input::hasFile('avatar')) {
             $path = public_path().'/uploads/avatars/';
             $avatar = \Input::file('avatar');

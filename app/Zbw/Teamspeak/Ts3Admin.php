@@ -1,4 +1,4 @@
-<?PHP
+<?php namespace Zbw\Teamspeak;
 /**
  *                         Ts3Admin.class.php
  *                         ------------------

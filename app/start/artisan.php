@@ -17,3 +17,4 @@ Artisan::add(new Zbw\Console\UpdateClients);
 Artisan::add(new Zbw\Console\UpdateRoster);
 Artisan::add(new Zbw\Console\MigrateOldRoster);
 Artisan::add(new Zbw\Console\ImportExamQuestions);
+Artisan::add(new Zbw\Console\UpdateTeamspeak);

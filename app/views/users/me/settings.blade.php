@@ -15,8 +15,8 @@
         <textarea name="signature" id="signature" class="editor form-control" cols="40" rows="5">{{$me->settings->signature}}</textarea>
         </div>
         <div class="form-group">
-            <label class="label-control" for="ts_key">Teamspeak Key</label>
-            <input class="form-control" name="ts_key" id="ts_key" value="{{ $me->settings->ts_key }}" type="text">
+            <label class="label-control" for="ts_key">Teamspeak Key (note: only use this to add a new key!)</label>
+            <input class="form-control" name="ts_key" id="ts_key" maxlength="8" type="text">
         </div>
         <div class="row">
           <div class="form-group col-md-6">

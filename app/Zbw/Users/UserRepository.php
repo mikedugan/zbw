@@ -61,8 +61,10 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
         $u->rating_id = $rating;
         $u->initials = $this->createInitials($fname, $lname);
         $s = new \UserSettings();
+        $key = new \TsKey(['cid' => $cid, 'ts_key' => $cid, 'expires' => \Carbon::now()->addDay(), 'used' => 0]);
         $s->cid = $u->cid;
         if($u->save() && $s->save()) {
+            $key->save();
             $creator = new SmfUserCreator();
             $creator->create($u);
             return $u;
@@ -574,6 +576,11 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
     public function getPaginatedRoster($pag = 15)
     {
         return $this->make()->with(['rating','settings'])->orderBy('activated', 'DESC')->orderBy('last_name', 'ASC')->paginate($pag);
+    }
+
+    public function findByFirstLastName($first_name, $last_name)
+    {
+        return $this->make()->where('first_name', $first_name)->where('last_name', $last_name)->get();
     }
 
     /**

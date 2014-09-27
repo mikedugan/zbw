@@ -1,7 +1,12 @@
 <?php
 
-class TsKey extends BaseModel {
-	protected $guarded = array();
-	protected $table = 'zbw_tskeys';
-	public static $rules = array();
+class TsKey extends Eloquent
+{
+    protected $guarded = ['id','created_at','updated_at'];
+    protected $table = 'zbw_tskeys';
+
+    public function user()
+    {
+        return $this->belongsTo('User', 'cid', 'cid');
+    }
 }
