@@ -117,4 +117,10 @@ class ZbwController extends BaseController
         $this->view('zbw.statistics');
     }
 
+    public function getFlights()
+    {
+        $this->setData('flights', \ZbwFlight::all());
+        return $this->view('zbw.traffic');
+    }
+
 }

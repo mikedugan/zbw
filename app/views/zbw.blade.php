@@ -41,7 +41,7 @@ Welcome
         <h3 class="row text-left">ATC Online</h3>
         @include('includes.bj._atc')
         <h3 class="row text-left">Air Traffic</h3>
-        <p class="row"><b>Inbound: </b><span class="badge bg-info">{{$inbounds}}</span> <b>Outbound: </b> <span class="badge bg-info">{{$outbounds}}</span></p>
+        <p class="row"><b>Inbound: </b><span class="badge bg-info">{{$inbounds}}</span> <b>Outbound: </b> <span class="badge bg-info">{{$outbounds}}</span> {{ HTML::linkRoute('traffic', 'View All') }}</p>
         @include('includes.bj._flightstrip')
         <h3 class="row text-left">Weather
         <span class="small">

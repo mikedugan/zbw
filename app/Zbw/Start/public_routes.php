@@ -39,6 +39,8 @@ Route::get('roster/results',['roster/search', 'uses' => 'UsersController@getSear
 Route::get('news/{id}', ['as' => 'news/{id}', 'uses' => 'NewsController@show']);
 Route::get('pages/p/{id}',['as' => 'p/{id}', 'uses' => 'PagesController@getPage']);
 
+Route::get('traffic', ['as' => 'traffic', 'uses' => 'ZbwController@getFlights']);
+
 Route::get('mochahagotdi', function() { return Redirect::route('feedback'); });
 Route::get('feedback', ['as' => 'feedback', 'uses' => 'FeedbackController@getFeedback']);
 Route::post('feedback', ['as' => 'feedback', 'uses' => 'FeedbackController@postFeedback']);
