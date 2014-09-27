@@ -229,6 +229,11 @@ class MessagesRepository extends EloquentRepository implements MessagesRepositor
         return $unread ? $messages->where('is_read', 0)->get() : $messages->get();
     }
 
+    public function getUnread($cid)
+    {
+        return $this->make()->where('to', $cid)->where('cid', $cid)->where('is_read', 0)->get();
+    }
+
     /**
      * @param integer user cid
      * @return Eloquent Collection

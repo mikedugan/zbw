@@ -61,7 +61,7 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
         $u->rating_id = $rating;
         $u->initials = $this->createInitials($fname, $lname);
         $s = new \UserSettings();
-        $key = new \TsKey(['cid' => $cid, 'ts_key' => $cid, 'expires' => \Carbon::now()->addDay(), 'used' => 0]);
+        $key = new \TsKey(['cid' => $cid, 'ts_key' => $cid, 'expires' => \Carbon::now()->addDay(), 'used' => 0, 'uid' => '', 'status' => 0]);
         $s->cid = $u->cid;
         if($u->save() && $s->save()) {
             $key->save();
@@ -252,6 +252,9 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
      */
     public function createInitials($fname, $lname)
     {
+        if($lname instanceof \SimpleXMLElement) {
+            $lname = $lname->__toString();
+        }
         //todo - make this check for and use inactive initials
         for($i = -1; $i >= '-'.strlen($lname); $i--)
         {

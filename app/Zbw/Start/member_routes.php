@@ -35,35 +35,13 @@ Route::group(
       Route::group(
         ['prefix' => 'messages'],
         function () {
-            Route::get(
-              '/',
-              ['as' => 'messages', 'uses' => 'MessagesController@index']
-            );
-            Route::post(
-              'send',
-              ['as' => 'messages/send', 'uses' => 'MessagesController@store']
-            );
-            Route::post(
-              'm/{mid}',
-              [
-                'as'   => 'messages/reply/{mid}',
-                'uses' => 'MessagesController@reply'
-              ]
-            );
-            Route::get(
-              'm/{mid}/delete',
-              ['as' => 'messages/{mid}/delete', 'uses' => 'MessagesController@delete']
-            );
-            Route::get(
-              'm/{mid}/restore',
-              ['as'   => 'messages/{mid}/restore',
-               'uses' => 'MessagesController@restore'
-              ]
-            );
-            Route::get(
-              'm/{mid}',
-              ['as' => 'messages/{mid}', 'uses' => 'MessagesController@viewMessage']
-            );
+            Route::get('/',['as' => 'messages', 'uses' => 'MessagesController@index']);
+            Route::get('allread', ['as' => 'messages.allread', 'uses' => 'MessagesController@markAllRead']);
+            Route::post('send',['as' => 'messages/send', 'uses' => 'MessagesController@store']);
+            Route::post('m/{mid}',['as'   => 'messages/reply/{mid}','uses' => 'MessagesController@reply']);
+            Route::get('m/{mid}/delete',['as' => 'messages/{mid}/delete', 'uses' => 'MessagesController@delete']);
+            Route::get('m/{mid}/restore',['as'   => 'messages/{mid}/restore','uses' => 'MessagesController@restore']);
+            Route::get('m/{mid}',['as' => 'messages/{mid}', 'uses' => 'MessagesController@viewMessage']);
         }
       );
   }

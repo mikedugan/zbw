@@ -1,9 +1,7 @@
 
     <h1 class="text-center">My Inbox</h1>
     <div class="col-md-12 subnav">
-        <form class="axform" style="margin:0;" action="/markallread" method="post">
-            <button type="submit" class="btn btn-xs">Mark All as Read</button>
-        </form>
+        {{ HTML::linkRoute('messages.allread', 'Mark All Read', null, ['class' => 'btn btn-xs']) }}
         @if($unread == 'true')
         <a href="/messages" class="btn btn-xs">Show All</a>
         @else

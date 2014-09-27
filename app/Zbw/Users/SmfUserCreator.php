@@ -9,9 +9,13 @@ class SmfUserCreator {
               'member_name' => $user->username,
               'email' => $user->email,
               'password' => $password,
-              'real_name' => $user->initials
+              'real_name' => $user->initials,
+              'require' => ''
         ]);
         echo "\nmember id\n";
+        if(is_array($member_id)) {
+            return 1;
+        }
         echo $member_id;
         echo "\n\n";
         if($member_id) {

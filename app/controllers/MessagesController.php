@@ -117,4 +117,11 @@ class MessagesController extends BaseController
             return $this->redirectRoute('messages');
         }
     }
+
+    public function markAllRead()
+    {
+        $messages = $this->messages->getUnread($this->current_user->cid);
+        foreach($messages as $m) { $m->is_read = 1; $m->save(); }
+        return Redirect::back()->with('flash_success','All messages marked read');
+    }
 } 
