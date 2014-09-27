@@ -16,7 +16,7 @@
                         <span class="sans badge bg-info">{{ $messages }}</span>
                         @endif
                     </a></li>
-                <li>{{ HTML::link('/schedule', 'Scheduler') }}</li>
+                <li style="display:none">{{ HTML::link('/schedule', 'Scheduler') }}</li>
                 <li>{{ HTML::link('/logout', 'Logout') }}</li>
             </ul>
         </li>

@@ -82,15 +82,18 @@ class AdminController extends BaseController
             if(! $upload instanceof UploadedFile) continue;
             $validator = \Validator::make(['file' => $upload], ['file' => 'mimes:zip,tar,tgz,rar|max:100000']);
             if(! $validator->passes()) {
-                dd($validator->messages()->all());
-                array_merge($errors, $validator->messages()->toArray());
+                $errors = array_merge($errors, $validator->messages()->toArray());
+            } else {
+                $success .= $upload->getClientOriginalName() . ' uploaded successfully. ';
+                $upload->move(public_path().'/uploads/sectorfiles', $upload->getClientOriginalName());
             }
-            $success .= $upload->getClientOriginalName() . ' uploaded successfully. ';
-            $upload->move(public_path().'/uploads/sectorfiles', $upload->getClientOriginalName());
         }
-
-        $this->setFlash(['flash_error' => $errors]);
-        $this->setFlash(['flash_success' => $success]);
+        if(! empty($errors)) {
+            $this->setFlash(['flash_error' => $errors]);
+        }
+        if(! empty($succes)) {
+            $this->setFlash(['flash_success' => $success]);
+        }
         return $this->redirectBack();
     }
 } 

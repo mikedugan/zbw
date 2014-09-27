@@ -1,10 +1,13 @@
 <?php  namespace Zbw\Users;
 
+use Zbw\Core\EloquentRepository;
 use Zbw\Users\Contracts\StaffingRepositoryInterface;
 
-class StaffingRepository implements StaffingRepositoryInterface
+class StaffingRepository extends EloquentRepository implements StaffingRepositoryInterface
 {
     protected $staffing;
+
+    public $model = '\Staffing';
 
     /**
      * @param int $n
@@ -13,6 +16,11 @@ class StaffingRepository implements StaffingRepositoryInterface
     public function recent($n = 5)
     {
         return \Staffing::orderBy('stop')->take($n);
+    }
+
+    public function paginateAll($n = 20)
+    {
+        return $this->make()->with(['user'])->orderBy('created_at', 'DESC')->paginate($n);
     }
 
     /**
@@ -157,4 +165,13 @@ class StaffingRepository implements StaffingRepositoryInterface
             FROM zbw_staffing AS s LEFT JOIN users AS u ON u.cid=s.cid WHERE position LIKE '%_TWR' GROUP BY s.cid ORDER BY onlinetime DESC LIMIT ?", [$lim]);
         return $results;
     }
-} 
+
+    /**
+     * @param $input
+     * @return mixed
+     */
+    public function update($input)
+    {
+       return true;
+    }
+}
