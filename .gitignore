@@ -24,3 +24,4 @@ app/storage
 public/uploads
 public/packages
 *.sql
+public/forum/attachments
