@@ -6,11 +6,11 @@ class Teamspeak
 {
 
     // TS3 server settings
-    public $ip = "192.99.252.122";
-    public $queryport = 10011;
-    public $username = 'serveradmin';
-    public $password = 'Mickeyd2!'; //TODO update
-    public $port = 9987;
+    public $ip;
+    public $queryport;
+    public $username;
+    public $password;
+    public $port;
     public $groupIDs = array(
         'OBS' => 9,
         'S1' => 10,
@@ -31,6 +31,12 @@ class Teamspeak
 
     public function __construct()
     {
+        $this->ip = $_ENV['ts_host'];
+        $this->queryport = $_ENV['ts_queryport'];
+        $this->username = $_ENV['ts_user'];
+        $this->password = $_ENV['ts_pass'];
+        $this->port = $_ENV['ts_port'];
+
         $this->ts3 = new Ts3Admin($this->ip, $this->queryport);
         $this->users = \App::make(UserRepository::class);
 
