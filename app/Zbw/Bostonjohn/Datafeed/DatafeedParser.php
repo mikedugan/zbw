@@ -69,6 +69,7 @@ class DatafeedParser implements DatafeedParserInterface
         $this->curl = new Curl();
         $this->setDatafeed();
         $modlines = [];
+        var_dump($this->datafeed);
         $lines = strstr($this->datafeed, '!CLIENTS:');
         $lines = Helpers::makeLines($lines, false);
         foreach($lines as $line) {

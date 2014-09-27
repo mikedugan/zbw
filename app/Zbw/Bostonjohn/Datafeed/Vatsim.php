@@ -61,13 +61,15 @@ class Vatsim implements VatsimDataInterface
     {
         $lines = Helpers::makeLines($this->curl->response);
         $servers = $data = $atis = $metar = $user = '';
+
+        $all_data = [];
+
         foreach($lines as $line) {
             if($line[0] == ';') continue;
             $parts = explode('=', $line);
             switch($parts[0]) {
                 case 'url0':
-                    if(empty($data))
-                        $data = $parts[1];
+                        $all_data[] = $parts[1];
                     break;
                 case 'url1':
                     if(empty($servers))
@@ -89,6 +91,10 @@ class Vatsim implements VatsimDataInterface
                     break;
             }
         }
+
+        shuffle($all_data);
+        $data = array_pop($all_data);
+        echo "new datafeed: $data";
         return ['servers' => $servers, 'data' => $data, 'atis' => $atis, 'metar' => $metar, 'user' => $user];
     }
 
@@ -100,15 +106,14 @@ class Vatsim implements VatsimDataInterface
      */
     private function save($data)
     {
-        $ret = true;
         foreach ($data as $k => $v) {
-            $df = new \Datafeed([
-                  'key' => $k,
-                  'value' => $v,
-              ]);
-            $df->expires = Carbon::now()->addDay();
-            if(! $df->save()) $ret = false;
+            $df = new \Datafeed();
+            $df->key = $k;
+            $df->value = $v;
+            $df->expires = \Carbon::now()->addDay();
+            $df->save();
+            echo $df->key ." added\n";
         }
-        return $ret;
+        return true;
     }
 } 

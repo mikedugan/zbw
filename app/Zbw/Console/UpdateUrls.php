@@ -40,6 +40,7 @@ class UpdateUrls extends Command
      */
     public function fire()
     {
+        \Datafeed::where('expires', '<', \Carbon::now()->subDay(1))->delete();
         $vatsim = new Vatsim();
         $vatsim->updateStatus();
     }
