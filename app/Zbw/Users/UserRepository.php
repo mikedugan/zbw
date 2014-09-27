@@ -395,7 +395,7 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
     public function getSingleStaff($group)
     {
         $staff = \Sentry::findGroupByName($group);
-        return $staff->users()->with(['rating','settings'])->select(['cid','username','initials','email'])->first();
+        return $staff->users()->with(['rating','settings'])->select(['rating_id','cid','username','initials','email'])->first();
     }
 
     /**

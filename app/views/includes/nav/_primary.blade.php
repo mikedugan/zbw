@@ -40,7 +40,7 @@
                 <li>{{ HTML::linkRoute('staff/feedback', 'Feedback') }}</li>
                 <li>{{ HTML::link('staff/pages', 'Pages') }}</li>
                 @endif
-                <li><a href="#">Staff Pages</a>
+                <li style="display:none"><a href="#">Staff Pages</a>
                     <ul>
                         @foreach($pages as $page)
                         @if($page->audience_type_id === 4)
@@ -69,7 +69,7 @@
                 <li>{{ HTML::linkRoute('controllers/policies', 'ZBW Policies') }}</li>
                 <li>{{ HTML::linkRoute('controllers.resources', 'Resources') }}</li>
                 <li>{{ HTML::linkRoute('statistics', 'Statistics') }}</li>
-                <li><a href="#">ATC Pages</a>
+                <li style="display:none"><a href="#">ATC Pages</a>
                     <ul>
                         @foreach($pages as $page)
                             @if($page->audience_type_id === 1 || $page->audience_type_id === 3)
@@ -102,12 +102,12 @@
             <a href="/forum" class="dropdown-toggle" data-toggle="dropdown">Forum <b class="caret"></b></a>
             <ul class="dropdown-menu">
                 <li><a href="/forum">Home</a></li>
-                <li><a href="#">NOTAMS</a></li>
-                <li><a href="#">Pilots</a></li>
+                <li><a href="/forum/index.php?board=2.0">NOTAMS</a></li>
+                <li><a href="/forum/index.php?board=10.0">Pilots</a></li>
                 @if(\Sentry::check())
-                <li><a href="#">Controllers</a></li>
+                <li><a href="/forum/index.php?board=5.0">Controllers</a></li>
                 @endif
-                <li><a href="#">Off-Topic</a></li>
+                <li><a href="/forum/index.php?board=3.0">General Discussion</a></li>
             </ul>
         </li>
 </ul>

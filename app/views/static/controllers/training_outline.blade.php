@@ -91,11 +91,11 @@ Training Outline
 <p>OTS Standards are publicly available so that students know exactly what is expected of them to successfully pass an OTS. The OTS standards are:</p>
 <ul>
   <li>{{ HTML::linkAsset("/documents/training/ZBWS1OTS.pdf", 'Class C/D Delivery/Ground Certification OTS Standards') }}</li>
-  <li>{{ HTML::linkAsset("/documents/training/ZBWBGND.pdf", 'Class B DEL/GND Certification OTS Standards') }}'</li>
+  <li>{{ HTML::linkAsset("/documents/training/ZBWBGND.pdf", 'Class B DEL/GND Certification OTS Standards') }}</li>
   <li>{{ HTML::linkAsset("/documents/training/ZBWCTWR.pdf", 'Class C/D Tower Certification OTS Standards') }}</li>
-  <li>{{ HTML::linkAsset("/documents/training/ZBWBTWR.pdf", 'Class B Tower Certification OTS Standards') }}'</li>
+  <li>{{ HTML::linkAsset("/documents/training/ZBWBTWR.pdf", 'Class B Tower Certification OTS Standards') }}</li>
   <li>{{ HTML::linkAsset("/documents/training/ZBWCAPP.pdf", 'Class C Approach Certification OTS Standards') }}</li>
-  <li>{{ HTML::linkAsset("/documents/training/ZBWBAPP.pdf", 'Class B Approach Certification OTS Standards') }}'</li>
+  <li>{{ HTML::linkAsset("/documents/training/ZBWBAPP.pdf", 'Class B Approach Certification OTS Standards') }}</li>
   <li>{{ HTML::linkAsset("/documents/training/ZBWCTROTS.pdf", 'Center Controller (C1) OTS Standards') }}</li>
 
 </ul>
@@ -108,47 +108,47 @@ Training Outline
 <ol>
 <li>Student reviews ZBW website and ZBW Controller forums, including all policies and procedures.</li>
 <li>Student submits an exam request <a href="http://www.bostonartcc.net/controllers/exam_table.php"><b>HERE</b></a> requesting the SOP exam.</li>
-<li>Student passes SOP exam with an 80% or better, posts corrections to the <a href="http://www.bostonartcc.net/forums/index.php?board=11.0">forums</a>, and reviews the corrections with a mentor or instructor on the forum. Once the mentor or instructor approves the corrections as successfully completed, the Student may continue.</li>
+<li>Student passes SOP exam with an 80% or better, posts corrections to the <a href="http://www.bostonartcc.net/forum/index.php?board=11.0">forums</a>, and reviews the corrections with a mentor or instructor on the forum. Once the mentor or instructor approves the corrections as successfully completed, the Student may continue.</li>
 <li>Student studies the Delivery/Ground Controller (S1) Syllabus studying sections 1-7.</li>
-<li>Student takes and passes the DEL/GND exam with an 80% or better, posts corrections to the <a href="http://www.bostonartcc.net/forums/index.php?board=11.0">forums</a>, and reviews the corrections with a mentor or instructor on the forum. Once the mentor or instructor approves the corrections as successfully completed, the Student may continue.</li>
+<li>Student takes and passes the DEL/GND exam with an 80% or better, posts corrections to the <a href="http://www.bostonartcc.net/forum/index.php?board=11.0">forums</a>, and reviews the corrections with a mentor or instructor on the forum. Once the mentor or instructor approves the corrections as successfully completed, the Student may continue.</li>
 <li>Student is now eligible to begin training with a mentor or instructor. </li>
 <li>After passing a vZBW Class C/D DEL/GND OTS, the VATUSA Ground Controller (S1)  exam will be assigned. </li>
-<li>Student takes and passes the  VATUSA S1 exam with an 80% or better, posts corrections to the <a href="http://www.bostonartcc.net/forums/index.php?board=11.0">forums</a>, and reviews the corrections with a mentor or instructor on the forum. Once the mentor or instructor approves the corrections as successfully completed, the rating of Ground Controller (S1) may be awarded, and the controller will then be certified as a Class C/D Delivery/Ground controller.</li>
+<li>Student takes and passes the  VATUSA S1 exam with an 80% or better, posts corrections to the <a href="http://www.bostonartcc.net/forum/index.php?board=11.0">forums</a>, and reviews the corrections with a mentor or instructor on the forum. Once the mentor or instructor approves the corrections as successfully completed, the rating of Ground Controller (S1) may be awarded, and the controller will then be certified as a Class C/D Delivery/Ground controller.</li>
 
 <p>If the Student chooses to enroll in the Major track, then proceed to Step 9.  Otherwise, proceed to <strong>Tower Controller</strong>.</p>
 
-  <li>After obtaining a Class C/D Delivery/Ground certification, the student studies the Class B Delivery/Ground section of the S1 syllabus,  takes and passes the Advanced Delivery/Ground exam with an 80% or better, posts corrections to the <a href="http://www.bostonartcc.net/forums/index.php?board=11.0">forums</a>, and reviews the corrections with a mentor or instructor on the forum. Once the mentor or instructor approves the corrections as successfully completed, the Student may continue.</li>
+  <li>After obtaining a Class C/D Delivery/Ground certification, the student studies the Class B Delivery/Ground section of the S1 syllabus,  takes and passes the Advanced Delivery/Ground exam with an 80% or better, posts corrections to the <a href="http://www.bostonartcc.net/forum/index.php?board=11.0">forums</a>, and reviews the corrections with a mentor or instructor on the forum. Once the mentor or instructor approves the corrections as successfully completed, the Student may continue.</li>
   <li>The student then successfully takes and passes KBOS familiarization training with a mentor or instructor. Upon approval from the mentor or instructor, the student is now eligible to control KBOS at the DEL/GND level during off-peak times.</li>
   <li>Student is now eligible to begin training online with a mentor or instructor and, upon passing an OTS, earn the Class B DEL/GND certification.</li>
 </ol>
 <p>&nbsp;</p>
 <p><strong>Tower Controller</strong></p>
 <ol>
-  <li>Student studies the Tower Controller (S2) syllabus, takes and passes the Local Control exam with an 80% or better, posts corrections to the <a href="http://www.bostonartcc.net/forums/index.php?board=11.0">forums</a>, and reviews the corrections with a mentor or instructor on the forum. Once the mentor or instructor approves the corrections as successfully completed, the Student may continue.</li>
+  <li>Student studies the Tower Controller (S2) syllabus, takes and passes the Local Control exam with an 80% or better, posts corrections to the <a href="http://www.bostonartcc.net/forum/index.php?board=11.0">forums</a>, and reviews the corrections with a mentor or instructor on the forum. Once the mentor or instructor approves the corrections as successfully completed, the Student may continue.</li>
   <li>Student is now eligible to begin training with a mentor or instructor.</li>
   <li>After passing a vZBW Class C Tower OTS, the VATUSA Tower Controller (S2) exam will be assigned. </li>
   <li>Upon successful completion of the VATUSA Tower Controller (S2) exam, the rating of Tower Controller (S2) may be awarded, and the controller will then be certified as a Class C/D Tower controller.</li>
   <p>If the Student chooses to enroll in the Major track. then proceed to Step 5.  Otherwise, proceed to <strong>Approach Controller</strong>.</p>
-  <li>After obtaining a Class C/D Tower certification, the student studies the Class B Tower section of the S2 syllabus,  takes and passes the Advanced Local exam with an 80% or better, posts corrections to the <a href="http://www.bostonartcc.net/forums/index.php?board=11.0">forums</a>, and reviews the corrections with a mentor or instructor on the forum. Once the mentor or instructor approves the corrections as successfully completed, the Student may continue.</li>
+  <li>After obtaining a Class C/D Tower certification, the student studies the Class B Tower section of the S2 syllabus,  takes and passes the Advanced Local exam with an 80% or better, posts corrections to the <a href="http://www.bostonartcc.net/forum/index.php?board=11.0">forums</a>, and reviews the corrections with a mentor or instructor on the forum. Once the mentor or instructor approves the corrections as successfully completed, the Student may continue.</li>
   <li>The student then successfully takes and passes KBOS familiarization training with a mentor or instructor. Upon approval from the mentor or instructor, the student is now eligible to control KBOS at the Tower level during off-peak times.</li>
   <li>Student is now eligible to begin training online with a mentor or instructor and, upon passing an OTS, earn the Class B Tower certification.</li>
 </ol>
 <p>&nbsp;</p>
 <p><strong>Approach Controller</strong></p>
 <ol>
-  <li>Student studies the Approach Controller (S3) syllabus, takes and passes the Approach Control exam with an 80% or better, posts corrections to the <a href="http://www.bostonartcc.net/forums/index.php?board=11.0">forums</a>, and reviews the corrections with a mentor or instructor on the forum. Once the mentor or instructor approves the corrections as successfully completed, the Student may continue.</li>
+  <li>Student studies the Approach Controller (S3) syllabus, takes and passes the Approach Control exam with an 80% or better, posts corrections to the <a href="http://www.bostonartcc.net/forum/index.php?board=11.0">forums</a>, and reviews the corrections with a mentor or instructor on the forum. Once the mentor or instructor approves the corrections as successfully completed, the Student may continue.</li>
   <li>Student is now eligible to begin training with a mentor or instructor. </li>
   <li>After passing a vZBW Class C Approach OTS, the VATUSA Approach Controller (S3) exam will be assigned. </li>
   <li>Upon successful completion of the VATUSA Approach Controller (S3) exam, the rating of Approach Controller (S3) may be awarded and the controller will then be certified as a Class C Approach controller.</li>
   <p>If the Student chooses to enroll in the Major track. then proceed to Step 5.  </p>
-  <li>After obtaining a Class C Approach certification, the student studies the Class B Approach section of the S3 syllabus,  takes and passes the Advanced Approach exam with an 80% or better, posts corrections to the <a href="http://www.bostonartcc.net/forums/index.php?board=11.0">forums</a>, and reviews the corrections with a mentor or instructor on the forum. Once the mentor or instructor approves the corrections as successfully completed, the Student may continue.</li>
+  <li>After obtaining a Class C Approach certification, the student studies the Class B Approach section of the S3 syllabus,  takes and passes the Advanced Approach exam with an 80% or better, posts corrections to the <a href="http://www.bostonartcc.net/forum/index.php?board=11.0">forums</a>, and reviews the corrections with a mentor or instructor on the forum. Once the mentor or instructor approves the corrections as successfully completed, the Student may continue.</li>
   <li>The student then successfully takes and passes A90 familiarization training with a mentor or instructor. The student is now eligible to control A90 at the Approach level during off-peak times.</li>
   <li>Student is now eligible to begin training online with a mentor or instructor and, upon passing an OTS, earns the Class B Approach certification.</li>
 </ol>
 <p>&nbsp;</p>
 <p><strong>Center/Enroute Controller</strong></p>
 <ol>
-  <li>After obtaining a Class B Approach certification the student studies the Center/Enroute Controller (C1) syllabus, takes and passes the Center/Enroute Control exam with an 80% or better, posts corrections to the <a href="http://www.bostonartcc.net/forums/index.php?board=11.0">forums</a>, and reviews the corrections with a mentor or instructor on the forum. Once the mentor or instructor approves the corrections as successfully completed, the Student may continue.</li>
+  <li>After obtaining a Class B Approach certification the student studies the Center/Enroute Controller (C1) syllabus, takes and passes the Center/Enroute Control exam with an 80% or better, posts corrections to the <a href="http://www.bostonartcc.net/forum/index.php?board=11.0">forums</a>, and reviews the corrections with a mentor or instructor on the forum. Once the mentor or instructor approves the corrections as successfully completed, the Student may continue.</li>
   <li>Student is now eligible to begin training with a mentor or instructor. </li>
   <li>After passing a vZBW Center Controller (C1) OTS, the VATUSA Center/Enroute Controller (C1) exam will be assigned. Upon successful completion of the VATUSA Center/Enroute Controller (C1) exam, the rating of Center/Enroute Controller (C1) may be awarded.</li>
   <li>The student is now eligible to control ZBW at the Center/Enroute level during off-peak times.</li>

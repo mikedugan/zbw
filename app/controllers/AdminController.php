@@ -2,6 +2,7 @@
 
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Session\Store;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Zbw\Bostonjohn\Files\FileUploader;
 use Zbw\Users\Contracts\UserRepositoryInterface;
 
@@ -71,8 +72,25 @@ class AdminController extends BaseController
         return $this->redirectBack();
     }
 
-    public function postUploadFile()
+    public function postUploadFiles()
     {
+        $files = ['file1','file2','file3','file4'];
+        $errors = [];
+        $success = '';
+        foreach($files as $file) {
+            $upload = \Input::file($file);
+            if(! $upload instanceof UploadedFile) continue;
+            $validator = \Validator::make(['file' => $upload], ['file' => 'mimes:zip,tar,tgz,rar|max:100000']);
+            if(! $validator->passes()) {
+                dd($validator->messages()->all());
+                array_merge($errors, $validator->messages()->toArray());
+            }
+            $success .= $upload->getClientOriginalName() . ' uploaded successfully. ';
+            $upload->move(public_path().'/uploads/sectorfiles', $upload->getClientOriginalName());
+        }
 
+        $this->setFlash(['flash_error' => $errors]);
+        $this->setFlash(['flash_success' => $success]);
+        return $this->redirectBack();
     }
 } 

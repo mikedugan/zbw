@@ -25,14 +25,14 @@ ZBW File Management
   </div>
   <div class="col-md-6">
     <h3 class="text-center">Upload New File</h3>
-    <form action="" method="post">
+    <form action="" method="post" enctype="multipart/form-data">
       <label for="files">Files</label>
       <p>Uploading a file of the same name <strong>will</strong> overwrite the existing file.</p>
       <div class="form-group">
-          {{ Form::file('image1', ['class' => 'file-control btn btn-default', 'title' => 'Browse for File 1']) }}
-          {{ Form::file('image2', ['class' => 'file-control btn btn-default', 'title' => 'Browse for File 2']) }}
-          {{ Form::file('image3', ['class' => 'file-control btn btn-default', 'title' => 'Browse for File 3']) }}
-          {{ Form::file('image4', ['class' => 'file-control btn btn-default', 'title' => 'Browse for File 4']) }}
+          {{ Form::file('file1', ['class' => 'file-control btn btn-default', 'title' => 'Browse for File 1']) }}
+          {{ Form::file('file2', ['class' => 'file-control btn btn-default', 'title' => 'Browse for File 2']) }}
+          {{ Form::file('file3', ['class' => 'file-control btn btn-default', 'title' => 'Browse for File 3']) }}
+          {{ Form::file('file4', ['class' => 'file-control btn btn-default', 'title' => 'Browse for File 4']) }}
       </div>
       <button type="submit" class="btn btn-success">Upload</button>
     </form>

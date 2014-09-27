@@ -77,6 +77,7 @@ Route::group(
 
 Route::group(['before' => 'facilities'], function() {
     Route::get('/staff/files', ['as' => 'staff.files', 'uses' => 'AdminController@getFacilityFiles']);
+    Route::post('/staff/files', ['as' => 'staff.files.upload', 'uses' => 'AdminController@postUploadFiles']);
     Route::get('/staff/files/delete/{name}', ['as' => 'staff.files.delete', 'uses' => 'AdminController@getDeleteFile']);
 });
 

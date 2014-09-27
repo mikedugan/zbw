@@ -86,5 +86,6 @@ $messages = \Sentry::check() ? MessagesRepository::newMessageCount($me->cid) : 0
     </script>
     <noscript><p><img src="http://stats.mjdugan.com/piwik.php?idsite=3" style="border:0;" alt="" /></p></noscript>
     <!-- End Piwik Code -->
+
     </body>
 </html>

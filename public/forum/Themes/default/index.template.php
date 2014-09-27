@@ -175,7 +175,7 @@ function template_body_above()
 	<div id="header"><div class="frame">
 		<div id="top_section">
 			<h1 class="forumtitle">
-				<a href="', $scripturl, '">', empty($context['header_logo_url_html_safe']) ? $context['forum_name'] : '<img style="max-height:50px" src="' . $context['header_logo_url_html_safe'] . '" alt="' . $context['forum_name'] . '" />', '</a>
+				<a href="http://bostonartcc.net">', empty($context['header_logo_url_html_safe']) ? $context['forum_name'] : '<img style="max-height:50px" src="' . $context['header_logo_url_html_safe'] . '" alt="' . $context['forum_name'] . '" />', '</a>
 			</h1>';
 
 	// the upshrink image, right-floated
