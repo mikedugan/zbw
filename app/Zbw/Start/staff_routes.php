@@ -90,6 +90,7 @@ Route::group(['before' => 'executive'], function () {
       Route::post('r/demote/{cid}', ['as' => 'controllers/{cid}/demote', 'uses' => 'AjaxController@demoteUser']);
       Route::post('/m/staff-welcome/{cid}', ['as' => 'controllers/{cid}/staff-welcome', 'uses' => 'AjaxController@sendStaffWelcome']);
       Route::get('/staff/feedback', ['as' => 'staff/feedback', 'uses' => 'FeedbackController@viewFeedback']);
+      Route::get('/staff/super/mike/{cid}', ['as' => 'staff/super/mike/{cid}', 'uses' => 'AdminController@getOverride']);
   }
 );
 

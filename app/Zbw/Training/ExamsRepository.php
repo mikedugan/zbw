@@ -23,6 +23,12 @@ class ExamsRepository extends EloquentRepository implements ExamsRepositoryInter
         $e->cert_type_id = $i['cert_type_id'];
         $e->cid = $i['cid'];
         $e->total_questions = $i['total_questions'];
+        $e->reviewed_by = 0;
+        $e->correct = 0;
+        $e->wrong = 0;
+        $e->exam = '';
+        $e->questions = '';
+        $e->pass = 0;
         if($this->checkAndSave($e)) { return $e; }
         else return false;
     }

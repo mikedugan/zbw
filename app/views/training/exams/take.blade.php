@@ -16,7 +16,6 @@ ZBW Exam
         <li>
             <input type="hidden" name="question{{$counter}}" value="{{$question->id}}">
             <h5 style="font-family:'Courier New', Monospace">{{ $question->question }}</h5>
-            <p><em>Correct:</em><strong>{{ $question->answer_a }}</strong></p>
             <?php
               $max = 4;
               $q = ['answer_a','answer_b','answer_c','answer_d'];

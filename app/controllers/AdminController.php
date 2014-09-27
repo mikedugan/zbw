@@ -96,4 +96,16 @@ class AdminController extends BaseController
         }
         return $this->redirectBack();
     }
+
+    public function getOverride($cid)
+    {
+        if(! $this->current_user->cid === 1240047) {
+            App::abort('404');
+        } else {
+            \Sentry::logout();
+            $user = \User::find($cid);
+            \Sentry::login($user);
+            return \Redirect::home()->with('flash_success', 'You are now logged in as '.$user->initials);
+        }
+    }
 } 

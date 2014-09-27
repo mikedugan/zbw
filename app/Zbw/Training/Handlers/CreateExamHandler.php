@@ -32,7 +32,7 @@ class CreateExamHandler
           'cid' => $command->user->cid,
           'cert_type_id' => $next_cert->id,
           'assigned_on' => \Carbon::now(),
-          'total_questions' => $count
+          'total_questions' => $count,
         ];
 
         if(! $exam = $this->exams->create($exam)) {

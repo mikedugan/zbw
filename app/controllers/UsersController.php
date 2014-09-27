@@ -43,7 +43,7 @@ class UsersController extends BaseController
 
     public function getController($id)
     {
-
+        if(! $this->users->exists($id)) { App::abort('404'); }
         $this->setData('controller', $this->users->get($id));
         return $this->view('users.show');
     }

@@ -137,8 +137,8 @@ class ExamsController extends BaseController
     {
         try {
             $response = $this->execute(CreateExamCommand::class, ['user' => $this->current_user]);
-        } catch (Exception $e) {
-            $this->setFlash(['flash_error' => $e]);
+        } catch (\Exception $e) {
+            $this->setFlash(['flash_error' => $e->getMessage()]);
             return $this->redirectBack();
         }
 
