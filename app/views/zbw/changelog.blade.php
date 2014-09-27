@@ -4,6 +4,22 @@ Changelog
 @stop
 @section('content')
 <h1 class="text-center">Changelog</h1>
+<h3>2.0.0RC1</h3>
+mikedugan added spam protection to contact form <br>
+mikedugan fixed roster search bug when no results found <br>
+mikedugan fixed exam bug <br>
+mikedugan more responsive updates to the live training page <br>
+mikedugan updates, training view, couple fixes <br>
+mikedugan added new email notifications, rm unused settings <br>
+mikedugan piwik <br>
+mikedugan wip file uploads <br>
+mikedugan update composer <br>
+mikedugan removed unnecessary things <br>
+mikedugan redesigned a lot of things <br>
+mikedugan stats update <br>
+mikedugan improvements to stats engine and display <br>
+mikedugan Merge branch 'working' into develop <br>
+mikedugan time online bug <br>
 <h3>2.0.12b</h3>
 mikedugan statistics engine <br>
 mikedugan added automagic guest and forum account creators <br>
