@@ -32,9 +32,24 @@
         </div>
         <div class="form-group">
             <label for="spam">Human Verification</label>
-            <p>What is the 4-digit year plus the two-digit month?</p>
-            <p class="small">Hint: July of 2014 would be 2021</p>
-            <input required="required" class="form-control" type="text" id="email">
+            <p>What is the two-digit year plus the two-digit month?</p>
+            <p class="small">Hint: July of 2014 would be 21</p>
+            <input required="required" class="form-control" type="text" id="spam">
         </div>
         <button type="submit" class="btn btn-success">Send</button>
     </form>
+@section('scripts')
+  <script>
+    $('#staffContactSubmit').submit(function(e) {
+      var d = new Date;
+      m = (d.getMonth() + 1).toString();
+      m = ("0" + m).slice(-2);
+      d = d.getDate().toString();
+      d = ("0" + d).slice(-2);
+      if($('#spam').val() != (parseInt(d) + parseInt(m))) {
+        e.preventDefault();
+        alert("We're sorry, you entered the wrong code. Hint: the month is "+m+" and the year is "+d);
+      }
+    });
+  </script>
+@stop
