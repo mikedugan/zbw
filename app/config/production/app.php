@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'debug'     => true,
+    'debug'     => false,
     /*
     |--------------------------------------------------------------------------
     | Application URL
@@ -25,7 +25,7 @@ return [
     |
     */
 
-    'url'       => 'http://dev.bostonartcc.net',
+    'url'       => 'http://bostonartcc.net',
 
     'webmaster' => [
         'name' => 'Mike Dugan',

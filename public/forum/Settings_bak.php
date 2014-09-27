@@ -13,22 +13,22 @@
 
 ########## Maintenance ##########
 # Note: If $maintenance is set to 2, the forum will be unusable!  Change it to 0 to fix it.
-$mtitle = 'Maintenance Mode';		# Title for the Maintenance Mode message.
-$mmessage = 'Okay faithful users...we\'re attempting to restore an older backup of the database...news will be posted once we\'re back!';		# Description of why the forum is in maintenance mode.
+$mtitle = 'Migration in Progress!';		# Title for the Maintenance Mode message.
+$mmessage = 'ZBW Forum will be back online by 0500Z';		# Description of why the forum is in maintenance mode.
 
 ########## Forum Info ##########
 $mbname = 'Boston ARTCC';		# The name of your forum.
 $language = 'english';		# The default language file set for the forum.
-$boardurl = 'http://localhost:8000/forum';		# URL to your forum's folder. (without the trailing /!)
-$webmaster_email = 'bostonjohn@bostonartcc.net';		# Email address to send emails from. (like noreply@yourdomain.com.)
+$boardurl = 'http://dev.bostonartcc.net/forum';		# URL to your forum's folder. (without the trailing /!)
+$webmaster_email = 'admin@bostonartcc.net';		# Email address to send emails from. (like noreply@yourdomain.com.)
 $cookiename = 'SMFCookie391';		# Name of the cookie to set for authentication.
 
 ########## Database Info ##########
 $db_type = 'mysql';
 $db_server = 'localhost';
 $db_name = 'zbw_forum';
-$db_user = 'mike';
-$db_passwd = 'Mickeyd2!';
+$db_user = 'zbw';
+$db_passwd = 'PJ1JOgKGp7U';
 $ssi_db_user = '';
 $ssi_db_passwd = '';
 $db_prefix = 'smf_';
@@ -37,10 +37,10 @@ $db_error_send = 0;
 
 ########## Directories/Files ##########
 # Note: These directories do not have to be changed unless you move things.
-$base = "/home/mdugan/Code/me/zbw/public/";
-$boarddir = $base.'forum';		# The absolute path to the forum's folder. (not just '.'!)
-$sourcedir = $base.'forum/Sources';		# Path to the Sources directory.
-$cachedir = $base.'forum/cache';		# Path to the cache directory.
+$base = "/var/www/vhosts/bostonartcc.net/public/forum";
+$boarddir = $base;		# The absolute path to the forum's folder. (not just '.'!)
+$sourcedir = $base.'/Sources';		# Path to the Sources directory.
+$cachedir = $base.'cache';		# Path to the cache directory.
 
 ########## Error-Catching ##########
 # Note: You shouldn't touch these settings.
@@ -54,5 +54,5 @@ if (!file_exists($sourcedir) && file_exists($boarddir . '/Sources'))
 if (!file_exists($cachedir) && file_exists($boarddir . '/cache'))
 	$cachedir = $boarddir . '/cache';
 
-$maintenance = 0;
+$maintenance = 1;
 ?>
