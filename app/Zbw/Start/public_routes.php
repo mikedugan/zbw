@@ -18,6 +18,8 @@ Route::post('contact', ['as' => 'contact', 'uses' => 'ZbwController@postContact'
 
 Route::get('statistics', ['as' => 'statistics', 'uses' => 'ZbwController@getStatistics']);
 
+Route::get('tsviewer', ['as' => 'tsviewer', 'uses' => 'StaticController@getTsDisplay']);
+
 //static pages for pilots
 Route::get('pilots', ['as' => 'pilots', 'uses' => 'StaticController@getPilots']);
 Route::get('pilots/getting-started', ['as' => 'pilots/getting-started','before' => 'cache.fetch', 'after' => 'cache.put', 'uses' => 'StaticController@getPilotsGettingStarted']);

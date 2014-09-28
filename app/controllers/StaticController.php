@@ -57,4 +57,9 @@ class StaticController extends BaseController
     {
         $this->view('static.controllers.policies');
     }
+
+    public function getTsDisplay()
+    {
+        $this->view('static.controllers.teamspeak');
+    }
 }
