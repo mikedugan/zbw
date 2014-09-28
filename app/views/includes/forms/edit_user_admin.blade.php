@@ -106,8 +106,7 @@
         </div>
     </div>
   </div>
-<div class="row text-center">
-  <br/>
+<div style="margin-top:15px;" class="col-md-12 text-center">
   <button class="btn btn-primary" type="submit">Save</button>
 </div>
 </form>
