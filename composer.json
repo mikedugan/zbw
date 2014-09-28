@@ -13,12 +13,10 @@
     ],
     "require": {
         "laravel/framework": "4.2.*",
-        "laracasts/utilities": "dev-master",
         "fkubis/teamspeak-php-framework": "dev-master",
         "curl/curl": "dev-master",
         "pda/pheanstalk": "2.0.*",
         "cartalyst/sentry": "dev-master",
-        "vatsim/sso": "1.0.1",
         "bugsnag/bugsnag-laravel": "1.*",
         "doctrine/dbal": "2.3.*",
         "robclancy/presenter": "1.*",
