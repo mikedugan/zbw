@@ -7,7 +7,8 @@ use Illuminate\Database\Eloquent\Model;
  * @author  Mike Dugan <mike@mjdugan.com>
  * @since   2.0.1b
  */
-abstract class EloquentRepository {
+abstract class EloquentRepository
+{
 
     /**
      * @var array
@@ -58,9 +59,7 @@ abstract class EloquentRepository {
 
     /**
      * @todo refactor so this method isn't doing so much
-     *
      * this method returns eager loaded data given a set of relations, id (to return only one model), primary key, and pagination count
-     *
      * @param        $with          relations
      * @param null   $id            optional int
      * @param string $pk            primary key
@@ -69,23 +68,26 @@ abstract class EloquentRepository {
      */
     public function with($with, $id = null, $pk = 'id', $pagination = null)
     {
-        if($pagination) {
+        if ($pagination) {
             return $this->make()->with($with)->paginate($pagination);
-        } else if($id) {
-            return $this->make()->where($pk, $id)->with($with)->firstOrFail();
+        } else {
+            if ($id) {
+                return $this->make()->where($pk,
+                    $id)->with($with)->firstOrFail();
+            }
         }
+
         return $this->make()->with($with)->get();
     }
 
     /**
-     * 
      * @param      $id
      * @param bool $withTrash
      * @return \Illuminate\Database\Eloquent\Model
      */
     public function get($id, $withTrash = false)
     {
-        if($withTrash) {
+        if ($withTrash) {
             return $this->make()->withTrashed()->findOrFail($id);
         } else {
             return $this->make()->find($id);
@@ -93,7 +95,6 @@ abstract class EloquentRepository {
     }
 
     /**
-     * 
      * @param $id
      * @return bool
      */
@@ -101,34 +102,34 @@ abstract class EloquentRepository {
     {
         try {
             $item = $this->get($id, true);
-        }
-        catch (\BadMethodCallException $e) {
+        } catch (\BadMethodCallException $e) {
             return $this->make()->destroy($id);
         }
 
-        if($item->trashed()) {
+        if ($item->trashed()) {
             {
                 $item->forceDelete();
+
                 return true;
             }
         }
+
         return $item->destroy($id);
     }
 
     /**
-     * 
      * @return \Illuminate\Database\Eloquent\Collection|bool
      */
     public function trashed()
     {
-        if($this->hasSoftDeletes()) {
+        if ($this->hasSoftDeletes()) {
             return $this->make()->onlyTrashed()->get();
+        } else {
+            return false;
         }
-        else return false;
     }
 
     /**
-     * 
      * @param $id
      * @return bool
      */
@@ -148,27 +149,42 @@ abstract class EloquentRepository {
     }
 
     /**
-     * 
      * @param $model
      * @return bool
      */
     protected function checkAndSave($model)
     {
-        if(! $model->save()) {
+        if (! $model->save()) {
             $this->setErrors($model->getErrors());
+
             return false;
-        }
-        else {
+        } else {
             return true;
         }
     }
 
     public function save(Model $model, $check = false)
     {
-        if($check) {
+        if ($check) {
             return $this->checkAndSave($model);
         } else {
             return $model->save();
+        }
+    }
+
+    public function flushCache($tag = null, $keys = null)
+    {
+        $tag = $tag ?: \Str::snake(\Str::plural(ltrim($this->model, '\\')));
+        if ($keys) {
+            if (is_array($keys)) {
+                foreach ($keys as $key) {
+                    \Cache::forget("$tag.$key");
+                }
+            } else {
+                \Cache::forget("$tag.$keys");
+            }
+        } else {
+            \Cache::tags($tag)->flush();
         }
     }
 

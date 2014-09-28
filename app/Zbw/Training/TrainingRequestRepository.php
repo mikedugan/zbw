@@ -29,6 +29,7 @@ class TrainingRequestRepository extends EloquentRepository implements TrainingRe
         $tr->end = \Carbon::createFromFormat('m-d-Y H:i:s', $input['end']);
         $tr->cert_id = $input['cert'];
         if($this->save($tr)) {
+            $this->flushCache();
             \Queue::push('Zbw\Queues\QueueDispatcher@trainingNewRequest', $tr);
             return true;
         } else {
@@ -54,6 +55,7 @@ class TrainingRequestRepository extends EloquentRepository implements TrainingRe
         $tr->accepted_at = \Carbon::now();
 
         if($this->save($tr)) {
+            $this->flushCache();
             \Queue::push('Zbw\Queues\QueueDispatcher@trainingAcceptRequest', $tr);
             return true;
         } else {
@@ -75,6 +77,7 @@ class TrainingRequestRepository extends EloquentRepository implements TrainingRe
         $tr->sid = null;
         $tr->accepted_at = null;
         if($this->save($tr)) {
+            $this->flushCache();
             \Queue::push('Zbw\Queues\QueueDispatcher@trainingDropRequest', $tr);
             return true;
         } else {
@@ -96,6 +99,8 @@ class TrainingRequestRepository extends EloquentRepository implements TrainingRe
         $tr->is_completed = true;
         $tr->training_session_id= $report_id;
         $tr->completed_at = \Carbon::now();
+        $this->flushCache();
+
         return $this->save($tr);
     }
 
@@ -107,7 +112,7 @@ class TrainingRequestRepository extends EloquentRepository implements TrainingRe
      */
     public function indexPaginated($n = 10)
     {
-        return $this->make()->with(['student','staff','certType'])->paginate($n);
+        return $this->make()->remember(60*24, 'paginated')->cacheTags('training_requests')->with(['student','staff','certType'])->paginate($n);
     }
 
     /**
@@ -136,7 +141,7 @@ class TrainingRequestRepository extends EloquentRepository implements TrainingRe
             $ret->where('start', '>', \Carbon::createFromFormat('m-d-Y H:i:s', $input['after']));
         }
 
-        return $ret->get();
+        return $ret->remember(60*24, 'filtered')->cacheTags('training_requests')->get();
     }
 
     /**
@@ -147,7 +152,7 @@ class TrainingRequestRepository extends EloquentRepository implements TrainingRe
      */
     public function getWithAll($id)
     {
-        return $this->make()->with(['student', 'certType', 'staff'])->find($id);
+        return $this->make()->with(['student', 'certType', 'staff'])->remember(60*24, 'getEager')->cacheTags('training_requests')->find($id);
     }
 
     /**
@@ -158,6 +163,6 @@ class TrainingRequestRepository extends EloquentRepository implements TrainingRe
      */
     public function getRecent($n = 10)
     {
-        return $this->make()->with(['student', 'certType', 'staff'])->orderBy('created_at', 'desc')->limit($n)->get();
+        return $this->make()->with(['student', 'certType', 'staff'])->orderBy('created_at', 'desc')->limit($n)->remember(60*24, 'recent')->cacheTags('training_requests')->get();
     }
 }
