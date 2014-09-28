@@ -616,4 +616,10 @@ $txt['spider_stats'] = 'Stats';
 $txt['paid_subscriptions'] = 'Paid Subscriptions';
 $txt['paid_subs_view'] = 'View Subscriptions';
 
-?>
+//Tapatalk
+$txt['tapatalktitle'] = 'Tapatalk Settings';
+$txt['tp_general_settings'] = 'General';
+$txt['tp_other_settings'] = 'Others';
+$txt['tp_board_settings'] = 'Boards';
+$txt['tp_iar_settings'] = 'In App Registration';
+$txt['tp_rebranding_settings'] = 'Rebranding Settings';?>

@@ -473,8 +473,11 @@ function registerMember(&$regOptions, $return_errors = false)
 	// Registration from the admin center, let them sweat a little more.
 	if ($regOptions['interface'] == 'admin')
 	{
-		is_not_guest();
-		isAllowedTo('moderate_forum');
+		if(!defined('mobi_register'))
+		{
+			is_not_guest();
+			isAllowedTo('moderate_forum');
+		}
 	}
 	// If you're an admin, you're special ;).
 	elseif ($regOptions['interface'] == 'guest')

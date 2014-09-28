@@ -2052,12 +2052,30 @@ function Post2()
 				'topic' => $topic,
 			);
 			notifyMembersBoard($notifyData);
+			global $boarddir;
+			if (function_exists('tapatalk_push_quote_tag'))
+				tapatalk_push_quote_tag($msgOptions['id'], true);
+			else if(file_exists($boarddir . '/mobiquo/push_hook.php'))
+			{
+				include_once($boarddir . '/mobiquo/push_hook.php');
+				tapatalk_push_quote_tag($msgOptions['id'], true);
+			}
 		}
 		elseif (empty($_REQUEST['msg']))
 		{
 			// Only send it to everyone if the topic is approved, otherwise just to the topic starter if they want it.
 			if ($topic_info['approved'])
+			{
 				sendNotifications($topic, 'reply');
+				global $boarddir;
+				if (function_exists('tapatalk_push_reply'))
+					tapatalk_push_reply($msgOptions['id']);
+				else if(file_exists($boarddir . '/mobiquo/push_hook.php'))
+				{
+					include_once($boarddir . '/mobiquo/push_hook.php');
+					tapatalk_push_reply($msgOptions['id']);
+				}
+			}
 			else
 				sendNotifications($topic, 'reply', array(), $topic_info['id_member_started']);
 		}
