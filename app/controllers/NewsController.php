@@ -2,21 +2,25 @@
 
 use Illuminate\Session\Store;
 use Zbw\Cms\Contracts\NewsRepositoryInterface;
+use Zbw\Forum\ForumService;
 
 class NewsController extends BaseController
 {
     private $news;
+    private $forum;
 
-    public function __construct(NewsRepositoryInterface $news, Store $session)
+    public function __construct(NewsRepositoryInterface $news, Store $session, ForumService $forum)
     {
         $this->news = $news;
+        $this->forum = $forum;
         parent::__construct($session);
     }
 
     public function getIndex()
     {
         $data = [
-          'news' => $this->news->controllers()
+          'news' => $this->news->controllers(),
+          'notams' => $this->forum->getNotams()
         ];
 
         return View::make('cms.news.index', $data);
@@ -39,7 +43,8 @@ class NewsController extends BaseController
     public function getPilotNews()
     {
         $data = [
-          'news' => $this->news->pilots()
+          'news' => $this->news->pilots(),
+          'notams' => $this->forum->getNotams()
         ];
 
         return View::make('cms.news.pilots', $data);
