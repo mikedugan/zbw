@@ -28,7 +28,9 @@ class CommentsRepository extends EloquentRepository implements CommentsRepositor
         $comment->comment_type = $input['comment_type'];
         $comment->author = \Sentry::getUser()->cid;
         $result = $this->checkAndSave($comment);
-        \Queue::push('Zbw\Queues\QueueDispatcher@trainingNewExamComment', $comment);
+        if($comment->comment_type === 5) {
+            \Queue::push('Zbw\Queues\QueueDispatcher@trainingNewExamComment', $comment);
+        }
         return $result;
     }
 
@@ -45,6 +47,11 @@ class CommentsRepository extends EloquentRepository implements CommentsRepositor
         $comment->comment_type = $input['comment_type'];
         $comment->author = \Sentry::getUser()->cid;
         return $this->checkAndSave($comment);
+    }
+
+    public function rosterComments($cid)
+    {
+        return $this->make()->where('comment_type', 1)->where('parent_id', $cid)->get();
     }
 
     /**

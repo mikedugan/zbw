@@ -29,6 +29,8 @@ Route::group(
             Route::get('u/{id}', ['roster/user/{id}', 'uses' => 'UsersController@showUser']);
             Route::get('{id}/edit', ['as' => 'roster/user/{id}/edit', 'uses' => 'RosterController@getEditUser']);
             Route::post('{id}/edit', ['as' => 'staff/{id}/edit', 'uses' => 'RosterController@postEditUser']);
+            Route::post('{id}/comment', ['as' => 'staff/{id}/comment', 'uses' => 'RosterController@postRosterComment']);
+            Route::get('comments/{comment}/delete', ['as' => 'staff/comments/{comment}/delete', 'uses' => 'RosterController@getDeleteComment']);
             Route::get('roster/create-controller', ['as' => 'roster/add', 'uses' => 'RosterController@getAddController']);
             Route::post('roster/create-controller', ['as' => 'roster/add', 'uses' => 'RosterController@postAddController']);
             Route::get('pages', ['as' => 'staff/pages', 'uses' => 'PagesController@getIndex']);

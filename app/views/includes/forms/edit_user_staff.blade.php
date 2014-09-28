@@ -1,5 +1,6 @@
 <form id="rosterEdit" action="/staff/{{$user->cid}}/edit" method="post">
-  <div class="col-md-3">
+<div class="row">
+  <div class="col-md-6">
     <h4>Basic Info</h4>
     <div class="form-group">
         <label for="fname">First Name</label>
@@ -17,25 +18,23 @@
         <label class="control-label" for="artcc">ARTCC</label>
         <input class="form-control" type="text" name="artcc" readonly id="artcc" value="{{$user->artcc}}">
     </div>
-    <div class="row text-center">
-      <button class="btn btn-primary" type="submit">Save</button>
-    </div>
   </div>
-  <div class="col-md-9">
-    <div class="col-md-3">
-      <h4>Groups</h4>
-      <div class="row">
-        <div class="form-group col-md-12">
-            <label class="control-label" for="groups">Select Group(s)</label>
-            <select readonly style="height:270px" multiple name="groups[]" id="groups" class="form-control">
-                @foreach($groups as $group)
-                    <option value="{{$group->id}}" <?php if($user->inGroup($group)) echo "selected"; ?>>{{ $group->name }}</option>
-                @endforeach
-            </select>
-        </div>
+  <div class="col-md-6">
+    <h4>Groups</h4>
+    <div class="row">
+      <div class="form-group col-md-12">
+          <label class="control-label" for="groups">Select Group(s)</label>
+          <select readonly style="height:270px" multiple name="groups[]" id="groups" class="form-control">
+              @foreach($groups as $group)
+                  <option value="{{$group->id}}" <?php if($user->inGroup($group)) echo "selected"; ?>>{{ $group->name }}</option>
+              @endforeach
+          </select>
       </div>
     </div>
-    <div class="col-md-5">
+  </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
       <h4>Actions</h4>
       <form></form>
         @if($user->activated == 1)
@@ -51,7 +50,7 @@
           @endif
         @endif
     </div>
-    <div class="col-md-4">
+    <div class="col-md-6">
       <h4>Ratings</h4>
         <div class="row">
             <label for="rating_id">Rating</label>
@@ -83,4 +82,9 @@
         </div>
     </div>
   </div>
+  <br/>
+  <div class="row text-center">
+    <button class="btn btn-primary" type="submit">Save</button>
+  </div>
+</div>
 </form>

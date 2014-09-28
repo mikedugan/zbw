@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Session\Store;
+use Zbw\Cms\Contracts\CommentsRepositoryInterface;
 use Zbw\Users\Contracts\GroupsRepositoryInterface;
 use Zbw\Users\Contracts\UserRepositoryInterface;
 use Zbw\Users\Contracts\VisitorApplicantRepositoryInterface;
@@ -11,12 +12,19 @@ class RosterController extends BaseController
     private $users;
     private $groups;
     private $visitors;
+    private $comments;
 
-    function __construct(UserRepositoryInterface $users, GroupsRepositoryInterface $groups, VisitorApplicantRepositoryInterface $visitors, Store $session)
+    function __construct(
+        UserRepositoryInterface $users,
+        GroupsRepositoryInterface $groups,
+        VisitorApplicantRepositoryInterface $visitors,
+        CommentsRepositoryInterface $comments,
+        Store $session)
     {
         $this->users = $users;
         $this->groups = $groups;
         $this->visitors = $visitors;
+        $this->comments = $comments;
         parent::__construct($session);
     }
 
@@ -145,6 +153,7 @@ class RosterController extends BaseController
         $this->setData('groups', $this->groups->all());
         $this->setData('certs', \CertType::all());
         $this->setData('ratings', \Rating::all());
+        $this->setData('comments', $this->comments->rosterComments($id));
         $this->view('staff.roster.edit');
     }
 
@@ -155,6 +164,26 @@ class RosterController extends BaseController
         } else {
             return Redirect::back()->with('flash_error', 'There was an error - postEditUser');
         }
+    }
+
+    public function postRosterComment($cid)
+    {
+        $this->comments->add([
+            'comment_type' => 1,
+            'parent_id' => $cid,
+            'content' => \Input::get('comment')
+        ]);
+        return Redirect::back()->with('flash_success', 'Comment added successfully');
+    }
+
+    public function getDeleteComment($comment_id)
+    {
+        $comment = $this->comments->get($comment_id);
+        if($comment->author === $this->current_user->cid || $this->current_user->inGroup(\Sentry::findGroupByName('Executive'))) {
+            $this->comments->delete($comment_id);
+        }
+
+        return Redirect::back()->with('flash_success', 'Comment deleted successfully');
     }
 
     public function postGroup()
