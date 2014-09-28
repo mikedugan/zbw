@@ -650,6 +650,7 @@ function ReportedPosts()
 			'comments' => array(),
 			'time_started' => timeformat($row['time_started']),
 			'last_updated' => timeformat($row['time_updated']),
+			'timestamp_started' => $row['time_started'],
 			'subject' => $row['subject'],
 			'body' => parse_bbc($row['body']),
 			'num_reports' => $row['num_reports'],

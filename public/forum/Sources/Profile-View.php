@@ -399,6 +399,15 @@ function showPosts($memID)
 
 	// Find this user's posts.  The left join on categories somehow makes this faster, weird as it looks.
 	$looped = false;
+	/* tapatalk 20140117 1 begin */
+	if (defined('IN_MOBIQUO') && IN_MOBIQUO && (ExttMbqBase::$requestName == 'search') && (ExttMbqBase::$otherParameters['search_filter']['userid'] || ExttMbqBase::$otherParameters['search_filter']['searchuser'])) {
+	    //only used for search method,and works like get_user_reply_post or get_user_topic
+		$context['exttMbqTotal'] = $msgCount;
+		$context['exttMbqSearchId'] = ExttMbqBase::$otherParameters['searchid'];
+		$start = ExttMbqBase::$oMbqDataPage->startNum;
+		$maxIndex = ExttMbqBase::$oMbqDataPage->numPerPage;
+	}
+	/* tapatalk 20140117 1 end */
 	while (true)
 	{
 		if ($context['is_topics'])
@@ -461,6 +470,12 @@ function showPosts($memID)
 	// Start counting at the number of the first message displayed.
 	$counter = $reverse ? $context['start'] + $maxIndex + 1 : $context['start'];
 	$context['posts'] = array();
+	/* tapatalk 20140117 2 begin */
+	if (defined('IN_MOBIQUO') && IN_MOBIQUO && (ExttMbqBase::$requestName == 'search') && (ExttMbqBase::$otherParameters['search_filter']['userid'] || ExttMbqBase::$otherParameters['search_filter']['searchuser'])) {
+		//only used for search method,and works like get_user_reply_post or get_user_topic
+		$context['exttMbqRecords'] = & $context['posts'];
+	}
+	/* tapatalk 20140117 2 end */
 	$board_ids = array('own' => array(), 'any' => array());
 	while ($row = $smcFunc['db_fetch_assoc']($request))
 	{

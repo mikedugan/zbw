@@ -385,6 +385,16 @@ function Register2($verifiedOpenID = false)
 	);
 
 	// Include the additional options that might have been filled in.
+	/* tapatalk 20140330 begin */
+	//Spam Prevention
+	require_once($sourcedir . '/Subs-Tapatalk.php');
+	$tp_iar_spam_prevention = isset($modSettings['tp_iar_spam_prevention']) ? $modSettings['tp_iar_spam_prevention'] : 1;
+	if ($tp_iar_spam_prevention == 2 || $tp_iar_spam_prevention == 3) {
+		if (exttmbq_is_spam($_POST['email'], exttMbqGetIP())) {
+			fatal_error('Sorry, can not register new user with spam info.');
+		}
+	}
+	/* tapatalk 20140330 end */
 	foreach ($possible_strings as $var)
 		if (isset($_POST[$var]))
 			$regOptions['extra_register_vars'][$var] = $smcFunc['htmlspecialchars']($_POST[$var], ENT_QUOTES);

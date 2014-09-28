@@ -601,4 +601,28 @@ $helptxt['custom_mask'] = 'The input mask is important for your forum\'s securit
 	</div><br /><br />
 	More information and advanced techniques may be found on the internet.';
 
+
+//Tapatalk start
+$helptxt['tp_full_ads'] = 'Tapatalk will show a one time welcoming screen to mobile users to download the free app, the screen will contain your forum logo and branding only, with a button to get the free app.';
+$helptxt['tp_push_key'] = 'Optional. To improve the quality of Push Notification from your forum, please fill-in copy and paste the Push Notification Key from Tapatalk Forum Owner Area to here.';
+$helptxt['tp_allow_usergroup'] = 'Allow usergroups to login via Tapatalk, leave this option empty means that all usergroups users can login via Tapatalk. Different usergroups should be departed by comma, for example, "3,11,6" which means only users who belongs to 3,6 and 11 usergroups can login via Tapatalk.';
+$helptxt['tp_hide_boards'] = 'Hide forums you don\'t want them to be listed in Tapatalk app.';
+$helptxt['tp_dsa_boards'] = 'Prevent Tapatalk users to create new topic in the selected sub-forums. This feature is useful if certain forums requires additional topic fields or permission that Tapatalk does not support.';
+$helptxt['tp_custom_content_replacement'] = 'Ability to match and replace thread content using PHP preg_replace function(http://www.php.net/manual/en/function.preg-replace.php). E.g. "\'pattern\', \'replacement\'" . You can define more than one replace rule on each line.';
+$helptxt['tp_app_banner_msg'] = 'E.g. "Follow {your_forum_name} with {app_name} for [os_platform]". Do not change the [os_platform] tag as it is displayed dynamically based on user\'s device platform.';
+$helptxt['tp_app_ios_id'] = 'Enter your product ID in Apple App Store, to be used on iPhone device';
+$helptxt['tp_android_url'] = 'Enter your BYO App ID from Google Play, to be used on Android device. E.g. "com.quoord.tapatalkpro.activity"';
+$helptxt['tp_kf_url'] = 'Enter your BYO App URL from Amazon App Store, to be used on Kindle Fire device. E.g. "http://www.amazon.com/gp/mas/dl/android?p=com.quoord.tapatalkpro.activity"';
+$helptxt['tp_ol_icon_path'] = 'Mobile Online Icon appears on Who\'s Online page to indicate member using Tapatalk app';
+$helptxt['tp_ol_icon_link'] = 'Target URL when icon is clicked';
+$helptxt['tp_ol_icon_desc'] = 'Mobile Online Icon Title appears on Who\'s Online page to indicate member using Tapatalk app';
+//Tapatalk IAR
+$helptxt['tp_iar_registration_options'] = 'Native Registration and Social Sign On (Recommended) - Facebook users can register for your forum using their Facebook credentials, and those not connected to Facebook can register for your forum via an in-app form.<br />
+Native Registration Only - No SSO available for Facebook users. All users must register for the forum via an in-app form.<br />
+Redirect to External Registration URL - All users registering for your forum will be redirected to a web browser outside of the app to continue registration.';
+$helptxt['tp_iar_registration_url'] = 'This field is required if you select "Redirect to External Registration URL" under "Registration Options". You do not need to include the forum root URL.';
+$helptxt['tp_iar_usergroup_assignment'] = 'You can assign users registered with Tapatalk to specific user groups. If you do not assign them to a specific group, they will be assigned a default group.';
+$helptxt['tp_iar_spam_prevention'] = 'By enabling StopForumSpam integration, new user registration from Tapatalk app and/or from web will be screened with StopForumSpam database to prevent existing black-listed spammers.';
+//Tapatalk ends
+
 ?>

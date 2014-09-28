@@ -53,5 +53,10 @@
 <div class="col-md-3">
     <h3>Search Controllers</h3>
     @include('includes.search._controller')
+    <br>
+    <p class="info">Mentor</p>
+    <p class="warning">Instructor</p>
+    <p class="danger">ARTCC Staff</p>
+    <p class="success">Visiting Controller</p>
 </div>
 </div>

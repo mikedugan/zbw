@@ -19,7 +19,7 @@ $mmessage = 'ZBW Forum will be back online by 0500Z';		# Description of why the 
 ########## Forum Info ##########
 $mbname = 'Boston ARTCC';		# The name of your forum.
 $language = 'english';		# The default language file set for the forum.
-$boardurl = 'http://dev.bostonartcc.net/forum';		# URL to your forum's folder. (without the trailing /!)
+$boardurl = 'http://bostonartcc.net/forum';		# URL to your forum's folder. (without the trailing /!)
 $webmaster_email = 'admin@bostonartcc.net';		# Email address to send emails from. (like noreply@yourdomain.com.)
 $cookiename = 'SMFCookie391';		# Name of the cookie to set for authentication.
 
@@ -27,8 +27,8 @@ $cookiename = 'SMFCookie391';		# Name of the cookie to set for authentication.
 $db_type = 'mysql';
 $db_server = 'localhost';
 $db_name = 'zbw_forum';
-$db_user = 'zbw';
-$db_passwd = 'PJ1JOgKGp7U';
+$db_user = 'mike';
+$db_passwd = 'Mickeyd2!';
 $ssi_db_user = '';
 $ssi_db_passwd = '';
 $db_prefix = 'smf_';
@@ -54,5 +54,5 @@ if (!file_exists($sourcedir) && file_exists($boarddir . '/Sources'))
 if (!file_exists($cachedir) && file_exists($boarddir . '/cache'))
 	$cachedir = $boarddir . '/cache';
 
-$maintenance = 1;
+$maintenance = 0;
 ?>

@@ -2268,6 +2268,16 @@ function MessagePost2()
 		);
 	}
 
+	//Tapatalk pm push - start
+	global $boarddir;
+	if (function_exists('tapatalk_push_pm'))
+		tapatalk_push_pm();
+	else if(file_exists($boarddir . '/mobiquo/push_hook.php'))
+	{
+		include_once($boarddir . '/mobiquo/push_hook.php');
+		tapatalk_push_pm();
+	}
+	//Tapatalk pm push - end
 	// If one or more of the recipient were invalid, go back to the post screen with the failed usernames.
 	if (!empty($context['send_log']['failed']))
 		return messagePostError($post_errors, $namesNotFound, array(

@@ -13,7 +13,7 @@
 // The only template in the file.
 function template_main()
 {
-	global $context, $settings, $options, $scripturl, $txt;
+	global $context, $settings, $options, $scripturl, $txt, $boardurl, $modSettings;
 
 	// Display the table header and linktree.
 	echo '
@@ -63,7 +63,8 @@ function template_main()
 		if (!$member['is_guest'])
 		{
 			echo '
-								<span class="contact_info floatright">
+								<span class="contact_info floatright">'.((strpos($member['query']['USER_AGENT'], 'Tapatalk') !== false || strpos($member['query']['USER_AGENT'], 'BYO') !== false )? '<img align="bottom" alt="Online" src="'.$boardurl. '/mobiquo/forum_icons/online.png" />
+' : '').'
 									', $context['can_send_pm'] ? '<a href="' . $member['online']['href'] . '" title="' . $member['online']['label'] . '">' : '', $settings['use_image_buttons'] ? '<img src="' . $member['online']['image_href'] . '" alt="' . $member['online']['text'] . '" align="bottom" />' : $member['online']['text'], $context['can_send_pm'] ? '</a>' : '', '
 									', isset($context['disabled_fields']['icq']) ? '' : $member['icq']['link'] , ' ', isset($context['disabled_fields']['msn']) ? '' : $member['msn']['link'], ' ', isset($context['disabled_fields']['yim']) ? '' : $member['yim']['link'], ' ', isset($context['disabled_fields']['aim']) ? '' : $member['aim']['link'], '
 								</span>';

@@ -1554,6 +1554,7 @@ function loadTheme($id_theme = 0, $initialize = true)
 	if (!isset($context['html_headers']))
 		$context['html_headers'] = '';
 
+	include_once($boarddir.'/mobiquo/smartbanner.php');
 	$context['menu_separator'] = !empty($settings['use_image_buttons']) ? ' ' : ' | ';
 	$context['session_var'] = $_SESSION['session_var'];
 	$context['session_id'] = $_SESSION['session_value'];

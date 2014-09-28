@@ -2423,6 +2423,9 @@ function parse_bbc($message, $smileys = true, $cache_id = '', $parse_tags = arra
 	// Cleanup whitespace.
 	$message = strtr($message, array('  ' => ' &nbsp;', "\r" => '', "\n" => '<br />', '<br /> ' => '<br />&nbsp;', '&#13;' => "\n"));
 
+	// Parse tapatalk emojis.
+	$message = preg_replace('/\[emoji(\d+)\]/i', '<img src="https://s3.amazonaws.com/tapatalk-emoji/emoji$1.png" />', $message);
+
 	// Cache the output if it took some time...
 	if (isset($cache_key, $cache_t) && array_sum(explode(' ', microtime())) - array_sum(explode(' ', $cache_t)) > 0.05)
 		cache_put_data($cache_key, $message, 240);
