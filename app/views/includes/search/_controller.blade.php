@@ -19,7 +19,7 @@
             <option value="8">Instructor (I1)</option>
             <option value="9">Instructor 2 (I2)</option>
             <option value="10">Senior Instructor (I3)</option>
-            <option value="11">Superverisor (SUP)</option>
+            <option value="11">Supervisor (SUP)</option>
             <option value="12">Administrator (ADM)</option>
         </select>
     </div>
