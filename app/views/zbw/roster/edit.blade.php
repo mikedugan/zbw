@@ -77,8 +77,9 @@ Edit Controller
                     <button type="submit" class="btn btn-danger">Terminate User</button>
                 </form>
                 @elseif($user->is_active == 0)
+                <span></span>
                 <form class="axform col-md-4" action="/r/activate/{{$user->cid}}" method="post">
-                    <button type="submit" class="btn btn-success">Activate User</button>
+                    <button type="submit" class="btn btn-success">Activate Controller</button>
                 </form>
                 <form class="axform col-md-4" action="/r/terminate/{{$user->cid}}" method="post">
                     <button type="submit" class="btn btn-danger">Terminate User</button>

@@ -11,7 +11,7 @@ View Message
         <h2>Subject</h2>
         <p>{{$message->subject}}</p>
         <h2>Message</h2>
-        @if($message->history !== '' && $message->history !== null)
+        @if(!empty($message->history))
         <p class="well">
             {{$message->history}}
         </p>

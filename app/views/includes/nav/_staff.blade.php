@@ -2,7 +2,7 @@
     <li class="dropdown">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Staff <b class="caret"></b></a>
         <ul class="dropdown-menu">
-            @if($me->hasAccess('roster.all'))
+            @if($me->inGroup(\Sentry::findGroupByName('Staff')))
             <li>{{ HTML::link('staff/roster', 'Roster') }}</li>
             @endif
             @if($me->hasAccess('reports.view'))

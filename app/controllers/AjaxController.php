@@ -137,6 +137,7 @@ class AjaxController extends BaseController
      */
     public function activateUser($id)
     {
+        \Log::debug('activating ' . $id);
         if ($this->users->activateUser($id)) {
             return json_encode([
               'success' => true,

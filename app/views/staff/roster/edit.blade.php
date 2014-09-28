@@ -8,6 +8,7 @@ Edit Controller
   <div class="row">
     <div class="col-md-12">
         <h1 class="text-center">Edit {{$user->initials}}</h1>
+        @if($me->inGroup(\Sentry::findGroupByName('Executive')))
         <form id="rosterEdit" action="/staff/{{$user->cid}}/edit" method="post">
           <div class="col-md-3">
             <h4>Basic Info</h4>
@@ -45,12 +46,17 @@ Edit Controller
                 </div>
               </div>
             </div>
+          @endif
+          @if($me->inGroup(\Sentry::findGroupByName('Executive')) || $user->cert < $me->cert)
             <div class="col-md-5">
               <h4>Actions</h4>
+              <form></form>
                 @if($user->activated == 1)
+                  @if($me->inGroup(\Sentry::findGroupByName('Executive')))
                   <form class="axform col-md-12" action="/m/staff-welcome/{{$user->cid}}" method="post">
                       <button type="submit" class="btn col-md-12 btn-success btn-xs" id="staff-welcome">Send Staff Welcome Email</button>
                   </form>
+                  @endif
                   @if($user->cert < 14)
                   <form class="axform col-md-12" action="/r/promote/{{$user->cid}}" method="post">
                       <button type="submit" class="btn col-md-12 btn-success btn-xs" id="cert-promote">Promote User to {{ $user->nextCert() }}</button>
@@ -61,6 +67,7 @@ Edit Controller
                       <button type="submit" class="btn col-md-12 btn-warning btn-xs" id="cert-demote">Demote User to {{ $user->lastCert() }}</button>
                   </form>
                   @endif
+                  @if($me->inGroup(\Sentry::findGroupByName('Executive')))
                   <form class="axform col-md-12" action="/r/suspend/{{$user->cid}}" method="post">
                       <button type="submit" class="btn col-md-12 btn-warning btn-xs">Suspend User</button>
                   </form>
@@ -78,8 +85,15 @@ Edit Controller
                   <form class="axform col-md-12" action="/r/activate/{{$user->cid}}" method="post">
                       <button type="submit" class="btn col-md-12 btn-xs btn-success">Activate User</button>
                   </form>
+                  @endif
                 @endif
             </div>
+        @else
+          <div class="col-md-12">
+            <h4>Get outta here! This controller has a higher cert than you!</h4>
+          </div>
+        @endif
+            @if($me->inGroup(\Sentry::findGroupByName('Executive')))
             <div class="col-md-4">
               <h4>Ratings</h4>
                 <div class="row">
@@ -113,6 +127,7 @@ Edit Controller
             </div>
           </div>
           </form>
+          @endif
         </div>
     </div>
   </div>
