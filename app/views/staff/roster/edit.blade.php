@@ -22,7 +22,7 @@ Edit Controller
             <div class="row">
               <div class="col-md-9"><p>{{ $comment->content }}</p></div>
               <div class="col-md-3">
-                <p>by: <strong>{{ $comment->user->initials }}</strong></p>
+                <p>by: <strong>{{ $comment->user->initials or '??'}}</strong></p>
                 <p>{{ $comment->created_at->toFormattedDateString() }}</p>
                 @if($comment->author === $me->cid || $me->inGroup(\Sentry::findGroupByName('Executive')))
                   <p><a href="/staff/comments/{{$comment->id}}/delete">Delete</a></p>
