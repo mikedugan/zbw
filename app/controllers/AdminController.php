@@ -44,8 +44,10 @@ class AdminController extends BaseController
         $this->setData('results', $results);
 
         if(count($results) === 0) {
-            return Redirect::back()->with('flash_info', 'No results found');
+            $this->setFlash('flash_info', 'No results found');
+            return $this->redirectBack();
         }
+
         $this->view('staff.roster.results');
     }
 

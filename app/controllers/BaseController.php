@@ -150,4 +150,9 @@ abstract class BaseController extends Controller
         return \Redirect::to($default);
     }
 
+    protected function json(array $data)
+    {
+        return Response::json($data);
+    }
+
 }

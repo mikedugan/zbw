@@ -1,5 +1,7 @@
 <?php  namespace Zbw\Core;
 
+use Illuminate\Database\Eloquent\Model;
+
 /**
  * @package Base
  * @author  Mike Dugan <mike@mjdugan.com>
@@ -158,6 +160,15 @@ abstract class EloquentRepository {
         }
         else {
             return true;
+        }
+    }
+
+    public function save(Model $model, $check = false)
+    {
+        if($check) {
+            return $this->checkAndSave($model);
+        } else {
+            return $model->save();
         }
     }
 

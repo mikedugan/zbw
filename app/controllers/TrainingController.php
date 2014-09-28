@@ -3,6 +3,7 @@
 use Illuminate\Session\Store;
 use Zbw\Training\Contracts\ExamsRepositoryInterface;
 use Zbw\Training\Contracts\TrainingSessionRepositoryInterface;
+use Zbw\Training\TrainingRequestRepository;
 use Zbw\Users\Contracts\UserRepositoryInterface;
 
 use Zbw\Training\Commands\ProcessTrainingSessionCommand;
@@ -12,12 +13,17 @@ class TrainingController extends BaseController
 {
     private $trainings;
     private $exams;
+    private $requests;
     private $users;
 
-    function __construct(ExamsRepositoryInterface $exams, TrainingSessionRepositoryInterface $trainings, UserRepositoryInterface $users, Store $session)
+    function __construct(ExamsRepositoryInterface $exams,
+        TrainingSessionRepositoryInterface $trainings,
+        TrainingRequestRepository $requests,
+        UserRepositoryInterface $users, Store $session)
     {
         $this->exams = $exams;
         $this->trainings = $trainings;
+        $this->requests = $requests;
         $this->users = $users;
         parent::__construct($session);
     }
@@ -35,7 +41,7 @@ class TrainingController extends BaseController
         $this->setData('reports', $this->trainings->recentReports(10));
         $this->setData('exams', $this->exams->recentExams(10));
         $this->setData('staffings', \Staffing::recentStaffings(10));
-        $this->setData('requests', \TrainingRequest::with(['student', 'certType'])->orderBy('created_at', 'desc')->limit(10)->get());
+        $this->setData('requests', $this->requests->getRecent(10));
         $this->view('staff.training.index');
     }
 
@@ -57,10 +63,10 @@ class TrainingController extends BaseController
     public function getAllRequests()
     {
         if(empty(\Input::all())) {
-            $this->setData('requests', \TrainingRequest::indexPaginated(10));
+            $this->setData('requests', $this->requests->indexPaginated(10));
             $this->setData('paginate', false);
         } else {
-            $this->setData('requests', \TrainingRequest::indexFiltered(\Input::all()));
+            $this->setData('requests', $this->requests->indexFiltered(\Input::all()));
             $this->setData('paginate', true);
         }
 
@@ -85,20 +91,20 @@ class TrainingController extends BaseController
 
     public function showRequest($tid)
     {
-        $this->setData('request', \TrainingRequest::with(['student', 'certType', 'staff'])->find($tid));
+        $this->setData('request', $this->requests->getWithAll($tid));
         $this->view('training.show-request');
     }
 
     public function getLiveSession($tsid)
     {
-        $this->setData('student', \TrainingRequest::find($tsid)->cid);
+        $this->setData('student', $this->requests->get($tsid)->cid);
         $this->setData('staff', $this->current_user);
         $this->view('staff.training.live');
     }
 
     public function testLiveSession($tsid)
     {
-        $request = \TrainingRequest::find($tsid);
+        $request = $this->requests->get($tsid);
         $this->setData('staff', $this->current_user);
         $this->setData('student', $this->users->get($request->cid));
         $this->setData('facilities', \TrainingFacility::all());

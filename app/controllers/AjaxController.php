@@ -2,9 +2,11 @@
 
 use Illuminate\Session\Store;
 use Zbw\Cms\Contracts\MessagesRepositoryInterface;
+use Zbw\Core\Repositories\RatingRepository;
 use Zbw\Notifier\Mail;
 use Zbw\Training\Contracts\CertificationRepositoryInterface;
 use Zbw\Training\Contracts\ExamsRepositoryInterface;
+use Zbw\Training\TrainingRequestRepository;
 use Zbw\Users\Contracts\UserRepositoryInterface;
 use Zbw\Users\Contracts\VisitorApplicantRepositoryInterface;
 
@@ -34,14 +36,28 @@ class AjaxController extends BaseController
     private $visitors;
 
     /**
+     * @var TrainingRequestRepository
+     */
+    private $requests;
+
+    /**
      * @param UserRepositoryInterface             $users
      * @param MessagesRepositoryInterface         $messages
      * @param Mail                                $emailer
      * @param CertificationRepositoryInterface    $certs
      * @param ExamsRepositoryInterface            $exams
+     * @param TrainingRequestRepository           $requests
      * @param VisitorApplicantRepositoryInterface $visitors
+     * @param Store                               $session
      */
-    public function __construct(UserRepositoryInterface $users, MessagesRepositoryInterface $messages, Mail $emailer, CertificationRepositoryInterface $certs, ExamsRepositoryInterface $exams, VisitorApplicantRepositoryInterface $visitors, Store $session)
+    public function __construct(UserRepositoryInterface $users,
+        MessagesRepositoryInterface $messages,
+        Mail $emailer,
+        CertificationRepositoryInterface $certs,
+        ExamsRepositoryInterface $exams,
+        TrainingRequestRepository $requests,
+        VisitorApplicantRepositoryInterface $visitors,
+        Store $session)
     {
         $this->users = $users;
         $this->messages = $messages;
@@ -49,6 +65,7 @@ class AjaxController extends BaseController
         $this->certs = $certs;
         $this->exams = $exams;
         $this->visitors = $visitors;
+        $this->requests = $requests;
         parent::__construct($session);
     }
 
@@ -61,25 +78,11 @@ class AjaxController extends BaseController
     public function requestExam($cid, $eid)
     {
         if ($this->certs->requestExam($cid, $eid)) {
-            return json_encode(
-              ['success' => true,
-               'message' => 'Your exam has been successfully requested!']
-            );
+            return $this->json(['success' => true,'message' => 'Your exam has been successfully requested!']);
         } else {
-            return json_encode(
-              ['success' => false,
-               'message' => 'There was an error! Please contact a staff member!']
-            );
+            return $this->json(['success' => false,'message' => 'There was an error! Please contact a staff member!']);
         }
     }
-
-    /*    public function actionCompleted($aid)
-        {
-            $ar = new ActionRepository($aid);
-            if($ar->resolve())
-                return json_encode(['success' => true, 'message' => 'Notification marked completed!']);
-            else return json_encode(['success' => false, 'message' => 'Notification could not be resolved!']);
-        }*/
 
     /**
      * @param $cid
@@ -87,10 +90,9 @@ class AjaxController extends BaseController
      */
     public function sendStaffWelcome($cid)
     {
-        $em = new Mail(\Sentry::getUser()->cid);
-        $em->staffWelcome();
+        $this->emailer->staffWelcomeEmail($cid);
 
-        return json_encode(['success' => true, 'message' => "Staff welcome email sent successfully!"]);
+        return $this->json(['success' => true, 'message' => "Staff welcome email sent successfully!"]);
     }
 
     /**
@@ -100,15 +102,9 @@ class AjaxController extends BaseController
     public function suspendUser($id)
     {
         if ($this->users->suspendUser($id)) {
-            return json_encode([
-              'success' => true,
-              'message' => 'User suspended'
-            ]);
+            return $this->json(['success' => true, 'message' => 'User suspended']);
         } else {
-            return json_encode([
-              'success' => false,
-              'message' => 'Error suspending user'
-            ]);
+            return $this->json(['success' => false,'message' => 'Error suspending user']);
         }
     }
 
@@ -119,15 +115,9 @@ class AjaxController extends BaseController
     public function terminateUser($id)
     {
         if ($this->users->terminateUser($id)) {
-            return json_encode([
-              'success' => true,
-              'message' => 'User terminated'
-            ]);
+            return $this->json(['success' => true,'message' => 'User terminated']);
         } else {
-            return json_encode([
-              'success' => false,
-              'message' => 'Error terminating user'
-            ]);
+            return $this->json(['success' => false,'message' => 'Error terminating user']);
         }
     }
 
@@ -139,15 +129,9 @@ class AjaxController extends BaseController
     {
         \Log::debug('activating ' . $id);
         if ($this->users->activateUser($id)) {
-            return json_encode([
-              'success' => true,
-              'message' => 'User activated'
-            ]);
+            return $this->json(['success' => true,'message' => 'User activated']);
         } else {
-            return json_encode([
-              'success' => false,
-              'message' => 'Error activating user'
-            ]);
+            return $this->json(['success' => false,'message' => 'Error activating user']);
         }
     }
 
@@ -157,28 +141,13 @@ class AjaxController extends BaseController
     public function postTrainingRequest()
     {
         try {
-            if (\TrainingRequest::create(\Input::all())) {
-                return json_encode(
-                  [
-                    'success' => true,
-                    'message' => 'Training request added successfully'
-                  ]
-                );
+            if($this->requests->create(\Input::all())) {
+                return $this->json(['success' => true,'message' => 'Training request added successfully']);
             } else {
-                return json_encode(
-                  [
-                    'success'  => false,
-                    'messaage' => 'Error sending training request!'
-                  ]
-                );
+                return $this->json(['success'  => false,'messaage' => 'Error sending training request!']);
             }
         } catch(InvalidArgumentException $e) {
-            return json_encode(
-              [
-                'success' => false,
-                'message' => \Input::get('start')
-              ]
-            );
+            return $this->json(['success' => false,'message' => \Input::get('start')]);
         }
     }
 
@@ -189,8 +158,7 @@ class AjaxController extends BaseController
      */
     public function cancelTrainingRequest($tsid)
     {
-        $tr = TrainingRequest::find($tsid);
-        if ($tr->delete()) {
+        if ($this->requests->delete($tsid)) {
             return Redirect::home()->with('flash_success', 'Training session cancelled');
         } else {
             return Redirect::back()->with('flash_error', 'Unable to cancel session');
@@ -203,16 +171,10 @@ class AjaxController extends BaseController
      */
     public function acceptTrainingRequest($tsid)
     {
-        if (\TrainingRequest::accept($tsid, \Sentry::getUser()->cid)) {
-            return json_encode([
-              'success' => true,
-              'message' => 'Training session accepted. Reloading page in 3 seconds...'
-            ]);
+        if ($this->requests->accept($tsid, $this->current_user->cid)) {
+            return $this->json(['success' => true,'message' => 'Training session accepted. Reloading page in 3 seconds...']);
         } else {
-            return json_encode([
-              'success' => false,
-              'message' => 'Error accepting training session.'
-            ]);
+            return $this->json(['success' => false,'message' => 'Error accepting training session.']);
         }
     }
 
@@ -222,18 +184,10 @@ class AjaxController extends BaseController
      */
     public function dropTrainingRequest($tid)
     {
-        if (\TrainingRequest::drop($tid, \Sentry::getUser()->cid)) {
-            return json_encode(
-              [
-                'success' => true,
-                'message' => 'Training session dropped. Reloading page in 3 seconds...'
-              ]
-            );
+        if ($this->requests->drop($tid, \Sentry::getUser()->cid)) {
+            return $this->json(['success' => true,'message' => 'Training session dropped. Reloading page in 3 seconds...']);
         } else {
-            return json_encode([
-              'success' => false,
-              'message' => 'Unable to drop training session'
-            ]);
+            return $this->json(['success' => false,'message' => 'Unable to drop training session']);
         }
     }
 
@@ -243,15 +197,9 @@ class AjaxController extends BaseController
     public function markInboxRead()
     {
         if ($this->messages->markAllRead(\Sentry::getUser()->cid)) {
-            return json_encode([
-              'success' => true,
-              'message' => 'All messaged marked as read'
-            ]);
+            return $this->json(['success' => true,'message' => 'All messaged marked as read']);
         } else {
-            return json_encode([
-              'success' => false,
-              'message' => 'Error marking messages read'
-            ]);
+            return $this->json(['success' => false,'message' => 'Error marking messages read']);
         }
     }
 
@@ -261,15 +209,9 @@ class AjaxController extends BaseController
     public function postExamReviewed($id)
     {
         if ($this->exams->finishReview($id)) {
-            return json_encode([
-              'success' => true,
-              'message' => 'Exam review complete. Page reloading in 3 seconds...'
-            ]);
+            return $this->json(['success' => true,'message' => 'Exam review complete. Page reloading in 3 seconds...']);
         } else {
-            return json_encode([
-                'success' => false,
-                'message' => implode(',', $this->exams->getErrors())
-            ]);
+            return $this->json(['success' => false,'message' => implode(',', $this->exams->getErrors())]);
         }
     }
 
@@ -280,15 +222,9 @@ class AjaxController extends BaseController
     public function postReopenExam($id)
     {
         if ($this->exams->reopenReview($id)) {
-            return json_encode([
-              'success' => true,
-              'message' => 'Exam review reopened. Page reloading in 3 seconds...'
-            ]);
+            return $this->json(['success' => true,'message' => 'Exam review reopened. Page reloading in 3 seconds...']);
         } else {
-            return json_encode([
-              'success' => false,
-              'message' => $this->exams->getErrors()
-            ]);
+            return $this->json(['success' => false,'message' => $this->exams->getErrors()]);
         }
     }
 
@@ -300,15 +236,9 @@ class AjaxController extends BaseController
     {
         $response = $this->execute(AcceptVisitorCommand::class, ['cid' => $id, 'sid' => $this->current_user->cid]);
         if($response === true) {
-            return json_encode([
-              'success' => true,
-              'message' => 'Visitor application accepted. Page reloading in 3 seconds...'
-            ]);
+            return $this->json(['success' => true,'message' => 'Visitor application accepted. Page reloading in 3 seconds...']);
         } else {
-            return json_encode([
-              'success' => false,
-              'message' => implode(',', $this->visitors->getErrors())
-            ]);
+            return $this->json(['success' => false,'message' => implode(',', $this->visitors->getErrors())]);
         }
     }
 
@@ -317,30 +247,21 @@ class AjaxController extends BaseController
      */
     public function requestVatusaExam()
     {
-        $student = \Sentry::getUser();
-        $exam = \Rating::find($student->rating_id + 1)->long;
-        Queue::push('Zbw\Queues\QueueDispatcher@usersRequestVatusaExam', $student->cid);
-        return json_encode([
-          'success' => true,
-          'message' => 'VATUSA '.$exam.' exam requested.'
-        ]);
+        $ratings = new RatingRepository();
+        $exam = $ratings->get($this->current_user->rating_id + 1)->long;
+        Queue::push('Zbw\Queues\QueueDispatcher@usersRequestVatusaExam', $this->current_user->cid);
+        return $this->json(['success' => true,'message' => 'VATUSA '.$exam.' exam requested.']);
     }
 
     public function promoteUser($cid)
     {
         \Queue::push('Zbw\Queues\QueueDispatcher@usersPromote', $cid);
-        return json_encode([
-          'success' => true,
-          'message' => 'User promoted'
-        ]);
+        return $this->json(['success' => true,'message' => 'User promoted']);
     }
 
     public function demoteUser($cid)
     {
         \Queue::push('Zbw\Queues\QueueDispatcher@usersDemote', $cid);
-        return json_encode([
-          'success' => true,
-          'message' => 'User demoted'
-        ]);
+        return $this->json(['success' => true,'message' => 'User demoted']);
     }
 }
