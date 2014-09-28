@@ -16,6 +16,9 @@ Search Results
             <th>CID</th>
             <th>Email</th>
             <th>Rating</th>
+            @if($me->is('Staff'))
+            <th>Edit</th>
+            @endif
             </thead>
     @foreach($results as $r)
         @include('includes.search._multipleresult')

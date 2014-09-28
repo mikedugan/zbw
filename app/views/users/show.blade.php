@@ -11,8 +11,11 @@ View {{ $controller->initials }}
         <p><b>Initials: </b>{{$controller->initials}}</p>
         <p><b>Rating: </b>{{$controller->rating->long}}</p>
         <p><b>Certification: </b>{{ \Zbw\Core\Helpers::readableCert($controller->cert) }}</p>
-        @if($controller->is_staff)
+        @if($controller->is('Staff'))
         <p><b>Staff Status: </b>{{ \Zbw\Core\Helpers::staffStatusString($controller) }}</p>
+        @endif
+        @if($me->is('Staff'))
+          <p><a href="/staff/{{$controller->cid}}/edit">Edit</a></p>
         @endif
     </div>
     <div class="col-md-6">

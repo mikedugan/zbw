@@ -320,7 +320,7 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
             $users = $users->where('last_name', 'LIKE', "%$ln%");
         }
 
-        return $users->get();
+        return $users->where('terminated', 0)->get();
     }
 
     /**
