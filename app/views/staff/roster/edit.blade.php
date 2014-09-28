@@ -16,6 +16,11 @@ Edit Controller
     </div>
     <div class="col-md-6">
       <h1 class="text-center">Roster Comments</h1>
+      <form action="/staff/{{$user->cid}}/comment" method="post">
+        <h3 class="text-center">Add Comment</h3>
+        <textarea class="editor" name="comment" id="comment" cols="30" rows="10"></textarea>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
       @if(count($comments) > 0)
         @foreach($comments as $comment)
           <div class="well">
@@ -34,11 +39,6 @@ Edit Controller
       @else
         <p class="well">No Comments</p>
       @endif
-      <form action="/staff/{{$user->cid}}/comment" method="post">
-        <h3 class="text-center">Add Comment</h3>
-        <textarea class="editor" name="comment" id="comment" cols="30" rows="10"></textarea>
-        <button type="submit" class="btn btn-primary">Submit</button>
-      </form>
     </div>
   </div>
 @stop
