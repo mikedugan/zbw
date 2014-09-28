@@ -172,7 +172,7 @@ class AjaxController extends BaseController
     public function acceptTrainingRequest($tsid)
     {
         if ($this->requests->accept($tsid, $this->current_user->cid)) {
-            return $this->json(['success' => true,'message' => 'Training session accepted. Reloading page in 3 seconds...']);
+            return $this->json(['success' => true,'message' => 'Training session accepted.']);
         } else {
             return $this->json(['success' => false,'message' => 'Error accepting training session.']);
         }
@@ -185,7 +185,7 @@ class AjaxController extends BaseController
     public function dropTrainingRequest($tid)
     {
         if ($this->requests->drop($tid, \Sentry::getUser()->cid)) {
-            return $this->json(['success' => true,'message' => 'Training session dropped. Reloading page in 3 seconds...']);
+            return $this->json(['success' => true,'message' => 'Training session dropped.']);
         } else {
             return $this->json(['success' => false,'message' => 'Unable to drop training session']);
         }
@@ -209,7 +209,7 @@ class AjaxController extends BaseController
     public function postExamReviewed($id)
     {
         if ($this->exams->finishReview($id)) {
-            return $this->json(['success' => true,'message' => 'Exam review complete. Page reloading in 3 seconds...']);
+            return $this->json(['success' => true,'message' => 'Exam review complete.']);
         } else {
             return $this->json(['success' => false,'message' => implode(',', $this->exams->getErrors())]);
         }
@@ -222,7 +222,7 @@ class AjaxController extends BaseController
     public function postReopenExam($id)
     {
         if ($this->exams->reopenReview($id)) {
-            return $this->json(['success' => true,'message' => 'Exam review reopened. Page reloading in 3 seconds...']);
+            return $this->json(['success' => true,'message' => 'Exam review reopened.']);
         } else {
             return $this->json(['success' => false,'message' => $this->exams->getErrors()]);
         }
@@ -236,7 +236,7 @@ class AjaxController extends BaseController
     {
         $response = $this->execute(AcceptVisitorCommand::class, ['cid' => $id, 'sid' => $this->current_user->cid]);
         if($response === true) {
-            return $this->json(['success' => true,'message' => 'Visitor application accepted. Page reloading in 3 seconds...']);
+            return $this->json(['success' => true,'message' => 'Visitor application accepted.']);
         } else {
             return $this->json(['success' => false,'message' => implode(',', $this->visitors->getErrors())]);
         }

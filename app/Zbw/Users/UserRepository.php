@@ -8,17 +8,13 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
 {
     public $model = '\User';
 
-    public function __construct()
-    {
-    }
-
     /**
      * @param $initials
      * @return mixed
      */
     public function findByInitials($initials)
     {
-        return $this->make()->where('initials', strtoupper($initials))->first();
+        return $this->make()->remember(60*24, $initials)->cacheTags($this->getCacheTag())->where('initials', strtoupper($initials))->first();
     }
     /**
      *  returns vital user data
@@ -67,6 +63,9 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
             $key->save();
             $creator = new SmfUserCreator();
             $creator->create($u);
+
+            $this->flushCache();
+
             return $u;
         } else {
             return false;
@@ -102,6 +101,9 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
         if($u->save() && $s->save()) {
             $creator = new SmfUserCreator();
             $creator->create($u);
+
+            $this->flushCache();
+
             return $u;
         } else {
             return false;
@@ -193,6 +195,11 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
                 $counter++;
             }
         }
+
+        if($user->isDirty()) {
+            $this->flushCache(null, ['all', $user->initials, $user->cid]);
+        }
+
         return $this->checkAndSave($user);
     }
 
@@ -207,6 +214,11 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
         $model->last_name = $user->user->name_last;
         $model->rating_id = $user->user->rating->id;
         $model->email = $user->user->email;
+
+        if($model->isDirty()) {
+            $this->flushCache(null, ['all', $user->initials, $user->cid]);
+        }
+
         $model->save();
     }
 
@@ -215,7 +227,7 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
      */
     public function activeList()
     {
-        return $this->make()->where('activated', 1)->orderBy('updated_at', 'DESC')->get();
+        return $this->make()->remember(60*24, 'active')->cacheTags($this->getCacheTag())->where('activated', 1)->orderBy('updated_at', 'DESC')->get();
     }
 
     /**

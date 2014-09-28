@@ -16,11 +16,12 @@ class CacheFilter {
     public function put(Route $route, Request $request, Response $response)
     {
         $key = $this->makeCacheKey($request->url());
-        //if(! \Cache::has($key)) \Cache::put($key, $response->getContent(), \Config::get('cache.times.page'));
+        //if(! \Cache::has($key)) \Cache::put($key, $response->getContent(), 7*24*60);
     }
 
     private function makeCacheKey($url)
     {
         return 'route_' . \Str::slug($url);
+
     }
 } 

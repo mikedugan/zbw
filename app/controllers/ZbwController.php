@@ -24,8 +24,10 @@ class ZbwController extends BaseController
     }
     public function getIndex()
     {
+        $metars = App::make('Zbw\Core\Repositories\MetarRepository');
+
         $this->setData('news', $this->news->front(5));
-        $this->setData('metars', \Metar::frontPage());
+        $this->setData('metars', $metars->frontPage());
         $this->setData('atcs', \Staffing::frontPage());
         $this->setData('flights', \ZbwFlight::frontPage(5));
         $this->setData('inbounds', \ZbwFlight::countInbound());

@@ -44,6 +44,7 @@ class UpdateMetars extends Command
     {
         $metar = new MetarCreator();
         $metar->updateMetars();
+        \Cache::tags('metars')->flush();
         $this->info('METARs updated successfully!');
         /*$deletes = \Metar::where(
           'created_at', '<', \Carbon::now()->subMinutes(2)

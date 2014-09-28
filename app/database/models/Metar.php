@@ -55,16 +55,4 @@ class Metar extends BaseModel {
         return $q->where('facility', $icao);
     }
 
-    public static function frontPage()
-    {
-        $ret = [];
-        $airports = \Config::get('zbw.front_page_metars');
-        //$metars = \Metar::whereIn('facility', $airports)->orderBy('created_at', 'DESC')->groupBy('facility')->limit(10)->get();
-        foreach($airports as $airport) {
-            $ret[] = \Metar::where('facility', $airport)->latest()->first();
-        }
-
-        return $ret;
-    }
-
 }

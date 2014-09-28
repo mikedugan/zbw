@@ -20,16 +20,16 @@ Route::get('statistics', ['as' => 'statistics', 'uses' => 'ZbwController@getStat
 
 //static pages for pilots
 Route::get('pilots', ['as' => 'pilots', 'uses' => 'StaticController@getPilots']);
-Route::get('pilots/getting-started', ['as' => 'pilots/getting-started', 'uses' => 'StaticController@getPilotsGettingStarted']);
-Route::get('pilots/airports', ['as' => 'pilots/airports', 'uses' => 'StaticController@getPilotsAirports']);
-Route::get('pilots/vfr-tutorial', ['as' => 'pilots/vfr-tutorial', 'uses' => 'StaticController@getPilotsVfrTutorial']);
+Route::get('pilots/getting-started', ['as' => 'pilots/getting-started','before' => 'cache.fetch', 'after' => 'cache.put', 'uses' => 'StaticController@getPilotsGettingStarted']);
+Route::get('pilots/airports', ['as' => 'pilots/airports','before' => 'cache.fetch', 'after' => 'cache.put', 'uses' => 'StaticController@getPilotsAirports']);
+Route::get('pilots/vfr-tutorial', ['as' => 'pilots/vfr-tutorial','before' => 'cache.fetch', 'after' => 'cache.put', 'uses' => 'StaticController@getPilotsVfrTutorial']);
 //static pages for controllers
-Route::get('controllers/training-outline', ['as' => 'training-outline', 'uses' => 'StaticController@getControllersTrainingOutline']);
-Route::get('controllers/policies', ['as' => 'controllers/policies', 'uses' => 'StaticController@getControllersPolicies']);
-Route::get('controllers/policies/sign-on-off', ['as' => 'policies/sign-on-off', 'uses' => 'StaticController@getControllersSignonPolicy']);
-Route::get('controllers/policies/position-restrictions', ['as' => 'policies/position-restrictions', 'uses' => 'StaticController@getControllersPositionRestrictions']);
-Route::get('controllers/policies/visiting-transfer', ['as' => 'policies/visiting-transfer', 'uses' => 'StaticController@getControllersVisitingTransfer']);
-Route::get('controllers/policies/roster-removal', ['as' => 'policies/roster-removal', 'uses' => 'StaticController@getControllersRosterRemoval']);
+Route::get('controllers/training-outline', ['as' => 'training-outline','before' => 'cache.fetch', 'after' => 'cache.put', 'uses' => 'StaticController@getControllersTrainingOutline']);
+Route::get('controllers/policies', ['as' => 'controllers/policies','before' => 'cache.fetch', 'after' => 'cache.put', 'uses' => 'StaticController@getControllersPolicies']);
+Route::get('controllers/policies/sign-on-off', ['as' => 'policies/sign-on-off','before' => 'cache.fetch', 'after' => 'cache.put', 'uses' => 'StaticController@getControllersSignonPolicy']);
+Route::get('controllers/policies/position-restrictions', ['as' => 'policies/position-restrictions','before' => 'cache.fetch', 'after' => 'cache.put', 'uses' => 'StaticController@getControllersPositionRestrictions']);
+Route::get('controllers/policies/visiting-transfer', ['as' => 'policies/visiting-transfer','before' => 'cache.fetch', 'after' => 'cache.put', 'uses' => 'StaticController@getControllersVisitingTransfer']);
+Route::get('controllers/policies/roster-removal', ['as' => 'policies/roster-removal','before' => 'cache.fetch', 'after' => 'cache.put', 'uses' => 'StaticController@getControllersRosterRemoval']);
 
 Route::get('pilots/news', ['as' => 'pilot-news', 'uses' => 'NewsController@getPilotNews']);
 Route::get('controllers',['as' => 'controllers', 'uses' => 'ZbwController@getControllerIndex']);

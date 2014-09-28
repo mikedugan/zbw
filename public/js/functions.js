@@ -4,23 +4,32 @@
  */
 function submitAjax(form)
 {
+
+    var reload = form.data('reload');
+
+        //el.text(el.text() + ' page reloading in 2 seconds');
     $.ajax({
         url: $(form).attr('action'),
         type: $(form).attr('method')
-        //data: { type: $('subType').value, id: $('subId').value },
-        //dataType: "json"
     })
         .done(function(msg) {
-            msg = JSON.parse(msg);
             if(msg.success)
             {
                 $('.ajax-success').removeClass('hidden');
-                $('.ajax-success .message').text(msg.message);
+                if(reload) {
+                    $('.ajax-success .message').text(msg.message + ' Reloading page in 2 seconds');
+                } else {
+                    $('.ajax-success .message').text(msg.message);
+                }
             }
             else
             {
                 $('.ajax-error').removeClass('hidden');
-                $('.ajax-error .message').text(msg.message);
+                if(reload) {
+                    $('.ajax-error .message').text(msg.message + ' Reloading page in 2 seconds');
+                } else {
+                    $('.ajax-error .message').text(msg.message);
+                }
             }
         });
 }

@@ -18,9 +18,7 @@ $(function() {
     //they -must- have a route in routes.php, action, and method
     $('.axform').submit(function (e){
             submitAjax($(this));
-            if($(this).data('reload')) {
-                setTimeout(function() { location.reload(); }, 3000);
-            }
+            setTimeout(function() { location.reload(); }, 2000);
             e.preventDefault();
     });
 

@@ -113,7 +113,6 @@ abstract class EloquentRepository
                 return true;
             }
         }
-
         return $item->destroy($id);
     }
 
@@ -156,7 +155,6 @@ abstract class EloquentRepository
     {
         if (! $model->save()) {
             $this->setErrors($model->getErrors());
-
             return false;
         } else {
             return true;
@@ -174,7 +172,7 @@ abstract class EloquentRepository
 
     public function flushCache($tag = null, $keys = null)
     {
-        $tag = $tag ?: \Str::snake(\Str::plural(ltrim($this->model, '\\')));
+        $tag = $tag ?: $this->getCacheTag();
         if ($keys) {
             if (is_array($keys)) {
                 foreach ($keys as $key) {
@@ -186,6 +184,11 @@ abstract class EloquentRepository
         } else {
             \Cache::tags($tag)->flush();
         }
+    }
+
+    protected function getCacheTag()
+    {
+        return \Str::snake(\Str::plural(ltrim($this->model, '\\')));
     }
 
     /**

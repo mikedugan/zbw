@@ -180,3 +180,6 @@ Route::filter('terminated', function() {
          return View::make('zbw.errors.403', $data);
      }
   });
+
+Route::filter('cache.fetch', 'Zbw\Start\CacheFilter@fetch');
+Route::filter('cache.put', 'Zbw\Start\CacheFilter@put');
