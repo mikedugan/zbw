@@ -4,6 +4,25 @@ Changelog
 @stop
 @section('content')
 <h1 class="text-center">Changelog</h1>
+<h3>2.0.0</h3>
+mikedugan merge develop <br>
+mikedugan staff roster legend <br>
+Mike Dugan added tapatalk <br>
+mikedugan added roster legend <br>
+mikedugan separate update user forms <br>
+mikedugan added ability for mentors to promote/demote all users <br>
+mikedugan fix bug with default exam fields <br>
+mikedugan added all traffic view <br>
+mikedugan fixed client and url update crons <br>
+mikedugan updated styles <br>
+mikedugan fixed mark all read, user creation bugs <br>
+mikedugan remove teamspeak settings to environment vars <br>
+mikedugan added disclaimer, fixed a roster bug, couple minor TS changes <br>
+mikedugan updated gitignore for attachments <br>
+mikedugan add staffing page, remove a dead link, update flash error display settings <br>
+mikedugan fix some links, file uploads for FE, nav stuff <br>
+Mike Dugan forum updates <br>
+mikedugan getting teamspeak running properly <br>
 <h3>2.0.0RC1</h3>
 mikedugan added spam protection to contact form <br>
 mikedugan fixed roster search bug when no results found <br>
