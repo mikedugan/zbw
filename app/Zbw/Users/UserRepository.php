@@ -532,7 +532,9 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
     public function updateSettings($cid, $input)
     {
         $settings = \UserSettings::where('cid', $cid)->firstOrFail();
-        $input['email_hidden'] = $input['email_hidden'] == 'true' ? 1 : 0;
+        if(isset($input['email_hidden'])) {
+            $input['email_hidden'] = $input['email_hidden'] == 'true' ? 1 : 0;
+        }
         $settings->fill($input);
         return $settings->save();
     }

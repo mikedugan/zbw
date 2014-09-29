@@ -48,81 +48,81 @@
             <tbody>
             <tr>
                 <td>New Message</td>
-                <td><input type="radio" name="n_private_message" {{ $me->settings->n_private_message === "0" ? 'checked' : '' }} value="0"></td>
-                <td><input type="radio" name="n_private_message" {{ $me->settings->n_private_message === "1" ? 'checked' : '' }} value="1" disabled></td>
-                <td><input type="radio" name="n_private_message" {{ $me->settings->n_private_message === "2" ? 'checked' : '' }} value="2"></td>
-                <td><input type="radio" name="n_private_message" {{ $me->settings->n_private_message === "3" ? 'checked' : '' }} value="3" disabled></td>
+                <td><input type="radio" name="n_private_message" {{ $me->settings->n_private_message === 0 ? 'checked' : '' }} value="0"></td>
+                <td><input type="radio" name="n_private_message" {{ $me->settings->n_private_message === 1 ? 'checked' : '' }} value="1" disabled></td>
+                <td><input type="radio" name="n_private_message" {{ $me->settings->n_private_message === 2 ? 'checked' : '' }} value="2"></td>
+                <td><input type="radio" name="n_private_message" {{ $me->settings->n_private_message === 3 ? 'checked' : '' }} value="3" disabled></td>
             </tr>
             <tr style="display:none">
                 <td>Exam Assigned</td>
-                <td><input type="radio" name="n_exam_assigned" {{ $me->settings->n_exam_assigned === "0" ? 'checked' : '' }} value="0"></td>
-                <td><input type="radio" name="n_exam_assigned" {{ $me->settings->n_exam_assigned === "1" ? 'checked' : '' }} value="1"></td>
-                <td><input type="radio" name="n_exam_assigned" {{ $me->settings->n_exam_assigned === "2" ? 'checked' : '' }} value="2"></td>
-                <td><input type="radio" name="n_exam_assigned" {{ $me->settings->n_exam_assigned === "3" ? 'checked' : '' }} value="3"></td>
+                <td><input type="radio" name="n_exam_assigned" {{ $me->settings->n_exam_assigned === 0 ? 'checked' : '' }} value="0"></td>
+                <td><input type="radio" name="n_exam_assigned" {{ $me->settings->n_exam_assigned === 1 ? 'checked' : '' }} value="1"></td>
+                <td><input type="radio" name="n_exam_assigned" {{ $me->settings->n_exam_assigned === 2 ? 'checked' : '' }} value="2"></td>
+                <td><input type="radio" name="n_exam_assigned" {{ $me->settings->n_exam_assigned === 3 ? 'checked' : '' }} value="3"></td>
             </tr>
             <tr>
                 <td>Exam Comment</td>
-                <td><input type="radio" name="n_exam_comment" {{ $me->settings->n_exam_comment === "0" ? 'checked' : '' }} value="0"></td>
-                <td><input type="radio" name="n_exam_comment" {{ $me->settings->n_exam_comment === "1" ? 'checked' : '' }} value="1"></td>
-                <td><input type="radio" name="n_exam_comment" {{ $me->settings->n_exam_comment === "2" ? 'checked' : '' }} value="2"></td>
-                <td><input type="radio" name="n_exam_comment" {{ $me->settings->n_exam_comment === "3" ? 'checked' : '' }} value="3"></td>
+                <td><input type="radio" name="n_exam_comment" {{ $me->settings->n_exam_comment === 0 ? 'checked' : '' }} value="0"></td>
+                <td><input type="radio" name="n_exam_comment" {{ $me->settings->n_exam_comment === 1 ? 'checked' : '' }} value="1"></td>
+                <td><input type="radio" name="n_exam_comment" {{ $me->settings->n_exam_comment === 2 ? 'checked' : '' }} value="2"></td>
+                <td><input type="radio" name="n_exam_comment" {{ $me->settings->n_exam_comment === 3 ? 'checked' : '' }} value="3"></td>
             </tr>
             <tr>
                 <td>Training Request Accepted</td>
-                <td><input type="radio" name="n_training_accepted" {{ $me->settings->n_training_accepted === "0" ? 'checked' : '' }} value="0"></td>
-                <td><input type="radio" name="n_training_accepted" {{ $me->settings->n_training_accepted === "1" ? 'checked' : '' }} value="1"></td>
-                <td><input type="radio" name="n_training_accepted" {{ $me->settings->n_training_accepted === "2" ? 'checked' : '' }} value="2"></td>
-                <td><input type="radio" name="n_training_accepted" {{ $me->settings->n_training_accepted === "3" ? 'checked' : '' }} value="3"></td>
+                <td><input type="radio" name="n_training_accepted" {{ $me->settings->n_training_accepted === 0 ? 'checked' : '' }} value="0"></td>
+                <td><input type="radio" name="n_training_accepted" {{ $me->settings->n_training_accepted === 1 ? 'checked' : '' }} value="1"></td>
+                <td><input type="radio" name="n_training_accepted" {{ $me->settings->n_training_accepted === 2 ? 'checked' : '' }} value="2"></td>
+                <td><input type="radio" name="n_training_accepted" {{ $me->settings->n_training_accepted === 3 ? 'checked' : '' }} value="3"></td>
             </tr>
             <tr>
                 <td>Training Request Cancelled</td>
-                <td><input type="radio" name="n_training_cancelled" {{ $me->settings->n_training_cancelled === "0" ? 'checked' : '' }} value="0"></td>
-                <td><input type="radio" name="n_training_cancelled" {{ $me->settings->n_training_cancelled === "1" ? 'checked' : '' }} value="1"></td>
-                <td><input type="radio" name="n_training_cancelled" {{ $me->settings->n_training_cancelled === "2" ? 'checked' : '' }} value="2"></td>
-                <td><input type="radio" name="n_training_cancelled" {{ $me->settings->n_training_cancelled === "3" ? 'checked' : '' }} value="3"></td>
+                <td><input type="radio" name="n_training_cancelled" {{ $me->settings->n_training_cancelled === 0 ? 'checked' : '' }} value="0"></td>
+                <td><input type="radio" name="n_training_cancelled" {{ $me->settings->n_training_cancelled === 1 ? 'checked' : '' }} value="1"></td>
+                <td><input type="radio" name="n_training_cancelled" {{ $me->settings->n_training_cancelled === 2 ? 'checked' : '' }} value="2"></td>
+                <td><input type="radio" name="n_training_cancelled" {{ $me->settings->n_training_cancelled === 3 ? 'checked' : '' }} value="3"></td>
             </tr>
             <tr style="display:none">
                 <td style="display:none;">New Events</td>
-                <td><input type="radio" name="n_events" {{ $me->settings->n_events === "0" ? 'checked' : '' }} value="0"></td>
-                <td><input type="radio" name="n_events" {{ $me->settings->n_events === "1" ? 'checked' : '' }} value="1"></td>
-                <td><input type="radio" name="n_events" {{ $me->settings->n_events === "2" ? 'checked' : '' }} value="2"></td>
-                <td><input type="radio" name="n_events" {{ $me->settings->n_events === "3" ? 'checked' : '' }} value="3"></td>
+                <td><input type="radio" name="n_events" {{ $me->settings->n_events === 0 ? 'checked' : '' }} value="0"></td>
+                <td><input type="radio" name="n_events" {{ $me->settings->n_events === 1 ? 'checked' : '' }} value="1"></td>
+                <td><input type="radio" name="n_events" {{ $me->settings->n_events === 2 ? 'checked' : '' }} value="2"></td>
+                <td><input type="radio" name="n_events" {{ $me->settings->n_events === 3 ? 'checked' : '' }} value="3"></td>
             </tr>
             <tr style="display:none">
                 <td style="display:none">New News</td>
-                <td><input type="radio" name="n_news" {{ $me->settings->n_news === "0" ? 'checked' : '' }} value="0"></td>
-                <td><input type="radio" name="n_news" {{ $me->settings->n_news === "1" ? 'checked' : '' }} value="1"></td>
-                <td><input type="radio" name="n_news" {{ $me->settings->n_news === "2" ? 'checked' : '' }} value="2"></td>
-                <td><input type="radio" name="n_news" {{ $me->settings->n_news === "3" ? 'checked' : '' }} value="3"></td>
+                <td><input type="radio" name="n_news" {{ $me->settings->n_news === 0 ? 'checked' : '' }} value="0"></td>
+                <td><input type="radio" name="n_news" {{ $me->settings->n_news === 1 ? 'checked' : '' }} value="1"></td>
+                <td><input type="radio" name="n_news" {{ $me->settings->n_news === 2 ? 'checked' : '' }} value="2"></td>
+                <td><input type="radio" name="n_news" {{ $me->settings->n_news === 3 ? 'checked' : '' }} value="3"></td>
             </tr>
             @if($me->is('Staff'))
             <tr style="display:none">
                 <td>New Exam Request</td>
-                <td><input type="radio" name="n_exam_request" {{ $me->settings->n_exam_request === "0" ? 'checked' : '' }} value="0"></td>
-                <td><input type="radio" name="n_exam_request" {{ $me->settings->n_exam_request === "1" ? 'checked' : '' }} value="1"></td>
-                <td><input type="radio" name="n_exam_request" {{ $me->settings->n_exam_request === "2" ? 'checked' : '' }} value="2"></td>
-                <td><input type="radio" name="n_exam_request" {{ $me->settings->n_exam_request === "3" ? 'checked' : '' }} value="3"></td>
+                <td><input type="radio" name="n_exam_request" {{ $me->settings->n_exam_request === 0 ? 'checked' : '' }} value="0"></td>
+                <td><input type="radio" name="n_exam_request" {{ $me->settings->n_exam_request === 1 ? 'checked' : '' }} value="1"></td>
+                <td><input type="radio" name="n_exam_request" {{ $me->settings->n_exam_request === 2 ? 'checked' : '' }} value="2"></td>
+                <td><input type="radio" name="n_exam_request" {{ $me->settings->n_exam_request === 3 ? 'checked' : '' }} value="3"></td>
             </tr>
             <tr style="display:none;">
                 <td>New Exam Comment (Staff)</td>
-                <td><input type="radio" name="n_staff_exam_comment" {{ $me->settings->n_staff_exam_comment === "0" ? 'checked' : '' }} value="0"></td>
-                <td><input type="radio" name="n_staff_exam_comment" {{ $me->settings->n_staff_exam_comment === "1" ? 'checked' : '' }} value="1"></td>
-                <td><input type="radio" name="n_staff_exam_comment" {{ $me->settings->n_staff_exam_comment === "2" ? 'checked' : '' }} value="2"></td>
-                <td><input type="radio" name="n_staff_exam_comment" {{ $me->settings->n_staff_exam_comment === "3" ? 'checked' : '' }} value="3"></td>
+                <td><input type="radio" name="n_staff_exam_comment" {{ $me->settings->n_staff_exam_comment === 0 ? 'checked' : '' }} value="0"></td>
+                <td><input type="radio" name="n_staff_exam_comment" {{ $me->settings->n_staff_exam_comment === 1 ? 'checked' : '' }} value="1"></td>
+                <td><input type="radio" name="n_staff_exam_comment" {{ $me->settings->n_staff_exam_comment === 2 ? 'checked' : '' }} value="2"></td>
+                <td><input type="radio" name="n_staff_exam_comment" {{ $me->settings->n_staff_exam_comment === 3 ? 'checked' : '' }} value="3"></td>
             </tr>
             <tr>
                 <td>New Training Request</td>
-                <td><input type="radio" name="n_training_request" {{ $me->settings->n_training_request === "0" ? 'checked' : '' }} value="0"></td>
-                <td><input type="radio" name="n_training_request" {{ $me->settings->n_training_request === "1" ? 'checked' : '' }} value="1"></td>
-                <td><input type="radio" name="n_training_request" {{ $me->settings->n_training_request === "2" ? 'checked' : '' }} value="2"></td>
-                <td><input type="radio" name="n_training_request" {{ $me->settings->n_training_request === "3" ? 'checked' : '' }} value="3"></td>
+                <td><input type="radio" name="n_training_request" {{ $me->settings->n_training_request === 0 ? 'checked' : '' }} value="0"></td>
+                <td><input type="radio" name="n_training_request" {{ $me->settings->n_training_request === 1 ? 'checked' : '' }} value="1"></td>
+                <td><input type="radio" name="n_training_request" {{ $me->settings->n_training_request === 2 ? 'checked' : '' }} value="2"></td>
+                <td><input type="radio" name="n_training_request" {{ $me->settings->n_training_request === 3 ? 'checked' : '' }} value="3"></td>
             </tr>
             <tr style="display:none">
                 <td>New Staff News</td>
-                <td><input type="radio" name="n_staff_news" {{ $me->settings->n_staff_news === "0" ? 'checked' : '' }} value="0"></td>
-                <td><input type="radio" name="n_staff_news" {{ $me->settings->n_staff_news === "1" ? 'checked' : '' }} value="1"></td>
-                <td><input type="radio" name="n_staff_news" {{ $me->settings->n_staff_news === "2" ? 'checked' : '' }} value="2"></td>
-                <td><input type="radio" name="n_staff_news" {{ $me->settings->n_staff_news === "3" ? 'checked' : '' }} value="3"></td>
+                <td><input type="radio" name="n_staff_news" {{ $me->settings->n_staff_news === 0 ? 'checked' : '' }} value="0"></td>
+                <td><input type="radio" name="n_staff_news" {{ $me->settings->n_staff_news === 1 ? 'checked' : '' }} value="1"></td>
+                <td><input type="radio" name="n_staff_news" {{ $me->settings->n_staff_news === 2 ? 'checked' : '' }} value="2"></td>
+                <td><input type="radio" name="n_staff_news" {{ $me->settings->n_staff_news === 3 ? 'checked' : '' }} value="3"></td>
             </tr>
             @endif
             </tbody>
