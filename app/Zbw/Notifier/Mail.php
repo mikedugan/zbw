@@ -44,7 +44,7 @@ class Mail extends Notifier implements MailInterface
     private function buildMessage($message, $to_name, $to_email, $subject)
     {
         $message->from($this->from->email, $this->from->name);
-        $message->to('mike@mjdugan.com', $to_name);
+        $message->to($to_email, $to_name);
         $message->subject($subject);
         return $message;
     }
