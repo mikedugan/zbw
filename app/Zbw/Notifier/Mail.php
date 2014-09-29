@@ -267,12 +267,16 @@ class Mail extends Notifier implements MailInterface
         }
 
         $u = $this->users->get($comment->exam->cid);
-        if(! $u->wants('email', 'exam_comment')) return;
-        $this->setView('new_exam_comment');
-        $this->setViewData([
-            'user' => $u,
-            'comment' => $comment
-        ]);
-        $this->send($u->email, $u->username, 'ZBW - New Exam Comment');
+        if($u) {
+            if (! $u->wants('email', 'exam_comment')) {
+                return;
+            }
+            $this->setView('new_exam_comment');
+            $this->setViewData([
+                'user'    => $u,
+                'comment' => $comment
+            ]);
+            $this->send($u->email, $u->username, 'ZBW - New Exam Comment');
+        }
     }
 } 

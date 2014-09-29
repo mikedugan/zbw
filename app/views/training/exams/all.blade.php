@@ -7,7 +7,7 @@ ZBW Exams
 <div class="row">
     <div class="col-md-12">
         <div class="col-md-6">
-            @if($paginate)
+            @if($exams->getTotal() >= $exams->getPerPage())
                 {{ $exams->links() }}
             @else
                 {{ HTML::linkRoute('staff/exams/all', 'View All') }}

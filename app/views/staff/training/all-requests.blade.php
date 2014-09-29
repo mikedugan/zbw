@@ -7,14 +7,14 @@ All Training Requests
 <div class="row">
     <div class="col-md-12">
         <div class="col-md-6">
-            @if($paginate)
+            @if($requests->getTotal() >= $requests->getPerPage())
              {{ $requests->links() }}
             @else
                 {{ HTML::linkRoute('training/request/all', 'View All') }}
             @endif
             @foreach($requests as $request)
             <div class="well">
-                <p>{{ $request->student->initials }} has requested training on {{ Zbw\Core\Helpers::readableCert($request->certType->id) }}</p>
+                <p>{{ $request->student->initials or '??' }} has requested training on {{ Zbw\Core\Helpers::readableCert($request->certType->id) }}</p>
                 <p>Between {{ $request->start->toDayDateTimeString() }} and {{ $request->end->toDayDateTimeString() }}</p>
                 @if($request->accepted_at)
                 <p>Training session has been accepted by {{ $request->staff->initials }}
