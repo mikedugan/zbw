@@ -35,15 +35,17 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
     }
 
     /**
-     * @param string first name
-     * @param string last name
-     * @param string email address
-     * @param string home artcc
-     * @param integer cid
+     * @param      $fname
+     * @param      $lname
+     * @param      $email
+     * @param      $artcc
+     * @param      $cid
+     * @param      $rating
+     * @param bool $notify
+     * @param int  $activated cid
      * @return boolean
-     * @deprecated
      */
-    public function add($fname, $lname, $email, $artcc, $cid, $rating, $notify = true)
+    public function add($fname, $lname, $email, $artcc, $cid, $rating, $notify = true, $activated = 1)
     {
         $tempPassword = str_random(20);
         $u = new \User();
@@ -56,6 +58,7 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
         $u->password = $tempPassword;
         $u->rating_id = $rating;
         $u->initials = $this->createInitials($fname, $lname);
+        $u->activated = $activated;
         $s = new \UserSettings();
         $key = new \TsKey(['cid' => $cid, 'ts_key' => $cid, 'expires' => \Carbon::now()->addDay(), 'used' => 0, 'uid' => '', 'status' => 0]);
         $s->cid = $u->cid;
