@@ -131,7 +131,6 @@ $(function() {
             ).done(
                 function (msg)
                 {
-                    msg = JSON.parse(msg);
                     if (msg.success) {
                         $('.ajax-success').removeClass('hidden');
                         $('.ajax-success .message').text(msg.message);
