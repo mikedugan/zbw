@@ -31,6 +31,7 @@ Edit Controller
                 <p>{{ $comment->created_at->toFormattedDateString() }}</p>
                 @if($comment->author === $me->cid || $me->inGroup(\Sentry::findGroupByName('Executive')))
                   <p><a href="/staff/comments/{{$comment->id}}/delete">Delete</a></p>
+                  <p><a href="/staff/comments/{{$comment->id}}/edit">Edit</a></p>
                 @endif
                 </div>
             </div>

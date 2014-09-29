@@ -14,7 +14,7 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
      */
     public function findByInitials($initials)
     {
-        return $this->make()->remember(60*24, $initials)->cacheTags($this->getCacheTag())->where('initials', strtoupper($initials))->first();
+        return $this->make()->where('initials', strtoupper($initials))->first();
     }
     /**
      *  returns vital user data
@@ -227,7 +227,7 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
      */
     public function activeList()
     {
-        return $this->make()->remember(60*24, 'active')->cacheTags($this->getCacheTag())->where('activated', 1)->orderBy('updated_at', 'DESC')->get();
+        return $this->make()->where('activated', 1)->orderBy('updated_at', 'DESC')->get();
     }
 
     /**
@@ -306,6 +306,8 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
         if($input['cid'] != '' && $input['cid'] != null)
         {
             return \User::find($input['cid']);
+        } else if(! empty($input['oi'])) {
+            return $this->findByinitials($input['oi']);
         }
 
         $users = $this->make()->where('cid', '>', 0);

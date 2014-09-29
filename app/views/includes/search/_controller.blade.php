@@ -25,7 +25,11 @@
     </div>
     <div class="form-group">
         <label class="control-label" for="cid">CID (exact match)</label>
-        <input class="form-control" type="number" name="cid" id="cid" maxlength="2"/>
+        <input class="form-control" type="number" name="cid" id="cid" maxlength="8"/>
+    </div>
+    <div class="form-group">
+        <label class="control-label" for="cid">Operating Initials (exact match)</label>
+        <input class="form-control" type="text" name="oi" id="oi" maxlength="2"/>
     </div>
     <div class="form-group">
         <label class="control-label" for="fname">First Name</label>

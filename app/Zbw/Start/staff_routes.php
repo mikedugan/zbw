@@ -31,6 +31,8 @@ Route::group(
             Route::post('{id}/edit', ['as' => 'staff/{id}/edit', 'uses' => 'RosterController@postEditUser']);
             Route::post('{id}/comment', ['as' => 'staff/{id}/comment', 'uses' => 'RosterController@postRosterComment']);
             Route::get('comments/{comment}/delete', ['as' => 'staff/comments/{comment}/delete', 'uses' => 'RosterController@getDeleteComment']);
+            Route::get('comments/{comment}/edit', ['as' => 'staff/comments/{comment}/edit', 'uses' => 'RosterController@getEditComment']);
+            Route::post('comments/{comment}/edit', ['as' => 'staff/comments/{comment}/edit', 'uses' => 'RosterController@postEditComment']);
             Route::get('roster/create-controller', ['as' => 'roster/add', 'uses' => 'RosterController@getAddController']);
             Route::post('roster/create-controller', ['as' => 'roster/add', 'uses' => 'RosterController@postAddController']);
             Route::get('pages', ['as' => 'staff/pages', 'uses' => 'PagesController@getIndex']);
@@ -71,6 +73,12 @@ Route::group(
             Route::post('visitor/lor', ['as' => 'staff/visitor/lor', 'uses' => 'RosterController@postVisitorLor']);
             Route::post('visitor/comment', ['as' => 'staff/visitor/comment', 'uses' => 'RosterController@postVisitorComment']);
             Route::post('visitor/delete/{id}', ['as' => 'staff/visitor/delete/{id}', 'uses' => 'RosterController@postVisitorDelete']);
+
+            Route::group(['before' => 'executive', 'prefix' => 'teamspeak'], function() {
+                Route::get('/', ['as' => 'teamspeak.index', 'uses' => 'TeamspeakController@getIndex']);
+                Route::post('kick/{cid}', ['as' => 'teamspeak.kick', 'uses' => 'TeamspeakController@postKick']);
+                Route::post('message/{cid}', ['as' => 'teamspeak.message', 'uses' => 'TeamspeakController@postMessage']);
+            });
         }
       );
 

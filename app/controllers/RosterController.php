@@ -186,6 +186,23 @@ class RosterController extends BaseController
         return Redirect::back()->with('flash_success', 'Comment deleted successfully');
     }
 
+    public function getEditComment($comment_id)
+    {
+        $this->setData('comment', $this->comments->get($comment_id));
+        return $this->view('staff.roster.edit_comment');
+    }
+
+    public function postEditComment($comment_id)
+    {
+        if($cid = $this->comments->updateRosterComment($comment_id, \Input::all())) {
+            $this->setFlash(['flash_success' => 'Comment edited successfully']);
+            return Redirect::to("/staff/{$cid}/edit");
+        } else {
+            $this->setFlash(['flash_error' => 'There was an error']);
+            return $this->redirectBack();
+        }
+    }
+
     public function postGroup()
     {
         $input = \Input::all();
