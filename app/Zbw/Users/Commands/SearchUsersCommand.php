@@ -7,6 +7,7 @@ class SearchUsersCommand
     public $rating;
     public $fname;
     public $lname;
+    public $oi;
 
     function __construct($input)
     {
@@ -15,5 +16,6 @@ class SearchUsersCommand
         $this->rating = $input['rating'];
         $this->fname = $input['fname'];
         $this->lname = $input['lname'];
+        $this->oi = $input['oi'];
     }
 }

@@ -6,7 +6,7 @@ Search Results
     <div class="col-md-12">
         <h1 class="text-center">Search Results</h1>
     <div class="col-md-6">
-        <?php if(count($results) == 1 && ! $results instanceof User) { $results = $results[0]; } ?>
+        <?php if(count($results) == 1 && ! $results instanceof \Zbw\Users\UserPresenter) { $results = $results[0]; } ?>
     @if(count($results) == 1)
         @include('includes.search._singleresult')
     @else
@@ -16,15 +16,17 @@ Search Results
             <th>CID</th>
             <th>Email</th>
             <th>Rating</th>
+            @if($me->is('Staff'))
+            <th>Edit</th>
+            @endif
             </thead>
     @foreach($results as $r)
         @include('includes.search._multipleresult')
-    @endforeach
-    </table>
+    @endforeach    </table>
     @endif
     </div>
         <div class="col-md-6">
-            @include('includes.search._controller')
+            @include('includes.search._controller_public')
         </div>
     </div>
 @stop

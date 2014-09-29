@@ -26,7 +26,8 @@ class SearchUsersHandler
           'email' => $command->email,
           'rating' => $command->rating,
           'fname' => $command->fname,
-          'lname' => $command->lname
+          'lname' => $command->lname,
+          'oi' => $command->oi
         ]);
     }
 } 
