@@ -163,6 +163,6 @@ class TrainingRequestRepository extends EloquentRepository implements TrainingRe
      */
     public function getRecent($n = 10)
     {
-        return $this->make()->with(['student', 'certType', 'staff'])->orderBy('created_at', 'desc')->limit($n)->remember(60*24, 'recent')->cacheTags('training_requests')->get();
+        return $this->make()->with(['student', 'certType', 'staff'])->orderBy('start', 'desc')->limit($n)->remember(60*24, 'recent')->cacheTags('training_requests')->get();
     }
 }
