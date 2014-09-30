@@ -70,7 +70,7 @@ Training Index
                 @foreach($requests as $r)
                 @if($me->canTrain($r->cert_id))
                   <p class="well">
-                  <a href="/training/request/{{$r->id}}">{{ $r->student->initials }} has requested training on {{ $r->certType->readable() }}</a>
+                  <a href="/training/request/{{$r->id}}">{{ $r->student->initials }} requests {{ $r->certType->readable() }} training for {{ $r->start->toDayDateTimeString() }}</a>
                       @if($r->is_completed)
                         <span class="badge bg-success">Complete</span>
                       @elseif(!empty($r->sid))
