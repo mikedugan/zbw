@@ -141,7 +141,7 @@ class TrainingRequestRepository extends EloquentRepository implements TrainingRe
             $ret->where('start', '>', \Carbon::createFromFormat('m-d-Y H:i:s', $input['after']));
         }
 
-        return $ret->remember(60*24, 'filtered')->cacheTags('training_requests')->get();
+        return $ret->get();
     }
 
     /**
@@ -152,7 +152,7 @@ class TrainingRequestRepository extends EloquentRepository implements TrainingRe
      */
     public function getWithAll($id)
     {
-        return $this->make()->with(['student', 'certType', 'staff'])->remember(60*24, 'getEager')->cacheTags('training_requests')->find($id);
+        return $this->make()->with(['student', 'certType', 'staff'])->find($id);
     }
 
     /**
@@ -163,6 +163,6 @@ class TrainingRequestRepository extends EloquentRepository implements TrainingRe
      */
     public function getRecent($n = 10)
     {
-        return $this->make()->with(['student', 'certType', 'staff'])->orderBy('start', 'desc')->limit($n)->remember(60*24, 'recent')->cacheTags('training_requests')->get();
+        return $this->make()->with(['student', 'certType', 'staff'])->where('start', '>', \Carbon::now())->orderBy('start', 'desc')->limit($n)->get();
     }
 }
