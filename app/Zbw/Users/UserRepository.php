@@ -3,6 +3,7 @@
 use Zbw\Bostonjohn\Emailer;
 use Zbw\Core\EloquentRepository;
 use Zbw\Users\Contracts\UserRepositoryInterface;
+use Zbw\Forum\ForumRepository;
 
 class UserRepository extends EloquentRepository implements UserRepositoryInterface
 {
@@ -63,9 +64,16 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
         $key = new \TsKey(['cid' => $cid, 'ts_key' => $cid, 'expires' => \Carbon::now()->addDay(), 'used' => 0, 'uid' => '', 'status' => 0]);
         $s->cid = $u->cid;
         if($u->save() && $s->save()) {
+
+            $forums = \App::make(ForumRepository::class);
+
             $key->save();
             $creator = new SmfUserCreator();
-            $creator->create($u);
+            $id = $creator->create($u);
+
+            if(is_numeric((int) $id)) {
+                $forums->addUserToGroup($id, 4);
+            }
 
             $this->flushCache();
 
@@ -102,8 +110,15 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
         $s = new \UserSettings();
         $s->cid = $u->cid;
         if($u->save() && $s->save()) {
+
+            $forums = \App::make(ForumRepository::class);
+
             $creator = new SmfUserCreator();
-            $creator->create($u);
+            $id = $creator->create($u);
+
+            if(is_numeric((int) $id)) {
+                $forums->addUserToGroup($id, 4);
+            }
 
             $this->flushCache();
 

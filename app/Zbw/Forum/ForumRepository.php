@@ -19,4 +19,19 @@ class ForumRepository
           GROUP BY t1.id_topic ORDER BY poster_time DESC limit ?",
         [$board, $limit]);
     }
+
+    public function getGroups()
+    {
+        return $this->db->select("SELECT * FROM smf_membergroups");
+    }
+
+    public function getGroup($name)
+    {
+        return $this->db->select("SELECT * FROM smf_membergroups WHERE group_name LIKE '%?%'", [$name]);
+    }
+
+    public function addUserToGroup($user_id, $group_id)
+    {
+        $this->db->update("UPDATE smf_members SET id_group=? WHERE id_member=?", [$group_id, $user_id]);
+    }
 } 
