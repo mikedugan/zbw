@@ -24,6 +24,7 @@ Route::group(
       Route::post('/me/request/vatusa',['as'   => 'me/request/vatusa','uses' => 'AjaxController@requestVatusaExam']);
       Route::post('/me/request-training', ['as'   => 'me/request-training','uses' => 'AjaxController@postTrainingRequest']);
       Route::get('/training/exam', ['as' => 'training/exam', 'uses' => 'ExamsController@takeExam']);
+      Route::get('/training/local-exam', ['as' => 'training/local-exam', 'uses' => 'ExamsController@requestLocalExam']);
       Route::post('/training/exam', ['before' => 'csrf', 'as' => 'training/exam', 'uses' => 'ExamsController@gradeExam']);
       Route::get('/t/request/{tid}',['as'   => 'training/view-request/{tid}','uses' => 'TrainingController@showRequest']);
       Route::post('/t/request/{tid}/cancel',['as'   => 'training/cancel-request/{tid}','uses' => 'AjaxController@cancelTrainingRequest']);

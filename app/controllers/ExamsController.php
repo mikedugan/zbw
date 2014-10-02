@@ -161,4 +161,12 @@ class ExamsController extends BaseController
             may retake the exam in 7 days.');
         }
     }
+
+    public function requestLocalExam()
+    {
+        $instructors = \Sentry::findAllUsersInGroup(\Sentry::findGroupByName('Instructors'));
+        $mailer = \App::make('Zbw\Notifier\Mail');
+        $mailer->requestLocalExam($this->current_user, $instructors);
+        return Redirect::back()->with('flash_success', 'Exam request sent');
+    }
 }

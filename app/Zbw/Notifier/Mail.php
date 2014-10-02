@@ -279,4 +279,13 @@ class Mail extends Notifier implements MailInterface
             $this->send($u->email, $u->username, 'ZBW - New Exam Comment');
         }
     }
+
+    public function requestLocalExam($user, $instructors)
+    {
+        foreach($instructors as $staff) {
+            $this->setView('local_exam_request');
+            $this->setViewData(['student' => $user]);
+            $this->send($staff->email, $staff->username, 'ZBW Local Exam Request');
+        }
+    }
 } 

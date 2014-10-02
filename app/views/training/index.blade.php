@@ -35,11 +35,14 @@ Your Training
             </form>
         @endif
         <a class="btn btn-primary" href="/training/request/new">Request Training</a>
-        @if($me->canTakeNextExam())
-          <a class="btn btn-primary" href="/training/exam">Take Exam</a>
+        {{--@if($me->canTakeNextExam())--}}
+        @if(in_array($me->cert_id, [0,1,2,4,5,7,8,10]))
+          <a class="btn btn-primary" href="/training/local-exam">Request {{ $me->certification->nextReadable()  }} Exam</a>
         @endif
         @if($me->hasReviews())
+            @if(false)
             <a class="btn btn-primary" href="/training/review">Review Exams</a>
+            @endif
         @endif
         @else
         <h5>Congratulations! You have already completed all ZBW training and are a fully certed center!</h5>
