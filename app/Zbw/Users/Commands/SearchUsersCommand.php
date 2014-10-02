@@ -12,7 +12,7 @@ class SearchUsersCommand
     function __construct($input)
     {
         $this->cid = $input['cid'];
-        $this->email = $input['email'];
+        $this->email = isset($input['email']) ? $input['email'] : null;
         $this->rating = $input['rating'];
         $this->fname = $input['fname'];
         $this->lname = $input['lname'];
