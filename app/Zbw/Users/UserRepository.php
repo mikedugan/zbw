@@ -567,7 +567,7 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
      */
     public function getAdoptedStudents()
     {
-        return $this->make()->where('adopted_by', '>', 100)->with(['adopter'])->get();
+        return $this->make()->where('adopted_by', '>', 100)->where('cert_id', '<', 2)->git chwith(['adopter'])->get();
     }
 
     /**
