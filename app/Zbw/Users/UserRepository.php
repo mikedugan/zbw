@@ -559,7 +559,7 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
      */
     public function getAdoptableStudents()
     {
-        return $this->make()->where('created_at', '>', '2014-08-01 00:00:00')->where('adopted_by', null)->where('cid', '!=', 100)->where('cert', 0)->orWhere('cert', 1)->get();
+        return $this->make()->where('created_at', '>', \Carbon::createFromFormat('Y-m-d', '2014-09-28'))->where('adopted_by', null)->where('cid', '!=', 100)->where('cert', '<', 2)->get();
     }
 
     /**
