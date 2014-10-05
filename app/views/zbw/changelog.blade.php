@@ -4,6 +4,10 @@ Changelog
 @stop
 @section('content')
 <h1 class="text-center">Changelog</h1>
+<h3>2.0.3</h3>
+added staff availability posting <br>
+scheduler, link, and display on home pag <br>
+added comments to accept training request <br>
 <h3>2.0.2</h3>
 fixed #102 added notes with training requests <br>
 fixed public search function <br>
