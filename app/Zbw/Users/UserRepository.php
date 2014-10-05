@@ -267,7 +267,7 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
     public function with($with, $id = null, $pk = 'id', $pagination = null)
     {
         if($pagination) {
-            return $this->make()->with($with)->orderBy('activated', 'DESC')->orderBy('initials', 'ASC')->paginate($pagination);
+            return $this->make()->with($with)->orderBy('activated', 'DESC')->orderBy('last_name', 'ASC')->paginate($pagination);
         } else if($id) {
             return $this->make()->where($pk, $id)->with($with)->firstOrFail();
         }
@@ -567,7 +567,7 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
      */
     public function getAdoptedStudents()
     {
-        return $this->make()->where('adopted_by', '>', 100)->where('cert_id', '<', 2)->git chwith(['adopter'])->get();
+        return $this->make()->where('adopted_by', '>', 100)->where('cert_id', '<', 2)->with(['adopter'])->get();
     }
 
     /**
