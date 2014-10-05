@@ -33,17 +33,20 @@ Route::group(
       Route::get('training/{id}', ['as' => 'training/view-session', 'uses' => 'TrainingController@viewSession']);
 
       //private messaging
-      Route::group(
-        ['prefix' => 'messages'],
-        function () {
-            Route::get('/',['as' => 'messages', 'uses' => 'MessagesController@index']);
-            Route::get('allread', ['as' => 'messages.allread', 'uses' => 'MessagesController@markAllRead']);
-            Route::post('send',['as' => 'messages/send', 'uses' => 'MessagesController@store']);
-            Route::post('m/{mid}',['as'   => 'messages/reply/{mid}','uses' => 'MessagesController@reply']);
-            Route::get('m/{mid}/delete',['as' => 'messages/{mid}/delete', 'uses' => 'MessagesController@delete']);
-            Route::get('m/{mid}/restore',['as'   => 'messages/{mid}/restore','uses' => 'MessagesController@restore']);
-            Route::get('m/{mid}',['as' => 'messages/{mid}', 'uses' => 'MessagesController@viewMessage']);
-        }
-      );
+      Route::group(['prefix' => 'messages'], function () {
+          Route::get('/',['as' => 'messages', 'uses' => 'MessagesController@index']);
+          Route::get('allread', ['as' => 'messages.allread', 'uses' => 'MessagesController@markAllRead']);
+          Route::post('send',['as' => 'messages/send', 'uses' => 'MessagesController@store']);
+          Route::post('m/{mid}',['as'   => 'messages/reply/{mid}','uses' => 'MessagesController@reply']);
+          Route::get('m/{mid}/delete',['as' => 'messages/{mid}/delete', 'uses' => 'MessagesController@delete']);
+          Route::get('m/{mid}/restore',['as'   => 'messages/{mid}/restore','uses' => 'MessagesController@restore']);
+          Route::get('m/{mid}',['as' => 'messages/{mid}', 'uses' => 'MessagesController@viewMessage']);
+        });
+
+      Route::group(['prefix' => 'schedule'], function() {
+          Route::get('/', ['as' => 'scheduler.index', 'uses' => 'ScheduleController@getIndex']);
+          Route::post('/', ['as' => 'scheduler.create', 'uses' => 'ScheduleController@postIndex']);
+          Route::get('delete/{id}', ['as' => 'scheduler.delete', 'uses' => 'ScheduleController@getDelete']);
+      });
   }
 );

@@ -9,12 +9,26 @@
          </tr>
         </thead>
         <tbody>
-        @foreach($atcs as $atc)
+        @if($atcs->count() > 0)
+          @foreach($atcs as $atc)
+          <tr>
+              <td>{{ $atc->user->username or 'CID Not Found' }}</td>
+              <td>{{ $atc->position }}</td>
+              <td>{{ $atc->frequency }}</td>
+              <td>{{ $atc->start->subHours(4)->diffForHumans() }}</td>
+          </tr>
+          @endforeach
+        @else
+          <tr>
+            <td colspan="4">No controllers currently online.</td>
+          </tr>
+        @endif
         <tr>
-            <td>{{ $atc->user->username or 'CID Not Found' }}</td>
-            <td>{{ $atc->position }}</td>
-            <td>{{ $atc->frequency }}</td>
-            <td>{{ $atc->start->subHours(4)->diffForHumans() }}</td>
+          <th colspan="4">Upcoming Scheduled Staffing</th>
+        </tr>
+        @foreach($schedules as $schedule)
+        <tr>
+          <td colspan="4">{{ $schedule->controller->initials }} on {{ $schedule->position }} starting {{ $schedule->start->toDayDateTimeString() }}</td>
         </tr>
         @endforeach
         </tbody>

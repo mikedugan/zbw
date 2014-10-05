@@ -17,5 +17,9 @@ class UsersServiceProvider extends ServiceProvider {
         $this->app->bind('Zbw\Users\Contracts\VisitorApplicantRepositoryInterface', function() {
             return new VisitorApplicantRepository;
         });
+
+        $this->app->bind('Zbw\Users\Contracts\ScheduleRepositoryInterface', function() {
+            return new ScheduleRepository;
+        });
     }
 } 

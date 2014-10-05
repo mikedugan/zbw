@@ -33,6 +33,7 @@ class ZbwController extends BaseController
         $this->setData('inbounds', \ZbwFlight::countInbound());
         $this->setData('outbounds', \ZbwFlight::countOutbound());
         $this->setData('positions', \Staffing::positionsOnline());
+        $this->setData('schedules', \Schedule::nextDay());
         $this->view('zbw');
     }
 

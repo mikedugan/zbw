@@ -33,11 +33,12 @@ abstract class EloquentRepository
     }
 
     /**
+     * @param array $data
      * @return \Illuminate\Database\Eloquent\Model
      */
-    public function make()
+    public function make($data = [])
     {
-        return new $this->model;
+        return new $this->model($data);
     }
 
     /**

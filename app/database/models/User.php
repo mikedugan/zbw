@@ -146,6 +146,11 @@ class User extends SentryUser implements PresentableInterface
         return $this->hasMany('Staffing', 'cid', 'cid');
     }
 
+    public function schedules()
+    {
+        return $this->hasMany('Schedule', 'cid', 'cid');
+    }
+
     public function is($group)
     {
         return $this->inGroup(\Sentry::findGroupByName($group));
