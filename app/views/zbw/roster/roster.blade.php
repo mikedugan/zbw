@@ -22,7 +22,7 @@
         @endif
             @if(!$u->activated)
             <td>
-                <a style="color: #999" href="/controllers/{{$u->cid}}">{{ $u->username }}</a>
+                <a style="color: #999" href="/controllers/{{$u->cid}}">{{ $u->username . " ({$u->initials})"}}</a>
                 &nbsp;<span class="orange glyph-sm glyphicons circle_exclamation_mark pointer" title="User is inactive"></span>
             </td>
             @else
