@@ -25,3 +25,4 @@ public/uploads
 public/packages
 *.sql
 public/forum/attachments
+public/forum/smfapi_settings.txt
