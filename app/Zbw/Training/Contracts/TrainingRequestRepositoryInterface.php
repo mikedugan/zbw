@@ -23,7 +23,7 @@ interface TrainingRequestRepositoryInterface
      * @param $cid
      * @return bool
      */
-    public function accept($tsid, $cid);
+    public function accept($tsid, $cid, $input);
 
     /**
      * Staff member drops previously accepted request

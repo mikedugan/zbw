@@ -45,7 +45,7 @@ class TrainingRequestRepository extends EloquentRepository implements TrainingRe
      * @param $cid
      * @return bool
      */
-    public function accept($tsid, $cid)
+    public function accept($tsid, $cid, $input)
     {
         $tr = $this->get($tsid);
         if($tr->accepted_by) {
@@ -57,7 +57,7 @@ class TrainingRequestRepository extends EloquentRepository implements TrainingRe
 
         if($this->save($tr)) {
             $this->flushCache();
-            \Queue::push('Zbw\Queues\QueueDispatcher@trainingAcceptRequest', $tr);
+            \Queue::push('Zbw\Queues\QueueDispatcher@trainingAcceptRequest', ['request' => $tr, 'comment' => $input['comment']]);
             return true;
         } else {
             return false;

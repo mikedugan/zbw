@@ -171,8 +171,8 @@ class AjaxController extends BaseController
      */
     public function acceptTrainingRequest($tsid)
     {
-        if ($this->requests->accept($tsid, $this->current_user->cid)) {
-            return $this->json(['success' => true,'message' => 'Training session accepted.']);
+        if ($this->requests->accept($tsid, $this->current_user->cid, \Input::all())) {
+            return $this->json(['success' => true,'message' => 'Training session accepted. Page reload in 2 seconds...']);
         } else {
             return $this->json(['success' => false,'message' => 'Error accepting training session.']);
         }

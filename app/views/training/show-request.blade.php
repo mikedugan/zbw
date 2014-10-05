@@ -35,8 +35,10 @@ View Request
             <button type="submit" class="btn btn-sm btn-warning">Drop Request</button>
         </form>
         @elseif(!$request->sid && !$request->is_completed)
-        <form data-reload="true" class="axform" action="/t/request/{{$request->id}}/accept" method="post">
-            <button type="submit" class="btn btn-sm btn-success">Accept Request</button>
+        <form id="accept-request-ajax" data-reload="true" action="/t/request/{{$request->id}}/accept" method="post">
+            <label for="comment">Note to Student</label>
+            <textarea class="form-control" name="comment" id="comment" cols="30" rows="4"></textarea>
+            <button style="margin-top:15px;" type="submit" class="btn btn-sm btn-success">Accept Request</button>
         </form>
         @endif
     @endif

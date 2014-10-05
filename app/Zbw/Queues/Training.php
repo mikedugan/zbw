@@ -86,7 +86,8 @@ class Training {
      */
     public function acceptRequest(Job $job, $data)
     {
-        $data = \TrainingRequest::find($data['id']);
+        $comment = $data['comment'];
+        $data = \TrainingRequest::find($data['request']['id']);
 
         //this notification will go out only to the student
         //let's set up the data
@@ -97,7 +98,8 @@ class Training {
             'staff' => $staff,
             'cert' => Helpers::readableCert($data->cert_id),
             'start' => $data->start->toDayDateTimeString(),
-            'end' => $data->end->toDayDateTimeString()
+            'end' => $data->end->toDayDateTimeString(),
+            'comment' => $comment
         ];
 
         //render the message
@@ -106,11 +108,12 @@ class Training {
         //check if the student wants email notifications
         if($student->wants('email', 'training_accepted')) {
             //send email
-            $this->notifier->trainingRequestAcceptedEmail(['cid' => $student->cid, 'to' => $student->cid, 'request' => $data]);
+            $this->notifier->trainingRequestAcceptedEmail(['cid' => $student->cid, 'to' => $student->cid, 'request' => $data, 'comment' => $comment]);
         }
         //check if student wants pm notifications
         if($student->wants('message', 'training_accepted')) {
             //send the pm
+            \Log::debug('sending pm');
             $this->messages->create($student->initials, 'Training Request Accepted', str_replace('_USER_', $student->initials, $message));
         }
         $job->delete();

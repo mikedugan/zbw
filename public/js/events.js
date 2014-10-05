@@ -141,6 +141,34 @@ $(function() {
                         $('.ajax-error').removeClass('hidden');
                         $('.ajax-error .message').text(msg.message);
                     }
+
+                    setTimeout(function() { location.reload(); }, 2000);
+                });
+        });
+
+    $('#accept-request-ajax').submit(function (e) {
+            e.preventDefault();
+            var $this = $(this);
+            var url = $this.attr('action');
+            $.ajax(
+                {
+                    url: url,
+                    type: 'post',
+                    data: {
+                        'comment':document.getElementById('comment').value
+                    }
+                }
+            ).done(
+                function (msg)
+                {
+                    if (msg.success) {
+                        $('.ajax-success').removeClass('hidden');
+                        $('.ajax-success .message').text(msg.message);
+                    }
+                    else {
+                        $('.ajax-error').removeClass('hidden');
+                        $('.ajax-error .message').text(msg.message);
+                    }
                 }
             );
         }

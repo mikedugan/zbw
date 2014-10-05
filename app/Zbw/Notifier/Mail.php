@@ -103,7 +103,8 @@ class Mail extends Notifier implements MailInterface
           'staff' => $this->users->get($data['request']->sid),
           'cert' => Helpers::readableCert($data['request']->cert_id),
           'start' => $data['request']->start->toDayDateTimeString(),
-          'end' => $data['request']->end->toDayDateTimeString()
+          'end' => $data['request']->end->toDayDateTimeString(),
+          'comment' =>$data['comment']
         ]);
         $this->send($this->view_data['to']->email, $this->view_data['to']->username, 'ZBW Training Request');
     }

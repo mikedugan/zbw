@@ -30,9 +30,9 @@ class TrainingController extends BaseController
 
     public function getIndex()
     {
-        $this->setData('availableExams', $this->exams->availableExams(\Sentry::getUser()->cid));
-        $this->setData('progress', $this->users->trainingProgress(\Sentry::getUser()->cid));
-
+        $this->setData('availableExams', $this->exams->availableExams($this->current_user->cid));
+        $this->setData('progress', $this->users->trainingProgress($this->current_user->cid));
+        $this->setData('student', $this->current_user);
         $this->view('training.index');
     }
 
