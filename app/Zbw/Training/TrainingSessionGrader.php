@@ -116,9 +116,9 @@ class TrainingSessionGrader implements TrainingGraderInterface
     {
         $this->facility = $this->raw['facility'];
         $this->type = $this->raw['training_type'];
-        $this->conditions['weather'] = $this->raw['cond-weather'] +1;
-        $this->conditions['complexity'] = $this->raw['cond-complexity'] +1;
-        $this->conditions['workload'] = $this->raw['cond-traffic'] +1;
+        $this->conditions['weather'] = $this->raw['cond-weather'];
+        $this->conditions['complexity'] = $this->raw['cond-complexity'];
+        $this->conditions['workload'] = $this->raw['cond-traffic'];
     }
 
     private function parseMarkups()

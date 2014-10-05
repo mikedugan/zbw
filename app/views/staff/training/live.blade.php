@@ -88,9 +88,9 @@ Training Session
                 <label class="control-label">Weather</label>
                 <div class="form-group">
                     <select class="form-control condition" name="cond-weather" id="cond-weather">
-                        <option data-points="0" value="vfr">VFR</option>
-                        <option data-points="1" value="mvfr">MVFR</option>
-                        <option data-points="2" value="ifr">IFR</option>
+                        <option data-points="0" value="2">VFR</option>
+                        <option data-points="1" value="3">MVFR</option>
+                        <option data-points="2" value="1">IFR</option>
                     </select>
                 </div>
             </div>
@@ -98,11 +98,11 @@ Training Session
                 <label class="control-label">Complexity</label>
                 <div class="form-group">
                     <select class="form-control condition" name="cond-complexity" id="cond-complexity">
-                        <option data-points="0" value="ve">Very Easy</option>
-                        <option data-points="2" value="e">Easy</option>
-                        <option data-points="4" value="m">Moderate</option>
-                        <option data-points="6" value="d">Difficult</option>
-                        <option data-points="9" value="vd">Very Difficult</option>
+                        <option data-points="0" value="1">Very Easy</option>
+                        <option data-points="2" value="2">Easy</option>
+                        <option data-points="4" value="3">Moderate</option>
+                        <option data-points="6" value="4">Difficult</option>
+                        <option data-points="9" value="5">Very Difficult</option>
                     </select>
                 </div>
             </div>
@@ -110,11 +110,9 @@ Training Session
                 <label class="control-label">Traffic</label>
                 <div class="form-group">
                     <select class="form-control condition" name="cond-traffic" id="cond-traffic">
-                        <option data-points="0" value="vl">Very Light</option>
-                        <option data-points="2" value="l">Light</option>
-                        <option data-points="4" value="m">Moderate</option>
-                        <option data-points="6" value="h">Heavy</option>
-                        <option data-points="9" value="vh">CTP (Very Heavy)</option>
+                        <option data-points="2" value="1">Light</option>
+                        <option data-points="4" value="2">Moderate</option>
+                        <option data-points="6" value="3">Heavy</option>
                     </select>
                 </div>
             </div>

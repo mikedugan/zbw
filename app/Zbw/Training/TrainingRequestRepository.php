@@ -164,6 +164,6 @@ class TrainingRequestRepository extends EloquentRepository implements TrainingRe
      */
     public function getRecent($n = 10)
     {
-        return $this->make()->with(['student', 'certType', 'staff'])->where('start', '>', \Carbon::now())->orderBy('start', 'desc')->limit($n)->get();
+        return $this->make()->with(['student', 'certType', 'staff'])->where('start', '>', \Carbon::now()->subHours(4))->orderBy('start', 'asc')->limit($n)->get();
     }
 }
