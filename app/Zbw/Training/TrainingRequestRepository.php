@@ -28,6 +28,7 @@ class TrainingRequestRepository extends EloquentRepository implements TrainingRe
         $tr->start = \Carbon::createFromFormat('m-d-Y H:i:s', $input['start']);
         $tr->end = \Carbon::createFromFormat('m-d-Y H:i:s', $input['end']);
         $tr->cert_id = $input['cert'];
+        $tr->comment = $input['comment'];
         if($this->save($tr)) {
             $this->flushCache();
             \Queue::push('Zbw\Queues\QueueDispatcher@trainingNewRequest', $tr);

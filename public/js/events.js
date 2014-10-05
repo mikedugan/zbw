@@ -117,6 +117,7 @@ $(function() {
             if (end == '') {
                 end = year + "-" + month + "-" + date + " " + hour + ":" + minutes + ":00";
             }
+
             $.ajax(
                 {
                     url: '/me/request-training',
@@ -125,7 +126,8 @@ $(function() {
                         'start': start,
                         'end': end,
                         'user': document.getElementById('cid').value,
-                        'cert': document.getElementById('cert').value
+                        'cert': document.getElementById('cert').value,
+                        'comment':document.getElementById('comment').value
                     }
                 }
             ).done(

@@ -15,7 +15,6 @@ $messages = \Sentry::check() ? MessagesRepository::newMessageCount($me->cid) : 0
     <nav class="navbar-default navbar">
         <?php $pages = \Page::all(); ?>
         @include('includes.nav._primary')
-        @yield('header')
     </nav>
 
     <div class="logopad">

@@ -11,13 +11,11 @@ View Request
         <p><b>Student: </b>{{$request->student->username . " (" . $request->student->initials . ")"}}</p>
         <p><b>Staff: </b>{{$request->staff->initials or 'Not accepted yet'}}</p>
         <p><b>Position: </b>{{Zbw\Core\Helpers::readableCert($request->certType->id)}}</p>
-        <p><b>Completed? </b>
         @if($request->is_completed)
-            Yes (<a href="/staff/training/{{$request->training_session_id}}">View Report</a>)
+          <p><b>Completed? </b> Yes (<a href="/staff/training/{{$request->training_session_id}}">View Report</a>)
         @else
-            No
+          <p><b>Notes: </b> {{ $request->comment or '' }}</p>
         @endif
-        </p>
     </div>
     <div class="col-md-6 well">
         <p><b>Availability Start: </b>{{ $request->start }}</p>
