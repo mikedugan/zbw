@@ -4,6 +4,19 @@ Changelog
 @stop
 @section('content')
 <h1 class="text-center">Changelog</h1>
+<h3>2.0.2</h3>
+fixed #102 added notes with training requests <br>
+fixed public search function <br>
+update <br>
+cert for 0 <br>
+exam request hotfix <br>
+fix #105 trim training requests display <br>
+fixes #108 display request date/time on training page <br>
+fixes #113 sort training requests by requested date/time<br>
+added signature and default group to forum user creator <br>
+edit admin <br>
+mailer <br>
+updated mailer <br>
 <h3>2.0.1</h3>
 fixed notification settings <br>
 email hidden setting <br>
