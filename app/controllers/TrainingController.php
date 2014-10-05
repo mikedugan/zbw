@@ -5,6 +5,7 @@ use Zbw\Training\Contracts\ExamsRepositoryInterface;
 use Zbw\Training\Contracts\TrainingSessionRepositoryInterface;
 use Zbw\Training\TrainingRequestRepository;
 use Zbw\Users\Contracts\UserRepositoryInterface;
+use Zbw\Training\Contracts\StaffAvailabilityRepositoryInterface;
 
 use Zbw\Training\Commands\ProcessTrainingSessionCommand;
 use Zbw\Training\Commands\AdoptUserCommand;
@@ -15,16 +16,19 @@ class TrainingController extends BaseController
     private $exams;
     private $requests;
     private $users;
+    private $staffAvailability;
 
     function __construct(ExamsRepositoryInterface $exams,
         TrainingSessionRepositoryInterface $trainings,
         TrainingRequestRepository $requests,
+        StaffAvailabilityRepositoryInterface $staffAvailability,
         UserRepositoryInterface $users, Store $session)
     {
         $this->exams = $exams;
         $this->trainings = $trainings;
         $this->requests = $requests;
         $this->users = $users;
+        $this->staffAvailability = $staffAvailability;
         parent::__construct($session);
     }
 
@@ -33,6 +37,7 @@ class TrainingController extends BaseController
         $this->setData('availableExams', $this->exams->availableExams($this->current_user->cid));
         $this->setData('progress', $this->users->trainingProgress($this->current_user->cid));
         $this->setData('student', $this->current_user);
+        $this->setData('available', $this->staffAvailability->upcoming(10));
         $this->view('training.index');
     }
 
@@ -86,6 +91,7 @@ class TrainingController extends BaseController
             $this->redirectRoute('training');
         }
 
+        $this->setData('available', $this->staffAvailability->upcoming(10));
         $this->view('training.request');
     }
 
@@ -161,6 +167,34 @@ class TrainingController extends BaseController
             $this->setData('tsession', $session);
             $this->view('training.session');
         }
+    }
+
+    public function getStaffStaffAvailability()
+    {
+        $this->setData('available', $this->staffAvailability->all());
+        return $this->view('staff.training.availability');
+    }
+
+    public function postStaffAvailability()
+    {
+        $input = \Input::all();
+        $input['cid'] = $this->current_user->cid;
+        $this->staffAvailability->create($input);
+        $this->setFlash(['flash_success' => 'Availability posted successfully']);
+        return $this->redirectBack();
+    }
+
+    public function getDeleteAvailability($id)
+    {
+        $session = $this->staffAvailability->get($id);
+        if($session->cid !== $this->current_user->cid) {
+            $this->setFlash(['flash_error' => 'Operation not allowed']);
+        } else {
+            $this->staffAvailability->delete($id);
+            $this->setFlash(['flash_success' => 'Availability deleted successfully']);
+        }
+
+        return $this->redirectBack();
     }
 
 }

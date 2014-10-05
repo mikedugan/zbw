@@ -9,12 +9,12 @@ class ScheduleRepository extends EloquentRepository implements ScheduleRepositor
 
     public function today()
     {
-        return $this->make()->where('start', '<', \Carbon::now()->addDay());
+        return $this->make()->where('start', '<', \Carbon::tomorrow())->where('start','>',\Carbon::now());
     }
 
     public function upcoming($n = 5)
     {
-        return $this->make()->with('controller')->orderBy('start', 'DESC')->limit($n)->get();
+        return $this->make()->with('controller')->where('start','>',\Carbon::now())->orderBy('start', 'DESC')->limit($n)->get();
     }
 
     public function create($input)

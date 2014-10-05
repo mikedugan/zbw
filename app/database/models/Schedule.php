@@ -15,6 +15,6 @@ class Schedule extends \Eloquent {
 
     public static function nextDay($n = 5)
     {
-        return self::where('start', '<', \Carbon::tomorrow())->with('controller')->orderBy('start', 'desc')->limit($n)->get();
+        return self::where('start', '<', \Carbon::tomorrow())->whereStart('>',\Carbon::now())->with('controller')->orderBy('start', 'desc')->limit($n)->get();
     }
 }

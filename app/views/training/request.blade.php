@@ -45,6 +45,11 @@ Training Request
         <textarea class="form-control" name="comment" id="comment" cols="10" rows="4"></textarea>
         <button style="margin-top:15px;" class="btn btn-primary" disabled type="submit">Submit</button>
       </div>
+      <div class="col-md-6">
+        @foreach($available as $session)
+          @include('includes.loops._availability')
+        @endforeach
+      </div>
     </div>
   </form>
 </div>

@@ -13,6 +13,10 @@ Route::group(
             Route::post('exams/review/{eid}', ['as' => 'exams/review/{eid}', 'uses' => 'ExamsController@postComment']);
             Route::get('training', ['as' => 'staff/training', 'uses' => 'TrainingController@getAdminIndex']);
             Route::get('training/all', ['as' => 'staff/training/all', 'uses' => 'TrainingController@getAll']);
+            Route::get('training/availability', ['as' => 'staff.availability', 'uses' => 'TrainingController@getStaffStaffAvailability']);
+            Route::post('training/availability', ['as' => 'staff.availability', 'uses' => 'TrainingController@postStaffAvailability']);
+            Route::get('training/availability/delete/{id}', ['as' => 'staff.availability.delete', 'uses' => 'TrainingController@getDeleteAvailability']);
+
             Route::get('exams/review/{eid}', ['as' => 'exams/review/{eid}', 'uses' => 'ExamsController@getStaffReview']);
             Route::get('exams/questions', ['as' => 'staff/exams/questions', 'uses' => 'ExamsController@getQuestions']);
             Route::get('exams/questions/{id}', ['as' => 'staff/exams/questions/{id}', 'uses' => 'ExamsController@getEditQuestion']);

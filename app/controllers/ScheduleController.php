@@ -15,7 +15,7 @@ class ScheduleController extends \BaseController
 
     public function getIndex()
     {
-        $this->setData('schedules', $this->schedules->all());
+        $this->setData('schedules', $this->schedules->upcoming(100));
         return $this->view('zbw.schedules.index');
     }
 

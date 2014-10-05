@@ -106,6 +106,19 @@ Your Training
                     @endforeach
               </div>
             </div>
+          </div>
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">
+                <a data-toggle="collapse" data-parent="accordion" href="#collapseFour">Staff Availability</a></h3>
+            </div>
+            <div id="collapseFour" class="panel-collapse collapse">
+              <div class="panel-body">
+                @foreach($available as $session)
+                  @include('includes.loops._availability')
+                @endforeach
+              </div>
+            </div>
             </div>
       </div>
     </div>

@@ -23,6 +23,7 @@
             <td colspan="4">No controllers currently online.</td>
           </tr>
         @endif
+        @if($schedules->count() >0)
         <tr>
           <th colspan="4">Upcoming Scheduled Staffing</th>
         </tr>
@@ -31,6 +32,7 @@
           <td colspan="4">{{ $schedule->controller->initials }} on {{ $schedule->position }} starting {{ $schedule->start->toDayDateTimeString() }}</td>
         </tr>
         @endforeach
+        @endif
         </tbody>
     </table>
 </div>
