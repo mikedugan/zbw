@@ -14,7 +14,7 @@ View {{ $controller->initials }}
         @if($controller->is('Staff'))
         <p><b>Staff Status: </b>{{ \Zbw\Core\Helpers::staffStatusString($controller) }}</p>
         @endif
-        @if($me->is('Staff'))
+        @if(\Sentry::check() && $me->is('Staff'))
           <p><a href="/staff/{{$controller->cid}}/edit">Edit</a></p>
         @endif
     </div>
