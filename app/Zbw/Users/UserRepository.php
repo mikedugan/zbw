@@ -233,10 +233,6 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
         $model->rating_id = $user->user->rating->id;
         $model->email = $user->user->email;
 
-        if($model->isDirty()) {
-            $this->flushCache(null, ['all', $user->initials, $user->cid]);
-        }
-
         $model->save();
     }
 
