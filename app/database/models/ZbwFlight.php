@@ -45,7 +45,7 @@ class ZbwFlight extends BaseModel {
 
     public static function frontPage($lim)
     {
-        return ZbwFlight::limit($lim)->get();
+        return ZbwFlight::orderBy('is_arrival', 'DESC')->limit($lim)->get();
     }
 
     public static function countInbound()

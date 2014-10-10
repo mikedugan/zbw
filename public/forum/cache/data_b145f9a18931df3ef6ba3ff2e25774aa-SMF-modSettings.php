@@ -1,4 +1,4 @@
-<?php if (!defined('SMF')) die; if (1412969256 < time()) $expired = true; else{$expired = false; $value = 'a:228:{s:10:"smfVersion";s:5:"2.0.8";s:4:"news";s:1097:"[color=blue]Our goal is to maintain, and grow, Boston&#039;s fine tradition of excellence.&nbsp; 
+<?php if (!defined('SMF')) die; if (1412971204 < time()) $expired = true; else{$expired = false; $value = 'a:228:{s:10:"smfVersion";s:5:"2.0.8";s:4:"news";s:1097:"[color=blue]Our goal is to maintain, and grow, Boston&#039;s fine tradition of excellence.&nbsp; 
 [color=blue]We maintain our reputation by providing exceptional quality service, every day.&nbsp; We grow it by providing vast amounts more of it. 
 Some KBOS taxiways have been added and/or renamed; KBOS controllers use the current taxiway designators as a standard unless you specifically request the old (default) configuration. See www.bostonartcc.net for more information
 [color=blue][b]MOCHA HAGOTDI:[/b] Make Our Customers Happy and Have a Good Time Doing It

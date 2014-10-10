@@ -69,7 +69,6 @@ class DatafeedParser implements DatafeedParserInterface
         $this->curl = new Curl();
         $this->setDatafeed();
         $modlines = [];
-        var_dump($this->datafeed);
         $lines = strstr($this->datafeed, '!CLIENTS:');
         $lines = Helpers::makeLines($lines, false);
         foreach($lines as $line) {
@@ -143,6 +142,7 @@ class DatafeedParser implements DatafeedParserInterface
         $flight->callsign = $line[$this::CALLSIGN];
         $flight->departure = $line[$this::DEPAIRPORT];
         $flight->destination = $line[$this::DESTAIRPORT];
+        $flight->is_arrival = in_array($line[$this::DESTAIRPORT], \Config::get('zbw.airports')) ? 1 : 0;
         $flight->route = $line[$this::ROUTE];
         $flight->name = $line[$this::REALNAME];
         $flight->aircraft = $line[$this::AIRCRAFT];

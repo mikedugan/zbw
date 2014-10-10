@@ -45,7 +45,7 @@ Welcome
         @include('includes.bj._flightstrip')
         <h3 class="row text-left">Weather
         <span class="small">
-            <a id="parse" href="javascript:void()">raw</a>
+            <a id="parse" href="javascript:void()">parsed</a>
         </span>
         </h3>
         @include('includes.bj._metar')

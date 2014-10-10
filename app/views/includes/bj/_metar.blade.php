@@ -6,8 +6,8 @@
 <div class="row">
 @endif
     <div class="metar text-left col-md-6">
-        <p class="metar-raw hidden">{{ $metar->raw }}</p>
-        <div class="metar-pretty">
+        <p class="metar-raw">{{ $metar->raw }}</p>
+        <div class="metar-pretty hidden">
             <h4>{{ $metar->facility }}</h4> at {{ $metar->time}}Z
             <div class="list-group">
                 <div class="list-group-item"><b>Altimeter:</b> {{ $metar->altimeter }}</div>
