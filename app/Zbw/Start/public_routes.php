@@ -10,6 +10,8 @@ Route::get('logout',['as' => 'logout', 'uses' => 'SessionsController@getLogout']
 //top level pages
 Route::get('/', ['as' => 'home', 'uses' => 'ZbwController@getIndex']);
 
+Route::get('controllers/resources', ['as' => 'controllers.resources', 'uses' => 'StaticController@getControllersResources']);
+Route::get('controllers/documents', ['as' => 'controllers.documents', 'uses' => 'StaticController@getDocumentLibrary']);
 Route::get('join', ['as' => 'join', 'uses' => 'ZbwController@getJoin']);
 Route::get('visit', ['as' => 'visit', 'uses' => 'ZbwController@getVisit']);
 Route::post('visit', ['as' => 'visit', 'uses' => 'ZbwController@postVisit']);

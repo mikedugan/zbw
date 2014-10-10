@@ -7,8 +7,6 @@ Route::group(
       //routes for the logged in users
       Route::get('news', ['as' => 'news', 'uses' => 'NewsController@getIndex']);
 
-      Route::get('controllers/resources', ['as' => 'controllers.resources', 'uses' => 'StaticController@getControllersResources']);
-
       Route::post('/me/markallread',['as' => '/me/markallread', 'uses' => 'AjaxController@markInboxRead']);
       Route::get('changelog', function() {return View::make('zbw.changelog');});
       Route::get('/u/' . $cid,array('as' => 'me', 'uses' => 'UsersController@getMe'));

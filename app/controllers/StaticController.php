@@ -62,4 +62,9 @@ class StaticController extends BaseController
     {
         $this->view('static.controllers.teamspeak');
     }
+
+    public function getDocumentLibrary()
+    {
+        $this->view('static.controllers.documents');
+    }
 }

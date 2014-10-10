@@ -68,6 +68,7 @@
                 @endif
                 <li>{{ HTML::linkRoute('controllers/policies', 'ZBW Policies') }}</li>
                 <li>{{ HTML::linkRoute('controllers.resources', 'Resources') }}</li>
+                <li>{{ HTML::linkRoute('controllers.documents', 'Documents') }}</li>
                 <li>{{ HTML::linkRoute('statistics', 'Statistics') }}</li>
                 <li style="display:none"><a href="#">ATC Pages</a>
                     <ul>
