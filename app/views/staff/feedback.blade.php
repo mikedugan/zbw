@@ -21,7 +21,7 @@ View Feedback
                 <td>{{ $feedback->name }}</td>
                 <td><a href="mailto:{{$feedback->email}}">{{ $feedback->email }}</a></td>
                 <td>{{ Zbw\Core\Helpers::pilotFeedbackRating($feedback->rating) }}</td>
-                <td>{{ \User::whereCid($feedback->cid)->first()->initials }}</td>
+                <td>{{ \User::whereCid($feedback->controller)->first()->initials }}</td>
                 <td>{{ $feedback->response == 1 ? 'Yes' : 'No' }}</td>
                 <td>{{ $feedback->created_at->toDayDateTimeString() }}</td>
                 <td style="max-width:250px;">{{ $feedback->comments }}</td>
