@@ -52,10 +52,11 @@ class ZbwController extends BaseController
         $input = \Input::all();
         if(!empty($input['poobear'])) { return Redirect::home(); }
         $data = [
-            'to' => \Config::get('app.webmaster.email'),
+            'to' => 'mike@mjdugan.com',
             'from' => $input['email'],
             'subject' => $input['subject'],
             'content' => $input['content'],
+            'response' => isset($input['response']) ? 1 : 0
         ];
 
         \Mail::send('zbw.emails.feedback', $data, function($message) use ($data) {

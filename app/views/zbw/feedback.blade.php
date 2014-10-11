@@ -27,7 +27,7 @@ ZBW Pilot Feedback
                     @endforeach
                 </select>
             </div>
-            <div class="form-group col-md-6 col-md-offset-3">
+            <div class="form-group col-md-6">
                 <label class="control-label" for="rating">How Would You Rate Your ATC?</label>
                 <select class="form-control" name="rating" id="rating">
                     <option value="reqd">Select One</option>
@@ -39,6 +39,13 @@ ZBW Pilot Feedback
                     <option value="5">Excellent</option>
                     <option value="6">Whoa</option>
                 </select>
+            </div>
+            <div class="form-group col-md-6">
+                <div class="checkbox">
+                <label>
+                   <input type="checkbox"> I would like a response
+                </label>
+              </div>
             </div>
             <div class="form-group col-md-12">
                 <label for="message">Tell Us How We Did</label>
