@@ -36,6 +36,7 @@ class FeedbackRepository extends EloquentRepository implements FeedbackRepositor
         $feedback->ip = $this->getIp();
         $feedback->comments = $input['message'];
         $feedback->email = $input['email'];
+        $feedback->response = isset($input['response']) ? 1 : 0;
         $feedback->name = $input['fname'] . ' ' . $input['lname'];
 
         return $this->checkAndSave($feedback);

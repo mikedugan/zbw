@@ -43,7 +43,7 @@ ZBW Pilot Feedback
             <div class="form-group col-md-6">
                 <div class="checkbox">
                 <label>
-                   <input type="checkbox"> I would like a response
+                   <input name="response" value="true" type="checkbox"> I would like a response
                 </label>
               </div>
             </div>
