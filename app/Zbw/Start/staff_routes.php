@@ -12,6 +12,8 @@ Route::group(
             Route::get('exams/all', ['as' => 'staff/exams/all', 'uses' => 'ExamsController@getIndex']);
             Route::post('exams/review/{eid}', ['as' => 'exams/review/{eid}', 'uses' => 'ExamsController@postComment']);
             Route::get('training', ['as' => 'staff/training', 'uses' => 'TrainingController@getAdminIndex']);
+            Route::get('training/new', ['as' => 'training.new', 'uses' => 'TrainingController@getNewSession']);
+            Route::post('training/new', ['as' => 'training.new', 'uses' => 'TrainingController@postNewSession']);
             Route::get('training/all', ['as' => 'staff/training/all', 'uses' => 'TrainingController@getAll']);
             Route::get('training/availability', ['as' => 'staff.availability', 'uses' => 'TrainingController@getStaffStaffAvailability']);
             Route::post('training/availability', ['as' => 'staff.availability', 'uses' => 'TrainingController@postStaffAvailability']);

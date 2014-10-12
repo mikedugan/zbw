@@ -95,6 +95,33 @@ class TrainingController extends BaseController
         $this->view('training.request');
     }
 
+    public function getNewSession()
+    {
+        return $this->view('staff.training.new');
+    }
+
+    public function postNewSession()
+    {
+        $student = \Input::get('student');
+        if(is_int($student)) {
+            $student = $this->users->get($student);
+        } else {
+            $student = $this->users->findByInitials($student);
+        }
+
+        $tr = new TrainingRequest();
+        $tr->cid = $student->cid;
+        $tr->sid = $this->current_user->cid;
+        $tr->cert_id = $student->cert + 1;
+        $tr->accepted_by = $tr->sid;
+        $tr->start = \Carbon\Carbon::now();
+        $tr->end = \Carbon\Carbon::now();
+        $tr->comment = '';
+        $tr->save();
+
+        return $this->redirectTo('/staff/live/'.$tr->id);
+    }
+
     public function showRequest($tid)
     {
         $this->setData('request', $this->requests->getWithAll($tid));
