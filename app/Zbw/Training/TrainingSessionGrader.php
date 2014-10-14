@@ -57,7 +57,7 @@ class TrainingSessionGrader implements TrainingGraderInterface
         }
 
         $report->reviewed = json_encode($this->reviews);
-        $report->training_session_id = \TrainingSession::latest()->first()->id + 1;
+        $report->training_session_id = \TrainingSession::latest()->first()->id;
         $report->markups = json_encode($this->markups);
         $report->markdown = json_encode($this->markdowns);
         $report->modifier = is_null($this->modifier) ? 0 : $this->modifier;
