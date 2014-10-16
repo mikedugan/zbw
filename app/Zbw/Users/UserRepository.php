@@ -102,7 +102,7 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
         $u->username = $fname . ' ' . $lname;
         $u->artcc = $artcc;
         $u->email = $email;
-        $u->guest = 1;
+        $u->guest = 0;
         $u->activated = 1;
         $u->password = $tempPassword;
         $u->rating_id = $rating;
