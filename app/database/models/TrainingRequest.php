@@ -54,7 +54,7 @@ class TrainingRequest extends BaseModel implements PresentableInterface
 
     public function getDates()
     {
-        return ['start', 'end', 'completed_at'];
+        return ['start', 'end', 'completed_at','created_at','updated_at','completed_at'];
     }
 
     public function getPresenter()

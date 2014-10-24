@@ -67,13 +67,15 @@ class TrainingController extends BaseController
     //all training requests
     public function getAllRequests()
     {
-        if(empty(\Input::all())) {
-            $this->setData('requests', $this->requests->indexPaginated(10));
-            $this->setData('paginate', false);
-        } else {
-            $this->setData('requests', $this->requests->indexFiltered(\Input::all()));
-            $this->setData('paginate', true);
-        }
+//        if(empty(\Input::all())) {
+//            $this->setData('requests', $this->requests->indexPaginated(10));
+//            $this->setData('paginate', false);
+//        } else {
+//            $this->setData('requests', $this->requests->indexFiltered(\Input::all()));
+//            $this->setData('paginate', true);
+//        }
+        $this->setData('paginate', false);
+        $this->setData('requests', $this->requests->all());
 
         $this->view('staff.training.all-requests');
     }
