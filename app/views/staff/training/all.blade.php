@@ -7,7 +7,7 @@ All Training Sessions
 <div class="row">
     <div class="col-md-12">
         <div class="col-md-6">
-            @if($sessions->getTotal() >= $sessions->getPerPage())
+            @if($sessions instanceof \Illuminate\Database\Eloquent\Collection && $sessions->getTotal() >= $sessions->getPerPage())
                 {{ $sessions->links() }}
             @else
                 {{ HTML::linkRoute('staff/training/all', 'View All') }}
