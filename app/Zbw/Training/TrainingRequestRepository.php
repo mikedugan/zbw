@@ -113,7 +113,7 @@ class TrainingRequestRepository extends EloquentRepository implements TrainingRe
      */
     public function indexPaginated($n = 10)
     {
-        return $this->make()->remember(60*24, 'paginated')->cacheTags('training_requests')->with(['student','staff','certType'])->paginate($n);
+        return $this->make()->with(['student','staff','certType'])->paginate($n);
     }
 
     /**

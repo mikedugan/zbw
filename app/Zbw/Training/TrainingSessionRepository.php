@@ -52,7 +52,7 @@ class TrainingSessionRepository extends EloquentRepository implements TrainingSe
             ->orderBy('updated_at', 'DESC')->limit($n)->get();
     }
 
-    public function indexPaginated($n, $with = ['student', 'staff', 'facility'])
+    public function indexPaginated($n = 10, $with = ['student', 'staff', 'facility'])
     {
         return $this->make()->with($with)->paginate($n);
     }
