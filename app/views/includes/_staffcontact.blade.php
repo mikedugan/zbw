@@ -32,7 +32,7 @@
         </div>
         <div class="form-group">
             <label for="spam">Human Verification</label>
-            <p>What is the two-digit year plus the two-digit month?</p>
+            <p>What is sum of the two-digit year (2014 is 14) plus the two-digit month (October is 10)?</p>
             <p class="small">Hint: July of 2014 would be 21</p>
             <input required="required" class="form-control" type="text" id="spam">
         </div>
@@ -44,7 +44,7 @@
       var d = new Date;
       m = (d.getMonth() + 1).toString();
       m = ("0" + m).slice(-2);
-      d = d.getDate().toString();
+      d = d.getFullYear().toString();
       d = ("0" + d).slice(-2);
       if($('#spam').val() != (parseInt(d) + parseInt(m))) {
         e.preventDefault();
