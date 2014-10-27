@@ -119,6 +119,20 @@ Route::filter('executive', function() {
     }
 });
 
+Route::filter('events', function() {
+    if(! \Sentry::check() ) {
+        return Redirect::route('login');
+    }
+    if(! \Sentry::getUser()->is('Executive') && ! \Sentry::getUser()->is('Events'))
+    {
+        $data = [
+            'page' => Request::url(),
+            'needed' => 'executive staff member'
+        ];
+        return View::make('zbw.errors.403', $data);
+    }
+});
+
 Route::filter('instructor', function() {
     if(! \Sentry::check() ) {
         return Redirect::route('login');
