@@ -104,7 +104,17 @@ class TrainingController extends BaseController
 
     public function postNewSession()
     {
+        if(! \Input::has('student')) {
+            return $this->redirectBack()->with('flash_error', 'Please enter initials or CID');
+        }
         $student = \Input::get('student');
+
+        if(is_int($student) && ! $this->users->exists($student)) {
+            return $this->redirectBack()->with('flash_error', 'Controller does not exist');
+        } else if(! $this->users->findByInitials($student)) {
+            return $this->redirectBack()->with('flash_error', 'Controller does not exist');
+        }
+
         if(is_int($student)) {
             $student = $this->users->get($student);
         } else {
