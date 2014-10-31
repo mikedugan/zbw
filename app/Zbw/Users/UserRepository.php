@@ -72,7 +72,7 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
             $id = $creator->create($u);
 
             if(is_numeric((int) $id)) {
-                $forums->addUserToGroup($id, 4);
+                $forums->addUserToGroup($id, 9);
             }
 
             $this->flushCache();
