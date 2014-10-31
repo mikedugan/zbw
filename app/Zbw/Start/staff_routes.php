@@ -110,6 +110,7 @@ Route::group(['before' => 'executive'], function () {
 );
 
 Route::get('/staff/feedback', ['as' => 'staff/feedback', 'before' => 'feedback', 'uses' => 'FeedbackController@viewFeedback']);
+Route::get('/staff/feedback/delete/{id}', ['as' => 'staff.feedback.delete', 'before' => 'feedback', 'uses' => 'FeedbackController@deleteFeedback']);
 
 Route::group(['before' => 'instructor'], function () {
       //TODO create routes

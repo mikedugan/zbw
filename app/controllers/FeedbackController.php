@@ -43,4 +43,14 @@ class FeedbackController extends BaseController
         ];
         return View::make('staff.feedback', $data);
     }
+
+    public function deleteFeedback($id)
+    {
+        $feedback = $this->feedbacks->get($id);
+        if($feedback->delete()) {
+            return $this->redirectBack()->with('flash_success', 'Feedback deleted successfully');
+        } else {
+            return $this->redirectBack()->with('flash_error', 'There was an error deleting the feedback');
+        }
+    }
 }
