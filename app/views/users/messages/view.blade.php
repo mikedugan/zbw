@@ -12,20 +12,15 @@ View Message
         <p>{{$message->subject}}</p>
         <h2>Message</h2>
         @if(!empty($message->history))
-        <p class="well">
+        <div class="well">
             {{$message->history}}
-        </p>
+        </div>
         @endif
         <p>{{$message->content}}</p>
     </div>
     <div class="col-md-6">
         <h2>Date</h2>
         <p>{{$message->created_at->toFormattedDateString()}}</p>
-        @if($message->has_attachments)
-            <h3>This message has attachments:</h3>
-        @else
-            <h3>No attachments.</h3>
-        @endif
         <hr/>
         <h2>Reply</h2>
         <form class="bsv" action="" id="pm-reply" method="post"

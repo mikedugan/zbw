@@ -19,7 +19,7 @@
 </div>
 <div class="form-group">
     <label for="subject">Subject</label>
-    <input class="form-control" type="text" name="subject" id="subject" value="re: {{$message->subject}}">
+    <input class="form-control" type="text" name="subject" id="subject" value="{{$message->subject}}">
     </div>
 <div class="form-group">
     <label for="message">Message</label>
