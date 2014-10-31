@@ -41,10 +41,14 @@ class RosterController extends BaseController
             } else {
                 if (\Input::has('num')) {
                     $pag = \Input::get('num');
-                    $users = $this->users->with(['rating', 'settings'], null, 'cid', $pag);
+                    $users = $this->users->make()->with(['rating','settings'])->
+                             where('activated', 1)->where('terminated', 0)
+                             ->orderBy('last_name', 'ASC')->paginate($pag);
                 } else {
                     $pag = 20;
-                    $users = $this->users->with(['rating', 'settings'], null, 'cid', $pag);
+                    $users = $this->users->make()->with(['rating','settings'])
+                             ->where('activated', 1)->where('terminated', 0)
+                             ->orderBy('last_name', 'ASC')->paginate($pag);
                 }
             }
         }
