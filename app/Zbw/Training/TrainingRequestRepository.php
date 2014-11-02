@@ -153,7 +153,7 @@ class TrainingRequestRepository extends EloquentRepository implements TrainingRe
      */
     public function getWithAll($id)
     {
-        return $this->make()->with(['student', 'certType', 'staff'])->find($id);
+        return $this->make()->with(['student', 'certType', 'staff'])->where('is_cancelled', 0)->find($id);
     }
 
     /**
@@ -164,6 +164,20 @@ class TrainingRequestRepository extends EloquentRepository implements TrainingRe
      */
     public function getRecent($n = 10)
     {
-        return $this->make()->with(['student', 'certType', 'staff'])->where('start', '>', \Carbon::now()->subHours(4))->orderBy('start', 'asc')->limit($n)->get();
+        return $this->make()->with(['student', 'certType', 'staff'])
+            ->where('start', '>', \Carbon::now()->subHours(4))
+            ->where('is_cancelled', 0)
+            ->orderBy('start', 'asc')->limit($n)->get();
+    }
+
+    public function getCurrentByCid($cid)
+    {
+        return $this->make()->with(['certType', 'staff'])
+               ->where('start', '>', \Carbon::now()->subHours(1))
+               ->where('is_completed', 0)
+               ->where('is_cancelled', 0)
+               ->where('cid', $cid)
+               ->orderBy('start', 'asc')
+               ->get();
     }
 }

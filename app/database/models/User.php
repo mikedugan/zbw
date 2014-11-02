@@ -141,6 +141,11 @@ class User extends SentryUser implements PresentableInterface
         return $this->hasOne('Rating', 'id', 'rating_id');
     }
 
+    public function trainingRequests()
+    {
+        return $this->hasMany('TrainingRequest', 'cid', 'cid');
+    }
+
     public function staffing()
     {
         return $this->hasMany('Staffing', 'cid', 'cid');

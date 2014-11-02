@@ -120,6 +120,22 @@ Your Training
               </div>
             </div>
             </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h3 class="panel-title">
+                    <a data-toggle="collapse" data-parent="accordion" href="#collapseFive">My Training Requests</a></h3>
+                </div>
+                <div id="collapseFive" class="panel-collapse collapse">
+                  <div class="panel-body">
+                  @foreach($requests as $request)
+                  <form action="/training/request/{{$request->id}}/cancel" class="form-inline" style="font-size:15px">
+                    <label>{{ $request->start->toDayDateTimeString().": {$request->presentCert()}" }}</label>
+                    <button type="submit" class="btn btn-warning btn-xs">Cancel</button>
+                  </form>
+                  @endforeach
+                  </div>
+                </div>
+            </div>
       </div>
     </div>
 @stop

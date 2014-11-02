@@ -38,6 +38,7 @@ class TrainingController extends BaseController
         $this->setData('progress', $this->users->trainingProgress($this->current_user->cid));
         $this->setData('student', $this->current_user);
         $this->setData('available', $this->staffAvailability->upcoming(10));
+        $this->setData('requests', $this->requests->getCurrentByCid($this->current_user->cid));
         $this->view('training.index');
     }
 
@@ -234,6 +235,17 @@ class TrainingController extends BaseController
         }
 
         return $this->redirectBack();
+    }
+
+    public function postCancelRequest($id)
+    {
+        $request = $this->requests->get($id);
+        if($request->cid === $this->current_user->cid) {
+            $request->is_cancelled = 1;
+            $request->save();
+        }
+
+        return $this->redirectBack()->with('flash_success', 'Training request cancelled');
     }
 
 }

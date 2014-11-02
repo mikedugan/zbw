@@ -16,6 +16,7 @@ Route::group(
       Route::get('training/request/all', ['as' => 'training/request/all', 'uses' => 'TrainingController@getAllRequests']);
       Route::get('training/request/new', ['as'   => 'training/new-request','uses' => 'TrainingController@getRequest']);
       Route::get('training/request/{id}',['as'   => 'training/view-request/{id}','uses' => 'TrainingController@showRequest']);
+      Route::get('training/request/{id}/cancel', ['as' => 'training/request/cancel', 'uses' => 'TrainingController@postCancelRequest']);
       Route::get('/training/review',['as' => 'training/sessions', 'uses' => 'ExamsController@getReview']);
       Route::post('/training/review/{eid}',['as'   => 'training/review-session','uses' => 'ExamsController@postComment']);
       Route::post('/e/request/{cid}/{eid}',['as'   => 'me/exam-requests/{eid}','uses' => 'AjaxController@requestExam']);
