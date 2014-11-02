@@ -225,6 +225,7 @@ class Mail extends Notifier implements MailInterface
             'subject' => $subject
         ]);
         $this->send($student->email, $student->username, $subject);
+        $this->send($staff->email, $student->username, 'CC:'.$subject);
     }
 
     public function newForumAccountEmail($cid, $password)
