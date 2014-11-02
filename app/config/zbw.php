@@ -21,11 +21,11 @@ return [
     'roster_migrate' => 'http://bostonartcc.net/roster/export.php',
 
     'vatusa' => [
-        'roster' => 'http://www.vatusa.net/feeds/roster.php?a=VATID&key=VATKEY',
-        'controller' => 'http://www.vatusa.net/feeds/cidlookup.php?a=VATID&key=VATKEY&cid=CCID',
-        'artcc' => 'http://www.vatusa.net/feeds/cidack.php?a=VATID&key=VATKEY&cid=CCID',
-        'division' => 'http://www.vatusa.net/feeds/ciddck.php?a=VATID&key=VATKEY&cid=CCID'
-    ],
+    'roster' => 'http://www.vatusa.net/feeds/roster.php?a=VATID&key=VATKEY',
+    'controller' => 'http://www.vatusa.net/feeds/cidlookup.php?a=VATID&key=VATKEY&cid=CCID',
+    'artcc' => 'http://www.vatusa.net/feeds/cidack.php?a=VATID&key=VATKEY&cid=CCID',
+    'division' => 'http://www.vatusa.net/feeds/ciddck.php?a=VATID&key=VATKEY&cid=CCID'
+],
 
     'sso' => [
         'base' => 'http://sso.vatsim.net/sso/'
