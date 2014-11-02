@@ -4,6 +4,39 @@ Changelog
 @stop
 @section('content')
 <h1 class="text-center">Changelog</h1>
+<h3>2.0.4</h3>
+Mike Dugan fixes #125 fixes #127 <br>
+Mike Dugan add ability for student to cancel training request <br>
+Mike Dugan Merge branch 'develop' of git.mjdugan.com:mike/zbw into develop <br>
+Mike Dugan fixes #124 don't show inactive users on roster <br>
+Mike Dugan fixes #132 add delete spam feedback <br>
+Mike Dugan fixes #133 separate message display <br>
+Mike Dugan fixes #134 controller not found on new tr session <br>
+Erik Partridge Change group 4 to 9 to attempt to solve forum add bug. <br>
+Mike Dugan update feedback perms <br>
+Mike Dugan fix getTotal() <br>
+Mike Dugan updates to view all training requests <br>
+Mike Dugan fix a couple things with staff contact <br>
+Mike Dugan fix guest bug <br>
+Mike Dugan fix fencepost bug <br>
+Mike Dugan add new training sessions without requests <br>
+Mike Dugan update view <br>
+Mike Dugan update feedback <br>
+Mike Dugan Merge branch 'master' into develop <br>
+Mike Dugan added response checkbox' <br>
+mikedugan update forum settings <br>
+mikedugan air traffic sorts by arrival, added background shading <br>
+mikedugan added vagrantfile and loas <br>
+mikedugan fixes auth update cache bug <br>
+mikedugan fix undefined me in roster <br>
+mikedugan fixed schedule display <br>
+mikedugan cert_id -> cert <br>
+mikedugan add initials to roster <br>
+mikedugan gitignore <br>
+mikedugan roster now sorts by last name default <br>
+mikedugan fix adoptable to go away after student has been certed for local gnd <br>
+mikedugan fixed adoptable listing <br>
+mikedugan fix meta bug with training sessions <br>
 <h3>2.0.3</h3>
 added staff availability posting <br>
 scheduler, link, and display on home pag <br>
