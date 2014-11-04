@@ -13,7 +13,7 @@ Controller Resources
       <p>ZIP of the VRC sector files for all ZBW sectors</p>
       <h4><a href="/uploads/sectorfiles/vstars_files.zip">VSTARS Sector Files</a></h4>
       <p>ZIP of the VSTARS sector files for all ZBW sectors</p>
-      <h4><a href="/uploads/sectorfiles/vATIS_ZBW.zip">vATIS Files</a></h4?
+      <h4><a href="/uploads/sectorfiles/vATIS_ZBW.zip">vATIS Files</a></h4>
       <p>vATIS files for all airports with an automated Automatic Terminal Information Service</p>
     </div>
   </div>
