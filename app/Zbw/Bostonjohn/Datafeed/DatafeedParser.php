@@ -122,12 +122,14 @@ class DatafeedParser implements DatafeedParserInterface
 
         //is the controller already online?
         $online = \Staffing::where('start', $start)->where('cid', $line[$this::CID])->get();
-        if(! count($online) > 0) {
-            //create the new staffing
-            $this->createStaffing($line, $start);
-        } else {
-            //update the existing one
-            $online[0]->touch();
+        if(strpos($line[$this::CALLSIGN], '_OBS') !== false) {
+            if (! count($online) > 0) {
+                //create the new staffing
+                $this->createStaffing($line, $start);
+            } else {
+                //update the existing one
+                $online[0]->touch();
+            }
         }
     }
 
