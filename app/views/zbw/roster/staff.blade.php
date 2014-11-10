@@ -9,7 +9,13 @@
             <th>Rating</th>
             </thead>
             <tbody>
-                @if($atm)
+                <?php
+                    if(! $atm) {
+                        $atm = new User();
+                        $atm->cid = 99999999;
+                    }
+                ?>
+                @if($atm->cid == 99999999)
                 <tr class="danger">
                     <td><a href="/controllers/{{$atm->cid}}">{{ $atm->username }}</a></td>
                     <td>Air Traffic Manager<?php if($atm->inGroup($instructors)) { echo " / Instructor"; } else if ($atm->inGroup($mentors)) { echo " / Mentor"; } ?></td>
@@ -54,7 +60,8 @@
                     <td>{{ $fe->rating->short }}</td>
                 </tr>
             @foreach($staff_users as $u)
-            @if($u->inGroup($instructors) && ($u->cid != $fe->cid && $u->cid != $events->cid && $u->cid != ($atm->cid ?: '') && $u->cid != $web->cid && $u->cid != $ta->cid && $u->cid != $datm->cid))
+
+            @if($u->inGroup($instructors) && ($u->cid != $fe->cid && $u->cid != $events->cid && $u->cid != $atm->cid && $u->cid != $web->cid && $u->cid != $ta->cid && $u->cid != $datm->cid))
                 <tr class="info">
                 <td><a href="/controllers/{{$u->cid}}">{{ $u->username }}</a></td>
                 <td>Instructor</td>
@@ -62,7 +69,7 @@
                 <td>{{ $u->cid }}</td>
                 <td>{{ $u->rating->short }}</td>
                 </tr>
-                @elseif($u->inGroup($mentors) && ($u->cid != $fe->cid && $u->cid != $events->cid && $u->cid != ($atm->cid ?: '') && $u->cid != $web->cid && $u->cid != $ta->cid && $u->cid != $datm->cid))
+                @elseif($u->inGroup($mentors) && ($u->cid != $fe->cid && $u->cid != $events->cid && $u->cid != $atm->cid && $u->cid != $web->cid && $u->cid != $ta->cid && $u->cid != $datm->cid))
                 <tr class="success">
                     <td><a href="/controllers/{{$u->cid}}">{{ $u->username }}</a></td>
                     <td>Mentor</td>
