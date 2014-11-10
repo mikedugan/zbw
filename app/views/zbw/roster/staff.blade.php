@@ -10,13 +10,13 @@
             </thead>
             <tbody>
                 <?php
-                    dd($atm);
-                    if(! $atm) {
+                    if(is_null($atm)) {
+                        $noatm = true;
                         $atm = new User();
                         $atm->cid = 99999999;
                     }
                 ?>
-                @if($atm->cid == 99999999)
+                @if($noatm)
                 <tr class="danger">
                     <td><a href="/controllers/{{$atm->cid}}">{{ $atm->username }}</a></td>
                     <td>Air Traffic Manager<?php if($atm->inGroup($instructors)) { echo " / Instructor"; } else if ($atm->inGroup($mentors)) { echo " / Mentor"; } ?></td>
