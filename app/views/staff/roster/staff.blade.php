@@ -62,7 +62,7 @@
                 <td><a class="btn btn-sm" href="/staff/{{$fe->cid}}/edit">Edit</a></td>
             </tr>
         @foreach($staff_users as $u)
-        @if(in_array($u->cid, $instructors) && ! in_array($u->cid, [$atm->cid, $datm->cid, $ta->cid, $fe->cid, $events->cid, $web->cid]))
+        @if(in_array($u->cid, $instructors) && ! in_array($u->cid, [$atm->cid ?: '', $datm->cid, $ta->cid, $fe->cid, $events->cid, $web->cid]))
             <tr class="info">
             <td><a href="/controllers/{{$u->cid}}">{{ $u->username }}</a></td>
             <td>Instructor</td>
@@ -71,7 +71,7 @@
             <td>{{ $u->rating->short }}</td>
             <td><a class="btn btn-sm" href="/staff/{{$u->cid}}/edit">Edit</a></td>
             </tr>
-            @elseif(in_array($u->cid, $mentors) && ! in_array($u->cid, [$atm->cid, $datm->cid, $ta->cid, $fe->cid, $events->cid, $web->cid]))
+            @elseif(in_array($u->cid, $mentors) && ! in_array($u->cid, [$atm->cid ?: '', $datm->cid, $ta->cid, $fe->cid, $events->cid, $web->cid]))
             <tr class="success">
                 <td><a href="/controllers/{{$u->cid}}">{{ $u->username }}</a></td>
                 <td>Mentor</td>
