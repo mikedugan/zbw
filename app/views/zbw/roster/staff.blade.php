@@ -13,6 +13,8 @@
                     if(! $atm) {
                         $atm = new User();
                         $atm->cid = 99999999;
+                         $atm->rating = new \stdClass();
+                        $rating->short = 'VACANT';
                     }
                 ?>
                 @if($atm->cid == 99999999)
