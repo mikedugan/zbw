@@ -12,14 +12,13 @@
         </thead>
         <tbody>
             <?php
-                if(! $atm) {
+                if(is_null($atm)) {
+                    $noatm = true;
                     $atm = new User();
                     $atm->cid = 99999999;
-                    $atm->rating = new \stdClass();
-                    $rating->short = 'VACANT';
                 }
             ?>
-            @if($atm->cid == 99999999)
+            @if(! $noatm)
             <tr class="danger">
                 <td><a href="/controllers/{{$atm->cid}}">{{ $atm->username }}</a></td>
                 <td>Air Traffic Manager<?php if(in_array($atm->cid, $instructors)) { echo " / Instructor"; } else if (in_array($atm->cid, $mentors)) { echo " / Mentor"; } ?></td>
