@@ -11,6 +11,7 @@
         <th>Edit</th>
         </thead>
         <tbody>
+            @if($atm)
             <tr class="danger">
                 <td><a href="/controllers/{{$atm->cid}}">{{ $atm->username }}</a></td>
                 <td>Air Traffic Manager<?php if(in_array($atm->cid, $instructors)) { echo " / Instructor"; } else if (in_array($atm->cid, $mentors)) { echo " / Mentor"; } ?></td>
@@ -19,6 +20,7 @@
                 <td>{{ $atm->rating->short }}</td>
                 <td><a class="btn btn-sm" href="/staff/{{$atm->cid}}/edit">Edit</a></td>
             </tr>
+            @endif
             <tr class="danger">
                 <td><a href="/controllers/{{$datm->cid}}">{{ $datm->username }}</a></td>
                 <td>Deputy Air Traffic Manager<?php if(in_array($datm->cid, $instructors)) { echo " / Instructor"; } else if (in_array($datm->cid, $mentors)) { echo " / Mentor"; } ?></td>

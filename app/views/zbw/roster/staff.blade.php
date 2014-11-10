@@ -9,6 +9,7 @@
             <th>Rating</th>
             </thead>
             <tbody>
+                @if($atm)
                 <tr class="danger">
                     <td><a href="/controllers/{{$atm->cid}}">{{ $atm->username }}</a></td>
                     <td>Air Traffic Manager<?php if($atm->inGroup($instructors)) { echo " / Instructor"; } else if ($atm->inGroup($mentors)) { echo " / Mentor"; } ?></td>
@@ -16,6 +17,7 @@
                     <td>{{ $atm->cid }}</td>
                     <td>{{ $atm->rating->short }}</td>
                 </tr>
+                @endif
                 <tr class="danger">
                     <td><a href="/controllers/{{$datm->cid}}">{{ $datm->username }}</a></td>
                     <td>Deputy Air Traffic Manager<?php if($datm->inGroup($instructors)) { echo " / Instructor"; } else if ($datm->inGroup($mentors)) { echo " / Mentor"; } ?></td>
