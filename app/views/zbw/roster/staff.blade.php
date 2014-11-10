@@ -16,7 +16,7 @@
                         $atm->cid = 99999999;
                     }
                 ?>
-                @if($noatm)
+                @if(! $noatm)
                 <tr class="danger">
                     <td><a href="/controllers/{{$atm->cid}}">{{ $atm->username }}</a></td>
                     <td>Air Traffic Manager<?php if($atm->inGroup($instructors)) { echo " / Instructor"; } else if ($atm->inGroup($mentors)) { echo " / Mentor"; } ?></td>
