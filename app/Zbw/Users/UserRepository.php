@@ -17,8 +17,10 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
     {
         return $this->make()->where('initials', strtoupper($initials))->first();
     }
+
     /**
      *  returns vital user data
+     *
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
     public function allVitals()
@@ -61,9 +63,16 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
         $u->initials = $this->createInitials($fname, $lname);
         $u->activated = $activated;
         $s = new \UserSettings();
-        $key = new \TsKey(['cid' => $cid, 'ts_key' => $cid, 'expires' => \Carbon::now()->addDay(), 'used' => 0, 'uid' => '', 'status' => 0]);
+        $key = new \TsKey([
+                'cid'     => $cid,
+                'ts_key'  => $cid,
+                'expires' => \Carbon::now()->addDay(),
+                'used'    => 0,
+                'uid'     => '',
+                'status'  => 0
+            ]);
         $s->cid = $u->cid;
-        if($u->save() && $s->save()) {
+        if ($u->save() && $s->save()) {
 
             $forums = \App::make(ForumRepository::class);
 
@@ -71,7 +80,7 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
             $creator = new SmfUserCreator();
             $id = $creator->create($u);
 
-            if(is_numeric((int) $id)) {
+            if (is_numeric((int)$id)) {
                 $forums->addUserToGroup($id, 9);
             }
 
@@ -109,14 +118,14 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
         $u->initials = $this->createInitials($fname, $lname);
         $s = new \UserSettings();
         $s->cid = $u->cid;
-        if($u->save() && $s->save()) {
+        if ($u->save() && $s->save()) {
 
             $forums = \App::make(ForumRepository::class);
 
             $creator = new SmfUserCreator();
             $id = $creator->create($u);
 
-            if(is_numeric((int) $id)) {
+            if (is_numeric((int)$id)) {
                 $forums->addUserToGroup($id, 4);
             }
 
@@ -130,7 +139,8 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
 
     /**
      *  updates an existing user
-     * @param $input
+     *
+     * @param      $input
      * @param null $cid
      * @return bool
      */
@@ -144,42 +154,42 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
         $user->rating_id = $input['rating_id'];
         $user->cert = $input['cert'];
 
-        if(isset($input['ismentor'])) {
+        if (isset($input['ismentor'])) {
             $user->addGroup(\Sentry::findGroupByName('Mentors'));
         } else {
             $user->removeGroup(\Sentry::findGroupByName('Mentors'));
         }
-        if(isset($input['isins'])) {
+        if (isset($input['isins'])) {
             $user->addGroup(\Sentry::findGroupByName('Instructors'));
         } else {
             $user->removeGroup(\Sentry::findGroupByName('Instructors'));
         }
-        if(isset($input['is_ta'])) {
+        if (isset($input['is_ta'])) {
             $user->addGroup(\Sentry::findGroupByName('TA'));
         } else {
             $user->removeGroup(\Sentry::findGroupByName('TA'));
         }
-        if(isset($input['isweb'])) {
+        if (isset($input['isweb'])) {
             $user->addGroup(\Sentry::findGroupByName('Web'));
         } else {
             $user->removeGroup(\Sentry::findGroupByName('Web'));
         }
-        if(isset($input['isfe'])) {
+        if (isset($input['isfe'])) {
             $user->addGroup(\Sentry::findGroupByName('FE'));
         } else {
             $user->removeGroup(\Sentry::findGroupByName('FE'));
         }
-        if(isset($input['isatm'])) {
+        if (isset($input['isatm'])) {
             $user->addGroup(\Sentry::findGroupByName('ATM'));
         } else {
             $user->removeGroup(\Sentry::findGroupByName('ATM'));
         }
-        if(isset($input['isdatm'])) {
+        if (isset($input['isdatm'])) {
             $user->addGroup(\Sentry::findGroupByName('DATM'));
         } else {
             $user->removeGroup(\Sentry::findGroupByName('DATM'));
         }
-        if(isset($input['isemeritus'])) {
+        if (isset($input['isemeritus'])) {
             $user->addGroup(\Sentry::findGroupByName('Emeritus'));
         } else {
             $user->removeGroup(\Sentry::findGroupByName('Emeritus'));
@@ -188,7 +198,7 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
         $old_groups = $user->groups->lists('id');
         $new_groups = [];
         $counter = 0;
-        if(!empty($input['groups'])) {
+        if (! empty($input['groups'])) {
             foreach ($input['groups'] as $id) {
                 $new_groups[] = \Sentry::findGroupById($id);
                 $counter++;
@@ -197,24 +207,30 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
                 $user->addGroup($group);
                 $counter++;
             }
-            if(!empty($old_groups)) {
-                foreach($old_groups as $old) {
+            if (! empty($old_groups)) {
+                foreach ($old_groups as $old) {
                     $delete = true;
-                    foreach($new_groups as $new) {
-                        if($new->id == $old) { $delete = false; }
+                    foreach ($new_groups as $new) {
+                        if ($new->id == $old) {
+                            $delete = false;
+                        }
                         $counter++;
                     }
-                    if($delete) { $user->removeGroup(\Sentry::findGroupById($old)); }
+                    if ($delete) {
+                        $user->removeGroup(\Sentry::findGroupById($old));
+                    }
                 }
             }
-        } else if(empty($new_groups)) {
-            foreach($old_groups as $group) {
-                $user->removeGroup(\Sentry::findGroupById($group));
-                $counter++;
+        } else {
+            if (empty($new_groups)) {
+                foreach ($old_groups as $group) {
+                    $user->removeGroup(\Sentry::findGroupById($group));
+                    $counter++;
+                }
             }
         }
 
-        if($user->isDirty()) {
+        if ($user->isDirty()) {
             $this->flushCache(null, ['all', $user->initials, $user->cid]);
         }
 
@@ -262,46 +278,45 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
      */
     public function with($with, $id = null, $pk = 'id', $pagination = null)
     {
-        if($pagination) {
-            return $this->make()->with($with)->orderBy('activated', 'DESC')->orderBy('last_name', 'ASC')->paginate($pagination);
-        } else if($id) {
-            return $this->make()->where($pk, $id)->with($with)->firstOrFail();
+        if ($pagination) {
+            return $this->make()->with($with)->orderBy('activated', 'DESC')->orderBy('last_name',
+                'ASC')->paginate($pagination);
+        } else {
+            if ($id) {
+                return $this->make()->where($pk, $id)->with($with)->firstOrFail();
+            }
         }
         return $this->make()->with($with)->get();
     }
 
     /**
-     * 
+     *
      * @param $fname
      * @param $lname
      * @return string
      */
     public function createInitials($fname, $lname)
     {
-        if($lname instanceof \SimpleXMLElement) {
+        if ($lname instanceof \SimpleXMLElement) {
             $lname = $lname->__toString();
         }
         //todo - make this check for and use inactive initials
-        for($i = -1; $i >= '-'.strlen($lname); $i--)
-        {
+        for ($i = -1; $i >= '-' . strlen($lname); $i--) {
             $preferred = $lname[0] . substr($lname, $i, 1);
-            if(count($this->make()->where('initials', '=', $preferred)->get()) == 0)
-            {
+            if (count($this->make()->where('initials', '=', $preferred)->get()) == 0) {
                 return strtoupper($preferred);
             }
         }
-        for($i = -1; $i >= '-'.strlen($fname); $i--)
-        {
+        for ($i = -1; $i >= '-' . strlen($fname); $i--) {
             $preferred = $lname[0] . substr($fname, $i, 1);
-            if(count($this->make()->where('initials', '=', $preferred)->get()) == 0)
-            {
+            if (count($this->make()->where('initials', '=', $preferred)->get()) == 0) {
                 return strtoupper($preferred);
             }
         }
     }
 
     /**
-     * 
+     *
      * @param $id
      * @return float
      */
@@ -311,39 +326,36 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
     }
 
     /**
-     * 
+     *
      * @param $input
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
     public function search($input)
     {
-        if($input['cid'] != '' && $input['cid'] != null)
-        {
+        if ($input['cid'] != '' && $input['cid'] != null) {
             return \User::find($input['cid']);
-        } else if(! empty($input['oi'])) {
-            return $this->findByinitials($input['oi']);
+        } else {
+            if (! empty($input['oi'])) {
+                return $this->findByinitials($input['oi']);
+            }
         }
 
         $users = $this->make()->where('cid', '>', 0);
-        if($input['email'] != null && $input['email'] != '')
-        {
+        if ($input['email'] != null && $input['email'] != '') {
             $em = $input['email'];
             $users = $users->where('email', 'LIKE', "%$em%");
         }
 
-        if($input['rating'] != null && $input['rating'] != '')
-        {
+        if ($input['rating'] != null && $input['rating'] != '') {
             $users = $users->where('rating_id', $input['rating']);
         }
 
-        if($input['fname'] != null && $input['fname'] != '')
-        {
+        if ($input['fname'] != null && $input['fname'] != '') {
             $fn = $input['fname'];
             $users = $users->where('first_name', 'LIKE', "%$fn%");
         }
 
-        if($input['lname'] != null && $input['lname'] != '')
-        {
+        if ($input['lname'] != null && $input['lname'] != '') {
             $ln = $input['lname'];
             $users = $users->where('last_name', 'LIKE', "%$ln%");
         }
@@ -352,7 +364,7 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
     }
 
     /**
-     * 
+     *
      * @param $id
      * @return bool
      */
@@ -364,7 +376,7 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
     }
 
     /**
-     * 
+     *
      * @param $id
      * @return bool
      */
@@ -376,7 +388,7 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
     }
 
     /**
-     * 
+     *
      * @param $id
      * @return bool
      */
@@ -389,7 +401,7 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
     }
 
     /**
-     * 
+     *
      * @param $id
      * @return bool
      */
@@ -402,7 +414,7 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
     }
 
     /**
-     * 
+     *
      * @param $id
      * @return bool
      */
@@ -426,12 +438,30 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
     public function getSingleStaff($group)
     {
         $staff = \Sentry::findGroupByName($group);
-        return $staff->users()->with(['rating','settings'])->select(['rating_id','cid','username','initials','email'])->first();
+        $member = $staff->users()->with(['rating', 'settings'])->select([
+                'rating_id',
+                'cid',
+                'username',
+                'initials',
+                'email'
+            ])->first();
+        if (is_null($member)) {
+            $member = $this->make();
+            $member->initials = 'N/A';
+            $member->cid = '';
+            $member->username = 'Vacant';
+            $member->email = 'staff@bostonartcc.net';
+            $rating = new \stdClass;
+            $rating->short = '';
+            $member->rating = $rating;
+        }
+
+        return $member;
     }
 
     /**
      * @deprecated
-     * 
+     *
      * @param $id
      * @return bool
      */
@@ -444,7 +474,7 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
 
     /**
      * @deprecated
-     * 
+     *
      * @param $id
      * @return bool
      */
@@ -464,11 +494,14 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
         $start = \Sentry::findAllUsersInGroup(\Sentry::findGroupByName('Mentors'));
         $start = \Sentry::findAllUsersInGroup(\Sentry::findGroupByName('Instructors'))->merge($start);
         foreach ($start as $index => $user) {
-            if($level == 11) {
-                if($user->cert <= 11) unset($start[$index]);
-            }
-            else {
-                if($user->cert < $level + 2) unset($start[$index]);
+            if ($level == 11) {
+                if ($user->cert <= 11) {
+                    unset($start[$index]);
+                }
+            } else {
+                if ($user->cert < $level + 2) {
+                    unset($start[$index]);
+                }
             }
         }
         return $start->lists('cid');
@@ -479,8 +512,13 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
      */
     public function canCertify($level, $col = 'cid')
     {
-        if($level == 11) { return $this->make()->where('cert', '>=', 12)->lists($col); }
-        else if ($level == 12) { return $this->make()->where('cert', '>=', 13)->lists($col); }
+        if ($level == 11) {
+            return $this->make()->where('cert', '>=', 12)->lists($col);
+        } else {
+            if ($level == 12) {
+                return $this->make()->where('cert', '>=', 13)->lists($col);
+            }
+        }
         return $this->make()->where('cert', '>=', $level + 2)->lists($col);
     }
 
@@ -490,11 +528,14 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
      */
     public function checkUser($user)
     {
-        if(is_int($user)) $user = $this->make()->find($user);
+        if (is_int($user)) {
+            $user = $this->make()->find($user);
+        }
         $status = null;
-        if(! $user->activated)
+        if (! $user->activated) {
             $status = 'Your account is not active. Please email <a
                    href="mailto:staff@bostonartcc.net">admin</a>';
+        }
 
         return $status;
     }
@@ -507,8 +548,11 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
     public function updateEmailHidden($user, $hidden)
     {
         $user = \Sentry::getUser();
-        if($hidden && $hidden === 'true') { $user->settings->email_hidden = 1; }
-        else $user->settings->email_hidden = 0;
+        if ($hidden && $hidden === 'true') {
+            $user->settings->email_hidden = 1;
+        } else {
+            $user->settings->email_hidden = 0;
+        }
         return $user->settings->save();
     }
 
@@ -543,7 +587,7 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
     public function updateSettings($cid, $input)
     {
         $settings = \UserSettings::where('cid', $cid)->firstOrFail();
-        if(isset($input['email_hidden'])) {
+        if (isset($input['email_hidden'])) {
             $input['email_hidden'] = $input['email_hidden'] == 'true' ? 1 : 0;
         }
         $settings->fill($input);
@@ -555,7 +599,9 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
      */
     public function getAdoptableStudents()
     {
-        return $this->make()->where('created_at', '>', \Carbon::createFromFormat('Y-m-d', '2014-09-28'))->where('adopted_by', null)->where('cid', '!=', 100)->where('cert', '<', 2)->get();
+        return $this->make()->where('created_at', '>',
+            \Carbon::createFromFormat('Y-m-d', '2014-09-28'))->where('adopted_by', null)->where('cid', '!=',
+            100)->where('cert', '<', 2)->get();
     }
 
     /**
@@ -597,7 +643,7 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
         $limit = \Carbon::now()->subDays(60);
         $users = \DB::select("SELECT DISTINCT(cid) FROM zbw_staffing WHERE start > \"$limit\"");
         $safe = [];
-        array_map(function($obj) use (&$safe) {
+        array_map(function ($obj) use (&$safe) {
             array_push($safe, $obj->cid);
         }, $users);
 
@@ -609,7 +655,8 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
 
     public function getPaginatedRoster($pag = 15)
     {
-        return $this->make()->with(['rating','settings'])->orderBy('activated', 'DESC')->orderBy('last_name', 'ASC')->paginate($pag);
+        return $this->make()->with(['rating', 'settings'])->orderBy('activated', 'DESC')->orderBy('last_name',
+            'ASC')->paginate($pag);
     }
 
     public function findByFirstLastName($first_name, $last_name)
@@ -621,11 +668,15 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
      * @param $input
      * @return void
      */
-    public function update($input) {}
+    public function update($input)
+    {
+    }
 
     /**
      * @param $input
      * @return void
      */
-    public function create($input) {}
+    public function create($input)
+    {
+    }
 }
