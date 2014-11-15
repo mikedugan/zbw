@@ -25,7 +25,11 @@ class TrainingRequestRepository extends EloquentRepository implements TrainingRe
     {
         $tr = new \TrainingRequest();
         $tr->cid = $input['user'];
-        $tr->start = \Carbon::createFromFormat('m-d-Y H:i:s', $input['start']);
+        $start = \Carbon::createFromFormat('m-d-Y H:i:s', $input['start']);
+        if($start->lt(\Carbon\Carbon::now())) {
+            $start = \Carbon\Carbon::now();
+        }
+        $tr->start = $start;
         $tr->end = \Carbon::createFromFormat('m-d-Y H:i:s', $input['end']);
         $tr->cert_id = $input['cert'];
         $tr->comment = $input['comment'];
