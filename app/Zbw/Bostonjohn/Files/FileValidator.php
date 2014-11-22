@@ -32,7 +32,7 @@ class FileValidator
     {
         try {
             if($ext) {
-                $matches = in_array($this->file->getExtension(), $ext);
+                $matches = in_array($this->file->getClientOriginalExtension(), $ext);
             } else {
                 $matches = \Config::get('file.mimes')[$this->file->getClientOriginalExtension()] === $this->file->getMimeType();
             }
