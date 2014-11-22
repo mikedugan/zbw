@@ -42,7 +42,7 @@
             <td>{{ $u->cid }}</td>
             <td>{{ $u->rating->short }}</td>
             <td><a class="btn btn-sm" href="/staff/{{$u->cid}}/edit">Edit</a></td>
-            <td><a class="btn btn-sm" href="#">Training</a></td>
+            <td><a class="btn btn-sm" href="/staff/{{$u->cid}}/training">Training</a></td>
         </tr>
         @endforeach
     </table>

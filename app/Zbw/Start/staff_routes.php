@@ -32,9 +32,11 @@ Route::group(
             Route::post('roster/groups/add', ['as' => 'staff/roster/add-group', 'uses' => 'RosterController@postGroup']);
             Route::post('roster/groups/update', ['as' => 'staff/roster/edit-group', 'uses' => 'RosterController@updateGroup']);
             Route::get('roster/results', ['roster/search', 'uses' => 'AdminController@getSearchResults']);
+            Route::get('roster/vatusa_exams/{cid}', ['as' => 'staff/roster/vatusa_exams/{cid}', 'uses' => 'AjaxController@getVatusaExams']);
             Route::get('u/{id}', ['roster/user/{id}', 'uses' => 'UsersController@showUser']);
             Route::get('{id}/edit', ['as' => 'roster/user/{id}/edit', 'uses' => 'RosterController@getEditUser']);
             Route::post('{id}/edit', ['as' => 'staff/{id}/edit', 'uses' => 'RosterController@postEditUser']);
+            Route::get('{id}/training', ['as' => 'roster/user/{id}/training', 'uses' => 'RosterController@getControllerDashboard']);
             Route::post('{id}/comment', ['as' => 'staff/{id}/comment', 'uses' => 'RosterController@postRosterComment']);
             Route::get('comments/{comment}/delete', ['as' => 'staff/comments/{comment}/delete', 'uses' => 'RosterController@getDeleteComment']);
             Route::get('comments/{comment}/edit', ['as' => 'staff/comments/{comment}/edit', 'uses' => 'RosterController@getEditComment']);

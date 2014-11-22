@@ -9,6 +9,7 @@ use Zbw\Training\Contracts\ExamsRepositoryInterface;
 use Zbw\Training\TrainingRequestRepository;
 use Zbw\Users\Contracts\UserRepositoryInterface;
 use Zbw\Users\Contracts\VisitorApplicantRepositoryInterface;
+use Zbw\Bostonjohn\Datafeed\VatusaExamFeed;
 
 use Zbw\Users\Commands\AcceptVisitorCommand;
 
@@ -240,6 +241,12 @@ class AjaxController extends BaseController
         } else {
             return $this->json(['success' => false,'message' => implode(',', $this->visitors->getErrors())]);
         }
+    }
+
+    public function getVatusaExams($cid)
+    {
+        $exams = \App::make(VatusaExamFeed::class);
+        return json_encode($exams->getByCid($cid));
     }
 
     /**

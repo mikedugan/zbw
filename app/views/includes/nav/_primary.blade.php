@@ -1,5 +1,6 @@
-<a class="hidden-sm hidden-xs" id="logo" href="{{ url('/') }}">{{ HTML::image('dist/images/zbw_logo_alt.png', 'vZBW ARTCC') }}</a>
+<a class="hidden-xs" id="logo" href="{{ url('/') }}">{{ HTML::image('dist/images/zbw_logo_alt.png', 'vZBW ARTCC') }}</a>
 <ul class="col-sm-8 nav navbar-nav navbar-right">
+    <li class="visible-xs">{{ HTML::linkRoute('home', 'Home') }}</li>
     @if($me)
         <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">

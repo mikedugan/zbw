@@ -5,6 +5,7 @@ use Zbw\Cms\Contracts\CommentsRepositoryInterface;
 use Zbw\Users\Contracts\GroupsRepositoryInterface;
 use Zbw\Users\Contracts\UserRepositoryInterface;
 use Zbw\Users\Contracts\VisitorApplicantRepositoryInterface;
+use Zbw\Bostonjohn\Datafeed\VatusaExamFeed;
 
 class RosterController extends BaseController
 {
@@ -13,18 +14,21 @@ class RosterController extends BaseController
     private $groups;
     private $visitors;
     private $comments;
+    private $examFeed;
 
     function __construct(
         UserRepositoryInterface $users,
         GroupsRepositoryInterface $groups,
         VisitorApplicantRepositoryInterface $visitors,
         CommentsRepositoryInterface $comments,
+        VatusaExamFeed $examFeed,
         Store $session)
     {
         $this->users = $users;
         $this->groups = $groups;
         $this->visitors = $visitors;
         $this->comments = $comments;
+        $this->examFeed = $examFeed;
         parent::__construct($session);
     }
 
@@ -149,6 +153,12 @@ class RosterController extends BaseController
         } else {
             return Redirect::back()->with('flash_error', 'There was an error!');
         }
+    }
+
+    public function getControllerDashboard($cid)
+    {
+        $this->setData('controller', $this->users->get($cid));
+        return $this->view('staff.roster.dashboard');
     }
 
     public function getEditUser($id)
