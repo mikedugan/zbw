@@ -28,6 +28,9 @@ Route::get('pilots/getting-started', ['as' => 'pilots/getting-started','before' 
 Route::get('pilots/airports', ['as' => 'pilots/airports','before' => 'cache.fetch', 'after' => 'cache.put', 'uses' => 'StaticController@getPilotsAirports']);
 Route::get('pilots/vfr-tutorial', ['as' => 'pilots/vfr-tutorial','before' => 'cache.fetch', 'after' => 'cache.put', 'uses' => 'StaticController@getPilotsVfrTutorial']);
 //static pages for controllers
+Route::get('controllers', function() {
+    return \Redirect::to('/roster');
+});
 Route::get('controllers/training-outline', ['as' => 'training-outline','before' => 'cache.fetch', 'after' => 'cache.put', 'uses' => 'StaticController@getControllersTrainingOutline']);
 Route::get('controllers/policies', ['as' => 'controllers/policies','before' => 'cache.fetch', 'after' => 'cache.put', 'uses' => 'StaticController@getControllersPolicies']);
 Route::get('controllers/policies/sign-on-off', ['as' => 'policies/sign-on-off','before' => 'cache.fetch', 'after' => 'cache.put', 'uses' => 'StaticController@getControllersSignonPolicy']);
