@@ -1,6 +1,6 @@
 <?php
 
-require_once public_path() . '/forum/smf_2_api.php';
+//require_once public_path() . '/forum/smf_2_api.php';
 
 App::register('Zbw\Users\UsersServiceProvider');
 App::register('Zbw\Training\TrainingServiceProvider');
