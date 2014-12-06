@@ -78,8 +78,10 @@ class AuthService
         //login the user to the site
         \Sentry::login($loggedinuser, true);
         //login the user to the forum
-        smfapi_login($loggedinuser->username);
+        if(function_exists('smfapi_login')) {
+            smfapi_login($loggedinuser->username);
+        }
         //update the user
         $this->users->authUpdate($oauth_user);
     }
-} 
+}

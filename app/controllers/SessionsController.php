@@ -60,7 +60,9 @@ class SessionsController extends BaseController
         }
 
         if (\Sentry::authenticate(['cid' => $user->cid, 'password' => $password], $remember)) {
-            smfapi_login(\Sentry::getUser()->username);
+            if(function_exists('smfapi_loign')) {
+                smfapi_login(\Sentry::getUser()->username);
+            }
             return Redirect::intended('/')->with(
               'flash_success',
               'You have been successfully logged in.'
@@ -81,4 +83,4 @@ class SessionsController extends BaseController
         );
     }
 
-} 
+}
