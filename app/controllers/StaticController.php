@@ -58,6 +58,11 @@ class StaticController extends BaseController
         $this->view('static.controllers.policies');
     }
 
+    public function getControllersBeaconCodes()
+    {
+        $this->view('static.controllers.beacon_codes');
+    }
+
     public function getTsDisplay()
     {
         $this->view('static.controllers.teamspeak');

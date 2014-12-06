@@ -12,6 +12,7 @@ Route::get('/', ['as' => 'home', 'uses' => 'ZbwController@getIndex']);
 
 Route::get('controllers/resources', ['as' => 'controllers.resources', 'uses' => 'StaticController@getControllersResources']);
 Route::get('controllers/documents', ['as' => 'controllers.documents', 'uses' => 'StaticController@getDocumentLibrary']);
+Route::get('controllers/beacon-codes', ['as' => 'controllers.beacon_codes', 'uses' => 'StaticController@getControllersBeaconCodes']);
 Route::get('join', ['as' => 'join', 'uses' => 'ZbwController@getJoin']);
 Route::get('visit', ['as' => 'visit', 'uses' => 'ZbwController@getVisit']);
 Route::post('visit', ['as' => 'visit', 'uses' => 'ZbwController@postVisit']);
