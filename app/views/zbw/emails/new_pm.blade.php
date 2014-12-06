@@ -13,6 +13,7 @@
 <p><strong>Subject: </strong> {{ $pm->subject }}</p>
 {{ $pm->content }}
 <p>You can view the message here {{ HTML::linkRoute('messages/{mid}', 'here', [$pm->id]) }}</p>
+<p>Reminder-- <b>Do not respond to this email.</b></p>
 </div>
 
 <p>Best Regards,</p>

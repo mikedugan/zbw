@@ -3,7 +3,6 @@
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Session\Store;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Zbw\Bostonjohn\Files\FileUploader;
 use Zbw\Users\Contracts\UserRepositoryInterface;
 
 class AdminController extends BaseController

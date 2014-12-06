@@ -8,7 +8,7 @@ Training Request
   <form id="request-training">
     <div class="row">
       <p>Your training request will be for <i>{{Zbw\Core\Helpers::readableCert($me->cert)}}</i></p>
-      <input id="cert" type="hidden" value="{{ $me->cert }}">
+      <input id="cert" type="hidden" value="{{ $me->cert + 1 }}">
       <input id="cid" type="hidden" value="{{$me->cid }}">
     </div>
     <div class="row">

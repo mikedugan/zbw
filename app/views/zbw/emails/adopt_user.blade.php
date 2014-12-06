@@ -17,6 +17,7 @@
     <p>Below is the original message from {{ $staff->first_name }}</p>
     <hr/>
     <div>{{ $content }}</div>
+    <p><b>Do not reply to this email.</b> You may respond <a href="http://bostonartcc.net/messages">here</a> after logging in.</p>
 </div>
 
 <p>Best Regards,</p>

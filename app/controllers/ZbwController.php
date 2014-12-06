@@ -44,7 +44,7 @@ class ZbwController extends BaseController
 
     public function getPilotIndex()
     {
-        $this->view('zbw.pilots');
+        return \Redirect::route('roster');
     }
 
     public function postFeedback()
