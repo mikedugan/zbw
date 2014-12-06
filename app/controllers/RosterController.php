@@ -158,6 +158,7 @@ class RosterController extends BaseController
     public function getControllerDashboard($cid)
     {
         $this->setData('controller', $this->users->get($cid));
+        $this->setData('comments', $this->comments->rosterComments($cid));
         return $this->view('staff.roster.dashboard');
     }
 
