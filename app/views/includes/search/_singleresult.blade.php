@@ -3,6 +3,7 @@
 <p>Email: {{ $results->email }}</p>
 <p>Rating: {{ $results->rating->short }}</p>
 @if(\Sentry::check() && $me->inGroup(\Sentry::findGroupByName('Staff')))
-  {{ HTML::linkRoute('staff/{id}/edit', 'Edit Controller', [$results->cid]) }}
+  <p>{{ HTML::linkRoute('staff/{id}/edit', 'Edit Controller', [$results->cid]) }}</p>
+  <p><a href="/staff/{{$results->cid}}/training">View Training</a></p>
 @endif
 <img class="avatar" src="{{$results->avatar()}}">
