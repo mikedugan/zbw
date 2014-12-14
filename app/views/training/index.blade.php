@@ -37,8 +37,8 @@ Your Training
     @endif
     <a class="btn btn-primary" href="/training/request/new">Request Training</a>
     {{--@if($me->canTakeNextExam())--}}
-    @if(in_array($me->cert_id, [0,1,2,4,5,7,8,10]))
-      @if($me->cert_id > 0)
+    @if(in_array($me->cert, [0,1,2,4,5,7,8,10]))
+      @if($me->cert > 0)
       <a class="btn btn-primary" href="/training/local-exam">Request {{ $me->certification->nextReadable()  }} Exam</a>
       @else
       <a class="btn btn-primary" href="/training/local-exam">Request SOP Exam</a>
