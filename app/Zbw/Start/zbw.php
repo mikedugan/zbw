@@ -1,6 +1,8 @@
 <?php
 
-require_once public_path() . '/forum/smf_2_api.php';
+if(App::environment('production')) {
+    require_once public_path() . '/forum/smf_2_api.php';
+}
 
 App::register('Zbw\Users\UsersServiceProvider');
 App::register('Zbw\Training\TrainingServiceProvider');
@@ -15,16 +17,18 @@ App::bind(
 Bugsnag::setAppVersion(\Config::get('zbw.version'));
 Bugsnag::setBeforeNotifyFunction('beforeBugsnagNotify');
 
-function beforeBugsnagNotify($error)
-{
-    if(\Sentry::getUser()) {
-        $user = \Sentry::getUser();
-        $error->setMetaData([
-            'user' => [
-                'name'  => $user->username,
-                'email' => $user->email
-            ]
-        ]);
+if(! App::environment('testing')) {
+    function beforeBugsnagNotify($error)
+    {
+        if(\Sentry::getUser()) {
+            $user = \Sentry::getUser();
+            $error->setMetaData([
+                'user' => [
+                    'name'  => $user->username,
+                    'email' => $user->email
+                ]
+            ]);
+        }
     }
 }
 
