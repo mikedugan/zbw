@@ -26,6 +26,6 @@ class IcaoCode
 
     public function isValid()
     {
-        return preg_match('/^[0-9A-Z]{4}$/', $this->icao);
+        return (bool) preg_match('/^[0-9A-Z]{4}$/', $this->icao);
     }
 }

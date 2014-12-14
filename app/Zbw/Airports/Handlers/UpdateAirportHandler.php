@@ -23,7 +23,7 @@ class UpdateAirportHandler
     private function airportIsInvalid($command)
     {
         if(! $command->icao->isValid()) {
-            $this->response->setFlashData(['flash_error', 'Invalid ICAO code']);
+            $this->response->setFlashData(['flash_error' => 'Invalid ICAO code']);
             return $this->response;
         }
 
@@ -33,11 +33,15 @@ class UpdateAirportHandler
     private function updateAirport($command)
     {
         $airport = $this->airports->getByIcao($command->icao->icao());
+        if(! $airport) {
+            $this->response->setFlashData(['flash_error' => $command->icao->icao() . ' not found']);
+            return $this->response;
+        }
         $airport->fill($command->data);
         if($this->airports->save($airport)) {
-            $this->response->setFlashData(['flash_success', $airport->icao . ' updated successfully']);
+            $this->response->setFlashData(['flash_success' => $airport->icao . ' updated successfully']);
         } else {
-            $this->response->setFlashData(['flash_error', 'Unable to update' . $airport->icao]);
+            $this->response->setFlashData(['flash_error' => 'Unable to update' . $airport->icao]);
         }
 
         return $this->response;
