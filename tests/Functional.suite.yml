@@ -6,4 +6,11 @@
 
 class_name: FunctionalTester
 modules:
-    enabled: [Filesystem, FunctionalHelper]
+    enabled: [Filesystem, FunctionalHelper, Laravel4, Db]
+    config:
+        Db:
+            populate: true
+            cleanup: true
+        Laravel4:
+            cleanup: false
+            start: bootstrap/start.php

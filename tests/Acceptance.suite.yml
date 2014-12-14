@@ -7,8 +7,18 @@
 class_name: AcceptanceTester
 modules:
     enabled:
-        - PhpBrowser
+        - WebDriver 
         - AcceptanceHelper
+        - Laravel4
+        - Db
     config:
-        PhpBrowser:
-            url: 'http://localhost/myapp/'
+        Laravel4:
+            cleanup: false
+            start: bootstrap/start.php
+        WebDriver:
+            url: 'http://zbw.dev'
+            browser: '/usr/bin/chromium-browser'
+            window_size: 1024x768
+            wait: 10
+            capabilities:
+                unexpectedAlertBehaviour: 'accept'

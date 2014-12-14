@@ -8,10 +8,18 @@ settings:
     bootstrap: _bootstrap.php
     colors: true
     memory_limit: 1024M
+coverage:
+    enabled: true
+    include:
+        - app/*
+    exclude: 
+        - public/*
+        - app/views/*
+        - app/database/*
 modules:
     config:
         Db:
-            dsn: ''
-            user: ''
-            password: ''
+            dsn: 'mysql:host=localhost;dbname=zbw_laravel'
+            user: 'root'
+            password: 'root'
             dump: tests/_data/dump.sql
