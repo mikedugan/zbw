@@ -27,7 +27,8 @@
         "barryvdh/laravel-ide-helper": "dev-master",
         "barryvdh/laravel-debugbar": "dev-master",
         "way/generators": "~2.0",
-        "fzaninotto/faker": "dev-master"
+        "fzaninotto/faker": "dev-master",
+        "codeception/codeception" : "*"
     },
     "autoload": {
         "classmap": [
@@ -38,7 +39,8 @@
             "app/tests/TestCase.php"
         ],
         "psr-4": {
-            "Zbw\\": "app/Zbw"
+            "Zbw\\": "app/Zbw",
+            "Tests\\": "tests/"
         }
     },
     "scripts": {
