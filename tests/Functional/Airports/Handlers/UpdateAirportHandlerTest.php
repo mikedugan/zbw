@@ -25,6 +25,14 @@ class UpdateAirportHandlerTest extends TestCase
         $this->assertEquals('BLS', $this->command->data['iata']);
     }
 
+    public function testHandlesCommand()
+    {
+        $this->command = new UpdateAirportCommand('KBOS', ['iata' => 'BOS']);
+        $this->resource = new UpdateAirportHandler(new \Zbw\Airports\EloquentAirportRepository());
+        $response = $this->resource->handle($this->command);
+        $this->assertEquals('KBOS updated successfully', $response->getFlashData()['flash_success']);
+    }
+
     public function testHandlesCommandMissingAirport()
     {
         $response = $this->resource->handle($this->command);

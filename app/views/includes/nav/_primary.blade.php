@@ -41,6 +41,9 @@
                 <li>{{ HTML::linkRoute('staff/feedback', 'Feedback') }}</li>
                 <li>{{ HTML::link('staff/pages', 'Pages') }}</li>
                 @endif
+                @if($me->inGroup(\Sentry::findGroupByName('Executive')))
+                <li>{{ HTML::linkRoute('staff.admin', 'Admin') }}</li>
+                @endif
                 <li style="display:none"><a href="#">Staff Pages</a>
                     <ul>
                         @foreach($pages as $page)

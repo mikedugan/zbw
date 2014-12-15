@@ -108,6 +108,7 @@ Route::group(['before' => 'executive'], function () {
       Route::post('r/demote/{cid}', ['as' => 'controllers/{cid}/demote', 'uses' => 'AjaxController@demoteUser']);
       Route::post('/m/staff-welcome/{cid}', ['as' => 'controllers/{cid}/staff-welcome', 'uses' => 'AjaxController@sendStaffWelcome']);
       Route::get('/staff/super/mike/{cid}', ['as' => 'staff/super/mike/{cid}', 'uses' => 'AdminController@getOverride']);
+      Route::get('/staff/admin', ['as' => 'staff.admin', 'uses' => 'AdminController@getAdmin']);
   }
 );
 

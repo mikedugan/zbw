@@ -25,9 +25,9 @@ class AdminController extends BaseController
         $this->filesystem = $filesystem;
     }
 
-    public function getAdminIndex()
+    public function getAdmin()
     {
-        $this->view('staff.index');
+        $this->view('staff.admin.index');
     }
 
 
@@ -109,4 +109,4 @@ class AdminController extends BaseController
             return \Redirect::home()->with('flash_success', 'You are now logged in as '.$user->initials);
         }
     }
-} 
+}
