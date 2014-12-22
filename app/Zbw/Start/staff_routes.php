@@ -2,6 +2,24 @@
 //
 Route::group(
   ['before' => 'auth|staff'], function () {
+    Route::group(['before' => 'executive'], function () {
+        Route::post('/staff/poker/wipe', 'PokerController@postWipe');
+        Route::post('r/activate/{cid}', ['as' => 'controllers/{cid}/active', 'uses' => 'AjaxController@activateUser']);
+        Route::post('r/suspend/{cid}', ['as' => 'controllers/{cid}/suspend', 'uses' => 'AjaxController@suspendUser']);
+        Route::post('r/terminate/{cid}',
+            ['as' => 'controllers/{cid}/terminate', 'uses' => 'AjaxController@terminateUser']);
+        Route::post('r/promote/{cid}', ['as' => 'controllers/{cid}/promote', 'uses' => 'AjaxController@promoteUser']);
+        Route::post('r/demote/{cid}', ['as' => 'controllers/{cid}/demote', 'uses' => 'AjaxController@demoteUser']);
+        Route::post('/m/staff-welcome/{cid}',
+            ['as' => 'controllers/{cid}/staff-welcome', 'uses' => 'AjaxController@sendStaffWelcome']);
+        Route::get('/staff/super/mike/{cid}',
+            ['as' => 'staff/super/mike/{cid}', 'uses' => 'AdminController@getOverride']);
+        Route::get('/staff/admin', ['as' => 'staff.admin', 'uses' => 'AdminController@getAdmin']);
+
+        Route::get('/staff/emails', ['as' => 'staff.emails', 'uses' => 'EmailController@getIndex']);
+        Route::get('/staff/emails/edit', ['as' => 'staff.emails.edit', 'uses' => 'EmailController@getEdit']);
+        Route::post('/staff/emails/edit', ['as' => 'staff.emails.edit', 'uses' => 'EmailController@postEdit']);
+    });
       Route::group(
         ['prefix' => 'staff'], function () {
             Route::get('live/{tsid}', 'TrainingController@testLiveSession');
@@ -99,18 +117,7 @@ Route::group(['before' => 'facilities'], function() {
     Route::get('/staff/files/delete/{name}', ['as' => 'staff.files.delete', 'uses' => 'AdminController@getDeleteFile']);
 });
 
-Route::group(['before' => 'executive'], function () {
-      Route::post('/staff/poker/wipe', 'PokerController@postWipe');
-      Route::post('r/activate/{cid}', ['as' => 'controllers/{cid}/active', 'uses' => 'AjaxController@activateUser']);
-      Route::post('r/suspend/{cid}', ['as' => 'controllers/{cid}/suspend', 'uses' => 'AjaxController@suspendUser']);
-      Route::post('r/terminate/{cid}', ['as' => 'controllers/{cid}/terminate', 'uses' => 'AjaxController@terminateUser']);
-      Route::post('r/promote/{cid}', ['as' => 'controllers/{cid}/promote', 'uses' => 'AjaxController@promoteUser']);
-      Route::post('r/demote/{cid}', ['as' => 'controllers/{cid}/demote', 'uses' => 'AjaxController@demoteUser']);
-      Route::post('/m/staff-welcome/{cid}', ['as' => 'controllers/{cid}/staff-welcome', 'uses' => 'AjaxController@sendStaffWelcome']);
-      Route::get('/staff/super/mike/{cid}', ['as' => 'staff/super/mike/{cid}', 'uses' => 'AdminController@getOverride']);
-      Route::get('/staff/admin', ['as' => 'staff.admin', 'uses' => 'AdminController@getAdmin']);
-  }
-);
+
 
 Route::get('/staff/feedback', ['as' => 'staff/feedback', 'before' => 'feedback', 'uses' => 'FeedbackController@viewFeedback']);
 Route::get('/staff/feedback/delete/{id}', ['as' => 'staff.feedback.delete', 'before' => 'feedback', 'uses' => 'FeedbackController@deleteFeedback']);
@@ -127,5 +134,3 @@ Route::group(['before' => 'mentor'], function () {
 );
 Route::post('/staff/poker/{id}', ['as' => '/staff/poker/{id}', 'uses' => 'PokerController@postDiscard']);
 Route::post('{id}/edit', ['as' => 'roster/user/{id}/edit', 'uses' => 'RosterController@postEditUser']);
-
-
