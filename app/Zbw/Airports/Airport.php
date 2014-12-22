@@ -34,4 +34,9 @@ class Airport extends Model
 {
     protected $dates = ['created_at', 'updated_at'];
     protected $guarded = ['id'];
+
+    public function frequencies()
+    {
+        return $this->hasMany(Frequency::class, 'icao', 'icao');
+    }
 }

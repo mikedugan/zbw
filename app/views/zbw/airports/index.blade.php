@@ -27,6 +27,13 @@
                 <td>{{ $airport->tracon }}</td>
                 <td>{{ $airport->airspace }}</td>
             </tr>
+            <tr>
+                <td colspan="5">
+                @foreach($airport->frequencies as $freq)
+                    <span class="col-md-4"><em>{{ $freq->name }}</em> : <b style="font-family:monospace">{{ $freq->freq1 }}</b></span>
+                @endforeach
+                </td>
+            </tr>
         @endforeach
         </tbody>
     </table>

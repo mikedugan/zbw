@@ -23,7 +23,7 @@ class EloquentAirportRepository extends EloquentRepository implements AirportRep
 
     public function allByAirspace()
     {
-        $airports = $this->make()->orderBy('airspace', 'ASC')->get();
+        $airports = $this->make()->orderBy('airspace', 'ASC')->with('frequencies')->get();
         //move the empty airspaces to the end
         while($airports->first()->airspace === '') {
             $airports->push($airports->shift());
