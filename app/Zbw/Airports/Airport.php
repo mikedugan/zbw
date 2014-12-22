@@ -1,6 +1,6 @@
-<?php
+<?php namespace Zbw\Airports;
 
-namespace Zbw\Airports;
+use Illuminate\Database\Eloquent\Model;
 
 /**
  * Zbw\Airports\Airport
@@ -30,7 +30,7 @@ namespace Zbw\Airports;
  * @method static \Illuminate\Database\Query\Builder|\Airport whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\Airport whereUpdatedAt($value)
  */
-class Airport extends \Illuminate\Database\Eloquent\Model
+class Airport extends Model
 {
     protected $dates = ['created_at', 'updated_at'];
     protected $guarded = ['id'];

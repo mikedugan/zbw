@@ -26,7 +26,7 @@ Route::get('tsviewer', ['as' => 'tsviewer', 'uses' => 'StaticController@getTsDis
 //static pages for pilots
 Route::get('pilots', ['as' => 'pilots', 'uses' => 'StaticController@getPilots']);
 Route::get('pilots/getting-started', ['as' => 'pilots/getting-started','before' => 'cache.fetch', 'after' => 'cache.put', 'uses' => 'StaticController@getPilotsGettingStarted']);
-Route::get('pilots/airports', ['as' => 'pilots/airports','before' => 'cache.fetch', 'after' => 'cache.put', 'uses' => 'StaticController@getPilotsAirports']);
+Route::get('pilots/airports', ['as' => 'pilots/airports', 'uses' => 'AirportsController@getIndex']);
 Route::get('pilots/vfr-tutorial', ['as' => 'pilots/vfr-tutorial','before' => 'cache.fetch', 'after' => 'cache.put', 'uses' => 'StaticController@getPilotsVfrTutorial']);
 //static pages for controllers
 Route::get('controllers/training-outline', ['as' => 'training-outline','before' => 'cache.fetch', 'after' => 'cache.put', 'uses' => 'StaticController@getControllersTrainingOutline']);

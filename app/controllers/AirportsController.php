@@ -1,20 +1,34 @@
 <?php
 
 use Zbw\Airports\Airport;
+use Zbw\Airports\EloquentAirportRepository;
+use Illuminate\Session\Store;
 
 class AirportsController extends BaseController
 {
     private $airports;
 
-    public function __construct(AirportRepository $airports, Session $store)
+    public function __construct(EloquentAirportRepository $airports, Store $session)
     {
-        parent::__construct($store);
+        parent::__construct($session);
         $this->airports = $airports;
     }
 
     public function getIndex()
     {
-        $airports = $this->airports->all();
+        switch(\Input::get('sort')) {
+            case 'alpha':
+                $airports = $this->airports->allAlphabetically();
+                break;
+            case 'tracon':
+                $airports = $this->airports->allByTracon();
+                break;
+            case 'airspace':
+            default:
+                $airports = $this->airports->allByAirspace();
+                break;
+
+        }
         $this->setData('airports', $airports);
         return $this->view('zbw.airports.index');
     }

@@ -20,4 +20,28 @@ class EloquentAirportRepository extends EloquentRepository implements AirportRep
     public function update($input)
     {
     }
+
+    public function allByAirspace()
+    {
+        $airports = $this->make()->orderBy('airspace', 'ASC')->get();
+        //move the empty airspaces to the end
+        while($airports->first()->airspace === '') {
+            $airports->push($airports->shift());
+        }
+
+        return $airports;
+    }
+
+    public function allByTracon()
+    {
+        $airports = $this->make()->where('tracon', '!=', 'N/A')->orderBy('tracon', 'ASC')->get();
+        $nas = $this->make()->where('tracon', 'N/A')->get();
+        $airports = $airports->merge($nas);
+        return $airports;
+    }
+
+    public function allAlphabetically()
+    {
+        return $this->make()->orderBy('name', 'ASC')->get();
+    }
 }
