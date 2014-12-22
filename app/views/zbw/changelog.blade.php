@@ -4,6 +4,43 @@ Changelog
 @stop
 @section('content')
 <h1 class="text-center">Changelog</h1>
+<h3>2.1.0</h3>
+Mike Dugan rm unneeded use statement <br>
+Mike Dugan add email template editing <br>
+Mike Dugan add beacon code support <br>
+Mike Dugan dynamic airports page <br>
+Mike Dugan working on a super admin panel for things <br>
+Mike Dugan working on airports <br>
+Mike Dugan test environment set up <br>
+Mike Dugan add c3.php <br>
+Mike Dugan added test modules and config <br>
+Mike Dugan added codeception <br>
+Mike Dugan composer update <br>
+Mike Dugan working on airport stuff <br>
+Mike Dugan update training buttons <br>
+Mike Dugan enable smf api <br>
+Mike Dugan add training link on view individual controller <br>
+Mike Dugan add framing for beacon codes <br>
+Mike Dugan check for smf function before attempting login <br>
+Mike Dugan remove guest column <br>
+Mike Dugan remove empty files <br>
+Mike Dugan dashboard <br>
+Mike Dugan update controllers route <br>
+Mike Dugan fixes #141 <br>
+Mike Dugan increment training cert thing <br>
+Mike Dugan dashboard WIP <br>
+Mike Dugan fixes avatar upload <br>
+Erik Malmstrom-Partridge Added no-reply comment to relevant issues, fixes #140 <br>
+Mike Dugan add date check for new training requests <br>
+Erik Malmstrom-Partridge Put the photo in the wrong place <br>
+Erik Malmstrom-Partridge Added in-air photo to slideshow <br>
+Mike Dugan permanent fix to empty staff positions <br>
+Mike Dugan fix missing atm <br>
+Mike Dugan fix bug <br>
+Mike Dugan fix observer bug with datafeed <br>
+Erik Partridge Fixed typo in html. Derp. <br>
+Erik Partridge Added vATIS <br>
+Mike Dugan timezone <br>
 <h3>2.0.4</h3>
 Mike Dugan fixes #125 fixes #127 <br>
 Mike Dugan add ability for student to cancel training request <br>
