@@ -1,6 +1,5 @@
 <?php
 
-use BaseController;
 use Illuminate\Session\Store;
 use Zbw\Notifier\EmailTemplateRepository;
 
