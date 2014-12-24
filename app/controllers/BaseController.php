@@ -39,6 +39,7 @@ abstract class BaseController extends Controller
     public function __construct(Store $session)
     {
         $this->session = $session;
+        $this->request = $this->make(\Illuminate\Http\Request::class);
         $this->input = \Input::all();
         $this->data = [];
 
@@ -48,6 +49,16 @@ abstract class BaseController extends Controller
             \View::share('me', $this->current_user);
             \View::share('messages', Zbw\Cms\MessagesRepository::newMessageCount($user->cid));
         }
+    }
+
+    protected function make($resource)
+    {
+        return \App::make($resource);
+    }
+
+    protected function abort($code, $message = null)
+    {
+        \App::abort($code, $message);
     }
 
     protected function setData($key, $value = null)

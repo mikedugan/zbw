@@ -38,6 +38,13 @@ class Users {
         $this->messages = $messages;
     }
 
+    public function staffWelcome(Job $job, $data)
+    {
+        $this->notifier->staffWelcomeEmail($data);
+
+        $job->delete();
+    }
+
     /**
      * @param Job $job
      * @param     $data

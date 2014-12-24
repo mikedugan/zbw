@@ -97,4 +97,66 @@ class UsersController extends BaseController
 
         return $this->redirectBack();
     }
+
+    /**
+     * @param $id
+     * @return string
+     */
+    public function aSuspend($id)
+    {
+        if ($this->users->suspendUser($id)) {
+            return $this->json(['success' => true, 'message' => 'User suspended']);
+        } else {
+            return $this->json(['success' => false,'message' => 'Error suspending user']);
+        }
+    }
+
+    /**
+     * @param $id
+     * @return string
+     */
+    public function aTerminate($id)
+    {
+        if ($this->users->terminateUser($id)) {
+            return $this->json(['success' => true,'message' => 'User terminated']);
+        } else {
+            return $this->json(['success' => false,'message' => 'Error terminating user']);
+        }
+    }
+
+    /**
+     * @param $id
+     * @return string
+     */
+    public function aActivate($id)
+    {
+        if ($this->users->activateUser($id)) {
+            return $this->json(['success' => true,'message' => 'User activated']);
+        } else {
+            return $this->json(['success' => false,'message' => 'Error activating user']);
+        }
+    }
+
+    public function aPromote($cid)
+    {
+        \Queue::push('Zbw\Queues\QueueDispatcher@usersPromote', $cid);
+        return $this->json(['success' => true,'message' => 'User promoted']);
+    }
+
+    public function aDemote($cid)
+    {
+        \Queue::push('Zbw\Queues\QueueDispatcher@usersDemote', $cid);
+        return $this->json(['success' => true,'message' => 'User demoted']);
+    }
+
+    /**
+     * @param $cid
+     * @return string
+     */
+    public function sendStaffWelcome($cid)
+    {
+        \Queue::push('Zbw\Queues\QueueDispatcher@usersStaffWelcome', $cid);
+
+        return $this->json(['success' => true, 'message' => "Staff welcome email sent successfully!"]);
+    }
 }

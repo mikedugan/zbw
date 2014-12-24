@@ -1,32 +1,17 @@
 <?php
 
-use Illuminate\Session\Store;
 use Zbw\Notifier\Mail;
 use Zbw\Cms\Contracts\NewsRepositoryInterface;
-use Zbw\Users\Contracts\UserRepositoryInterface;
 use Zbw\Users\Contracts\VisitorApplicantRepositoryInterface;
 
 class ZbwController extends BaseController
 {
-
-    private $news;
-    private $users;
-    private $notifier;
-    private $visitors;
-
-    public function __construct(NewsRepositoryInterface $news, UserRepositoryInterface $users, Mail $notifier, VisitorApplicantRepositoryInterface $visitors, Store $session)
-    {
-        $this->news = $news;
-        $this->users = $users;
-        $this->notifier = $notifier;
-        $this->visitors = $visitors;
-        parent::__construct($session);
-    }
     public function getIndex()
     {
         $metars = App::make('Zbw\Core\Repositories\MetarRepository');
+        $news = App::make(NewsRepositoryInterface::class);
 
-        $this->setData('news', $this->news->front(5));
+        $this->setData('news', $news->front(5));
         $this->setData('metars', $metars->frontPage());
         $this->setData('atcs', \Staffing::frontPage());
         $this->setData('flights', \ZbwFlight::frontPage(5));
@@ -91,8 +76,10 @@ class ZbwController extends BaseController
 
     public function postVisit()
     {
-        $this->notifier->visitorRequestEmail(\Input::all());
-        $this->visitors->create(\Input::all());
+        $notifier = App::make(Mail::class);
+        $visitors = App::make(VisitorApplicantRepositoryInterface::class);
+        $notifier->visitorRequestEmail(\Input::all());
+        $visitors->create(\Input::all());
         return Redirect::home()->with('flash_success', 'Your request has been sent. We will be in contact as soon as possible.');
     }
 

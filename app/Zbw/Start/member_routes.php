@@ -1,5 +1,7 @@
 <?php
 
+use Zbw\Http\Controllers\TrainingRequestController;
+
 Route::group(
   array('before' => 'controller'),
   function () {
@@ -7,7 +9,7 @@ Route::group(
       //routes for the logged in users
       Route::get('news', ['as' => 'news', 'uses' => 'NewsController@getIndex']);
 
-      Route::post('/me/markallread',['as' => '/me/markallread', 'uses' => 'AjaxController@markInboxRead']);
+      Route::post('/me/markallread',['as' => '/me/markallread', 'uses' => 'MessagesController@aMarkInboxRead']);
       Route::get('changelog', function() {return View::make('zbw.changelog');});
       Route::get('/u/' . $cid,array('as' => 'me', 'uses' => 'UsersController@getMe'));
       Route::get('me/profile',['as' => 'profile', 'uses' => 'UsersController@getSettings']);
@@ -19,16 +21,16 @@ Route::group(
       Route::get('training/request/{id}/cancel', ['as' => 'training/request/cancel', 'uses' => 'TrainingController@postCancelRequest']);
       Route::get('/training/review',['as' => 'training/sessions', 'uses' => 'ExamsController@getReview']);
       Route::post('/training/review/{eid}',['as'   => 'training/review-session','uses' => 'ExamsController@postComment']);
-      Route::post('/e/request/{cid}/{eid}',['as'   => 'me/exam-requests/{eid}','uses' => 'AjaxController@requestExam']);
-      Route::post('/me/request/vatusa',['as'   => 'me/request/vatusa','uses' => 'AjaxController@requestVatusaExam']);
-      Route::post('/me/request-training', ['as'   => 'me/request-training','uses' => 'AjaxController@postTrainingRequest']);
+      Route::post('/e/request/{cid}/{eid}',['as'   => 'me/exam-requests/{eid}','uses' => 'ExamsController@aRequestExam']);
+      Route::post('/me/request/vatusa',['as'   => 'me/request/vatusa','uses' => 'ExamsController@aRequestVatusa']);
+      Route::post('/me/request-training', ['as'   => 'me/request-training','uses' => TrainingRequestController::class.'@postTrainingRequest']);
       Route::get('/training/exam', ['as' => 'training/exam', 'uses' => 'ExamsController@takeExam']);
       Route::get('/training/local-exam', ['as' => 'training/local-exam', 'uses' => 'ExamsController@requestLocalExam']);
       Route::post('/training/exam', ['before' => 'csrf', 'as' => 'training/exam', 'uses' => 'ExamsController@gradeExam']);
       Route::get('/t/request/{tid}',['as'   => 'training/view-request/{tid}','uses' => 'TrainingController@showRequest']);
-      Route::post('/t/request/{tid}/cancel',['as'   => 'training/cancel-request/{tid}','uses' => 'AjaxController@cancelTrainingRequest']);
-      Route::post('/t/request/{tid}/drop',['as' => 'training/drop-request/{tid}', 'uses' => 'AjaxController@dropTrainingRequest']);
-      Route::post('/t/request/{tid}/accept',['as'   => 'training/accept-request/{tid}','uses' => 'AjaxController@acceptTrainingRequest']);
+      Route::post('/t/request/{tid}/cancel',['as'   => 'training/cancel-request/{tid}','uses' => TrainingRequestController::class.'@cancelTrainingRequest']);
+      Route::post('/t/request/{tid}/drop',['as' => 'training/drop-request/{tid}', 'uses' => TrainingRequestController::class.'@dropTrainingRequest']);
+      Route::post('/t/request/{tid}/accept',['as'   => 'training/accept-request/{tid}','uses' => TrainingRequestController::class.'@acceptTrainingRequest']);
       Route::get('training/{id}', ['as' => 'training/view-session', 'uses' => 'TrainingController@viewSession']);
 
       //private messaging

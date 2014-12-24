@@ -1,4 +1,4 @@
-<?php
+<?php namespace Zbw\Http\Controllers;
 
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Session\Store;
@@ -8,9 +8,6 @@ use Zbw\Users\Contracts\UserRepositoryInterface;
 class AdminController extends BaseController
 {
     private $users;
-    /**
-     * @var
-     */
     private $filesystem;
 
     /**
@@ -101,7 +98,7 @@ class AdminController extends BaseController
     public function getOverride($cid)
     {
         if(! $this->current_user->cid === 1240047) {
-            App::abort('404');
+            $this->abort(404);
         } else {
             \Sentry::logout();
             $user = \User::find($cid);

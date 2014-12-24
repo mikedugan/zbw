@@ -2,6 +2,7 @@
 
 use Illuminate\Session\Store;
 use Zbw\Cms\Contracts\CommentsRepositoryInterface;
+use Zbw\Core\Repositories\RatingRepository;
 use Zbw\Training\Contracts\ExamsRepositoryInterface;
 use Zbw\Training\Contracts\QuestionsRepositoryInterface;
 
@@ -14,13 +15,14 @@ class ExamsController extends BaseController
     private $questions;
     private $comments;
     private $exams;
+    private $certs;
 
-    public function __construct(CommentsRepositoryInterface $comments, ExamsRepositoryInterface $exams, QuestionsRepositoryInterface $questions, Store $session)
+    public function __construct(CommentsRepositoryInterface $comments, ExamsRepositoryInterface $exams, QuestionsRepositoryInterface $questions, \Zbw\Training\Contracts\CertificationRepositoryInterface $certs, Store $session)
     {
         $this->comments = $comments;
         $this->exams = $exams;
         $this->questions = $questions;
-        $this->session = $session;
+        $this->certs = $certs;
         parent::__construct($session);
     }
 
@@ -168,5 +170,62 @@ class ExamsController extends BaseController
         $mailer = \App::make('Zbw\Notifier\Mail');
         $mailer->requestLocalExam($this->current_user, $instructors);
         return Redirect::back()->with('flash_success', 'Exam request sent');
+    }
+
+    //handles an ajax request
+    /**
+     * @param $cid
+     * @param $eid
+     * @return string
+     */
+    public function aRequestExam($cid, $eid)
+    {
+        if ($this->certs->requestExam($cid, $eid)) {
+            return $this->json(['success' => true,'message' => 'Your exam has been successfully requested!']);
+        } else {
+            return $this->json(['success' => false,'message' => 'There was an error! Please contact a staff member!']);
+        }
+    }
+
+    /**
+     * @return string
+     */
+    public function aRequestVatusa()
+    {
+        $ratings = new RatingRepository();
+        $exam = $ratings->get($this->current_user->rating_id + 1)->long;
+        Queue::push('Zbw\Queues\QueueDispatcher@usersRequestVatusaExam', $this->current_user->cid);
+        return $this->json(['success' => true,'message' => 'VATUSA '.$exam.' exam requested.']);
+    }
+
+    public function aGetVatusaExams($cid)
+    {
+        $exams = \App::make(VatusaExamFeed::class);
+        return json_encode($exams->getByCid($cid));
+    }
+
+    /* @param $id
+     * @return string
+     */
+    public function aExamReviewed($id)
+    {
+        if ($this->exams->finishReview($id)) {
+            return $this->json(['success' => true,'message' => 'Exam review complete.']);
+        } else {
+            return $this->json(['success' => false,'message' => implode(',', $this->exams->getErrors())]);
+        }
+    }
+
+    /**
+     * @param $id
+     * @return string
+     */
+    public function aReopenExam($id)
+    {
+        if ($this->exams->reopenReview($id)) {
+            return $this->json(['success' => true,'message' => 'Exam review reopened.']);
+        } else {
+            return $this->json(['success' => false,'message' => $this->exams->getErrors()]);
+        }
     }
 }

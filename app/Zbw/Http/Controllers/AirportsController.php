@@ -1,4 +1,4 @@
-<?php
+<?php namespace Zbw\Http\Controllers;
 
 use Zbw\Airports\Airport;
 use Zbw\Airports\EloquentAirportRepository;
@@ -16,7 +16,7 @@ class AirportsController extends BaseController
 
     public function getIndex()
     {
-        switch(\Input::get('sort')) {
+        switch($this->request->get('sort')) {
             case 'alpha':
                 $airports = $this->airports->allAlphabetically();
                 break;
@@ -47,8 +47,8 @@ class AirportsController extends BaseController
 
     public function postEdit()
     {
-        $data = \Request::except('icao');
-        $icao = \Request::get('icao');
+        $data = $this->request->except('icao');
+        $icao = $this->request->get('icao');
         $response = $this->execute(UpdateAirportCommand::class, ['icao' => $icao, 'data' => $data]);
         $this->setFlash($response->getFlashData());
         return $this->redirectBack();

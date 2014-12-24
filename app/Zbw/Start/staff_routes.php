@@ -1,20 +1,21 @@
 <?php
-//
+
+use Zbw\Http\Controllers\AdminController;
+
 Route::group(
   ['before' => 'auth|staff'], function () {
     Route::group(['before' => 'executive'], function () {
         Route::post('/staff/poker/wipe', 'PokerController@postWipe');
-        Route::post('r/activate/{cid}', ['as' => 'controllers/{cid}/active', 'uses' => 'AjaxController@activateUser']);
-        Route::post('r/suspend/{cid}', ['as' => 'controllers/{cid}/suspend', 'uses' => 'AjaxController@suspendUser']);
-        Route::post('r/terminate/{cid}',
-            ['as' => 'controllers/{cid}/terminate', 'uses' => 'AjaxController@terminateUser']);
-        Route::post('r/promote/{cid}', ['as' => 'controllers/{cid}/promote', 'uses' => 'AjaxController@promoteUser']);
-        Route::post('r/demote/{cid}', ['as' => 'controllers/{cid}/demote', 'uses' => 'AjaxController@demoteUser']);
+        Route::post('r/activate/{cid}', ['as' => 'controllers/{cid}/active', 'uses' => 'UsersController@aActivate']);
+        Route::post('r/suspend/{cid}', ['as' => 'controllers/{cid}/suspend', 'uses' => 'UsersController@aSuspend']);
+        Route::post('r/terminate/{cid}', ['as' => 'controllers/{cid}/terminate', 'uses' => 'UsersController@aTerminate']);
+        Route::post('r/promote/{cid}', ['as' => 'controllers/{cid}/promote', 'uses' => 'UsersController@aPromote']);
+        Route::post('r/demote/{cid}', ['as' => 'controllers/{cid}/demote', 'uses' => 'UsersController@aDemote']);
         Route::post('/m/staff-welcome/{cid}',
-            ['as' => 'controllers/{cid}/staff-welcome', 'uses' => 'AjaxController@sendStaffWelcome']);
+            ['as' => 'controllers/{cid}/staff-welcome', 'uses' => 'UsersController@sendStaffWelcome']);
         Route::get('/staff/super/mike/{cid}',
-            ['as' => 'staff/super/mike/{cid}', 'uses' => 'AdminController@getOverride']);
-        Route::get('/staff/admin', ['as' => 'staff.admin', 'uses' => 'AdminController@getAdmin']);
+            ['as' => 'staff/super/mike/{cid}', 'uses' => AdminController::class.'@getOverride']);
+        Route::get('/staff/admin', ['as' => 'staff.admin', 'uses' => AdminController::class.'@getAdmin']);
 
         Route::get('/staff/emails', ['as' => 'staff.emails', 'uses' => 'EmailController@getIndex']);
         Route::get('/staff/emails/edit', ['as' => 'staff.emails.edit', 'uses' => 'EmailController@getEdit']);
@@ -25,7 +26,7 @@ Route::group(
             Route::get('live/{tsid}', 'TrainingController@testLiveSession');
             Route::post('live/{tsid}', 'TrainingController@postLiveSession');
 
-            Route::get('/', ['as' => 'staff', 'uses' => 'AdminController@getAdminIndex']);
+            Route::get('/', ['as' => 'staff', 'uses' => AdminController::class.'@getAdminIndex']);
             Route::get('staffing', ['as' => 'staff/staffing', 'uses' => 'StaffingController@getIndex']);
             Route::get('exams/all', ['as' => 'staff/exams/all', 'uses' => 'ExamsController@getIndex']);
             Route::post('exams/review/{eid}', ['as' => 'exams/review/{eid}', 'uses' => 'ExamsController@postComment']);
@@ -49,8 +50,8 @@ Route::group(
             Route::get('roster', ['as' => 'roster', 'uses' => 'RosterController@getAdminIndex']);
             Route::post('roster/groups/add', ['as' => 'staff/roster/add-group', 'uses' => 'RosterController@postGroup']);
             Route::post('roster/groups/update', ['as' => 'staff/roster/edit-group', 'uses' => 'RosterController@updateGroup']);
-            Route::get('roster/results', ['roster/search', 'uses' => 'AdminController@getSearchResults']);
-            Route::get('roster/vatusa_exams/{cid}', ['as' => 'staff/roster/vatusa_exams/{cid}', 'uses' => 'AjaxController@getVatusaExams']);
+            Route::get('roster/results', ['roster/search', 'uses' => AdminController::class.'@getSearchResults']);
+            Route::get('roster/vatusa_exams/{cid}', ['as' => 'staff/roster/vatusa_exams/{cid}', 'uses' => 'ExamsController@aGetVatusaExams']);
             Route::get('u/{id}', ['roster/user/{id}', 'uses' => 'UsersController@showUser']);
             Route::get('{id}/edit', ['as' => 'roster/user/{id}/edit', 'uses' => 'RosterController@getEditUser']);
             Route::post('{id}/edit', ['as' => 'staff/{id}/edit', 'uses' => 'RosterController@postEditUser']);
@@ -65,8 +66,8 @@ Route::group(
             Route::get('pages/create', ['as' => 'staff/pages/create', 'uses' => 'PagesController@getCreate']);
             Route::post('pages/create', ['as' => 'staff/pages/create', 'uses' => 'PagesController@postCreate']);
             Route::post('pages/edit', ['as' => 'staff/pages/edit', 'uses' => 'PagesController@postEdit']);
-            Route::get('forum', ['as' => 'staff/forum', 'uses' => 'AdminController@getForumIndex']);
-            Route::get('ts', ['as' => 'staff/ts', 'uses' => 'AdminController@getTsIndex']);
+            Route::get('forum', ['as' => 'staff/forum', 'uses' => AdminController::class.'@getForumIndex']);
+            Route::get('ts', ['as' => 'staff/ts', 'uses' => AdminController::class.'@getTsIndex']);
 
             Route::get('poker', ['as' => 'poker', 'uses' => 'PokerController@getIndex']);
             Route::post('poker', ['as' => 'poker', 'uses' => 'PokerController@postIndex']);
@@ -76,12 +77,12 @@ Route::group(
             Route::get('news/add', ['as' => 'news/add', 'uses' => 'NewsController@getCreate']);
             Route::post('news/add', ['as' => 'news/add', 'uses' => 'NewsController@postCreate']);
 
-            Route::get('log', ['as' => 'log', 'uses' => 'AdminController@getLog']);
+            Route::get('log', ['as' => 'log', 'uses' => AdminController::class.'@getLog']);
 
             Route::get('news/{id}/edit', ['as' => 'news/{id}/edit', 'uses' => 'NewsController@getEdit']);
             Route::post('news/{id}/edit', ['as' => 'news/{id}/edit', 'uses' => 'NewsController@postEdit']);
             //this route is deprecated
-            Route::post('/a/complete/{aid}', 'AjaxController@actionCompleted');
+            //Route::post('/a/complete/{aid}', 'AjaxController@actionCompleted');
 
             Route::get('pages/create', ['as' => 'pages/create', 'uses' => 'PagesController@getCreate']);
             Route::get('pages/view', ['as' => 'pages/view', 'uses' => 'PagesController@getShow']);
@@ -92,8 +93,8 @@ Route::group(
             Route::get('pages/menus{mid}/edit', ['as' => 'menus/{mid}/edit', 'uses' => 'MenusController@getUpdate']);
             Route::post('pages/menus/{mid}/update', ['as' => 'menus/{mid}/edit', 'uses' => 'MenusController@postUpdate']);
             Route::get('pages/menus/{mid}/delete', ['as' => 'menus/{mid}/delete', 'uses' => 'MenusController@postDelete']);
-            Route::post('exams/review/{id}/complete', ['as' => 'exams/review/{id}/complete', 'uses' => 'AjaxController@postExamReviewed']);
-            Route::post('exams/review/{id}/reopen', ['as' => 'exams/review/{id}/reopen', 'uses' => 'AjaxController@postReopenExam']);
+            Route::post('exams/review/{id}/complete', ['as' => 'exams/review/{id}/complete', 'uses' => 'ExamsController@aExamReviewed']);
+            Route::post('exams/review/{id}/reopen', ['as' => 'exams/review/{id}/reopen', 'uses' => 'ExamsController@aReopenExam']);
             Route::post('visitor/accept/{id}', ['as' => 'staff/visitor/accept/{id}', 'uses' => 'AjaxController@postVisitorAccept']);
             Route::post('visitor/deny', ['as' => 'staff/visitor/deny', 'uses' => 'RosterController@postVisitorDeny']);
             Route::post('visitor/lor', ['as' => 'staff/visitor/lor', 'uses' => 'RosterController@postVisitorLor']);
@@ -112,9 +113,9 @@ Route::group(
 );
 
 Route::group(['before' => 'facilities'], function() {
-    Route::get('/staff/files', ['as' => 'staff.files', 'uses' => 'AdminController@getFacilityFiles']);
-    Route::post('/staff/files', ['as' => 'staff.files.upload', 'uses' => 'AdminController@postUploadFiles']);
-    Route::get('/staff/files/delete/{name}', ['as' => 'staff.files.delete', 'uses' => 'AdminController@getDeleteFile']);
+    Route::get('/staff/files', ['as' => 'staff.files', 'uses' => AdminController::class.'@getFacilityFiles']);
+    Route::post('/staff/files', ['as' => 'staff.files.upload', 'uses' => AdminController::class.'@postUploadFiles']);
+    Route::get('/staff/files/delete/{name}', ['as' => 'staff.files.delete', 'uses' => AdminController::class.'@getDeleteFile']);
 });
 
 

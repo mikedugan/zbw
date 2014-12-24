@@ -124,4 +124,16 @@ class MessagesController extends BaseController
         foreach($messages as $m) { $m->is_read = 1; $m->save(); }
         return Redirect::back()->with('flash_success','All messages marked read');
     }
+
+    /**
+     * @return string
+     */
+    public function aMarkInboxRead()
+    {
+        if ($this->messages->markAllRead(\Sentry::getUser()->cid)) {
+            return $this->json(['success' => true,'message' => 'All messaged marked as read']);
+        } else {
+            return $this->json(['success' => false,'message' => 'Error marking messages read']);
+        }
+    }
 } 
