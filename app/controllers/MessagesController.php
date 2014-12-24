@@ -44,6 +44,22 @@ class MessagesController extends BaseController
         $this->view('users.messages.index');
     }
 
+    public function postAction()
+    {
+        $selected = \Input::get('selected');
+        $action = \Input::get('action');
+        switch($action) {
+            case 'delete':
+                $this->messages->deleteMany($selected);
+                break;
+            case 'read':
+                $this->messages->markManyRead($selected);
+                break;
+        }
+
+        return $this->redirectBack();
+    }
+
     public function outbox()
     {
         $this->view('users.messages.outbox');
