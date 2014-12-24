@@ -1,4 +1,4 @@
-<?php  namespace Zbw\Users; 
+<?php namespace Zbw\Users;
 
 use Zbw\Core\EloquentRepository;
 use Zbw\Users\Contracts\VisitorApplicantRepositoryInterface;
@@ -27,7 +27,7 @@ class VisitorApplicantRepository extends EloquentRepository implements VisitorAp
         $visitor->accepted = 1;
         $visitor->accepted_by = $staff;
         $visitor->accepted_on = \Carbon::now();
-        if($this->checkAndSave($visitor)) {
+        if ($this->checkAndSave($visitor)) {
             return $visitor->cid;
         } else {
             return false;
@@ -45,8 +45,8 @@ class VisitorApplicantRepository extends EloquentRepository implements VisitorAp
         $visitor->accepted = -1;
         $visitor->accepted_by = $staff->cid;
         $visitor->accepted_on = \Carbon::now();
-        $visitor->comments = $visitor->comments . '<br>'.$input['reason'];
-        if($this->checkAndSave($visitor)) {
+        $visitor->comments = $visitor->comments . '<br>' . $input['reason'];
+        if ($this->checkAndSave($visitor)) {
             return [$visitor->cid, $input['reason']];
         } else {
             return false;
@@ -70,7 +70,7 @@ class VisitorApplicantRepository extends EloquentRepository implements VisitorAp
     public function comment($staff, $input)
     {
         $visitor = $this->make()->find($input['visitor']);
-        $visitor->comments = $visitor->comments .'<br>'.$staff->initials .': '.$input['comment'] . ' ('.\Carbon::now()->toDayDateTimeString().')';
+        $visitor->comments = $visitor->comments . '<br>' . $staff->initials . ': ' . $input['comment'] . ' (' . \Carbon::now()->toDayDateTimeString() . ')';
         return $this->checkAndSave($visitor);
     }
 
@@ -104,15 +104,18 @@ class VisitorApplicantRepository extends EloquentRepository implements VisitorAp
      */
     public function create($input)
     {
-          $visitor = $this->make();
-          $visitor->email = $input['email'];
-          $visitor->first_name = $input['fname'];
-          $visitor->last_name = $input['lname'];
-          $visitor->division = $input['home'];
-          $visitor->home = $input['artcc'];
-          $visitor->rating = \Rating::whereLong($input['rating'])->firstOrFail()->id;
-          $visitor->message = $input['message'];
-          $visitor->cid = $input['cid'];
-          return $this->checkAndSave($visitor);
+        $visitor = $this->make();
+        $visitor->email = $input['email'];
+        $visitor->first_name = $input['fname'];
+        $visitor->last_name = $input['lname'];
+        $visitor->division = $input['home'];
+        $visitor->home = $input['artcc'];
+        $visitor->rating = \Rating::whereLong($input['rating'])->firstOrFail()->id;
+        $visitor->message = $input['message'];
+        $visitor->cid = $input['cid'];
+        $visitor->comments = '';
+        $visitor->accepted = 0;
+        $visitor->accepted_by = 0;
+        return $this->checkAndSave($visitor);
     }
 }
