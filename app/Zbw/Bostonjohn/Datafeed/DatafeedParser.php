@@ -3,6 +3,7 @@
 use Zbw\Core\Helpers;
 use Curl\Curl;
 use Zbw\Bostonjohn\Datafeed\Contracts\DatafeedParserInterface;
+use Zbw\Users\UserRepository;
 
 /**
  * @package Zbw\Bostonjohn\Datafeed
@@ -227,6 +228,11 @@ class DatafeedParser implements DatafeedParserInterface
      */
     private function createStaffing($line, $start)
     {
+        $users = new UserRepository();
+        if(! $users->exists($line[$this::CID])) {
+            return true;
+        }
+
         $staffing = new \Staffing();
         $staffing->cid = $line[$this::CID];
         $staffing->start = $start;

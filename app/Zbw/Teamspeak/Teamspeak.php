@@ -102,7 +102,7 @@ class Teamspeak
     /**
      * nonstatic
      * @name registerKey
-     * 
+     *
      * @param $current_uid
      * @param $tskey
      * @return void
@@ -147,7 +147,7 @@ class Teamspeak
     /**
      * nonstatic
      * @name manageUsedKey
-     * 
+     *
      * @param $tskey
      * @param $current_uid
      * @return void
@@ -172,9 +172,6 @@ class Teamspeak
      */
     private function validateUser($current_uid, $user)
     {
-        echo "validating user\n";
-        echo $user->cid."\n";
-        echo $current_uid."\n";
         $valid = \TsKey::where('uid', $current_uid)->where('cid', $user->cid)->get();
         echo count($valid)."\n";
         if (count($valid) > 0) {
@@ -194,16 +191,11 @@ class Teamspeak
     private function manageUser($clientList)
     {
         foreach ($clientList as $client) {
-            echo "updating " . $client['client_nickname'] . ", " . $client['client_database_id'] . "\r\n";
             // Ignore the user if it's the superadmin
             $this->cid = $client['client_database_id'];
             $this->clid = $client['clid'];
 
-            echo "parsing name...\n";
-
             list($name, $name_parts) = $this->parseNickname($client);
-
-            echo "name: {$name}\n";
 
             if (count($name_parts) == 1 && strlen($name_parts[0]) <= 8) {
                 $key = $name;
@@ -217,38 +209,26 @@ class Teamspeak
             $current_uid = $current_client['data']['client_unique_identifier'];
 
             // Treat the user appropriately
-            if ($key) {
-                // The user has a key as a nickname
-                $tskey = \TsKey::where('ts_key', $key)
-                    ->where('used', false)
-                    ->where('expires', '>', \Carbon::now())
-                    ->with('user')->first();
-
+            if ($key && $tskey = \TsKey::getKey($key)) {
                 //search ts3keys table (cid, key, expires)
-                if (count($tskey) == 1) {
-                    echo $client['client_nickname'] . " has a valid key";
-                    // The key hasn't been used yet & has not expired
-                    if (!$tskey->used) {
-                        $this->registerKey($current_uid, $tskey);
-                    } else {
-                        $this->manageUsedKey($tskey, $current_uid);
-                    }
+                if ($tskey->count() == 1) {
+                    $tskey->used ? $this->manageUsedKey($tskey, $current_uid) : $this->registerKey($current_uid, $tskey);
                 } else {
-                    // The key doesn't even exist in the DB
                     $this->ts3->clientPoke($this->clid, 'You are using an invalid or expired Teamspeak key!');
                 }
             } else {
-                // The user is logged in with a full name
-                if($firstname === 'serveradmin' || $firstname === 'Boston') { return; }
-                echo "First Name: {$firstname}\n";
-                echo "Last Name: {$lastname}\n";
-                $user = $this->users->findByFirstLastName($firstname, $lastname)[0];
-                $this->validateUser($current_uid, $user);
+                $this->validateExisting($firstname, $lastname, $current_uid);
             }
-
         }
     }
 
+    private function validateExisting($first, $last, $uid)
+    {
+        // The user is logged in with a full name
+        if($first === 'serveradmin' || $first === 'Boston') { return; }
+        $match = $this->users->findByFirstLastName($first, $last)[0];
+        if(isset($match[0])) {
+            $this->validateUser($uid, $match[0]);
+        }
+    }
 }
-
-//new Teamspeak;

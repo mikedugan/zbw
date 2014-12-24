@@ -64,11 +64,11 @@ class MessagesRepository extends EloquentRepository implements MessagesRepositor
 
         $errors = [' '];
         $success = true;
-        if ( ! $this->checkAndSave($m)) {
+        if (! $this->checkAndSave($m)) {
             $errors = $this->getErrors();
             $success = false;
         }
-        if ( ! $this->checkAndSave($mm)) {
+        if (! $this->checkAndSave($mm)) {
             if (is_array($errors)) {
                 $errors = array_merge($errors, $this->getErrors());
                 $success = false;
@@ -77,7 +77,7 @@ class MessagesRepository extends EloquentRepository implements MessagesRepositor
                 $success = false;
             }
         }
-        if ( ! $success) {
+        if (! $success) {
             return $errors;
         } else {
             \Queue::push('Zbw\Queues\QueueDispatcher@contactNewPm', $m);
@@ -112,8 +112,8 @@ class MessagesRepository extends EloquentRepository implements MessagesRepositor
         $cid = is_null($cid) ? \Sentry::getUser()->cid : $cid;
 
         return \Message::where('to', $cid)
-                       ->where('cid', \Sentry::getUser()->cid)
-                       ->where('is_read', 0)->get(['id'])->count();
+            ->where('cid', \Sentry::getUser()->cid)
+            ->where('is_read', 0)->get(['id'])->count();
     }
 
     /**
@@ -155,7 +155,9 @@ class MessagesRepository extends EloquentRepository implements MessagesRepositor
         $outbox->cid = $from;
         $outbox->save();
 
-        if ($from === $to) { return $this->checkAndSave($outbox); }
+        if ($from === $to) {
+            return $this->checkAndSave($outbox);
+        }
 
         $inbox = $this->make();
         $inbox->to = $to;
@@ -166,7 +168,7 @@ class MessagesRepository extends EloquentRepository implements MessagesRepositor
         $inbox->save();
 
         \Queue::push('Zbw\Queues\QueueDispatcher@contactNewPm', $inbox);
-        return ( ! $this->checkAndSave($outbox) || ! $this->checkAndSave($inbox)) ? $this->getErrors() : '';
+        return (! $this->checkAndSave($outbox) || ! $this->checkAndSave($inbox)) ? $this->getErrors() : '';
     }
 
     /**
@@ -176,7 +178,7 @@ class MessagesRepository extends EloquentRepository implements MessagesRepositor
     public function withUsers($id)
     {
         return $this->make()->with(['sender', 'recipient'])->where('id', $id)
-                    ->firstOrFail();
+            ->firstOrFail();
     }
 
     /**
@@ -212,8 +214,8 @@ class MessagesRepository extends EloquentRepository implements MessagesRepositor
     public function trashed()
     {
         return $this->make()->onlyTrashed()->where(
-          'to',
-          \Sentry::getUser()->cid
+            'to',
+            \Sentry::getUser()->cid
         )->where('cid', \Sentry::getUser()->cid)->get();
     }
 
@@ -225,7 +227,7 @@ class MessagesRepository extends EloquentRepository implements MessagesRepositor
     public function to($user, $unread = false)
     {
         $messages = $this->make()->where('to', $user)->where('cid', $user)
-                         ->orderBy('created_at', 'DESC');
+            ->orderBy('created_at', 'DESC');
 
         return $unread ? $messages->where('is_read', 0)->get() : $messages->get();
     }
@@ -242,7 +244,7 @@ class MessagesRepository extends EloquentRepository implements MessagesRepositor
     public function from($user)
     {
         return $this->make()->where('from', $user)->where('cid', $user)
-                    ->orderBy('created_at', 'DESC')->get();
+            ->orderBy('created_at', 'DESC')->get();
     }
 
     /**
@@ -252,5 +254,17 @@ class MessagesRepository extends EloquentRepository implements MessagesRepositor
     public function update($input)
     {
 
+    }
+
+    public function deleteMany(array $ids)
+    {
+        $sql = 'UPDATE zbw_messages SET deleted_at=NOW() WHERE id IN (' . implode(',', $ids) . ')';
+        \DB::update($sql);
+    }
+
+    public function markManyRead(array $ids)
+    {
+        $sql = 'UPDATE zbw_messages SET is_read=1 WHERE id IN (' . implode(',', $ids) . ')';
+        \DB::update($sql);
     }
 }

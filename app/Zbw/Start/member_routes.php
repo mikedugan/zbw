@@ -36,6 +36,7 @@ Route::group(
       //private messaging
       Route::group(['prefix' => 'messages'], function () {
           Route::get('/',['as' => 'messages', 'uses' => 'MessagesController@index']);
+          Route::post('/', ['as' => 'messages.action', 'uses' => 'MessagesController@postAction']);
           Route::get('allread', ['as' => 'messages.allread', 'uses' => 'MessagesController@markAllRead']);
           Route::post('send',['as' => 'messages/send', 'uses' => 'MessagesController@store']);
           Route::post('m/{mid}',['as'   => 'messages/reply/{mid}','uses' => 'MessagesController@reply']);
