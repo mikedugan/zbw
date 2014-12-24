@@ -209,7 +209,7 @@ class Teamspeak
             $current_uid = $current_client['data']['client_unique_identifier'];
 
             // Treat the user appropriately
-            if ($key && $tskey = \TsKey::getKey($key)) {
+            if ($key && $tskey = \TsKey::getTsKey($key)) {
                 //search ts3keys table (cid, key, expires)
                 if ($tskey->count() == 1) {
                     $tskey->used ? $this->manageUsedKey($tskey, $current_uid) : $this->registerKey($current_uid, $tskey);

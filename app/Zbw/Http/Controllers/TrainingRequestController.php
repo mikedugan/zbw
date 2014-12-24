@@ -3,7 +3,7 @@
 use Illuminate\Session\Store;
 use Zbw\Training\Contracts\TrainingRequestRepositoryInterface;
 
-class TrainingRequestController extends \BaseController
+class TrainingRequestController extends \Zbw\Http\Controllers\BaseController
 {
     private $requests;
 

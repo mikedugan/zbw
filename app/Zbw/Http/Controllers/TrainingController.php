@@ -1,6 +1,7 @@
-<?php
+<?php namespace Zbw\Http\Controllers;
 
 use Illuminate\Session\Store;
+use TrainingRequest;
 use Zbw\Training\Contracts\ExamsRepositoryInterface;
 use Zbw\Training\Contracts\TrainingSessionRepositoryInterface;
 use Zbw\Training\TrainingRequestRepository;
@@ -18,12 +19,14 @@ class TrainingController extends BaseController
     private $users;
     private $staffAvailability;
 
-    function __construct(ExamsRepositoryInterface $exams,
+    public function __construct(
+        ExamsRepositoryInterface $exams,
         TrainingSessionRepositoryInterface $trainings,
         TrainingRequestRepository $requests,
         StaffAvailabilityRepositoryInterface $staffAvailability,
-        UserRepositoryInterface $users, Store $session)
-    {
+        UserRepositoryInterface $users,
+        Store $session
+    ) {
         $this->exams = $exams;
         $this->trainings = $trainings;
         $this->requests = $requests;
@@ -54,11 +57,11 @@ class TrainingController extends BaseController
     //all training reports
     public function getAll()
     {
-        if(empty(\Input::all())) {
+        if (empty($this->request->all())) {
             $this->setData('sessions', $this->trainings->indexPaginated(10));
             $this->setData('paginate', true);
         } else {
-            $this->setData('sessions', $this->trainings->indexFiltered(\Input::all()));
+            $this->setData('sessions', $this->trainings->indexFiltered($this->request->all()));
             $this->setData('paginate', false);
         }
 
@@ -68,11 +71,11 @@ class TrainingController extends BaseController
     //all training requests
     public function getAllRequests()
     {
-//        if(empty(\Input::all())) {
+//        if(empty($this->request->all())) {
 //            $this->setData('requests', $this->requests->indexPaginated(10));
 //            $this->setData('paginate', false);
 //        } else {
-//            $this->setData('requests', $this->requests->indexFiltered(\Input::all()));
+//            $this->setData('requests', $this->requests->indexFiltered($this->request->all()));
 //            $this->setData('paginate', true);
 //        }
         $this->setData('paginate', false);
@@ -83,13 +86,14 @@ class TrainingController extends BaseController
 
     public function showAdmin($id)
     {
-        $this->setData('tsession', $this->trainings->with(['student', 'staff', 'facility', 'weatherType', 'trainingReport'], $id));
+        $this->setData('tsession',
+            $this->trainings->with(['student', 'staff', 'facility', 'weatherType', 'trainingReport'], $id));
         $this->view('staff.training.session');
     }
 
     public function getRequest()
     {
-        if($this->current_user->cert == 0) {
+        if ($this->current_user->cert == 0) {
             $this->setFlash(['flash_error' => 'You must pass the ZBW class C ground exam to request training!']);
             $this->redirectRoute('training');
         }
@@ -105,18 +109,20 @@ class TrainingController extends BaseController
 
     public function postNewSession()
     {
-        if(! \Input::has('student')) {
+        if (! $this->request->has('student')) {
             return $this->redirectBack()->with('flash_error', 'Please enter initials or CID');
         }
-        $student = \Input::get('student');
+        $student = $this->request->get('student');
 
-        if(is_int($student) && ! $this->users->exists($student)) {
+        if (is_int($student) && ! $this->users->exists($student)) {
             return $this->redirectBack()->with('flash_error', 'Controller does not exist');
-        } else if(! $this->users->findByInitials($student)) {
-            return $this->redirectBack()->with('flash_error', 'Controller does not exist');
+        } else {
+            if (! $this->users->findByInitials($student)) {
+                return $this->redirectBack()->with('flash_error', 'Controller does not exist');
+            }
         }
 
-        if(is_int($student)) {
+        if (is_int($student)) {
             $student = $this->users->get($student);
         } else {
             $student = $this->users->findByInitials($student);
@@ -132,7 +138,7 @@ class TrainingController extends BaseController
         $tr->comment = '';
         $tr->save();
 
-        return $this->redirectTo('/staff/live/'.$tr->id);
+        return $this->redirectTo('/staff/live/' . $tr->id);
     }
 
     public function showRequest($tid)
@@ -160,9 +166,10 @@ class TrainingController extends BaseController
 
     public function postLiveSession($tsid)
     {
-        $success = $this->execute(ProcessTrainingSessionCommand::class, ['input' => \Input::all(), 'tsid' => $tsid]);
+        $success = $this->execute(ProcessTrainingSessionCommand::class,
+            ['input' => $this->request->all(), 'tsid' => $tsid]);
 
-        if($success) {
+        if ($success) {
             $this->setFlash(['flash_success' => 'Training session completed']);
             return $this->redirectRoute('staff/training');
         } else {
@@ -179,18 +186,21 @@ class TrainingController extends BaseController
 
     public function postAdopt()
     {
-        $input = \Input::only(['meeting','message','subject','sid','cid']);
+        $input = $this->request->only(['meeting', 'message', 'subject', 'sid', 'cid']);
         $success = $this->execute(AdoptUserCommand::class, $input);
 
-        if($success === true) { $this->setFlash(['flash_success' => 'User adopted successfully']); }
-        else { $this->setFlash(['flash_error' => $success]); }
+        if ($success === true) {
+            $this->setFlash(['flash_success' => 'User adopted successfully']);
+        } else {
+            $this->setFlash(['flash_error' => $success]);
+        }
 
         return $this->redirectBack();
     }
 
     public function postDropAdopt($cid)
     {
-        if($this->users->dropAdopt($cid)) {
+        if ($this->users->dropAdopt($cid)) {
             $this->setFlash(['flash_success' => 'Adoption dropped successfully']);
         } else {
             $this->setFlash(['flash_error' => $this->users->getErrors()]);
@@ -201,7 +211,7 @@ class TrainingController extends BaseController
     public function viewSession($id)
     {
         $session = $this->trainings->get($id);
-        if($this->current_user->cid !== $session->cid) {
+        if ($this->current_user->cid !== $session->cid) {
             return $this->redirectRoute('training');
         } else {
             $this->setData('tsession', $session);
@@ -217,7 +227,7 @@ class TrainingController extends BaseController
 
     public function postStaffAvailability()
     {
-        $input = \Input::all();
+        $input = $this->request->all();
         $input['cid'] = $this->current_user->cid;
         $this->staffAvailability->create($input);
         $this->setFlash(['flash_success' => 'Availability posted successfully']);
@@ -227,7 +237,7 @@ class TrainingController extends BaseController
     public function getDeleteAvailability($id)
     {
         $session = $this->staffAvailability->get($id);
-        if($session->cid !== $this->current_user->cid) {
+        if ($session->cid !== $this->current_user->cid) {
             $this->setFlash(['flash_error' => 'Operation not allowed']);
         } else {
             $this->staffAvailability->delete($id);
@@ -240,7 +250,7 @@ class TrainingController extends BaseController
     public function postCancelRequest($id)
     {
         $request = $this->requests->get($id);
-        if($request->cid === $this->current_user->cid) {
+        if ($request->cid === $this->current_user->cid) {
             $request->is_cancelled = 1;
             $request->save();
         }

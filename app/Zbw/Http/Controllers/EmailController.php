@@ -1,6 +1,9 @@
 <?php
 
+namespace Zbw\Http\Controllers;
+
 use Illuminate\Session\Store;
+use Zbw\Http\Controllers\BaseController;
 use Zbw\Notifier\EmailTemplateRepository;
 
 class EmailController extends BaseController
@@ -21,8 +24,8 @@ class EmailController extends BaseController
 
     public function getEdit()
     {
-        $template = \Input::get('template');
-        $contents = File::get(app_path('/views/zbw/emails/'.$template));
+        $template = $this->request->get('template');
+        $contents = \File::get(app_path('/views/zbw/emails/' . $template));
 
         $this->setData('contents', $contents);
         $this->setData('filename', $template);
@@ -31,9 +34,9 @@ class EmailController extends BaseController
 
     public function postEdit()
     {
-        $file = \Input::get('filename');
-        $contents = \Input::get('contents');
-        File::put(app_path('/views/zbw/emails/'.$file), $contents);
-        return Redirect::route('staff.emails')->with('flash_success', 'Template updated');
+        $file = $this->request->get('filename');
+        $contents = $this->request->get('contents');
+        \File::put(app_path('/views/zbw/emails/' . $file), $contents);
+        return \Redirect::route('staff.emails')->with('flash_success', 'Template updated');
     }
 }

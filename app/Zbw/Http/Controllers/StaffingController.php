@@ -1,16 +1,16 @@
-<?php
+<?php namespace Zbw\Http\Controllers;
 
 use Illuminate\Session\Store;
 use Zbw\Users\Contracts\StaffingRepositoryInterface;
 
-class StaffingController extends \BaseController
+class StaffingController extends BaseController
 {
     private $staffings;
 
     public function __construct(StaffingRepositoryInterface $staffings, Store $session)
     {
-        $this->staffings = $staffings;
         parent::__construct($session);
+        $this->staffings = $staffings;
     }
 
     public function getIndex()

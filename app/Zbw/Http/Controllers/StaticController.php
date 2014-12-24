@@ -1,4 +1,4 @@
-<?php
+<?php namespace Zbw\Http\Controllers;
 
 class StaticController extends BaseController
 {

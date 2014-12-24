@@ -1,4 +1,5 @@
-<?php
+<?php namespace Zbw\Http\Controllers;
+
 use Zbw\Cms\Contracts\MessagesRepositoryInterface;
 use Zbw\Users\Contracts\UserRepositoryInterface;
 use Illuminate\Session\Store;
@@ -24,7 +25,7 @@ class UsersController extends BaseController
     public function getStatus($cid)
     {
         $curl = new \Curl\Curl();
-        $curl->get('https://cert.vatsim.net/cert/vatsimnet/idstatus.php?cid='.$cid);
+        $curl->get('https://cert.vatsim.net/cert/vatsimnet/idstatus.php?cid=' . $cid);
         return $curl->response;
     }
 
@@ -43,7 +44,9 @@ class UsersController extends BaseController
 
     public function getController($id)
     {
-        if(! $this->users->exists($id)) { App::abort('404'); }
+        if (! $this->users->exists($id)) {
+            \App::abort('404');
+        }
         $this->setData('controller', $this->users->get($id));
         return $this->view('users.show');
     }
@@ -51,9 +54,9 @@ class UsersController extends BaseController
     public function getSearchResults()
     {
         $results = $this->execute(SearchUsersCommand::class, ['input' => $this->input]);
-        if(count($results) === 0) {
+        if (count($results) === 0) {
             //$this->setFlash(['flash_info' => 'No results found']);
-            return Redirect::back()->with('flash_info', 'No results found');
+            return \Redirect::back()->with('flash_info', 'No results found');
         }
         $this->setData('stype', 'roster');
         $this->setData('results', $results);
@@ -67,31 +70,33 @@ class UsersController extends BaseController
     public function getMe()
     {
         $this->setData('messages', $this->messages->to(Auth::user()->cid));
-        $this->setData('view', \Input::get('v'));
+        $this->setData('view', $this->request->get('v'));
         $this->setData('me', \Sentry::getUser()->with(['Exam', 'TrainingSession']));
         $this->view('users.me.index');
     }
 
     public function getSettings()
     {
-        $this->setData('view', \Input::get('v'));
+        $this->setData('view', $this->request->get('v'));
         $this->view('users.me.index');
     }
 
     public function postSettings()
     {
-        if($this->input['update'] === 'settings') {
-            if($this->execute(UpdateSettingsCommand::class, ['input' => \Input::except('update')])) {
+        if ($this->input['update'] === 'settings') {
+            if ($this->execute(UpdateSettingsCommand::class, ['input' => $this->request->except('update')])) {
                 $this->setFlash(['flash_success' => 'Settings updated successfully']);
             } else {
                 $this->setFlash(['flash_error' => 'Unable to update settings']);
             }
 
-        } else if ($this->input['update'] === 'notifications') {
-            if($this->execute(UpdateNotificationsCommand::class, ['input' => \Input::except('update')])) {
-                $this->setFlash(['flash_success' => 'Settings updated successfully']);
-            } else {
-                $this->setFlash(['flash_error' => 'Unable to update settings']);
+        } else {
+            if ($this->input['update'] === 'notifications') {
+                if ($this->execute(UpdateNotificationsCommand::class, ['input' => $this->request->except('update')])) {
+                    $this->setFlash(['flash_success' => 'Settings updated successfully']);
+                } else {
+                    $this->setFlash(['flash_error' => 'Unable to update settings']);
+                }
             }
         }
 
@@ -107,7 +112,7 @@ class UsersController extends BaseController
         if ($this->users->suspendUser($id)) {
             return $this->json(['success' => true, 'message' => 'User suspended']);
         } else {
-            return $this->json(['success' => false,'message' => 'Error suspending user']);
+            return $this->json(['success' => false, 'message' => 'Error suspending user']);
         }
     }
 
@@ -118,9 +123,9 @@ class UsersController extends BaseController
     public function aTerminate($id)
     {
         if ($this->users->terminateUser($id)) {
-            return $this->json(['success' => true,'message' => 'User terminated']);
+            return $this->json(['success' => true, 'message' => 'User terminated']);
         } else {
-            return $this->json(['success' => false,'message' => 'Error terminating user']);
+            return $this->json(['success' => false, 'message' => 'Error terminating user']);
         }
     }
 
@@ -131,22 +136,22 @@ class UsersController extends BaseController
     public function aActivate($id)
     {
         if ($this->users->activateUser($id)) {
-            return $this->json(['success' => true,'message' => 'User activated']);
+            return $this->json(['success' => true, 'message' => 'User activated']);
         } else {
-            return $this->json(['success' => false,'message' => 'Error activating user']);
+            return $this->json(['success' => false, 'message' => 'Error activating user']);
         }
     }
 
     public function aPromote($cid)
     {
         \Queue::push('Zbw\Queues\QueueDispatcher@usersPromote', $cid);
-        return $this->json(['success' => true,'message' => 'User promoted']);
+        return $this->json(['success' => true, 'message' => 'User promoted']);
     }
 
     public function aDemote($cid)
     {
         \Queue::push('Zbw\Queues\QueueDispatcher@usersDemote', $cid);
-        return $this->json(['success' => true,'message' => 'User demoted']);
+        return $this->json(['success' => true, 'message' => 'User demoted']);
     }
 
     /**

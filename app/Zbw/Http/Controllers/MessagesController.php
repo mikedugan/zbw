@@ -1,9 +1,8 @@
-<?php
+<?php namespace Zbw\Http\Controllers;
 
 use Illuminate\Session\Store;
 use Zbw\Cms\MessagesRepository;
 use Zbw\Users\Contracts\UserRepositoryInterface;
-
 use Zbw\Cms\Commands\SendMessageCommand;
 use Zbw\Cms\Commands\ReplyToMessageCommand;
 
@@ -15,23 +14,23 @@ class MessagesController extends BaseController
 
     public function __construct(UserRepositoryInterface $users, MessagesRepository $messages, Store $store)
     {
+        parent::__construct($store);
         $this->users = $users;
         $this->messages = $messages;
-        parent::__construct($store);
     }
 
     public function index()
     {
-        $view = \Input::get('v');
+        $view = $this->request->get('v');
         $this->setData('view', $view);
-        $this->setData('unread', \Input::get('unread'));
-        $this->setData('to', \Input::get('to'));
+        $this->setData('unread', $this->request->get('unread'));
+        $this->setData('to', $this->request->get('to'));
         $this->setData('users', $this->users->allVitals());
-        switch($view) {
+        switch ($view) {
             case '':
             case 'inbox':
             case null:
-                $this->setData('inbox', $this->messages->to(\Sentry::getUser()->cid,Input::get('unread')));
+                $this->setData('inbox', $this->messages->to(\Sentry::getUser()->cid, $this->request->get('unread')));
                 break;
             case 'outbox':
                 $this->setData('outbox', $this->messages->from(\Sentry::getUser()->cid));
@@ -46,9 +45,9 @@ class MessagesController extends BaseController
 
     public function postAction()
     {
-        $selected = \Input::get('selected');
-        $action = \Input::get('action');
-        switch($action) {
+        $selected = $this->request->get('selected');
+        $action = $this->request->get('action');
+        switch ($action) {
             case 'delete':
                 $this->messages->deleteMany($selected);
                 break;
@@ -94,9 +93,12 @@ class MessagesController extends BaseController
 
     public function store()
     {
-        $response = $this->execute(SendMessageCommand::class, ['input' => \Input::all()]);
-        if($response !== '') $this->setFlash(['flash_error' => $response]);
-        else $this->setFlash(['flash_success' => 'Message sent successfully']);
+        $response = $this->execute(SendMessageCommand::class, ['input' => $this->request->all()]);
+        if ($response !== '') {
+            $this->setFlash(['flash_error' => $response]);
+        } else {
+            $this->setFlash(['flash_success' => 'Message sent successfully']);
+        }
 
         return $this->redirectHome();
     }
@@ -105,7 +107,7 @@ class MessagesController extends BaseController
     {
         $input = Input::all();
         $response = $this->execute(ReplyToMessageCommand::class, ['message_id' => $mid, 'input' => $input]);
-        if($response instanceof Illuminate\Support\MessageBag) {
+        if ($response instanceof Illuminate\Support\MessageBag) {
             $this->setFlash(['flash_error' => $response]);
             return $this->redirectBack()->withInput();
         }
@@ -127,8 +129,7 @@ class MessagesController extends BaseController
         if (! $this->messages->restore($message_id)) {
             $this->setFlash(['flash_error' => $this->messages->getErrors()]);
             return $this->redirectBack();
-        }
-        else {
+        } else {
             $this->setFlash(['flash_success' => 'Message restored successfully']);
             return $this->redirectRoute('messages');
         }
@@ -137,8 +138,11 @@ class MessagesController extends BaseController
     public function markAllRead()
     {
         $messages = $this->messages->getUnread($this->current_user->cid);
-        foreach($messages as $m) { $m->is_read = 1; $m->save(); }
-        return Redirect::back()->with('flash_success','All messages marked read');
+        foreach ($messages as $m) {
+            $m->is_read = 1;
+            $m->save();
+        }
+        return \Redirect::back()->with('flash_success', 'All messages marked read');
     }
 
     /**
@@ -147,9 +151,9 @@ class MessagesController extends BaseController
     public function aMarkInboxRead()
     {
         if ($this->messages->markAllRead(\Sentry::getUser()->cid)) {
-            return $this->json(['success' => true,'message' => 'All messaged marked as read']);
+            return $this->json(['success' => true, 'message' => 'All messaged marked as read']);
         } else {
-            return $this->json(['success' => false,'message' => 'Error marking messages read']);
+            return $this->json(['success' => false, 'message' => 'Error marking messages read']);
         }
     }
-} 
+}

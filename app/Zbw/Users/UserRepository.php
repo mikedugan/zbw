@@ -612,6 +612,11 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
         return $this->make()->where('adopted_by', '>', 100)->where('cert', '<', 2)->with(['adopter'])->get();
     }
 
+    public function getAdoptedByCid($cid)
+    {
+        return $this->make()->where('adopted_by', '=', (int)$cid)->where('cert', '<', 2)->get();
+    }
+
     /**
      * @param $student
      * @return bool

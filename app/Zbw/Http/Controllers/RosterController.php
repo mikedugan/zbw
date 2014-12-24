@@ -1,6 +1,7 @@
-<?php
+<?php namespace Zbw\Http\Controllers;
 
 use Illuminate\Session\Store;
+use Queue;
 use Zbw\Cms\Contracts\CommentsRepositoryInterface;
 use Zbw\Users\Contracts\GroupsRepositoryInterface;
 use Zbw\Users\Contracts\UserRepositoryInterface;
@@ -22,8 +23,8 @@ class RosterController extends BaseController
         VisitorApplicantRepositoryInterface $visitors,
         CommentsRepositoryInterface $comments,
         VatusaExamFeed $examFeed,
-        Store $session)
-    {
+        Store $session
+    ) {
         $this->users = $users;
         $this->groups = $groups;
         $this->visitors = $visitors;
@@ -34,36 +35,36 @@ class RosterController extends BaseController
 
     public function getPublicRoster()
     {
-        $view = \Input::get('v');
-        $action = \Input::get('action');
-        $id = \Input::get('id');
+        $view = $this->request->get('v');
+        $action = $this->request->get('action');
+        $id = $this->request->get('id');
         $pag = 15;
         $users = '';
-        if($view !== 'staff') {
-            if (\Input::has('num') && \Input::get('num') === 'active') {
+        if ($view !== 'staff') {
+            if ($this->request->has('num') && $this->request->get('num') === 'active') {
                 $users = $this->users->active($pag);
             } else {
-                if (\Input::has('num')) {
-                    $pag = \Input::get('num');
-                    $users = $this->users->make()->with(['rating','settings'])->
-                             where('activated', 1)->where('terminated', 0)
-                             ->orderBy('last_name', 'ASC')->paginate($pag);
+                if ($this->request->has('num')) {
+                    $pag = $this->request->get('num');
+                    $users = $this->users->make()->with(['rating', 'settings'])->
+                    where('activated', 1)->where('terminated', 0)
+                        ->orderBy('last_name', 'ASC')->paginate($pag);
                 } else {
                     $pag = 20;
-                    $users = $this->users->make()->with(['rating','settings'])
-                             ->where('activated', 1)->where('terminated', 0)
-                             ->orderBy('last_name', 'ASC')->paginate($pag);
+                    $users = $this->users->make()->with(['rating', 'settings'])
+                        ->where('activated', 1)->where('terminated', 0)
+                        ->orderBy('last_name', 'ASC')->paginate($pag);
                 }
             }
         }
         $data = [
-          'users'       => $users,
-          'view'        => $view,
-          'action'      => $action,
-          'instructors' => \Sentry::findGroupByName('Instructors'),
-          'staff'       => \Sentry::findGroupByName('Staff'),
-          'mentors'     => \Sentry::findGroupByName('Mentors'),
-          'executive'   => \Sentry::findGroupByName('Executive')
+            'users'       => $users,
+            'view'        => $view,
+            'action'      => $action,
+            'instructors' => \Sentry::findGroupByName('Instructors'),
+            'staff'       => \Sentry::findGroupByName('Staff'),
+            'mentors'     => \Sentry::findGroupByName('Mentors'),
+            'executive'   => \Sentry::findGroupByName('Executive')
         ];
         if ($view === 'staff') {
             $data['staff_users'] = $this->users->getStaff();
@@ -75,7 +76,7 @@ class RosterController extends BaseController
             $data['ta'] = $this->users->getSingleStaff('TA');
         }
         if ($view === 'groups') {
-            if ( ! empty($id) && $action === 'edit') {
+            if (! empty($id) && $action === 'edit') {
                 $data['group'] = \Group::find($id);
                 $data['members'] = \Sentry::findAllUsersInGroup($data['group']);
             } else {
@@ -83,26 +84,26 @@ class RosterController extends BaseController
             }
         }
 
-        return View::make('zbw.roster.index', $data);
+        return \View::make('zbw.roster.index', $data);
     }
 
     public function getAdminIndex()
     {
-        $view = \Input::get('v');
-        $action = \Input::get('action');
-        $id = \Input::get('id');
+        $view = $this->request->get('v');
+        $action = $this->request->get('action');
+        $id = $this->request->get('id');
         $users = '';
-        if($view !== 'staff') {
+        if ($view !== 'staff') {
             $users = $this->users->getPaginatedRoster();
         }
         $data = [
-          'users'  => $users,
-          'view'   => $view,
-          'action' => $action,
-          'instructors' => \Sentry::findGroupByName('Instructors')->users->lists('cid'),
-          'staff'       => \Sentry::findGroupByName('Staff')->users->lists('cid'),
-          'mentors'     => \Sentry::findGroupByName('Mentors')->users->lists('cid'),
-          'executive'   => \Sentry::findGroupByName('Executive')->users->lists('cid')
+            'users'       => $users,
+            'view'        => $view,
+            'action'      => $action,
+            'instructors' => \Sentry::findGroupByName('Instructors')->users->lists('cid'),
+            'staff'       => \Sentry::findGroupByName('Staff')->users->lists('cid'),
+            'mentors'     => \Sentry::findGroupByName('Mentors')->users->lists('cid'),
+            'executive'   => \Sentry::findGroupByName('Executive')->users->lists('cid')
         ];
         if ($view === 'staff') {
             $data['staff_users'] = $this->users->getStaff();
@@ -114,7 +115,7 @@ class RosterController extends BaseController
             $data['ta'] = $this->users->getSingleStaff('TA');
         }
         if ($view === 'groups') {
-            if ( ! empty($id) && $action === 'edit') {
+            if (! empty($id) && $action === 'edit') {
                 $data['group'] = \Group::find($id);
                 $data['members'] = \Sentry::findAllUsersInGroup($data['group']);
             } else {
@@ -127,31 +128,34 @@ class RosterController extends BaseController
         if ($view === 'adopt') {
             $data['students'] = $this->users->getAdoptableStudents();
             $data['adopted'] = $this->users->getAdoptedStudents();
+            $data['mine'] = $this->users->getAdoptedByCid($this->current_user->cid);
         }
 
-        if($view === 'inactive') {
+        if ($view === 'inactive') {
             $staffings = \App::make('Zbw\Users\StaffingRepository');
             $data['users'] = $this->users->getInactive();
             $data['staffings'] = $staffings->getMostRecentAll();
         }
-        return View::make('staff.roster.index', $data);
+        return \View::make('staff.roster.index', $data);
     }
 
     public function getAddController()
     {
         $data = [
-          'title' => 'Add ZBW Controller'
+            'title' => 'Add ZBW Controller'
         ];
 
-        return View::make('staff.roster.create-controller', $data);
+        return \View::make('staff.roster.create-controller', $data);
     }
 
     public function postAddController()
     {
-        if ($this->users->create(Input::get('fname'), Input::get('lname'), Input::get('email'), Input::get('artcc'), Input::get('cid'))) {
-            return Redirect::back()->with('flash_info', 'Controller successfully added!');
+        if ($this->users->create($this->request->get('fname'), $this->request->get('lname'),
+            $this->request->get('email'), $this->request->get('artcc'), $this->request->get('cid'))
+        ) {
+            return \Redirect::back()->with('flash_info', 'Controller successfully added!');
         } else {
-            return Redirect::back()->with('flash_error', 'There was an error!');
+            return \Redirect::back()->with('flash_error', 'There was an error!');
         }
     }
 
@@ -174,10 +178,10 @@ class RosterController extends BaseController
 
     public function postEditUser($id)
     {
-        if ($this->users->updateUser($id, Input::all())) {
-            return Redirect::back()->with('flash_success', 'User successfully updated!');
+        if ($this->users->updateUser($id, $this->request->all())) {
+            return \Redirect::back()->with('flash_success', 'User successfully updated!');
         } else {
-            return Redirect::back()->with('flash_error', 'There was an error - postEditUser');
+            return \Redirect::back()->with('flash_error', 'There was an error - postEditUser');
         }
     }
 
@@ -185,20 +189,20 @@ class RosterController extends BaseController
     {
         $this->comments->add([
             'comment_type' => 1,
-            'parent_id' => $cid,
-            'content' => \Input::get('comment')
+            'parent_id'    => $cid,
+            'content'      => $this->request->get('comment')
         ]);
-        return Redirect::back()->with('flash_success', 'Comment added successfully');
+        return \Redirect::back()->with('flash_success', 'Comment added successfully');
     }
 
     public function getDeleteComment($comment_id)
     {
         $comment = $this->comments->get($comment_id);
-        if($comment->author === $this->current_user->cid || $this->current_user->inGroup(\Sentry::findGroupByName('Executive'))) {
+        if ($comment->author === $this->current_user->cid || $this->current_user->inGroup(\Sentry::findGroupByName('Executive'))) {
             $this->comments->delete($comment_id);
         }
 
-        return Redirect::back()->with('flash_success', 'Comment deleted successfully');
+        return \Redirect::back()->with('flash_success', 'Comment deleted successfully');
     }
 
     public function getEditComment($comment_id)
@@ -209,9 +213,9 @@ class RosterController extends BaseController
 
     public function postEditComment($comment_id)
     {
-        if($cid = $this->comments->updateRosterComment($comment_id, \Input::all())) {
+        if ($cid = $this->comments->updateRosterComment($comment_id, $this->request->all())) {
             $this->setFlash(['flash_success' => 'Comment edited successfully']);
-            return Redirect::to("/staff/{$cid}/edit");
+            return \Redirect::to("/staff/{$cid}/edit");
         } else {
             $this->setFlash(['flash_error' => 'There was an error']);
             return $this->redirectBack();
@@ -220,62 +224,62 @@ class RosterController extends BaseController
 
     public function postGroup()
     {
-        $input = \Input::all();
+        $input = $this->request->all();
         if ($this->groups->create($input)) {
-            return Redirect::route('roster')->with('flash_success', 'Group created successfully');
+            return \Redirect::route('roster')->with('flash_success', 'Group created successfully');
         } else {
-            return Redirect::back()->with('flash_error', 'Error creating group')->withInput();
+            return \Redirect::back()->with('flash_error', 'Error creating group')->withInput();
         }
 
     }
 
     public function updateGroup()
     {
-        if ($this->groups->updateGroup(\Input::all())) {
-            return Redirect::back()->with('flash_success', 'Group updated');
+        if ($this->groups->updateGroup($this->request->all())) {
+            return \Redirect::back()->with('flash_success', 'Group updated');
         } else {
-            return Redirect::back()->with('flash_error', 'Unable to update group');
+            return \Redirect::back()->with('flash_error', 'Unable to update group');
         }
     }
 
     public function postVisitorDeny()
     {
         $staff = \Sentry::getUser();
-        if ($results = $this->visitors->deny($staff, \Input::all())) {
+        if ($results = $this->visitors->deny($staff, $this->request->all())) {
             Queue::push('Zbw\Queues\QueueDispatcher@usersDenyVisitor', $results);
 
-            return Redirect::back()->with('flash_success', 'Visitor request denied');
+            return \Redirect::back()->with('flash_success', 'Visitor request denied');
         } else {
-            return Redirect::back()->with('flash_error', $this->visitors->getErrors());
+            return \Redirect::back()->with('flash_error', $this->visitors->getErrors());
         }
     }
 
     public function postVisitorLor()
     {
         $staff = \Sentry::getUser();
-        if ($this->visitors->addLor($staff, \Input::all())) {
-            return Redirect::back()->with('flash_success', 'LOR uploaded successfully');
+        if ($this->visitors->addLor($staff, $this->request->all())) {
+            return \Redirect::back()->with('flash_success', 'LOR uploaded successfully');
         } else {
-            return Redirect::back()->with('flash_error', $this->visitors->getErrors());
+            return \Redirect::back()->with('flash_error', $this->visitors->getErrors());
         }
     }
 
     public function postVisitorComment()
     {
         $staff = \Sentry::getUser();
-        if ($comment = $this->visitors->comment($staff, \Input::all())) {
-            return Redirect::back()->with('flash_success', 'Comment added successfully');
+        if ($comment = $this->visitors->comment($staff, $this->request->all())) {
+            return \Redirect::back()->with('flash_success', 'Comment added successfully');
         } else {
-            return Redirect::back()->with('flash_error', $this->visitors->getErrors());
+            return \Redirect::back()->with('flash_error', $this->visitors->getErrors());
         }
     }
 
     public function postVisitorDelete($id)
     {
         if ($this->visitors->delete($id)) {
-            return Redirect::back()->with('flash_success', 'Applicant deleted successfully');
+            return \Redirect::back()->with('flash_success', 'Applicant deleted successfully');
         } else {
-            return Redirect::back()->with('flash_error', 'Error deleting applicant');
+            return \Redirect::back()->with('flash_error', 'Error deleting applicant');
         }
     }
 }

@@ -1,4 +1,4 @@
-<?php
+<?php namespace Zbw\Http\Controllers;
 
 use Illuminate\Session\Store;
 use Zbw\Teamspeak\TeamspeakService;
@@ -30,4 +30,4 @@ class TeamspeakController extends BaseController
         $this->ts->message($cid, \Input::get('message'));
         return $this->redirectBack()->with('flash_success', 'Message sent');
     }
-} 
+}

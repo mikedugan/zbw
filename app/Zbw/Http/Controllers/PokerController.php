@@ -1,23 +1,29 @@
 <?php
 
+namespace Zbw\Http\Controllers;
+
 use Illuminate\Session\Store;
+use Redirect;
+use View;
+use Zbw\Http\Controllers\BaseController;
 use Zbw\Poker\Contracts\PokerServiceInterface;
 use Zbw\Poker\Exceptions\PilotNotFoundException;
 
-class PokerController extends \BaseController {
+class PokerController extends \Zbw\Http\Controllers\BaseController
+{
 
     private $service;
 
     public function __construct(PokerServiceInterface $service, Store $session)
     {
-        $this->service = $service;
         parent::__construct($session);
+        $this->service = $service;
     }
 
     public function getIndex()
     {
         $data = [
-            'pilots' => $this->service->getPilots(),
+            'pilots'    => $this->service->getPilots(),
             'standings' => $this->service->getStandings()
         ];
         return View::make('staff.poker.index', $data);
@@ -31,15 +37,15 @@ class PokerController extends \BaseController {
             return Redirect::back()->with('flash_error', 'Pilot not found!');
         }
 
-        if($draw) {
-            return Redirect::back()->with(
-              'flash_success',
-              $draw['card'] . " drawn for pilot " . $draw['pid']
-            );
+        $pid = $this->request->get('pid');
+
+        if ($draw) {
+            $this->setFlash(['flash_success' => $draw['card'] . " drawn for pilot " . $pid]);
+        } else {
+            $this->setFlash(['flash_error' => "$pid must discard before they can draw a new card"]);
         }
-        else {
-            return Redirect::back()->with('flash_error', \Input::get('pid') . ' must discard before they can draw a new card');
-        }
+
+        return $this->redirectBack();
     }
 
     public function getPilot($pid)
@@ -53,16 +59,18 @@ class PokerController extends \BaseController {
     public function postDiscard($pid)
     {
         $this->service->discard(\Input::get('card'));
-        return Redirect::back()->with('flash_success', 'Card discarded successfully');
+        return \Redirect::back()->with('flash_success', 'Card discarded successfully');
     }
 
     public function postWipe()
     {
-        if($this->service->wipePilots() && $this->service->wipeCards())
-        {
-            return Redirect::back()->with('flash_success', 'Poker data successfully wiped out!');
+        if ($this->service->wipePilots() && $this->service->wipeCards()) {
+
+            $this->setFlash(['flash_success' => 'Poker data successfully wiped out!']);
         } else {
-            return Redirect::back()->with('flash_error', 'Error removing poker data!');
+            $this->setFlash(['flash_error' => 'Error removing poker data!']);
         }
+
+        return $this->redirectBack();
     }
 }

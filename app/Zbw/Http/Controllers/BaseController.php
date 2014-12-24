@@ -1,7 +1,11 @@
-<?php
+<?php namespace Zbw\Http\Controllers;
 
+use Controller;
 use Laracasts\Commander\CommanderTrait;
 use Illuminate\Session\Store;
+use Response;
+use User;
+use Zbw;
 
 abstract class BaseController extends Controller
 {
@@ -34,7 +38,7 @@ abstract class BaseController extends Controller
     protected $current_user;
 
     /**
-     * @param Store                $session
+     * @param Store $session
      */
     public function __construct(Store $session)
     {
@@ -43,7 +47,7 @@ abstract class BaseController extends Controller
         $this->input = \Input::all();
         $this->data = [];
 
-        if(\Sentry::check()) {
+        if (\Sentry::check()) {
             $user = \Sentry::getUser();
             $this->current_user = $user;
             \View::share('me', $this->current_user);
@@ -63,17 +67,21 @@ abstract class BaseController extends Controller
 
     protected function setData($key, $value = null)
     {
-        if(is_array($key) && ! $value) $this->data = $key;
-        else $this->data[$key] = $value;
+        if (is_array($key) && ! $value) {
+            $this->data = $key;
+        } else {
+            $this->data[$key] = $value;
+        }
     }
 
     /**
      * Setup the layout used by the controller.
+     *
      * @return void
      */
     protected function setupLayout()
     {
-        if ( ! is_null($this->layout)) {
+        if (! is_null($this->layout)) {
             $this->layout = \View::make($this->layout);
         }
     }
@@ -84,8 +92,7 @@ abstract class BaseController extends Controller
      */
     protected function setFlash($flash_data)
     {
-        foreach($flash_data as $title => $text)
-        {
+        foreach ($flash_data as $title => $text) {
             $this->session->flash($title, $text);
         }
     }
@@ -116,7 +123,7 @@ abstract class BaseController extends Controller
      */
     protected function redirectTo($url, $statusCode = 302)
     {
-        return \Redirect::to($url,$statusCode);
+        return \Redirect::to($url, $statusCode);
     }
 
     /**

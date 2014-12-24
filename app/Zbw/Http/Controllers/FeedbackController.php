@@ -1,7 +1,11 @@
 <?php
 
+namespace Zbw\Http\Controllers;
+
 use Illuminate\Session\Store;
+use View;
 use Zbw\Cms\FeedbackRepository;
+use Zbw\Http\Controllers\BaseController;
 use Zbw\Users\Contracts\UserRepositoryInterface;
 
 class FeedbackController extends BaseController
@@ -19,7 +23,7 @@ class FeedbackController extends BaseController
     public function getFeedback()
     {
         $data = [
-          'controllers' => $this->users->activeList()
+            'controllers' => $this->users->activeList()
         ];
 
         return View::make('zbw.feedback', $data);
@@ -27,30 +31,29 @@ class FeedbackController extends BaseController
 
     public function postFeedback()
     {
-        if($this->feedbacks->create(\Input::all())) {
-            return Redirect::home()->with('flash_success', 'Feedback sent successfully!');
-        }
-        else {
-            return Redirect::back()->with('flash_error', 'Error sending feedback');
+        if ($this->feedbacks->create(\Input::all())) {
+            return \Redirect::home()->with('flash_success', 'Feedback sent successfully!');
+        } else {
+            return \Redirect::back()->with('flash_error', 'Error sending feedback');
         }
     }
 
     public function viewFeedback()
     {
         $feedback = $this->feedbacks->byRecent();
-        $data = [
-            'feedbacks' => $feedback
-        ];
-        return View::make('staff.feedback', $data);
+        $this->setData('feedbacks', $feedback);
+        return $this->view('staff.feedback');
     }
 
     public function deleteFeedback($id)
     {
         $feedback = $this->feedbacks->get($id);
-        if($feedback->delete()) {
-            return $this->redirectBack()->with('flash_success', 'Feedback deleted successfully');
+        if ($feedback->delete()) {
+            $this->setFlash(['flash_success' => 'Feedback deleted successfully']);
         } else {
-            return $this->redirectBack()->with('flash_error', 'There was an error deleting the feedback');
+            $this->setFlash(['flash_error' => 'There was an error deleting the feedback']);
         }
+
+        return $this->redirectBack();
     }
 }

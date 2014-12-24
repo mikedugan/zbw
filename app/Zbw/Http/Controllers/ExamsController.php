@@ -1,6 +1,8 @@
-<?php
+<?php namespace Zbw\Http\Controllers;
 
 use Illuminate\Session\Store;
+use Redirect;
+use Zbw\Bostonjohn\Datafeed\VatusaExamFeed;
 use Zbw\Cms\Contracts\CommentsRepositoryInterface;
 use Zbw\Core\Repositories\RatingRepository;
 use Zbw\Training\Contracts\ExamsRepositoryInterface;
@@ -8,7 +10,6 @@ use Zbw\Training\Contracts\QuestionsRepositoryInterface;
 
 use Zbw\Training\Commands\GetExamReviewCommand;
 use Zbw\Training\Commands\CreateExamCommand;
-use Zbw\Training\Exceptions\RecentExamException;
 
 class ExamsController extends BaseController
 {
@@ -17,8 +18,13 @@ class ExamsController extends BaseController
     private $exams;
     private $certs;
 
-    public function __construct(CommentsRepositoryInterface $comments, ExamsRepositoryInterface $exams, QuestionsRepositoryInterface $questions, \Zbw\Training\Contracts\CertificationRepositoryInterface $certs, Store $session)
-    {
+    public function __construct(
+        CommentsRepositoryInterface $comments,
+        ExamsRepositoryInterface $exams,
+        QuestionsRepositoryInterface $questions,
+        \Zbw\Training\Contracts\CertificationRepositoryInterface $certs,
+        Store $session
+    ) {
         $this->comments = $comments;
         $this->exams = $exams;
         $this->questions = $questions;
@@ -28,11 +34,10 @@ class ExamsController extends BaseController
 
     public function getIndex()
     {
-        if(\Input::has('initials') || \Input::has('reviewed') || \Input::has('before') || \Input::has('after')) {
-            $this->setData('exams', $this->exams->indexFiltered(\Input::all()));
+        if ($this->request->has(['initials', 'reviewed', 'before', 'after'])) {
+            $this->setData('exams', $this->exams->indexFiltered($this->request->all()));
             $this->setData('paginate', false);
-        }
-        else {
+        } else {
             $this->setData('exams', $this->exams->indexPaginated(10));
             $this->setData('paginate', true);
         }
@@ -59,7 +64,7 @@ class ExamsController extends BaseController
         $this->setData('exam', $exam);
         $this->setData('comments', $exam->allComments());
         $this->setData('review_content', $review_content);
-        if ( ! $exam) {
+        if (! $exam) {
             $this->setFlash(['flash_info' => 'No exams found']);
             $this->redirectBack();
         }
@@ -79,26 +84,27 @@ class ExamsController extends BaseController
 
     public function getQuestions()
     {
-        if(\Input::has('exam')) {
+        if (\Input::has('exam')) {
             $this->setData('questions', $this->questions->indexFiltered(\Input::all()));
             $this->setData('paginate', false);
-        }
-        else {
-              $this->setData('questions', $this->questions->indexPaginated(10));
-              $this->setData('paginate', true);
+        } else {
+            $this->setData('questions', $this->questions->indexPaginated(10));
+            $this->setData('paginate', true);
         }
         $this->view('staff.exams.view-questions');
     }
 
     public function postComment($eid)
     {
-        $post = \Input::all();
+        $post = $this->request->all();
         $post['comment_type'] = \MessageType::where('value', 'c_exam')->first()->id;
-        if($this->comments->add($post)) {
-            return Redirect::back()->with('flash_success','Comment added successfully');
+        if ($this->comments->add($post)) {
+            $this->setFlash(['flash_success' => 'Comment added successfully']);
         } else {
-            return Redirect::back()->with('flash_error', $this->comments->getErrors());
+            $this->setFlash(['flash_success' => $this->comments->getErrors()]);
         }
+
+        return $this->redirectBack();
     }
 
     public function getEditQuestion($id)
@@ -109,30 +115,33 @@ class ExamsController extends BaseController
 
     public function postEditQuestion($id)
     {
-        if(! $this->questions->update(\Input::all())) {
-            return Redirect::back()->with('flash_error', $this->questions->getErrors());
+        if (! $this->questions->update(\Input::all())) {
+            $this->setFlash(['flash_error' => $this->questions->getErrors()]);
+        } else {
+            $this->setFlash(['flash_success' => 'Question updated successfully']);
         }
-        else {
-            return Redirect::back()->with('flash_success', 'Question updated successfully');
-        }
+
+        return $this->redirectBack();
     }
 
     public function addQuestion()
     {
-        if(! $this->questions->create(\Input::all())) {
-            return Redirect::back()->with('flash_error', $this->questions->getErrors());
+        if (! $this->questions->create(\Input::all())) {
+            $this->setFlash(['flash_error' => $this->questions->getErrors()]);
+        } else {
+            $this->setFlash(['flash_success' => 'Question added successfully']);
         }
-        else {
-            return Redirect::back()->with('flash_success', 'Question added successfully');
-        }
+
+        return $this->redirectBack();
     }
 
     public function deleteQuestion($id)
     {
-        if($this->questions->delete($id)) {
-            return Redirect::route('staff/exams/questions')->with('flash_success', 'Question deleted');
+        if ($this->questions->delete($id)) {
+            return \Redirect::route('staff/exams/questions')->with('flash_success', 'Question deleted');
+        } else {
+            return \Redirect::back()->with('flash_error', 'Error deleting question');
         }
-        else return Redirect::back()->with('flash_error', 'Error deleting question');
     }
 
     public function takeExam()
@@ -153,13 +162,14 @@ class ExamsController extends BaseController
     public function gradeExam()
     {
         $this->exams->grade(\Input::all());
-        $exam = \Exam::find(\Input::get('examid'));
+        $exam = $this->exams->get($this->request->get('examid'));
         $score = round($exam->correct / $exam->total_questions * 100, 2);
-        if($exam->pass) {
-            return Redirect::route('training')->with('flash_success', 'You passed your exam with a score of '.$score.'%. Click "Review Exams" to provide corrections and view with staff.');
-        }
-        else {
-            return Redirect::route('training')->with('flash_error', 'You failed your exam with a score of '.$score.'%. Click "Review Exams" to provide corrections and view with staff. You
+        if ($exam->pass) {
+            return \Redirect::route('training')->with('flash_success',
+                'You passed your exam with a score of ' . $score . '%. Click "Review Exams" to provide corrections and view with staff.');
+        } else {
+            return \Redirect::route('training')->with('flash_error',
+                'You failed your exam with a score of ' . $score . '%. Click "Review Exams" to provide corrections and view with staff. You
             may retake the exam in 7 days.');
         }
     }
@@ -181,9 +191,9 @@ class ExamsController extends BaseController
     public function aRequestExam($cid, $eid)
     {
         if ($this->certs->requestExam($cid, $eid)) {
-            return $this->json(['success' => true,'message' => 'Your exam has been successfully requested!']);
+            return $this->json(['success' => true, 'message' => 'Your exam has been successfully requested!']);
         } else {
-            return $this->json(['success' => false,'message' => 'There was an error! Please contact a staff member!']);
+            return $this->json(['success' => false, 'message' => 'There was an error! Please contact a staff member!']);
         }
     }
 
@@ -194,8 +204,8 @@ class ExamsController extends BaseController
     {
         $ratings = new RatingRepository();
         $exam = $ratings->get($this->current_user->rating_id + 1)->long;
-        Queue::push('Zbw\Queues\QueueDispatcher@usersRequestVatusaExam', $this->current_user->cid);
-        return $this->json(['success' => true,'message' => 'VATUSA '.$exam.' exam requested.']);
+        \Queue::push('Zbw\Queues\QueueDispatcher@usersRequestVatusaExam', $this->current_user->cid);
+        return $this->json(['success' => true, 'message' => 'VATUSA ' . $exam . ' exam requested.']);
     }
 
     public function aGetVatusaExams($cid)
@@ -210,9 +220,9 @@ class ExamsController extends BaseController
     public function aExamReviewed($id)
     {
         if ($this->exams->finishReview($id)) {
-            return $this->json(['success' => true,'message' => 'Exam review complete.']);
+            return $this->json(['success' => true, 'message' => 'Exam review complete.']);
         } else {
-            return $this->json(['success' => false,'message' => implode(',', $this->exams->getErrors())]);
+            return $this->json(['success' => false, 'message' => implode(',', $this->exams->getErrors())]);
         }
     }
 
@@ -223,9 +233,9 @@ class ExamsController extends BaseController
     public function aReopenExam($id)
     {
         if ($this->exams->reopenReview($id)) {
-            return $this->json(['success' => true,'message' => 'Exam review reopened.']);
+            return $this->json(['success' => true, 'message' => 'Exam review reopened.']);
         } else {
-            return $this->json(['success' => false,'message' => $this->exams->getErrors()]);
+            return $this->json(['success' => false, 'message' => $this->exams->getErrors()]);
         }
     }
 }
