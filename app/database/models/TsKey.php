@@ -10,7 +10,7 @@ class TsKey extends Eloquent
         return $this->belongsTo('User', 'cid', 'cid');
     }
 
-    public static function getTsKey($key)
+    public static function getKey($key)
     {
         return self::where('ts_key', $key)
             ->where('used', false)
