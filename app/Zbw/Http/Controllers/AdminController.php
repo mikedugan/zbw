@@ -35,7 +35,7 @@ class AdminController extends BaseController
 
     public function getSearchResults()
     {
-        $results = $this->users->search(Input::all());
+        $results = $this->users->search(\Input::all());
         $this->setData('stype', 'roster');
         $this->setData('results', $results);
 
