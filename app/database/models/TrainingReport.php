@@ -86,4 +86,4 @@ class TrainingReport extends BaseModel implements PresentableInterface
     {
         return $this->belongsTo('ControllerTraining', 'training_id', 'id');
     }
-} 
+}

@@ -33,7 +33,6 @@
     },
     "autoload": {
         "classmap": [
-            "app/controllers",
             "app/database/models",
             "app/database/migrations",
             "app/database/seeds"
