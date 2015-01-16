@@ -1,5 +1,6 @@
 <?php  namespace Zbw\Bostonjohn\Datafeed;
 
+use Symfony\Component\Debug\Exception\ClassNotFoundException;
 use Zbw\Core\Helpers;
 use Curl\Curl;
 use Zbw\Bostonjohn\Datafeed\Contracts\DatafeedParserInterface;
@@ -16,6 +17,11 @@ class DatafeedParser implements DatafeedParserInterface
      * @var string
      */
     private $datafeed;
+
+    /**
+     * @var string
+     */
+    private $flightModel = \ZbwFlight::class;
 
     /**
      * @var \Curl\Curl
@@ -65,9 +71,9 @@ class DatafeedParser implements DatafeedParserInterface
     const QNH_MB = 40;
 
 
-    public function __construct()
+    public function __construct($curl = null)
     {
-        $this->curl = new Curl();
+        $this->curl = is_null($curl) ? new Curl() : $curl;
         $this->setDatafeed();
         $modlines = [];
         $lines = strstr($this->datafeed, '!CLIENTS:');
@@ -109,6 +115,20 @@ class DatafeedParser implements DatafeedParserInterface
     }
 
     /**
+     * @param string $model
+     * @throws ClassNotFoundException
+     * @return void
+     */
+    public function setFlightModel($model)
+    {
+        if(! class_exists($model)) {
+            throw new ClassNotFoundException("Class $model not found", new \ErrorException());
+        }
+
+        $this->flightModel = $model;
+    }
+
+    /**
      * parses a controller line from the datafeed. Creates
      *
      * @param $line
@@ -140,7 +160,7 @@ class DatafeedParser implements DatafeedParserInterface
      */
     private function parsePilotLine($line)
     {
-        $flight = new \ZbwFlight();
+        $flight = new $this->flightModel();
         $flight->cid = $line[$this::CID];
         $flight->callsign = $line[$this::CALLSIGN];
         $flight->departure = $line[$this::DEPAIRPORT];
