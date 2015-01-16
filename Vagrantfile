@@ -4,7 +4,7 @@
 # Config Github Settings
 github_username = "fideloper"
 github_repo     = "Vaprobash"
-github_branch   = "1.2.0"
+github_branch   = "1.3.1"
 github_url      = "https://raw.githubusercontent.com/#{github_username}/#{github_repo}/#{github_branch}"
 
 # Server Configuration
@@ -18,8 +18,9 @@ hostname        = "zbw.dev"
 #   172.16.0.1  - 172.31.255.254
 #   192.168.0.1 - 192.168.255.254
 server_ip             = "192.168.24.10"
-server_memory         = "512" # MB
-server_swap           = "768" # Options: false | int (MB) - Guideline: Between one or two times the server_memory
+server_cpus           = "2"   # Cores
+server_memory         = "1024" # MB
+server_swap           = "1500" # Options: false | int (MB) - Guideline: Between one or two times the server_memory
 
 # UTC        for Universal Coordinated Time
 # EST        for Eastern Standard Time
@@ -30,17 +31,18 @@ server_timezone  = "UTC"
 # Database Configuration
 mysql_root_password   = "root"   # We'll assume user "root"
 mysql_version         = "5.6"    # Options: 5.5 | 5.6
-mysql_enable_remote   = "true"  # remote access enabled when true
+mysql_enable_remote   = "false"  # remote access enabled when true
 pgsql_root_password   = "root"   # We'll assume user "root"
 mongo_enable_remote   = "false"  # remote access enabled when true
 
 # Languages and Packages
 php_timezone          = "UTC"    # http://php.net/manual/en/timezones.php
+php_version           = "5.6"    # Options: 5.5 | 5.6
 ruby_version          = "latest" # Choose what ruby version should be installed (will also be the default version)
 ruby_gems             = [        # List any Ruby Gems that you want to install
   #"jekyll",
-  #"sass",
-  #"compass",
+  "sass",
+  "compass",
 ]
 
 # To install HHVM instead of PHP, set this to "true"
@@ -48,8 +50,8 @@ hhvm                  = "false"
 
 # PHP Options
 composer_packages     = [        # List any global Composer packages that you want to install
-  "phpunit/phpunit:4.0.*",
-  "codeception/codeception=*",
+  #"phpunit/phpunit:4.0.*",
+  #"codeception/codeception=*",
   #"phpspec/phpspec:2.0.*@dev",
   #"squizlabs/php_codesniffer:1.5.*",
 ]
@@ -59,7 +61,7 @@ composer_packages     = [        # List any global Composer packages that you wa
 # Laravel's public directory is assumed "public"
 public_folder         = "/vagrant"
 
-laravel_root_folder   = "/vagrant" # Where to install Laravel. Will `composer install` if a composer.json file exists
+laravel_root_folder   = "/vagrant/laravel" # Where to install Laravel. Will `composer install` if a composer.json file exists
 laravel_version       = "latest-stable" # If you need a specific version of Laravel, set it here
 symfony_root_folder   = "/vagrant/symfony" # Where to install Symfony.
 
@@ -67,9 +69,12 @@ nodejs_version        = "latest"   # By default "latest" will equal the latest s
 nodejs_packages       = [          # List any global NodeJS packages that you want to install
   #"grunt-cli",
   "gulp",
-  #"bower",
+  "bower",
   #"yo",
 ]
+
+sphinxsearch_version  = "rel22" # rel20, rel21, rel22, beta, daily, stable
+
 
 Vagrant.configure("2") do |config|
 
@@ -79,11 +84,17 @@ Vagrant.configure("2") do |config|
   config.vm.define "Vaprobash" do |vapro|
   end
 
+  if Vagrant.has_plugin?("vagrant-hostmanager")
+    config.hostmanager.enabled = true
+    config.hostmanager.manage_host = true
+    config.hostmanager.ignore_private_ip = false
+    config.hostmanager.include_offline = false
+  end
 
   # Create a hostname, don't forget to put it to the `hosts` file
   # This will point to the server's default virtual host
   # TO DO: Make this work with virtualhost along-side xip.io URL
-  config.vm.hostname = "zbw"
+  config.vm.hostname = hostname
 
   # Create a static IP
   config.vm.network :private_network, ip: server_ip
@@ -97,7 +108,10 @@ Vagrant.configure("2") do |config|
   # If using VirtualBox
   config.vm.provider :virtualbox do |vb|
 
-    vb.name = "ZbwVM"
+    vb.name = "ZbwVm"
+
+    # Set server cpus
+    vb.customize ["modifyvm", :id, "--cpus", server_cpus]
 
     # Set server memory
     vb.customize ["modifyvm", :id, "--memory", server_memory]
@@ -156,17 +170,19 @@ Vagrant.configure("2") do |config|
   config.vm.provision "shell", path: "#{github_url}/scripts/base.sh", args: [github_url, server_swap, server_timezone]
 
   # optimize base box
-  config.vm.provision "shell", path: "#{github_url}/scripts/base_box_optimizations.sh", 
-    privileged: true
+  config.vm.provision "shell", path: "#{github_url}/scripts/base_box_optimizations.sh", privileged: true
 
   # Provision PHP
-  config.vm.provision "shell", path: "#{github_url}/scripts/php.sh", args: [php_timezone, hhvm]
+  config.vm.provision "shell", path: "#{github_url}/scripts/php.sh", args: [php_timezone, hhvm, php_version]
 
   # Enable MSSQL for PHP
   # config.vm.provision "shell", path: "#{github_url}/scripts/mssql.sh"
 
   # Provision Vim
-  config.vm.provision "shell", path: "#{github_url}/scripts/vim.sh", args: github_url
+  # config.vm.provision "shell", path: "#{github_url}/scripts/vim.sh", args: github_url
+
+  # Provision Docker
+  # config.vm.provision "shell", path: "#{github_url}/scripts/docker.sh"
 
 
   ####
@@ -216,7 +232,7 @@ Vagrant.configure("2") do |config|
   # config.vm.provision "shell", path: "#{github_url}/scripts/elasticsearch.sh"
 
   # Install SphinxSearch
-  # config.vm.provision "shell", path: "#{github_url}/scripts/sphinxsearch.sh"
+  # config.vm.provision "shell", path: "#{github_url}/scripts/sphinxsearch.sh", args: [sphinxsearch_version]
 
   ####
   # Search Server Administration (web-based)
@@ -254,7 +270,7 @@ Vagrant.configure("2") do |config|
   # config.vm.provision "shell", path: "https://toolbelt.heroku.com/install-ubuntu.sh"
 
   # Install Supervisord
-  # config.vm.provision "shell", path: "#{github_url}/scripts/supervisord.sh"
+  config.vm.provision "shell", path: "#{github_url}/scripts/supervisord.sh"
 
   # Install ØMQ
   # config.vm.provision "shell", path: "#{github_url}/scripts/zeromq.sh"
@@ -264,7 +280,7 @@ Vagrant.configure("2") do |config|
   ##########
 
   # Install Nodejs
-  config.vm.provision "shell", path: "#{github_url}/scripts/nodejs.sh", privileged: false, args: nodejs_packages.unshift(nodejs_version, github_url)
+  # config.vm.provision "shell", path: "#{github_url}/scripts/nodejs.sh", privileged: false, args: nodejs_packages.unshift(nodejs_version, github_url)
 
   # Install Ruby Version Manager (RVM)
   # config.vm.provision "shell", path: "#{github_url}/scripts/rvm.sh", privileged: false, args: ruby_gems.unshift(ruby_version)
