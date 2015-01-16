@@ -7,20 +7,27 @@ class EloquentAirportRepository extends EloquentRepository implements AirportRep
 {
     public $model = Airport::class;
 
+    /**
+     * @param $icao
+     * @return Airport
+     */
     public function getByIcao($icao)
     {
         return $this->make()->whereIcao($icao)->first();
     }
 
     /**
-     *
      * @param $input
-     * @return mixed
+     * @return void
      */
     public function update($input)
     {
+        throw new \BadMethodCallException("Method not supported", 500);
     }
 
+    /**
+     * @return Airport[]
+     */
     public function allByAirspace()
     {
         $airports = $this->make()->orderBy('airspace', 'ASC')->with('frequencies')->get();
@@ -32,6 +39,9 @@ class EloquentAirportRepository extends EloquentRepository implements AirportRep
         return $airports;
     }
 
+    /**
+     * @return Airport[]
+     */
     public function allByTracon()
     {
         $airports = $this->make()->where('tracon', '!=', 'N/A')->orderBy('tracon', 'ASC')->get();
@@ -40,6 +50,9 @@ class EloquentAirportRepository extends EloquentRepository implements AirportRep
         return $airports;
     }
 
+    /**
+     * @return Airport[]
+     */
     public function allAlphabetically()
     {
         return $this->make()->orderBy('name', 'ASC')->get();

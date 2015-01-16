@@ -17,7 +17,7 @@ App::bind(
 Bugsnag::setAppVersion(\Config::get('zbw.version'));
 Bugsnag::setBeforeNotifyFunction('beforeBugsnagNotify');
 
-if(! App::environment('testing')) {
+if(! App::environment('testing') && ! function_exists('beforeBugsnagNotify')) {
     function beforeBugsnagNotify($error)
     {
         if(\Sentry::getUser()) {

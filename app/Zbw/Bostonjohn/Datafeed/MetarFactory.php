@@ -8,9 +8,8 @@ use Zbw\Bostonjohn\Datafeed\Contracts\MetarCreatorInterface;
  * @author  Mike Dugan <mike@mjdugan.com>
  * @since   2.0.1b
  */
-class MetarCreator implements MetarCreatorInterface
+class MetarFactory implements MetarCreatorInterface
 {
-
     private $curl;
 
     public function __construct()
@@ -53,7 +52,7 @@ class MetarCreator implements MetarCreatorInterface
             $metar = new \Metar();
             $metar->facility = $airport;
             $metar->raw = trim($this->curl->response);
-            $metar->time = $parser->getZuluTime();
+            $metar->time = (int) $parser->getZuluTime();
             $metar->wind_direction = $parser->getWindDirection();
             $metar->wind_speed = $parser->getWindSpeed();
             $metar->wind_gusts = $parser->getWindGusts();
@@ -62,7 +61,11 @@ class MetarCreator implements MetarCreatorInterface
             $metar->temp = $parser->getTemperature();
             $metar->dewpoint = $parser->getDewpoint();
             $metar->altimeter = $parser->getQNH();
-            $metar->save();
+            if($metar->save()) {
+                echo "$airport saved!\n";
+            } else {
+                die($metar->getErrors());
+            }
         }
     }
 } 

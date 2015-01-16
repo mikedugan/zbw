@@ -1,4 +1,5 @@
-<?php namespace Tests\Airports;
+<?php namespace Tests\Functional\Airports;
+
 use \FunctionalTester;
 
 class UpdateAirportCest
@@ -9,12 +10,5 @@ class UpdateAirportCest
 
     public function _after(FunctionalTester $I)
     {
-    }
-
-    public function updateAirportAsExpected(FunctionalTester $I)
-    {
-        $I->amOnPage('/');
-        $I->see('ZBW');
-        $I->seeCurrentUrlEquals('/');
     }
 }

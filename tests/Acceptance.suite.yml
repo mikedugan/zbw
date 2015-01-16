@@ -9,15 +9,12 @@ modules:
     enabled:
         - WebDriver 
         - AcceptanceHelper
-        - Laravel4
         - Db
+        - Cli
     config:
-        Laravel4:
-            cleanup: false
-            start: bootstrap/start.php
         WebDriver:
             url: 'http://zbw.dev'
-            browser: '/usr/bin/chromium-browser'
+            browser: '/usr/bin/firefox'
             window_size: 1024x768
             wait: 10
             capabilities:

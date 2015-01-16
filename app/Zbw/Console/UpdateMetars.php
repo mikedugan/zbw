@@ -1,7 +1,8 @@
 <?php namespace Zbw\Console;
 
 use Illuminate\Console\Command;
-use Zbw\Bostonjohn\Datafeed\MetarCreator;
+use Zbw\Bostonjohn\Datafeed\EloquentMetarRepository;
+use Zbw\Bostonjohn\Datafeed\MetarFactory;
 
 /**
  * @package Zbw\Commands
@@ -25,14 +26,20 @@ class UpdateMetars extends Command
      */
     protected $description = 'Update the METARs from the VATSIM server';
 
+    protected $metars;
+
+    protected $metarFactory;
+
     /**
      * Create a new command instance.
      *
      * @return UpdateMetars
      */
-    public function __construct()
+    public function __construct(EloquentMetarRepository $metars = null, MetarFactory $metarFactory = null)
     {
         parent::__construct();
+        $this->metars = is_null($metars) ? new EloquentMetarRepository() : $metars;
+        $this->metarFactory = is_null($metarFactory) ? new MetarFactory() : $metarFactory;
     }
 
     /**
@@ -42,14 +49,13 @@ class UpdateMetars extends Command
      */
     public function fire()
     {
-        $metar = new MetarCreator();
-        $metar->updateMetars();
+        $this->metarFactory->updateMetars();
         \Cache::tags('metars')->flush();
         $this->info('METARs updated successfully!');
-        /*$deletes = \Metar::where(
-          'created_at', '<', \Carbon::now()->subMinutes(2)
-        )->lists('id');
-        \Metar::destroy($deletes);*/
+        $metars = $this->metars->getStaleMetars();
+        if(! empty($metars)) {
+            $this->metars->delete($this->metars->getStaleMetars());
+        }
     }
 
     /**

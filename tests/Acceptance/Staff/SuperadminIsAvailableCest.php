@@ -4,16 +4,14 @@ use \AcceptanceTester;
 
 class SuperadminIsAvailableCest
 {
-    // tests
     public function staffCantSeeSuperAdmin(AcceptanceTester $I)
     {
         \Sentry::login(\User::find(1088911));
         $I->am('a mentor');
         $I->wantTo('try to access superadmin');
-        $I->amOnPage('/roster');
-        $I->canSeeLink('Staff');
-        $I->cantSeeLink('Admin');
-
+        $I->amOnPage('/');
+        $I->seeLink('Staff');
+        $I->dontSeeLink('Admin');
     }
 
     public function adminCanSeeSuperAdmin(AcceptanceTester $I)
@@ -21,9 +19,8 @@ class SuperadminIsAvailableCest
         \Sentry::login(\User::find(1240047));
         $I->am('a mentor');
         $I->wantTo('try to access superadmin');
-        $I->amOnPage('/roster');
-        $I->canSeeLink('Staff');
-        $I->canSeeLink('Admin');
-
+        $I->amOnPage('/');
+        $I->seeLink('Staff');
+        $I->dontSeeLink('Admin');
     }
 }

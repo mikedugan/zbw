@@ -24,12 +24,21 @@ $app = new Illuminate\Foundation\Application;
 |
 */
 
-$env = $app->detectEnvironment(array(
+$env = $app->detectEnvironment(function () {
+    if(isset($_ENV['APP_ENV'])) {
+        return $_ENV['APP_ENV'];
+    }
 
-		'local' => array('mike-macpro', 'buntu','homestead','zbw', 'Mikes-iMac-2.local'),
-		'production'	=> array('server3.sitearray.com', 'bostonartcc.net', 'dev.bostonartcc.net'),
-
-));
+    $hostname = gethostname();
+    $local = ['mike-macpro', 'buntu', 'homestead', 'zbw', 'Mikes-iMac-2.local'];
+    $prod = ['server3.sitearray.com', 'bostonartcc.net', 'dev.bostonartcc.net'];
+    if (in_array($hostname, $local)) {
+        return 'local';
+    } else if (in_array($hostname, $prod)) {
+        return 'production';
+    } else if (App::runningUnitTests()) { return 'testing'; }
+    else return 'local';
+});
 
 /*
 |--------------------------------------------------------------------------
@@ -42,7 +51,7 @@ $env = $app->detectEnvironment(array(
 |
 */
 
-$app->bindInstallPaths(require __DIR__.'/paths.php');
+$app->bindInstallPaths(require __DIR__ . '/paths.php');
 
 /*
 |--------------------------------------------------------------------------
@@ -55,9 +64,9 @@ $app->bindInstallPaths(require __DIR__.'/paths.php');
 |
 */
 
-$framework = $app['path.base'].'/vendor/laravel/framework/src';
+$framework = $app['path.base'] . '/vendor/laravel/framework/src';
 
-require $framework.'/Illuminate/Foundation/start.php';
+require $framework . '/Illuminate/Foundation/start.php';
 
 /*
 |--------------------------------------------------------------------------
