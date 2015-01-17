@@ -166,12 +166,17 @@ class StaffingRepository extends EloquentRepository implements StaffingRepositor
         return $results;
     }
 
+    public function getDaysOfStaffing($days = 2)
+    {
+        return $this->make()->where('updated_at', '>', \Carbon::now()->subDays($days))->get();
+    }
+
     /**
      * @param $input
      * @return mixed
      */
     public function update($input)
     {
-       return true;
+        return true;
     }
 }

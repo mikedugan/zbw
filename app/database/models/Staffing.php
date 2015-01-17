@@ -51,6 +51,21 @@ class Staffing extends BaseModel implements PresentableInterface
         return $this->belongsTo('User', 'cid', 'cid');
     }
 
+    public function expired()
+    {
+        return $this->updated_at < \Carbon::now()->subMinutes(3) && ! $this->stop;
+    }
+
+    public function checkExpiry()
+    {
+        if($this->expired()) {
+            $this->stop = \Carbon::now();
+            return true;
+        }
+
+        return false;
+    }
+
     public static function frontPage()
     {
         return Staffing::where('stop', '0000-00-00 00:00:00')->orWhere('stop', null)->with(['user'])->get();
