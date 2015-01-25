@@ -120,6 +120,7 @@ class DatafeedParser implements DatafeedParserInterface
     public function parseDatafeed()
     {
         foreach($this->datafeed as $line) {
+            if(empty($line)) { continue; }
             $dfLine = new DatafeedLine($line);
             if($dfLine->isZbwAirport()) {
                 $this->parseControllerLine($line);
