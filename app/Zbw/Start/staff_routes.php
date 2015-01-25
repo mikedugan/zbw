@@ -70,6 +70,7 @@ Route::group(
             Route::post('{id}/edit', ['as' => 'staff/{id}/edit', 'uses' => RosterController::class.'@postEditUser']);
             Route::get('{id}/training', ['as' => 'roster/user/{id}/training', 'uses' => RosterController::class.'@getControllerDashboard']);
             Route::post('{id}/comment', ['as' => 'staff/{id}/comment', 'uses' => RosterController::class.'@postRosterComment']);
+            Route::post('{id}/exam-records', ['as' => 'roster.exam-records', 'uses' => RosterController::class.'@postExamRecords']);
             Route::get('comments/{comment}/delete', ['as' => 'staff/comments/{comment}/delete', 'uses' => RosterController::class.'@getDeleteComment']);
             Route::get('comments/{comment}/edit', ['as' => 'staff/comments/{comment}/edit', 'uses' => RosterController::class.'@getEditComment']);
             Route::post('comments/{comment}/edit', ['as' => 'staff/comments/{comment}/edit', 'uses' => RosterController::class.'@postEditComment']);

@@ -126,6 +126,11 @@ class User extends SentryUser implements PresentableInterface
         return $this->hasMany('Exam', 'cid', 'cid');
     }
 
+    public function examRecords()
+    {
+        return $this->hasOne(\Zbw\Training\ExamRecord::class, 'cid', 'cid');
+    }
+
     public function certification()
     {
         return $this->hasOne('CertType', 'id', 'cert');

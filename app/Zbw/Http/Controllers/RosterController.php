@@ -3,6 +3,7 @@
 use Illuminate\Session\Store;
 use Queue;
 use Zbw\Cms\Contracts\CommentsRepositoryInterface;
+use Zbw\Training\ExamRecord;
 use Zbw\Users\Contracts\GroupsRepositoryInterface;
 use Zbw\Users\Contracts\UserRepositoryInterface;
 use Zbw\Users\Contracts\VisitorApplicantRepositoryInterface;
@@ -163,7 +164,34 @@ class RosterController extends BaseController
     {
         $this->setData('controller', $this->users->get($cid));
         $this->setData('comments', $this->comments->rosterComments($cid));
+        $this->setData('examRecords', ExamRecord::whereCid($cid)->firstOrFail());
+        $this->setData('executive', \Sentry::findGroupByName('Executive'));
         return $this->view('staff.roster.dashboard');
+    }
+
+    public function postExamRecords($cid)
+    {
+        $controller = $this->users->get($cid);
+        $input = \Input::all();
+        foreach($input as $k => $v) {
+            $input[$k.'_by'] = $this->current_user->initials;
+            $input[$k.'_on'] = \Carbon::now();
+        }
+        $controller->examRecords->fill($input);
+        $attrs = $controller->examRecords->getAttributes();
+
+        array_forget($attrs, ['id','cid','created_at', 'updated_at']);
+        array_forget($attrs, array_keys($input));
+        foreach($attrs as $attr => $value) {
+            if(strpos($attr, '_on') > 0 || strpos($attr, '_by') > 0) {
+                continue;
+            }
+            else {
+                $controller->examRecords->$attr = 0;
+            }
+        }
+        $controller->examRecords->save();
+        return $this->redirectback()->with('flash_success', 'Exam records updated');
     }
 
     public function getEditUser($id)

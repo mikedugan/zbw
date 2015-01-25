@@ -51,7 +51,7 @@ class CommentsRepository extends EloquentRepository implements CommentsRepositor
 
     public function rosterComments($cid)
     {
-        return $this->make()->where('comment_type', 1)->where('parent_id', $cid)->orderBy('created_at', 'desc')->get();
+        return $this->make()->where('comment_type', 1)->where('parent_id', $cid)->with(['user'])->orderBy('created_at', 'desc')->get();
     }
 
     public function updateRosterComment($id, $input)
