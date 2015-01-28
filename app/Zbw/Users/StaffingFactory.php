@@ -11,7 +11,6 @@ class StaffingFactory
             $staffing->start = \Carbon::createFromFormat('m-d-Y h:i:s', $start);
         } catch (\InvalidArgumentException $e) {
             $staffing->start = \Carbon::now();
-            \Bugsnag::notifyException($e, null, 'warning');
         }
         $staffing->cid = $line[DatafeedParser::CID];
         $staffing->position = $line[DatafeedParser::CALLSIGN];

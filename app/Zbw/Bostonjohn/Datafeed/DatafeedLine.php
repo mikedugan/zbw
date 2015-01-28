@@ -18,8 +18,10 @@ class DatafeedLine
         if (array_key_exists(DatafeedParser::DEPAIRPORT, $this->line) &&
             array_key_exists(DatafeedParser::DESTAIRPORT, $this->line)
         ) {
-            return in_array(substr($this->line[DatafeedParser::DEPAIRPORT], 0, 4), \Config::get('zbw.airports'))
-            || in_array(substr($this->line[DatafeedParser::DESTAIRPORT], 0, 4), \Config::get('zbw.airports'));
+            $airports = \Config::get('zbw.airports');
+            $is_departing = in_array(substr($this->line[DatafeedParser::DEPAIRPORT], 0, 4), $airports);
+            $is_arriving = in_array(substr($this->line[DatafeedParser::DESTAIRPORT], 0, 4), $airports);
+            return ($is_departing || $is_arriving);
         } else {
             return false;
         }

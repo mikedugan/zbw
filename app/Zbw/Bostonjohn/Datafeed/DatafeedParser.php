@@ -186,7 +186,7 @@ class DatafeedParser implements DatafeedParserInterface
     private function parsePilotLine($line)
     {
         $flight = new $this->flightModel();
-        $flight->cid = is_int($line[$this::CID]) ? $line[$this::CID] : 0;
+        $flight->cid = is_int((int) $line[$this::CID]) ? $line[$this::CID] : 0;
         $flight->callsign = $line[$this::CALLSIGN];
         $flight->departure = $line[$this::DEPAIRPORT];
         $flight->destination = $line[$this::DESTAIRPORT];
