@@ -23,7 +23,7 @@ class FeedbackController extends BaseController
     public function getFeedback()
     {
         $data = [
-            'controllers' => $this->users->activeList('last_name')
+            'controllers' => $this->users->activeList('last_name', 'ASC')
         ];
 
         return View::make('zbw.feedback', $data);
