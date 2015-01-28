@@ -64,4 +64,9 @@ class DatafeedLine
         return $this->line[DatafeedParser::CID];
     }
 
+    public function rawLine()
+    {
+        return $this->line;
+    }
+
 }

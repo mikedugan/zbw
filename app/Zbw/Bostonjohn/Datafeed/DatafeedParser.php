@@ -223,11 +223,11 @@ class DatafeedParser implements DatafeedParserInterface
     private function createStaffing($line, $start)
     {
         $users = new UserRepository();
-        if(! $users->exists($line[$this::CID])) {
+        if(! $users->exists($line->cid())) {
             return true;
         }
 
         $factory = new StaffingFactory();
-        return $this->staffingRepo->save($factory->fromDatafeedLine($line, $start));
+        return $this->staffingRepo->save($factory->fromDatafeedLine($line->rawLine(), $start));
     }
 }
