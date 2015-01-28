@@ -153,8 +153,16 @@ class DatafeedParser implements DatafeedParserInterface
      * @param $line
      * @return void
      */
-    private function parseControllerLine(DatafeedLine $line)
+    private function parseControllerLine($line)
     {
+        if(is_array($line)) {
+            $line = new DatafeedLine($line);
+        }
+
+        if(! $line instanceof DatafeedLine) {
+            throw new \InvalidArgumentException("DatafeedLine expected, received" . gettype($line));
+        }
+
         //parse the login time
         $start = $line->getStartTime();
 
@@ -178,7 +186,7 @@ class DatafeedParser implements DatafeedParserInterface
     private function parsePilotLine($line)
     {
         $flight = new $this->flightModel();
-        $flight->cid = $line[$this::CID];
+        $flight->cid = is_int($line[$this::CID]) ? $line[$this::CID] : 0;
         $flight->callsign = $line[$this::CALLSIGN];
         $flight->departure = $line[$this::DEPAIRPORT];
         $flight->destination = $line[$this::DESTAIRPORT];

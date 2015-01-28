@@ -213,7 +213,7 @@ class Sso
             $sso = $this->responseFormat($response);
 
             // did VATSIM return a successful result?
-            if ($sso->request->result == 'success') {
+            if (! is_array($sso) && $sso->request->result == 'success') {
 
                 // this parameter is required by 1.0a specb
                 if ($sso->token->oauth_callback_confirmed == 'true') {

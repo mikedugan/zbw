@@ -1,4 +1,3 @@
-
     <h1 class="text-center">My Inbox</h1>
     <div class="col-md-12 subnav">
         {{ HTML::linkRoute('messages.allread', 'Mark All Read', null, ['class' => 'btn btn-xs']) }}

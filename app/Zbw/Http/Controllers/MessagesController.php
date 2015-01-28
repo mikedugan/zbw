@@ -47,13 +47,15 @@ class MessagesController extends BaseController
     {
         $selected = $this->request->get('selected');
         $action = $this->request->get('action');
-        switch ($action) {
-            case 'delete':
-                $this->messages->deleteMany($selected);
-                break;
-            case 'read':
-                $this->messages->markManyRead($selected);
-                break;
+        if(! empty($selected)) {
+            switch ($action) {
+                case 'delete':
+                    $this->messages->deleteMany($selected);
+                    break;
+                case 'read':
+                    $this->messages->markManyRead($selected);
+                    break;
+            }
         }
 
         return $this->redirectBack();
@@ -79,6 +81,9 @@ class MessagesController extends BaseController
     public function viewMessage($message_id)
     {
         $message = $this->messages->get($message_id);
+        if(! $message instanceof \Message) {
+            return $this->redirectBack()->with('flash_error', 'Message does not exist - did you delete it?');
+        }
         $message->markRead();
         $this->setData('view', '');
         $this->setData('message', $message);

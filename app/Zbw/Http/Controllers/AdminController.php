@@ -4,6 +4,7 @@ use Illuminate\Filesystem\Filesystem;
 use Illuminate\Session\Store;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Zbw\Users\Contracts\UserRepositoryInterface;
+use Zbw\Users\Commands\SearchUsersCommand;
 
 class AdminController extends BaseController
 {
@@ -35,14 +36,14 @@ class AdminController extends BaseController
 
     public function getSearchResults()
     {
-        $results = $this->users->search(\Input::all());
+        $results = $this->execute(SearchUsersCommand::class, ['input' => $this->input]);
+        if (count($results) === 0) {
+            //$this->setFlash(['flash_info' => 'No results found']);
+            return \Redirect::back()->with('flash_info', 'No results found');
+        }
+
         $this->setData('stype', 'roster');
         $this->setData('results', $results);
-
-        if(count($results) === 0) {
-            $this->setFlash('flash_info', 'No results found');
-            return $this->redirectBack();
-        }
 
         $this->view('staff.roster.results');
     }

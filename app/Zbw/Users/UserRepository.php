@@ -255,9 +255,9 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
     /**
      * @return mixed
      */
-    public function activeList()
+    public function activeList($sort = 'updated_at')
     {
-        return $this->make()->where('activated', 1)->orderBy('updated_at', 'DESC')->get();
+        return $this->make()->where('activated', 1)->orderBy($sort, 'DESC')->get();
     }
 
     /**

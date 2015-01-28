@@ -4,7 +4,7 @@ class DatafeedLine
 {
     private $line;
 
-    public function __construct($line)
+    public function __construct(array $line)
     {
         if (empty($line)) {
             throw new \InvalidArgumentException("Line is empty");

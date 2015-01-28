@@ -15,17 +15,17 @@ Dashboard
         <h3 class="text-center">ZBW Exams</h3>
         <form action="/staff/{{ $controller->cid }}/exam-records" method="POST">
             <?php $exams = [
-            'SOP' => 'SOP Exam',
-            'C_S1' => 'Class C S1',
-            'B_S1' => 'Class B S1',
+            'SOP' => 'ZBW SOP',
+            'C_S1' => 'ZBW C/D GND',
+            'B_S1' => 'ZBW B Ground',
             'V_S1' => 'VATUSA S1',
-            'C_S2' => 'Class C S2',
-            'B_S2' => 'Class B S2',
+            'C_S2' => 'ZBW C/D TWR',
+            'B_S2' => 'ZBW B TWR',
             'V_S2' => 'VATUSA S2',
-            'C_S3' => 'Class C S3',
-            'B_S3' => 'Class B S3',
+            'C_S3' => 'ZBW C APP',
+            'B_S3' => 'ZBW B APP',
             'V_S3' => 'VATUSA S3',
-            'C' => 'Center',
+            'C' => 'ZBW Center',
             'V_C' => 'VATUSA Center'
             ];?>
             <div class="form-group">

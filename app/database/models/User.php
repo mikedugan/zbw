@@ -231,7 +231,7 @@ class User extends SentryUser implements PresentableInterface
 
     public function wants($type, $title)
     {
-        if(is_null($this->settings->{'n_'.$title})) return false;
+        if(is_null($this->settings) || is_null($this->settings->{'n_'.$title})) return false;
         $user_wants = $this->settings->{'n_'.$title};
         if($user_wants === 0) { return false; }
         switch($type) {
