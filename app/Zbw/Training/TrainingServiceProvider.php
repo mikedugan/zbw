@@ -21,7 +21,7 @@ class TrainingServiceProvider extends ServiceProvider {
             return \App::make('Zbw\Training\StaffAvailabilityRepository');
         });
         $this->app->bind('Zbw\Training\Contracts\TrainingRequestRepositoryInterface', function() {
-            return \App::make('Zbw\Training\TrainingRequesetRepository');
+            return \App::make('Zbw\Training\TrainingRequestRepository');
         });
     }
 } 
