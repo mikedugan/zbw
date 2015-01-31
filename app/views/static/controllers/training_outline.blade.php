@@ -16,7 +16,7 @@ Training Outline
     <li>{{ HTML::linkAsset('/documents/sops/kbos.pdf', 'KBOS', ['target' => '_blank']) }}</li>
     <li>{{ HTML::linkAsset('/documents/sops/a90.pdf', 'A90/Boston', ['target' => '_blank']) }}</li>
     <li>{{ HTML::linkAsset('/documents/sops/cape.pdf', 'K90/Cape', ['target' => '_blank']) }}</li>
-    <li>{{ HTML::linkAsset('/documents/sops/kpvd.pdf', 'G90/KPVD', ['target' => '_blank']) }}</li>
+    <li>{{ HTML::linkAsset('/documents/sops/kpvd.pdf', 'KPVD', ['target' => '_blank']) }}</li>
     <li>{{ HTML::linkAsset('/documents/sops/kbdl.pdf', 'Y90/KBDL', ['target' => '_blank']) }}</li>
     <li>{{ HTML::linkAsset('/documents/sops/kalb.pdf', 'KALB', ['target' => '_blank']) }}</li>
     <li>{{ HTML::linkAsset('/documents/sops/ctr.pdf', 'Center', ['target' => '_blank']) }}</li>
