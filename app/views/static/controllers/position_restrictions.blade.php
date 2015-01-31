@@ -46,7 +46,7 @@ Position Restriction Policy
 
 <h4>&nbsp;</h4>
 <h4>vZBW Training Program Position Restrictions</h4>
-<p>All controllers are welcome and encouraged to join the vZBW Training program. vZBW's training program is robust and in-depth and will provide an excellent and rewarding challenge to the controller. Having a vZBW certification means that, as a controller, you will be recognized as having an exceptional knowledge and skill with ATC procedures. You will also find a great sense of community within the vZBW training program, as everyone is there to help each other. The detailed <a href="/controllers/policies/training_outline.php">training outline</a> can be found on our website. Any controller joining the vZBW Training program will agree to be bound by the following position restrictions:</p>
+<p>All controllers are welcome and encouraged to join the vZBW Training program. vZBW's training program is robust and in-depth and will provide an excellent and rewarding challenge to the controller. Having a vZBW certification means that, as a controller, you will be recognized as having an exceptional knowledge and skill with ATC procedures. You will also find a great sense of community within the vZBW training program, as everyone is there to help each other. The detailed <a href="/controllers/training-outline">training outline</a> can be found on our website. Any controller joining the vZBW Training program will agree to be bound by the following position restrictions:</p>
 
 <p><strong>General Conditions</strong></p>
 <ul>

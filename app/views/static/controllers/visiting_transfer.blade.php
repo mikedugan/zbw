@@ -9,7 +9,7 @@ Visiting and Transferring Controller Policy
 <h5>Visiting Controllers</h5>
 <ol>
 <li><p>
-Controllers wishing to apply for visiting status at vZBW shall send a visiting status request through <a href="http://www.bostonartcc.net/controllers/visit_table.php">this form</a>. They must also supply an email/letter of recommendation from the ATM at their home ARTCC before their application will be considered; applications without the required letter of recommendation are considered incomplete and will not be acted on.</p></li>
+Controllers wishing to apply for visiting status at vZBW shall send a visiting status request through <a href="http://bostonartcc.net/visit">this form</a>. They must also supply an email/letter of recommendation from the ATM at their home ARTCC before their application will be considered; applications without the required letter of recommendation are considered incomplete and will not be acted on.</p></li>
 
 <li><p>
 vZBW ARTCC will not provide any training to help with a successful evaluation. The controller is expected to be competent to the level commensurate with their rating. Failure to meet the standards commensurate with the rating the controller already holds may result in termination from the visiting controller roster, and referral back to the controller’s home ARTCC’s ATM and TA, citing the deficiencies noted.</p></li>
@@ -44,8 +44,8 @@ At no time will any authorization/certification applied at vZBW supersede contro
 <p>
 <li>Upon acceptance of the request to visit or transfer (whichever is applicable), the controller will complete all applicable exams, and will then schedule an over the shoulder competency evaluation with a vZBW mentor/instructor. Once a successful evaluation has taken place, the controller will then be allowed to control at Non-Major positions only.</li></p>
 <p>
-<li>Upon request to visit or transfer (whichever is applicable), the controller agrees to adhere to all <a href="http://www.bostonartcc.net/controllers/policies">vZBW Policies</a>, including the <a href="http://www.bostonartcc.net/controllers/policies/position_restrictions.php">vZBW Position Restriction Policy</a> and the <a href= "http://www.bostonartcc.net/controllers/policies/roster_removal.php">vZBW Roster Removal Policy</a>.</li></p>
-<p><li>Controllers who wish to control in Boston airspace on a regular basis but are unable to transfer to Boston, or controllers who do ultimately transfer to Boston may, upon completion of the required written, oral, and practical exams (or a combination thereof), staff positions approved with their certifications as described within the <a href="http://www.bostonartcc.net/controllers/policies/position_restrictions.php">vZBW Position Restriction Policy</a>. The local procedure and competency checks shall be administered by the <a href="http://www.bostonartcc.net/staff">vZBW training staff</a>.</li></p>
+<li>Upon request to visit or transfer (whichever is applicable), the controller agrees to adhere to all <a href="http://bostonartcc.net/controllers/policies">vZBW Policies</a>, including the <a href="http://bostonartcc.net/controllers/policies/position-restrictions">vZBW Position Restriction Policy</a> and the <a href= "http://bostonartcc.net/controllers/policies/roster-removal">vZBW Roster Removal Policy</a>.</li></p>
+<p><li>Controllers who wish to control in Boston airspace on a regular basis but are unable to transfer to Boston, or controllers who do ultimately transfer to Boston may, upon completion of the required written, oral, and practical exams (or a combination thereof), staff positions approved with their certifications as described within the <a href="http://bostonartcc.net/controllers/policies/position-restrictions">vZBW Position Restriction Policy</a>. The local procedure and competency checks shall be administered by the <a href="http://bostonartcc.net/roster?v=staff">vZBW training staff</a>.</li></p>
 </ol>
 
 
