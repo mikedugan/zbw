@@ -3,6 +3,7 @@
 use Curl\Curl;
 use Zbw\Bostonjohn\Roster\Contracts\RosterUpdater;
 use Zbw\Users\Contracts\UserRepositoryInterface;
+use Zbw\Training\ExamRecord;
 
 /**
  * @package Bostonjohn
@@ -55,6 +56,9 @@ class VatusaRosterUpdater implements RosterUpdater
             if($this->users->exists($member->cid)) { continue; }
             $this->users->add($member->fname, $member->lname, $member->email, 'ZBW',
                               $member->cid, $member->rating, false);
+            $examRecord = new ExamRecord();
+            $examRecord->cid = $member->cid;
+            $examRecord->save();
             \Queue::push('Zbw\Queues\QueueDispatcher@usersNewUser', $member);
             $counter++;
         }
