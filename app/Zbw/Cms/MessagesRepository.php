@@ -155,7 +155,7 @@ class MessagesRepository extends EloquentRepository implements MessagesRepositor
         $outbox->cid = $from;
         $outbox->save();
 
-        if ($from === $to) {
+        if ($from == $to) {
             return $this->checkAndSave($outbox);
         }
 

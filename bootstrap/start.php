@@ -36,7 +36,7 @@ $env = $app->detectEnvironment(function () {
         return 'local';
     } else if (in_array($hostname, $prod)) {
         return 'production';
-    } else if (App::runningUnitTests()) { return 'testing'; }
+    } else if (\App::runningUnitTests()) { return 'testing'; }
     else return 'local';
 });
 

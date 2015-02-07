@@ -119,13 +119,22 @@ class DatafeedParser implements DatafeedParserInterface
      */
     public function parseDatafeed()
     {
-        foreach($this->datafeed as $line) {
+        /*foreach($this->datafeed as $line) {
             if(empty($line)) { continue; }
             $dfLine = new DatafeedLine($line);
             if($dfLine->isZbwAirport()) {
                 $this->parseControllerLine($line);
             }
             else if($dfLine->isZbwFlight()) {
+                $this->parsePilotLine($line);
+            }
+        }*/
+
+        foreach($this->datafeed as $line) {
+            if($this->isZbwAirport($line)) {
+                $this->parseControllerLine($line);
+            }
+            else if($this->isZbwFlight($line)) {
                 $this->parsePilotLine($line);
             }
         }
@@ -155,7 +164,7 @@ class DatafeedParser implements DatafeedParserInterface
      */
     private function parseControllerLine($line)
     {
-        if(is_array($line)) {
+        /*if(is_array($line)) {
             $line = new DatafeedLine($line);
         }
 
@@ -170,6 +179,21 @@ class DatafeedParser implements DatafeedParserInterface
         $online = \Staffing::where('start', $start)->where('cid', $line->cid())->get();
         if(! $line->isObserver()){
             if ($online->count() <= 0) {
+                //create the new staffing
+                $this->createStaffing($line, $start);
+            } else {
+                //update the existing one
+                $online[0]->touch();
+            }
+        }*/
+
+        if(empty($line[$this::TIME_LOGON])) dd($line);
+        //parse the login time
+        $start = \Carbon::createFromFormat('YmdHis', $line[$this::TIME_LOGON]);
+        //is the controller already online?
+        $online = \Staffing::where('start', $start)->where('cid', $line[$this::CID])->get();
+        if(strpos($line[$this::CALLSIGN], '_OBS') === false) {
+            if (! count($online) > 0) {
                 //create the new staffing
                 $this->createStaffing($line, $start);
             } else {
@@ -226,11 +250,22 @@ class DatafeedParser implements DatafeedParserInterface
     private function createStaffing($line, $start)
     {
         $users = new UserRepository();
+        if(! $users->exists($line[$this::CID])) {
+            return true;
+        }
+        $staffing = new \Staffing();
+        $staffing->cid = $line[$this::CID];
+        $staffing->start = $start;
+        $staffing->position = $line[$this::CALLSIGN];
+        $staffing->frequency = $line[$this::FREQUENCY];
+        return $staffing->save();
+
+        /*$users = new UserRepository();
         if(! $users->exists($line->cid())) {
             return true;
         }
 
         $factory = new StaffingFactory();
-        return $this->staffingRepo->save($factory->fromDatafeedLine($line->rawLine(), $start));
+        return $this->staffingRepo->save($factory->fromDatafeedLine($line->rawLine(), $start));*/
     }
 }
