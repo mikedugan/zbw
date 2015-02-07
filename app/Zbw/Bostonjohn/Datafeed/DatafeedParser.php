@@ -119,7 +119,7 @@ class DatafeedParser implements DatafeedParserInterface
      */
     public function parseDatafeed()
     {
-        /*foreach($this->datafeed as $line) {
+        foreach($this->datafeed as $line) {
             if(empty($line)) { continue; }
             $dfLine = new DatafeedLine($line);
             if($dfLine->isZbwAirport()) {
@@ -128,16 +128,16 @@ class DatafeedParser implements DatafeedParserInterface
             else if($dfLine->isZbwFlight()) {
                 $this->parsePilotLine($line);
             }
-        }*/
+        }
 
-        foreach($this->datafeed as $line) {
+        /*foreach($this->datafeed as $line) {
             if($this->isZbwAirport($line)) {
                 $this->parseControllerLine($line);
             }
             else if($this->isZbwFlight($line)) {
                 $this->parsePilotLine($line);
             }
-        }
+        }*/
 
         $this->closeStaffings();
     }
