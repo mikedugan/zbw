@@ -1,12 +1,8 @@
 <?php  namespace Zbw\Bostonjohn\Datafeed;
 
-use Symfony\Component\Debug\Exception\ClassNotFoundException;
 use Zbw\Core\Helpers;
 use Curl\Curl;
 use Zbw\Bostonjohn\Datafeed\Contracts\DatafeedParserInterface;
-use Zbw\Users\Contracts\StaffingRepositoryInterface;
-use Zbw\Users\StaffingFactory;
-use Zbw\Users\StaffingRepository;
 use Zbw\Users\UserRepository;
 
 /**
@@ -20,13 +16,6 @@ class DatafeedParser implements DatafeedParserInterface
      * @var string
      */
     private $datafeed;
-
-    /**
-     * @var string
-     */
-    private $flightModel = \ZbwFlight::class;
-
-    private $staffingRepo;
 
     /**
      * @var \Curl\Curl
@@ -76,32 +65,19 @@ class DatafeedParser implements DatafeedParserInterface
     const QNH_MB = 40;
 
 
-    public function __construct($curl = null, StaffingRepositoryInterface $staffingRepo = null)
+    public function __construct()
     {
-        $this->staffingRepo = is_null($staffingRepo) ? new StaffingRepository() : $staffingRepo;
-        $this->curl = is_null($curl) ? new Curl() : $curl;
+        $this->curl = new Curl();
         $this->setDatafeed();
+        $modlines = [];
         $lines = strstr($this->datafeed, '!CLIENTS:');
         $lines = Helpers::makeLines($lines, false);
-        $this->datafeed = $this->fetchLineParts($lines);
-    }
-
-    private function fetchLineParts($lines)
-    {
-        $newLines = [];
         foreach($lines as $line) {
-            $newLines[] = $this->parseSingleLine($line);
+            $templine = explode(':', $line);
+            if(count($templine) > 5)
+                $modlines[] = $templine;
         }
-
-        return $newLines;
-    }
-
-    private function parseSingleLine($line)
-    {
-        $temp = explode(':', $line);
-        if(count($temp) > 5) { //arbitrary, should be >>> 5
-            return $temp;
-        }
+        $this->datafeed = $modlines;
     }
 
     /**
@@ -120,40 +96,16 @@ class DatafeedParser implements DatafeedParserInterface
     public function parseDatafeed()
     {
         foreach($this->datafeed as $line) {
-            if(empty($line)) { continue; }
-            $dfLine = new DatafeedLine($line);
-            if($dfLine->isZbwAirport()) {
-                $this->parseControllerLine($line);
-            }
-            else if($dfLine->isZbwFlight()) {
-                $this->parsePilotLine($line);
-            }
-        }
-
-        /*foreach($this->datafeed as $line) {
             if($this->isZbwAirport($line)) {
                 $this->parseControllerLine($line);
             }
+
             else if($this->isZbwFlight($line)) {
                 $this->parsePilotLine($line);
             }
-        }*/
-
-        $this->closeStaffings();
-    }
-
-    /**
-     * @param string $model
-     * @throws ClassNotFoundException
-     * @return void
-     */
-    public function setFlightModel($model)
-    {
-        if(! class_exists($model)) {
-            throw new ClassNotFoundException("Class $model not found", new \ErrorException());
         }
 
-        $this->flightModel = $model;
+        $this->closeStaffings();
     }
 
     /**
@@ -164,32 +116,11 @@ class DatafeedParser implements DatafeedParserInterface
      */
     private function parseControllerLine($line)
     {
-        /*if(is_array($line)) {
-            $line = new DatafeedLine($line);
-        }
-
-        if(! $line instanceof DatafeedLine) {
-            throw new \InvalidArgumentException("DatafeedLine expected, received" . gettype($line));
-        }
-
-        //parse the login time
-        $start = $line->getStartTime();
-
-        //is the controller already online?
-        $online = \Staffing::where('start', $start)->where('cid', $line->cid())->get();
-        if(! $line->isObserver()){
-            if ($online->count() <= 0) {
-                //create the new staffing
-                $this->createStaffing($line, $start);
-            } else {
-                //update the existing one
-                $online[0]->touch();
-            }
-        }*/
-
         if(empty($line[$this::TIME_LOGON])) dd($line);
+
         //parse the login time
         $start = \Carbon::createFromFormat('YmdHis', $line[$this::TIME_LOGON]);
+
         //is the controller already online?
         $online = \Staffing::where('start', $start)->where('cid', $line[$this::CID])->get();
         if(strpos($line[$this::CALLSIGN], '_OBS') === false) {
@@ -209,8 +140,8 @@ class DatafeedParser implements DatafeedParserInterface
      */
     private function parsePilotLine($line)
     {
-        $flight = new $this->flightModel();
-        $flight->cid = is_int((int) $line[$this::CID]) ? $line[$this::CID] : 0;
+        $flight = new \ZbwFlight();
+        $flight->cid = $line[$this::CID];
         $flight->callsign = $line[$this::CALLSIGN];
         $flight->departure = $line[$this::DEPAIRPORT];
         $flight->destination = $line[$this::DESTAIRPORT];
@@ -228,6 +159,7 @@ class DatafeedParser implements DatafeedParserInterface
      */
     private function closeStaffings()
     {
+        //grab all staffings within the last 48 hours
         $staffings = \Staffing::getDaysOfStaffing(2);
         if(count($staffings) > 0) {
             foreach ($staffings as $row) {
@@ -243,6 +175,53 @@ class DatafeedParser implements DatafeedParserInterface
     }
 
     /**
+     * Checks a pilot line from the datafeed to determine if it is a ZBW flight
+     *
+     * @param $line
+     * @return bool
+     */
+    private function isZbwFlight($line)
+    {
+        //make sure the departure or desination airport is set
+        if(array_key_exists($this::DEPAIRPORT, $line) && array_key_exists($this::DESTAIRPORT, $line))
+            //check it against our list of airports
+            return in_array(substr($line[$this::DEPAIRPORT], 0, 4), \Config::get('zbw.airports'))
+            || in_array(substr($line[$this::DESTAIRPORT], 0, 4), \Config::get('zbw.airports'));
+        else return false;
+    }
+
+    /**
+     * Determines if a given airport is in ZBW airspace
+     *
+     * @param $line
+     * @return bool
+     */
+    private function isZbwAirport($line)
+    {
+        //filter out observers and non-ZBW callsigns off the bat
+        if($this->positionInvalid($line)) return false;
+        //check that the position is in our list of IATA airports
+        $itis = in_array(substr($line[0], 0, 3), \Config::get('zbw.iatas'));
+        if($itis)
+        {
+            //just to be sure there's no underscore funny business
+            return $line[0][3] == '_' || $line[0][4] == '_';
+        }
+        else return false;
+    }
+
+    /**
+     * don't ask.
+     *
+     * @param $line
+     * @return bool
+     */
+    private function positionInvalid($line)
+    {
+        return (isset($line[$this::CALLSIGN][3]) && $line[$this::CALLSIGN][3] !== '_') || (isset($line[$this::CALLSIGN][3]) && substr($line[$this::FREQUENCY], 0, 3) == '199');
+    }
+
+    /**
      * @param $line
      * @param $start
      * @return bool
@@ -253,19 +232,12 @@ class DatafeedParser implements DatafeedParserInterface
         if(! $users->exists($line[$this::CID])) {
             return true;
         }
+
         $staffing = new \Staffing();
         $staffing->cid = $line[$this::CID];
         $staffing->start = $start;
         $staffing->position = $line[$this::CALLSIGN];
         $staffing->frequency = $line[$this::FREQUENCY];
         return $staffing->save();
-
-        /*$users = new UserRepository();
-        if(! $users->exists($line->cid())) {
-            return true;
-        }
-
-        $factory = new StaffingFactory();
-        return $this->staffingRepo->save($factory->fromDatafeedLine($line->rawLine(), $start));*/
     }
 }
