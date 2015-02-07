@@ -53,7 +53,7 @@ class Staffing extends BaseModel implements PresentableInterface
 
     public function expired()
     {
-        return $this->updated_at < \Carbon::now()->subMinutes(3) && ! $this->stop;
+        return $this->updated_at < \Carbon::now()->subMinutes(4) && ! $this->stop;
     }
 
     public function checkExpiry()

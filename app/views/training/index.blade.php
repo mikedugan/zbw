@@ -7,48 +7,61 @@ Your Training
 @stop
 @section('content')
     <div class="col-md-6">
-        <h2 class="text-center">Your Training Progress</h2>
+        <!--<h2 class="text-center">Your Training Progress</h2>
         <div id="training" class="progress progress-striped active">
             <div class="progress-bar" role="progressbar" aria-valuenow="{{ $progress }}" aria-valuemin="0" aria-valuemax="100" style="width:{{ $progress }}%"></div>
-        </div>
+        </div>-->
         <h5>Current VATSIM Rating: <span class="sans">{{ $me->rating->long }}</span></h5>
         @if($me->cert > 0)
         <h5>Current ZBW Certification: <span class="sans">{{ $me->certification->readable() }}</span></h5>
         @else
         <h5>Current ZBW Certification: <span class="sans">N/A</span></h5>
         @endif
-        @if($me->cert < 11)
-        @if($me->cert == 2 && $me->rating_id < 2)
-          <form class="axform" action="/me/request/vatusa" method="post">
-            <button type="submit" class="btn btn-primary">Request VATUSA S1 Exam</button>
-          </form>
-        @elseif($me->cert == 5 && $me->rating_id < 3)
-        <form class="axform" action="/me/request/vatusa" method="post">
-            <button type="submit" class="btn btn-primary">Request VATUSA S2 Exam</button>
-        </form>
-        @elseif($me->cert == 8 && $me->rating_id < 4)
-        <form class="axform" action="/me/request/vatusa" method="post">
-            <button type="submit" class="btn btn-primary">Request VATUSA S3 Exam</button>
-        </form>
-        @elseif($me->cert == 10 && $me->rating_id < 5)
-        <form class="axform" action="/me/request/vatusa" method="post">
-            <button type="submit" class="btn btn-primary">Request VATUSA C1 Exam</button>
-        </form>
-    @endif
+
+        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+            <div class="panel panel-default">
+                <div class="panel-heading" role="tab" id="headingOne">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            VATUSA Exams
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                    <div class="panel-body">
+                        @for($i = 3; $i < 7; $i++)
+                            <form class="axform" action="/me/request/vatusa/{{$i - 1}}" method="post">
+                                <button type="submit" class="btn btn-primary">Request VATUSA {{ $ratings[$i]->short }} Exam</button>
+                            </form>
+                        @endfor
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading" role="tab" id="headingTwo">
+                    <h4 class="panel-title">
+                        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                            ZBW Exams
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                    <div class="panel-body">
+                        @for($i = 0; $i < $certifications->count() - 3; $i++)
+                            @if(in_array($i, [0,1,3,4,6,7,9,10]))
+                            <form class="axform" action="/me/request/zbw/{{$i + 1}}" method="post">
+                                <button type="submit" class="btn btn-primary">Request {{ $i == 0 ? 'SOP' : \Zbw\Core\Helpers::readableCert($certifications[$i]->id)  }} Exam</button>
+                            </form>
+                            @endif
+                        @endfor
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    @if($me->cert < 11)
     <a class="btn btn-primary" href="/training/request/new">Request Training</a>
-    {{--@if($me->canTakeNextExam())--}}
-    @if(in_array($me->cert, [0,1,2,4,5,7,8,10]))
-      @if($me->cert > 0)
-      <a class="btn btn-primary" href="/training/local-exam">Request {{ $me->certification->nextReadable()  }} Exam</a>
-      @else
-      <a class="btn btn-primary" href="/training/local-exam">Request SOP Exam</a>
-      @endif
-    @endif
-    @if($me->hasReviews())
-        @if(false)
-        <a class="btn btn-primary" href="/training/review">Review Exams</a>
-        @endif
-    @endif
     @else
     <h5>Congratulations! You have already completed all ZBW training and are a fully certed center!</h5>
     @endif

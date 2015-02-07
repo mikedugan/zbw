@@ -4,12 +4,15 @@ use Illuminate\Session\Store;
 use Redirect;
 use Zbw\Bostonjohn\Datafeed\VatusaExamFeed;
 use Zbw\Cms\Contracts\CommentsRepositoryInterface;
+use Zbw\Core\Helpers;
 use Zbw\Core\Repositories\RatingRepository;
+use Zbw\Training\CertificationRepository;
 use Zbw\Training\Contracts\ExamsRepositoryInterface;
 use Zbw\Training\Contracts\QuestionsRepositoryInterface;
 
 use Zbw\Training\Commands\GetExamReviewCommand;
 use Zbw\Training\Commands\CreateExamCommand;
+use Zbw\Training\ExamsRepository;
 
 class ExamsController extends BaseController
 {
@@ -198,14 +201,24 @@ class ExamsController extends BaseController
     }
 
     /**
+     * @param $id
      * @return string
      */
-    public function aRequestVatusa()
+    public function aRequestVatusa($id)
     {
         $ratings = new RatingRepository();
-        $exam = $ratings->get($this->current_user->rating_id + 1)->long;
-        \Queue::push('Zbw\Queues\QueueDispatcher@usersRequestVatusaExam', $this->current_user->cid);
+        $rating = $ratings->get($id);
+        $exam = $rating->long;
+        \Queue::push('Zbw\Queues\QueueDispatcher@usersRequestVatusaExam', [$this->current_user->cid, $rating]);
         return $this->json(['success' => true, 'message' => 'VATUSA ' . $exam . ' exam requested.']);
+    }
+
+    public function aRequestZbw($id)
+    {
+        $cert = \CertType::find($id);
+        $exam = Helpers::readableCert($cert->id);
+        \Queue::push('Zbw\Queues\QueueDispatcher@usersRequestZbwExam', [$this->current_user->cid, $cert]);
+        return $this->json(['success' => true, 'message' => 'ZBW ' . $exam . ' exam requested.']);
     }
 
     public function aGetVatusaExams($cid)

@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'default' => 'beanstalkd',
+    'default' => 'sync',
     'connections' => [
       'sync' => [
         'driver' => 'sync',

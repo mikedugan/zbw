@@ -38,7 +38,7 @@ Welcome
         @endif
     </div>
     <div class="col-md-6">
-        <h3 class="row text-left">ATC Online</h3>
+        <h3 class="row text-left">ATC Online <span class="small sans">Current Time: {{ \Carbon::now()->toTimeString() }}</span></h3>
         @include('includes.bj._atc')
         <h3 class="row text-left">Air Traffic</h3>
         <p class="row"><b>Inbound: </b><span class="badge bg-info">{{$inbounds}}</span> <b>Outbound: </b> <span class="badge bg-info">{{$outbounds}}</span> {{ HTML::linkRoute('traffic', 'View All') }}</p>

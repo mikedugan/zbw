@@ -21,5 +21,5 @@ interface MailInterface
 
     public function denyVisitorEmail($data);
 
-    public function vatusaExamRequestEmail($cid);
+    public function vatusaExamRequestEmail($cid, $rating);
 }

@@ -204,14 +204,17 @@ class DatafeedParser implements DatafeedParserInterface
      */
     private function closeStaffings()
     {
-        $staffings = $this->staffingRepo->getDaysOfStaffing(2);
-        if($staffings->count() <= 0) {
-            return;
-        }
-
-        foreach ($staffings as $entry) {
-            $entry->checkExpiry();
-            $this->staffingRepo->save($entry);
+        $staffings = \Staffing::getDaysOfStaffing(2);
+        if(count($staffings) > 0) {
+            foreach ($staffings as $row) {
+                //since this runs at the end of the client update process, anyone still online would be touched in the parseControllerLine function
+                //if they haven't been updated in 3 minutes, that means they have gone offline
+                if(($row->updated_at < \Carbon::now()->subMinutes(3)) && ( ! $row->stop)) {
+                    //so we set the stop time and save
+                    $row->stop = \Carbon::now();
+                    $row->save();
+                }
+            }
         }
     }
 

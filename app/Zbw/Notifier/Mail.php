@@ -196,18 +196,30 @@ class Mail extends Notifier implements MailInterface
     }
 
     /**
-     * @param $cid
-     * @return void
+     * @param         $cid
+     * @param \Rating $rating
      */
-    public function vatusaExamRequestEmail($cid)
+    public function vatusaExamRequestEmail($cid, $rating)
     {
+        $rating = new \Rating($rating);
         $student = $this->users->get($cid);
         $to = \Sentry::findAllUsersInGroup(\Sentry::findGroupByName('Instructors'));
 
         $this->setView('vatusa_exam_request');
-        $this->setViewData(['student' => $student]);
+        $this->setViewData(['student' => $student, 'rating' => $rating]);
         foreach($to as $staff) {
             $this->send($staff->email, $staff->username, 'VATUSA Exam Request');
+        }
+    }
+
+    public function zbwExamRequestEmail($cid, $cert)
+    {
+        $student = $this->users->get($cid);
+        $to = \Sentry::findAllUsersInGroup(\Sentry::findGroupByName('Instructors'));
+        $this->setView('local_exam_request');
+        $this->setViewData(['student' => $student, 'cert' => $cert]);
+        foreach($to as $staff) {
+            $this->send($staff->email, $staff->username, 'ZBW Exam Request');
         }
     }
 
@@ -282,12 +294,12 @@ class Mail extends Notifier implements MailInterface
         }
     }
 
-    public function requestLocalExam($user, $instructors)
+    /*public function requestLocalExam($user, $instructors)
     {
         foreach($instructors as $staff) {
             $this->setView('local_exam_request');
             $this->setViewData(['student' => $user]);
             $this->send($staff->email, $staff->username, 'ZBW Local Exam Request');
         }
-    }
+    }*/
 } 

@@ -8,12 +8,11 @@
 <div>
   <p>A student has requested a ZBW exam on the website.</p>
   <ul>
-    <li>Student: {{ $student->initials }}</li>
+    <li>Student: {{ $student->first_name . ' ' . $student->last_name }} ({{ $student->initials }})</li>
     <li>CID: {{ $student->cid }}</li>
     <li>Current Cert: {{ Zbw\Core\Helpers::readableCert($student->cert) }}</li>
     <li>Current Rating: {{ $student->rating->long }}</li>
-    <li>Exam Requested: {{ Zbw\Core\Helpers::readableCert($student->cert +1) }}</li>
-    <li><i>Note: 'Off Peak' references the advanced exam for a particular certification.</i></li>
+    <li>ZBW Exam Requested: {{ $cert['id'] == 0 ? 'SOP' : Zbw\Core\Helpers::readableCert($cert['id']) }}</li>
   </ul>
 </div>
 

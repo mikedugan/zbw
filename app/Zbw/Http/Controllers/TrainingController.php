@@ -37,11 +37,13 @@ class TrainingController extends BaseController
 
     public function getIndex()
     {
-        $this->setData('availableExams', $this->exams->availableExams($this->current_user->cid));
+        //$this->setData('availableExams', $this->exams->availableExams($this->current_user->cid));
         $this->setData('progress', $this->users->trainingProgress($this->current_user->cid));
         $this->setData('student', $this->current_user);
         $this->setData('available', $this->staffAvailability->upcoming(10));
         $this->setData('requests', $this->requests->getCurrentByCid($this->current_user->cid));
+        $this->setData('ratings', \Rating::all());
+        $this->setData('certifications', \CertType::all());
         $this->view('training.index');
     }
 

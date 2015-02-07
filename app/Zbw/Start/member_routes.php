@@ -28,7 +28,8 @@ Route::group(
       Route::get('/training/review', ['as' => 'training/sessions', 'uses' => ExamsController::class.'@getReview']);
       Route::post('/training/review/{eid}', ['as'   => 'training/review-session', 'uses' => ExamsController::class.'@postComment']);
       Route::post('/e/request/{cid}/{eid}', ['as'   => 'me/exam-requests/{eid}', 'uses' => ExamsController::class.'@aRequestExam']);
-      Route::post('/me/request/vatusa', ['as'   => 'me/request/vatusa', 'uses' => ExamsController::class.'@aRequestVatusa']);
+      Route::post('/me/request/vatusa/{id}', ['as'   => 'me/request/vatusa', 'uses' => ExamsController::class.'@aRequestVatusa']);
+      Route::post('/me/request/zbw/{id}', ['as'   => 'me/request/zbw', 'uses' => ExamsController::class.'@aRequestZbw']);
       Route::post('/me/request-training', ['as'   => 'me/request-training', 'uses' => TrainingRequestController::class.'@postTrainingRequest']);
       Route::get('/training/exam', ['as' => 'training/exam', 'uses' => ExamsController::class.'@takeExam']);
       Route::get('/training/local-exam', ['as' => 'training/local-exam', 'uses' => ExamsController::class.'@requestLocalExam']);
