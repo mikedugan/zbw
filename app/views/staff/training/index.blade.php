@@ -3,6 +3,7 @@
 Training Index
 @stop
 @section('content')
+<div class="col-md-12"></div>
 @include('includes.nav._training')
 <div class="col-lg-12 training-summary">
  {{-- this area should contain an overview of recent training, promotions, etc --}}

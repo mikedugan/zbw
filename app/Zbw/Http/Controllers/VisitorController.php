@@ -1,4 +1,4 @@
-<?php namespace Zbw\Http\Controllers;
+ <?php namespace Zbw\Http\Controllers;
 
 use Zbw\Users\Commands\AcceptVisitorCommand;
 use Illuminate\Session\Store;
