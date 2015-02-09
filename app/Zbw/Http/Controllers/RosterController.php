@@ -170,7 +170,7 @@ class RosterController extends BaseController
         \Queue::push('Zbw\Queues\QueueDispatcher@usersNewUser', $user);
 
         if($user instanceof User || $user instanceof \User) {
-            return \Redirect::bakc()->with('flash_success', "User {$user->username} registered successfully");
+            return \Redirect::back()->with('flash_success', "User {$user->username} registered successfully");
         } else {
             return \Redirect::back()->with('flash_error', "There was an error adding $fname $lname");
         }
