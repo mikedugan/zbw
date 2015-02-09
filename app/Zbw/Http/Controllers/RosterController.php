@@ -8,6 +8,7 @@ use Zbw\Users\Contracts\GroupsRepositoryInterface;
 use Zbw\Users\Contracts\UserRepositoryInterface;
 use Zbw\Users\Contracts\VisitorApplicantRepositoryInterface;
 use Zbw\Bostonjohn\Datafeed\VatusaExamFeed;
+use Zbw\Users\User;
 
 class RosterController extends BaseController
 {
@@ -151,12 +152,27 @@ class RosterController extends BaseController
 
     public function postAddController()
     {
-        if ($this->users->create($this->request->get('fname'), $this->request->get('lname'),
-            $this->request->get('email'), $this->request->get('artcc'), $this->request->get('cid'))
-        ) {
-            return \Redirect::back()->with('flash_info', 'Controller successfully added!');
+        $cid = \Input::get('cid');
+        $fname = \Input::get('fname');
+        $lname = \Input::get('lname');
+        $email = \Input::get('email');
+        $artcc = \Input::get('artcc');
+        $rating = \Input::get('rating');
+        if($this->users->exists($cid)) {
+            return \Redirect::back()->with('flash_error', "CID $cid already in use!");
+        }
+
+        $user = $this->users->add($fname, $lname, $email, $artcc,
+            $cid, $rating, true);
+        $examRecord = new ExamRecord();
+        $examRecord->cid = $cid;
+        $examRecord->save();
+        \Queue::push('Zbw\Queues\QueueDispatcher@usersNewUser', $user);
+
+        if($user instanceof User || $user instanceof \User) {
+            return \Redirect::bakc()->with('flash_success', "User {$user->username} registered successfully");
         } else {
-            return \Redirect::back()->with('flash_error', 'There was an error!');
+            return \Redirect::back()->with('flash_error', "There was an error adding $fname $lname");
         }
     }
 

@@ -1,6 +1,6 @@
 <div class="col-md-12">
     <h1 class="text-center">Add ZBW Controller</h1>
-    <form id="controllerAdd" action="/staff/roster/add-controller" method="post">
+    {{ Form::open(['route' => ['roster.add'], 'id' => 'controllerAdd']) }}
         <div class="form-group">
             <label class="control-label" for="cid">CID</label>
             <input class="form-control" type="number" name="cid" id="cid"/>
@@ -17,14 +17,20 @@
             <label class="control-label" for="email">Email</label>
             <input class="form-control" type="email" name="email" id="email"/>
         </div>
-        <div class="form-group">
-            <label class="control-label" for="artcc">ARTCC</label>
-            <input class="form-control" type="text" name="artcc" id="artcc" value="ZBW"/>
-            <p class="small">Only change if controller is visiting.</p>
+        <div class="row">
+            <div class="form-group col-md-6">
+                <label class="control-label" for="artcc">ARTCC</label>
+                <input class="form-control" type="text" name="artcc" id="artcc" value="ZBW"/>
+                <p class="small">Only change if controller is visiting.</p>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="rating">Rating</label>
+                {{ Form::select('rating', \Rating::all()->lists('short', 'id'), null, ['class' => 'form-control']) }}
+            </div>
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        {{ Form::submit('Add', ['class' => 'btn btn-primary']) }}
         <p>The new controller will be emailed an initial password, as well as
         instructions on accessing the forum, training center, and their operating initials.</p>
         <p>Initial rating will be retrieved from the VATUSA system.</p>
-    </form>
+    {{ Form::close() }}
 </div>

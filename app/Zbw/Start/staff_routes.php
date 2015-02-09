@@ -61,6 +61,7 @@ Route::group(
             Route::post('adopt/{cid}', ['as' => 'staff/adopt/{cid}', 'uses' => TrainingController::class.'@postAdopt']);
             Route::post('adopt/{cid}/drop', ['as' => 'staff/adopt/{cid}/drop', 'uses' => TrainingController::class.'@getDropAdopt']);
             Route::get('roster', ['as' => 'roster', 'uses' => RosterController::class.'@getAdminIndex']);
+            Route::post('rotser', ['as' => 'roster.add', 'uses' => RosterController::class.'@postAddController']);
             Route::post('roster/groups/add', ['as' => 'staff/roster/add-group', 'uses' => RosterController::class.'@postGroup']);
             Route::post('roster/groups/update', ['as' => 'staff/roster/edit-group', 'uses' => RosterController::class.'@updateGroup']);
             Route::get('roster/results', ['roster/search', 'uses' => AdminController::class.'@getSearchResults']);
@@ -75,7 +76,6 @@ Route::group(
             Route::get('comments/{comment}/edit', ['as' => 'staff/comments/{comment}/edit', 'uses' => RosterController::class.'@getEditComment']);
             Route::post('comments/{comment}/edit', ['as' => 'staff/comments/{comment}/edit', 'uses' => RosterController::class.'@postEditComment']);
             Route::get('roster/create-controller', ['as' => 'roster/add', 'uses' => RosterController::class.'@getAddController']);
-            Route::post('roster/create-controller', ['as' => 'roster/add', 'uses' => RosterController::class.'@postAddController']);
             Route::get('pages', ['as' => 'staff/pages', 'uses' => PagesController::class.'@getIndex']);
             Route::get('pages/create', ['as' => 'staff/pages/create', 'uses' => PagesController::class.'@getCreate']);
             Route::post('pages/create', ['as' => 'staff/pages/create', 'uses' => PagesController::class.'@postCreate']);
