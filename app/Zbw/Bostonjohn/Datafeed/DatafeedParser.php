@@ -205,7 +205,11 @@ class DatafeedParser implements DatafeedParserInterface
         if($itis)
         {
             //just to be sure there's no underscore funny business
-            return $line[0][3] == '_' || $line[0][4] == '_';
+            if(isset($line[0][3]) && ($line[0][3] == '_')) {
+                return true;
+            } else if (isset($line[0][4]) && $line[0][4] == '_') {
+                return true;
+            }
         }
         else return false;
     }
