@@ -3,7 +3,7 @@
 Dashboard
 @stop
 @section('content')
-<h1 class="text-center">{{ $controller->username . ' ('.$controller->cid.')' }} </h1>
+<h1 class="text-center sans">{{ $controller->username . ' ('.$controller->cid.')' }} </h1>
 <div class="row">
     <ul class="nav nav-tabs">
         <li role="presentation" class="active"><a href="#exams" aria-controls="exams" role="tab" data-toggle="tab">Exams</a></li>
