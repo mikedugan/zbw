@@ -122,7 +122,7 @@ return [
     ],
 
 
-    'front_page_metars' => ['KBOS', 'KMHT', 'KBDL', 'KPVD'],
+    'front_page_metars' => ['KBOS', 'KMHT', 'KBDL', 'KPVD', 'KSYR', 'KALB', 'KBGR', 'KPWM', 'KBTV'],
 
     'live_training_performance' => [
       ['label' => 'Sign-On Brief', 'review_name' => 'brief', 'grade_name' => 'brief', 'subject' => 'sign on briefs'],
