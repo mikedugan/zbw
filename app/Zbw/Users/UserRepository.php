@@ -601,7 +601,7 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
     {
         return $this->make()->where('created_at', '>',
             \Carbon::createFromFormat('Y-m-d', '2014-09-28'))->where('adopted_by', null)->where('cid', '!=',
-            100)->where('cert', '<', 2)->orderBy('created_at', 'ASC')->get();
+            100)->where('cert', '<', 2)->orderBy('created_at', 'DESC')->get();
     }
 
     /**
@@ -609,12 +609,12 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
      */
     public function getAdoptedStudents()
     {
-        return $this->make()->where('adopted_by', '>', 100)->where('cert', '<', 2)->with(['adopter'])->orderBy('created_at', 'ASC')->get();
+        return $this->make()->where('adopted_by', '>', 100)->where('cert', '<', 2)->with(['adopter'])->orderBy('created_at', 'DESC')->get();
     }
 
     public function getAdoptedByCid($cid)
     {
-        return $this->make()->where('adopted_by', '=', (int)$cid)->where('cert', '<', 2)->orderBy('created_at', 'ASC')->get();
+        return $this->make()->where('adopted_by', '=', (int)$cid)->where('cert', '<', 2)->orderBy('created_at', 'DESC')->get();
     }
 
     /**
