@@ -111,7 +111,6 @@ class MessagesController extends BaseController
             $this->setFlash(['flash_error' => $e->getMessage()]);
             return $this->redirectBack();
         }
-        }
         
         return $this->redirectHome();
     }
