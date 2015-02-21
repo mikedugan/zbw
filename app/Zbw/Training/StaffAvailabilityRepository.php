@@ -9,7 +9,7 @@ class StaffAvailabilityRepository extends EloquentRepository implements StaffAva
 
     public function all()
     {
-        return $this->make()->where('created_at', '>', \Carbon::now())->orderBy('created_at', 'desc')->get();
+        return $this->make()->where('created_at', '>', \Carbon\Carbon::now())->orderBy('created_at', 'desc')->get();
     }
 
     public function create($input)
