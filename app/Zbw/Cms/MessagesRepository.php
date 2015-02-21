@@ -146,11 +146,12 @@ class MessagesRepository extends EloquentRepository implements MessagesRepositor
     public function create($to, $subject, $content)
     {
         $from = \Sentry::check() ? \Sentry::getUser()->cid : 100;
-        $to = $this->users->findByInitials($to)->cid;
-
+        $to = $this->users->findByInitials($to);
         if(empty($to)) {
             throw new UserNotFoundException("User with initials $to not found");
         }
+
+        $to = $to->cid;
 
         $outbox = $this->make();
         $outbox->to = $to;
