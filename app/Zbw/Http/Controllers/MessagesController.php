@@ -106,10 +106,11 @@ class MessagesController extends BaseController
             } else {
                 $this->setFlash(['flash_success' => 'Message sent successfully']);
             }
-            catch (UserNotFoundException $e) {
-                $this->setFlash(['flash_error' => $e->getMessage()]);
-                return $this->redirectBack();
-            }
+        }
+        catch (UserNotFoundException $e) {
+            $this->setFlash(['flash_error' => $e->getMessage()]);
+            return $this->redirectBack();
+        }
         }
         
         return $this->redirectHome();
