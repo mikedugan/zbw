@@ -7,6 +7,11 @@ class StaffAvailabilityRepository extends EloquentRepository implements StaffAva
 {
     public $model = '\StaffAvailability';
 
+    public function all()
+    {
+        return $this->make()->orderBy('created_at', 'desc')->get();
+    }
+
     public function create($input)
     {
         $input['start'] = \Carbon::createFromFormat('m-d-Y H:i:s', $input['start']);

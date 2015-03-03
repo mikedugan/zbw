@@ -5,6 +5,7 @@ use Zbw\Cms\MessagesRepository;
 use Zbw\Users\Contracts\UserRepositoryInterface;
 use Zbw\Cms\Commands\SendMessageCommand;
 use Zbw\Cms\Commands\ReplyToMessageCommand;
+use Zbw\Users\Exceptions\UserNotFoundException;
 
 class MessagesController extends BaseController
 {
@@ -98,13 +99,19 @@ class MessagesController extends BaseController
 
     public function store()
     {
-        $response = $this->execute(SendMessageCommand::class, ['input' => $this->request->all()]);
-        if ($response !== '') {
-            $this->setFlash(['flash_error' => $response]);
-        } else {
-            $this->setFlash(['flash_success' => 'Message sent successfully']);
+        try {
+            $response = $this->execute(SendMessageCommand::class, ['input' => $this->request->all()]);
+            if ($response !== '') {
+                $this->setFlash(['flash_error' => $response]);
+            } else {
+                $this->setFlash(['flash_success' => 'Message sent successfully']);
+            }
         }
-
+        catch (UserNotFoundException $e) {
+            $this->setFlash(['flash_error' => $e->getMessage()]);
+            return $this->redirectBack();
+        }
+        
         return $this->redirectHome();
     }
 

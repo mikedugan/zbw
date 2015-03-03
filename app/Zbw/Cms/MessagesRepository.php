@@ -3,6 +3,7 @@
 use Zbw\Core\EloquentRepository;
 use Zbw\Cms\Contracts\MessagesRepositoryInterface;
 use Zbw\Users\Contracts\UserRepositoryInterface;
+use Zbw\Users\Exceptions\UserNotFoundException;
 
 /**
  * @package Zbw\Cms
@@ -145,7 +146,13 @@ class MessagesRepository extends EloquentRepository implements MessagesRepositor
     public function create($to, $subject, $content)
     {
         $from = \Sentry::check() ? \Sentry::getUser()->cid : 100;
-        $to = $this->users->findByInitials($to)->cid;
+        $initials = $to;
+        $to = $this->users->findByInitials($to);
+        if(empty($to)) {
+            throw new UserNotFoundException("User with initials $initials not found");
+        }
+
+        $to = $to->cid;
 
         $outbox = $this->make();
         $outbox->to = $to;
