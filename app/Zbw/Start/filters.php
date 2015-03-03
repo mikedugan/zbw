@@ -151,7 +151,7 @@ Route::filter('mentor', function() {
     if(! \Sentry::check() ) {
         return Redirect::route('login');
     }
-    if(! \Sentry::getUser()->is('Mentors'))
+    if(! \Sentry::getUser()->is('Mentors') && ! \Sentry::getUser()->is('Instructors') && ! \Sentry::getUser()->is('Executive'))
     {
         $data = [
             'page' => Request::url(),
