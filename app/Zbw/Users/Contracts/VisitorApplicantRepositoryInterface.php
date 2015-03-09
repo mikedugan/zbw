@@ -1,7 +1,4 @@
-<?php
-
-
-namespace Zbw\Users\Contracts;
+<?php namespace Zbw\Users\Contracts;
 
 interface VisitorApplicantRepositoryInterface
 {

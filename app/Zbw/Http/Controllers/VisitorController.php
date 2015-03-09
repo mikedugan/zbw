@@ -3,8 +3,9 @@
 use Zbw\Users\Commands\AcceptVisitorCommand;
 use Illuminate\Session\Store;
 use Zbw\Users\Contracts\VisitorApplicantRepositoryInterface;
+use Zbw\Http\Controllers\BaseController;
 
-class VisitorController extends \Zbw\Http\Controllers\BaseController
+class VisitorController extends BaseController
 {
     private $visitors;
 
