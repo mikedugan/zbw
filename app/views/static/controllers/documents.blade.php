@@ -18,6 +18,9 @@ ZBW Documents
         {{ HTML::linkAsset('/documents/sops/kpvd.pdf', 'KPVD', ['class' => 'list-group-item', 'target' => '_blank']) }}
         {{ HTML::linkAsset('/documents/sops/kbdl.pdf', 'Y90/KBDL', ['class' => 'list-group-item', 'target' => '_blank']) }}
         {{ HTML::linkAsset('/documents/sops/kalb.pdf', 'KALB', ['class' => 'list-group-item', 'target' => '_blank']) }}
+        {{ HTML::linkAsset('/documents/sops/ksyr.pdf', 'KSYR', ['class' => 'list-group-item', 'target' => '_blank']) }}
+        {{ HTML::linkAsset('/documents/sops/kbtv.pdf', 'KBTV', ['class' => 'list-group-item', 'target' => '_blank']) }}
+        {{ HTML::linkAsset('/documents/sops/kbgr.pdf', 'KBGR', ['class' => 'list-group-item', 'target' => '_blank']) }}
         {{ HTML::linkAsset('/documents/sops/ctr.pdf', 'Center', ['class' => 'list-group-item', 'target' => '_blank']) }}
       </div>
     </div>
