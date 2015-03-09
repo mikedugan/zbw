@@ -1,4 +1,4 @@
-<?php  namespace Zbw\Users\Commands; 
+<?php namespace Zbw\Users\Commands;
 
 class AcceptVisitorCommand
 {
@@ -10,4 +10,4 @@ class AcceptVisitorCommand
         $this->cid = $cid;
         $this->sid = $sid;
     }
-} 
+}
