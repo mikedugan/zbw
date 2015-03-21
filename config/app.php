@@ -142,8 +142,8 @@ return [
 
 		'Illuminate\Html\HtmlServiceProvider',
 
-		'Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider',
-	    'Barryvdh\Debugbar\ServiceProvider',
+		//'Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider',
+	    //'Barryvdh\Debugbar\ServiceProvider',
 	    'Cartalyst\Sentry\SentryServiceProvider',
 	    'Bugsnag\BugsnagLaravel\BugsnagLaravelServiceProvider',
 	    'Robbo\Presenter\PresenterServiceProvider',
