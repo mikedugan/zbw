@@ -1,3 +1,0 @@
-Satisfy Any
-RewriteEngine on
-RewriteRule .* index.php [L]
