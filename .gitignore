@@ -25,3 +25,5 @@ public/documents/loas/00610ROBER.pdf
 public/forum/cache/data_2507dbcbfd299e4dfb2979ec252738bf-SMF-modSettings.php
 tests/_output/*
 _ide_helper_models.php
+.env
+storage/*

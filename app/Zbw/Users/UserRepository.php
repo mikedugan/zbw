@@ -637,6 +637,10 @@ class UserRepository extends EloquentRepository implements UserRepositoryInterfa
     public function adopt($student, $staff)
     {
         $student = $this->get($student);
+        if(! empty($student->adopted_by) && ! empty($student->adopted_on)) {
+            return false;
+        }
+        
         $student->adopted_by = $staff;
         $student->adopted_on = \Carbon::now();
         return $this->checkAndSave($student);
