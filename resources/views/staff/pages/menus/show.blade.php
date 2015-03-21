@@ -40,7 +40,7 @@
                 @foreach($menu->pages as $page)
                     <tr>
                         <td>{{ $page->title }}</td>
-                        <td><a href="/pages/{{ $page->getUrlPath() }}">http://bostonartcc.net/pages/{{ $page->getUrlPath() }}</a></td>
+                        <td><a href="/pages/{{ $page->getUrlPath() }}">https://dev.bostonartcc.net/pages/{{ $page->getUrlPath() }}</a></td>
                     </tr>
                 @endforeach
             </table>

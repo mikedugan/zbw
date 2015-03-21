@@ -9,7 +9,7 @@ Visiting and Transferring Controller Policy
 <h5>Visiting Controllers</h5>
 <ol>
 <li><p>
-Controllers wishing to apply for visiting status at vZBW shall send a visiting status request through <a href="http://bostonartcc.net/visit">this form</a>. They must also supply an email/letter of recommendation from the ATM at their home ARTCC before their application will be considered; applications without the required letter of recommendation are considered incomplete and will not be acted on.</p></li>
+Controllers wishing to apply for visiting status at vZBW shall send a visiting status request through {{ HTML::linkRoute('visit', 'this form') }}. They must also supply an email/letter of recommendation from the ATM at their home ARTCC before their application will be considered; applications without the required letter of recommendation are considered incomplete and will not be acted on.</p></li>
 
 <li><p>
 vZBW ARTCC will not provide any training to help with a successful evaluation. The controller is expected to be competent to the level commensurate with their rating. Failure to meet the standards commensurate with the rating the controller already holds may result in termination from the visiting controller roster, and referral back to the controller’s home ARTCC’s ATM and TA, citing the deficiencies noted.</p></li>

@@ -18,7 +18,7 @@ return [
             <li>Friday-Sunday: You may not control from 4pm to 10pm, Eastern Standard Time</li>
             </ul>',
 
-    'roster_migrate' => 'http://bostonartcc.net/roster/export.php',
+    'roster_migrate' => 'https://dev.bostonartcc.net/roster/export.php',
 
     'vatusa' => [
         'roster' => 'http://www.vatusa.net/feeds/roster.php?a=VATID&key=VATKEY',

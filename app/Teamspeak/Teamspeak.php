@@ -180,7 +180,7 @@ class Teamspeak
             $this->set_perms($this->ts3->clientGetDbIdFromUid($current_uid), $user->cid);
         } else {
             // The user is either a fake or is on a new computer. Remind the user
-            $this->ts3->clientPoke($this->clid, 'You need to activate vZBW TS3 on this computer. Go here: http://bostonartcc.net/me/profile?v=settings');
+            $this->ts3->clientPoke($this->clid, 'You need to activate vZBW TS3 on this computer. Go here: https://dev.bostonartcc.net/me/profile?v=settings');
         }
     }
 

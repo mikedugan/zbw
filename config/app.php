@@ -1,5 +1,6 @@
 <?php
 
+
 return [
 
 	/*
@@ -26,7 +27,7 @@ return [
 	|
 	*/
 
-	'url' => 'http://bostonartcc.net',
+	'url' => 'https://dev.bostonartcc.net',
 	'webmaster' => [
 		'name' => 'Mike Dugan',
 		'email' => 'mike@dugan.io'
