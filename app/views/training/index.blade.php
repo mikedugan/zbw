@@ -41,7 +41,7 @@ Your Training
                 <div class="panel-heading" role="tab" id="headingTwo">
                     <h4 class="panel-title">
                         <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseZbwExams" aria-expanded="false" aria-controls="collapseTwo">
-                            ZBW Exams
+                            Request ZBW Exams
                         </a>
                     </h4>
                 </div>
