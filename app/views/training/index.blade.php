@@ -18,8 +18,8 @@ Your Training
         <h5>Current ZBW Certification: <span class="sans">N/A</span></h5>
         @endif
 
-        <div style="display:none" class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-            <div class="panel panel-default">
+        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+            <div style="display:none" class="panel panel-default">
                 <div class="panel-heading" role="tab" id="headingOne">
                     <h4 class="panel-title">
                         <a data-toggle="collapse" data-parent="#accordion" href="#collapseVatusaExams" aria-expanded="true" aria-controls="collapseOne">
