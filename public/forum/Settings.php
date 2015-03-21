@@ -19,7 +19,7 @@ $mmessage = 'ZBW Forum will be back online by 0500Z';		# Description of why the 
 ########## Forum Info ##########
 $mbname = 'Boston ARTCC';		# The name of your forum.
 $language = 'english';		# The default language file set for the forum.
-$boardurl = 'http://bostonartcc.net/forum';		# URL to your forum's folder. (without the trailing /!)
+$boardurl = getenv('forum_url');		# URL to your forum's folder. (without the trailing /!)
 $webmaster_email = 'admin@bostonartcc.net';		# Email address to send emails from. (like noreply@yourdomain.com.)
 $cookiename = 'SMFCookie391';		# Name of the cookie to set for authentication.
 
