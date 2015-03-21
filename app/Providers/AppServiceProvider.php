@@ -1,4 +1,4 @@
-<?php namespace App\Providers;
+<?php namespace Zbw\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
@@ -11,7 +11,17 @@ class AppServiceProvider extends ServiceProvider {
 	 */
 	public function boot()
 	{
-		//
+		\Bugsnag::setAppVersion(\Config::get('zbw.version'));
+		if(\App::environment('production')) {
+		    require_once public_path() . '/forum/smf_2_api.php';
+		}
+
+		\Bugsnag::setBeforeNotifyFunction('beforeBugsnagNotify');
+
+		\Validator::extend('cid', function($attribute, $value, $parameters)
+		{
+		    return $value === 100 || ($value > 500000 && $value < 3000000);
+		});
 	}
 
 	/**
@@ -26,9 +36,17 @@ class AppServiceProvider extends ServiceProvider {
 	public function register()
 	{
 		$this->app->bind(
-			'Illuminate\Contracts\Auth\Registrar',
-			'App\Services\Registrar'
+			'Laracasts\Commander\CommandTranslator',
+		 	'Zbw\Core\CommandTranslator'
 		);
+		$this->app->bind(
+			'Illuminate\Contracts\Auth\Registrar',
+			'Zbw\Services\Registrar'
+		);
+
+		\Blade::setRawTags('{{', '}}');
+        \Blade::setContentTags('{{{', '}}}');
+        \Blade::setEscapedContentTags('{{{', '}}}');
 	}
 
 }

@@ -1,10 +1,10 @@
-<?php namespace App\Exceptions;
+<?php namespace Zbw\Exceptions;
 
 use Exception;
-use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Bugsnag\BugsnagLaravel\BugsnagExceptionHandler as ExceptionHandler;
 
-class Handler extends ExceptionHandler {
-
+class Handler extends ExceptionHandler 
+{
 	/**
 	 * A list of the exception types that should not be reported.
 	 *

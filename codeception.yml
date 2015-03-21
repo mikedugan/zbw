@@ -1,0 +1,26 @@
+actor: Tester
+paths:
+    tests: tests
+    log: tests/_output
+    data: tests/_data
+    helpers: tests/_support
+settings:
+    bootstrap: _bootstrap.php
+    colors: true
+    memory_limit: 1024M
+    suite_class: \PHPUnit_Framework_TestSuite
+coverage:
+    enabled: true
+    include:
+        - app/*
+    exclude: 
+        - public/*
+        - app/views/*
+        - app/database/*
+modules:
+    config:
+        Db:
+            dsn: 'mysql:host=localhost;dbname=zbw_laravel'
+            user: 'root'
+            password: 'root'
+            dump: tests/_data/dump.sql

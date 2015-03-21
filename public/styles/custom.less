@@ -1,0 +1,353 @@
+@import url(http://fonts.googleapis.com/css?family=Noto+Sans);
+
+@font-face {
+    font-family : 'Flamenco';
+    font-style  : normal;
+    font-weight : 400;
+    src         : local('Flamenco'), local('Flamenco-Regular'), url(http://themes.googleusercontent.com/static/fonts/flamenco/v4/Ih-SipknQN9xiiZItSGWE_esZW2xOQ-xsNqO47m55DA.woff) format('woff');
+}
+
+@font-face {
+    font-family : 'Jacques Francois';
+    font-style  : normal;
+    font-weight : 400;
+    src         : local('Jacques Francois'), local('JacquesFrancois-Regular'), url(http://fonts.gstatic.com/s/jacquesfrancois/v3/_-0XWPQIW6tOzTHg4KaJ_G0r6TzgmNhwP1bMwOoxl6o.woff2) format('woff2'), url(http://fonts.gstatic.com/s/jacquesfrancois/v3/_-0XWPQIW6tOzTHg4KaJ_JI2N7O7hhWpTtijDoir9L0.woff) format('woff');
+}
+
+@font-face {
+    font-family : 'Pontano Sans';
+    font-style  : normal;
+    font-weight : 400;
+    src         : local('Pontano Sans'), local('PontanoSans-Regular'), url(http://themes.googleusercontent.com/static/fonts/pontanosans/v2/gTHiwyxi6S7iiHpqAoiE3HhCUOGz7vYGh680lGh-uXM.woff) format('woff');
+}
+
+@media (min-width : 1600px) {
+    .container {
+        width : 1590px;
+    }
+}
+
+h1 { font-size : @header-base; }
+
+h2 { font-size : @header-base * 0.875; }
+
+h3 { font-size : @header-base * 0.75; }
+
+h4 { font-size : @header-base * 0.66; }
+
+h5 { font-size : @header-base * 0.55; }
+
+h6 { font-size : @header-base * 0.55; }
+
+h1, h2, h3, h4, h5, h6 { margin: 5px; font-family : "Jacques Francois", Georgia, Times, serif; }
+
+b { font-weight : bold; }
+
+img { .img-responsive; }
+
+td, th { padding : 2px 5px; }
+
+a:hover { text-decoration : none; }
+
+div.logopad { margin-top : 2.5%; }
+
+.sans { font-family : 'Noto Sans', Arial, sans-serif; }
+
+.clear { clear : both; float : none; }
+
+.bcenter { margin : 0 auto; }
+
+#content {
+    width  : 90%;
+    margin : 0 0 2% 5%;
+    a {
+        font-size       : 1em;
+        text-decoration : none;
+    }
+}
+
+article h3 { font : 1.5em 'Noto Sans', arial, serif; }
+
+.full { width : 100%; }
+
+#content a.btn { color : #fff; }
+
+#content a.btn:hover { color : #eee; }
+
+#content a.btn { border : none; }
+
+nav.navbar {
+    background : #333;
+    li.dropdown { float: right; }
+}
+
+ul.nav li:not(first-child) {
+    margin-left : 5%; }
+
+ul.nav li a {
+    color       : #dbdbdb;
+    font-family : "Noto Sans", "Jacques Francois", Georgia, Times, serif; }
+
+ul.dropdown-menu {
+    background : #555;
+}
+
+ul.dropdown-menu li a:hover, ul.dropdown-menu li ul li a:hover {
+    color : #555;
+}
+
+nav.navbar li.dropdown.open > a:focus { background : #333; color : #f4f4f4; }
+
+form .navbar-right li {
+    color       : #fff;
+    height      : 36px;
+    font-size   : 18px;
+    font-family : "Noto Sans", Arial, Helvetica, sans-serif;
+    margin-top  : 8px;
+}
+
+form .navbar-right li input { height : 36px; color : black; }
+
+nav form li:first-child { margin-bottom : 3px; }
+
+nav form button { margin : 8px 5px 0 5px; }
+
+ul.nav.navbar-nav li a { color : #dbdbdb; font-size : 1.5em; }
+
+ul.nav.navbar-nav li a:hover { color : #f4f4f4; }
+
+ul.nav.navbar-nav ul.dropdown-menu li a:hover { color : #555; }
+
+ul.nav.navbar-nav ul.dropdown-menu a { font-size : 1.25em; }
+
+ul.nav.navbar-nav li .dropdown a:hover, ul.nav.navbar-nav li ul li a:hover { background : #f4f4f4; }
+
+ul.nav.navbar-nav li ul li { list-style-type : none; }
+
+ul.navbar-left { margin-left : 5%; }
+
+#nav-login a { padding : 5px 10px; }
+
+#logo {
+    position : absolute;
+    top: 7%;
+    img { height : 80px; }
+}
+
+#slideshow {
+  max-width:100%;
+  max-height: 400px;
+  margin : 0 auto;
+}
+
+.panels {
+    &:last-child p {
+        font-size   : 20px;
+        padding-top : 10px;
+    }
+    p {
+        width  : 100%;
+        height : 50px;
+    }
+    .button { width : 100%; }
+}
+
+.form-inline {
+    label { margin-left : 1% }
+    &:first-child { margin-left : 0; }
+}
+
+ul.nav li a.small { font-size : 1em; }
+
+.flash span { padding : 1%; }
+
+.red { color : red; }
+
+.green { color : green; }
+
+.blue { color : blue; }
+
+.orange { color : orange; }
+
+.flash-info { color : blue; }
+
+.flash-success { color : green; }
+
+.flash-warning { color : orange; }
+
+.flash-error { color : red; }
+
+.well-warning { background-color : rgba(252, 248, 227, 0.5) !important; }
+
+.well-sucess { background-color : rgba(223, 240, 216, 0.5) !important; }
+
+.well-info { background-color : rgba(91, 192, 222, 0.3) !important; }
+
+.well-danger { background-color : rgba(217, 83, 79, 0.3) !important; }
+
+.training-summary {
+    .panel-group .panel { margin-top: 0;}
+    .well {
+        //min-height : 85px;
+        .badge { float : right; }
+        .badge.bg-success { background-color : rgba(161, 211, 140, 0.9) !important; }
+        .badge.bg-danger { background-color : rgba(217, 83, 79, 0.9) !important; }
+        .badge.bg-warning { background-color : rgba(189, 176, 111, 0.9) !important; }
+        .badge.bg-info { background-color : rgba(91, 192, 222, 0.9) !important; }
+    }
+}
+
+.badge.bg-success { background-color : rgba(161, 211, 140, 0.9) !important; }
+
+.badge.bg-danger { background-color : rgba(217, 83, 79, 0.9) !important; }
+
+.badge.bg-warning { background-color : rgba(189, 176, 111, 0.9) !important; }
+
+.badge.bg-info { background-color : rgba(91, 192, 222, 0.9) !important; }
+
+/*log file*/
+.error {
+    color : red;
+    &:before {
+        content : "Error:"
+    }
+}
+
+.override {
+    color : orange;
+    &:before {
+        content : "Override:"
+    }
+}
+
+.redactor_box { margin-bottom : 1%; }
+
+.correct { color : #1d8a25; }
+
+.axform { margin : 1% 0; }
+
+.iblock { display : inline-block; }
+
+.input-group .datepick { display : block; }
+
+.event { margin : 1% 0; }
+
+.subnav form { float : left; margin-left : 10px; }
+
+.subnav form:first-child { margin-left : 0; }
+
+.new-message td { font-weight : bold; }
+
+.slidesjs-next, .slidesjs-previous { display : none; }
+
+#loginModal {
+    .modal-header, .modal-footer { border : none; }
+    .modal-footer { .text-left }
+    img {
+        margin : -30px 0 10px 50px;
+    }
+    #username, #password { width : 249px; }
+}
+
+.metar h4 { display : inline-block; }
+
+.inline { display : inline-block; }
+
+.strip ul { list-style-type : none; padding-left : 0; }
+
+.nav-tabs { margin-bottom : 2%; }
+
+.success td, p.success { background : #DFF0D8; }
+
+.info td, p.info { background : #D9EDF7; }
+
+.warning td, p.warning { background : #fcf8e3; }
+
+.danger td, p.danger { background : #f2dede; }
+
+/** for glyphicons in alert bar **/
+.alert {
+    width  : 70%;
+    margin : 0 auto 20px auto;
+    &> span:first-child {
+        height : 25px;
+    }
+}
+
+.pointer { cursor : pointer; }
+
+.avatar { max-width : 100%; max-width : 100px; padding : 1%; }
+
+.control-height { height : 36px; }
+
+#training_session .badge { float : right; }
+
+#visit .form-group { transition : all 0.5s ease-in; }
+
+.spinner {
+    margin     : 100px auto;
+    width      : 50px;
+    height     : 30px;
+    text-align : center;
+    font-size  : 10px;
+}
+
+.spinner > div {
+    background-color  : #333;
+    height            : 100%;
+    width             : 6px;
+    display           : inline-block;
+    -webkit-animation : stretchdelay 1.2s infinite ease-in-out;
+    animation         : stretchdelay 1.2s infinite ease-in-out;
+}
+
+.spinner .rect2 {
+    -webkit-animation-delay : -1.1s;
+    animation-delay         : -1.1s;
+}
+
+.spinner .rect3 {
+    -webkit-animation-delay : -1.0s;
+    animation-delay         : -1.0s;
+}
+
+.spinner .rect4 {
+    -webkit-animation-delay : -0.9s;
+    animation-delay         : -0.9s;
+}
+
+.spinner .rect5 {
+    -webkit-animation-delay : -0.8s;
+    animation-delay         : -0.8s;
+}
+
+@-webkit-keyframes stretchdelay {
+    0%, 40%, 100% { -webkit-transform : scaleY(0.4) }
+    20% { -webkit-transform : scaleY(1.0) }
+}
+
+@keyframes stretchdelay {
+    0%, 40%, 100% {
+        transform         : scaleY(0.4);
+        -webkit-transform : scaleY(0.4);
+    }
+    20% {
+        transform         : scaleY(1.0);
+        -webkit-transform : scaleY(1.0);
+    }
+}
+
+.visitor-forms form {
+    margin: 10px 0;
+}
+
+.froala-box { margin-bottom: 10px;}
+
+#rosterEdit form.axform {
+    margin: 5px 0 0 0;
+    padding-left: 0;
+    button {
+        max-width: 433px;
+    }
+}
+

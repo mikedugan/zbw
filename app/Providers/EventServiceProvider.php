@@ -1,4 +1,4 @@
-<?php namespace App\Providers;
+<?php namespace Zbw\Providers;
 
 use Illuminate\Contracts\Events\Dispatcher as DispatcherContract;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -25,8 +25,8 @@ class EventServiceProvider extends ServiceProvider {
 	public function boot(DispatcherContract $events)
 	{
 		parent::boot($events);
-
-		//
+		\Event::subscribe('Zbw\Events\ControllerEventHandler');
+		\Event::subscribe('Zbw\Events\TrainingEventHandler');
 	}
 
 }

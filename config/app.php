@@ -26,7 +26,11 @@ return [
 	|
 	*/
 
-	'url' => 'http://localhost',
+	'url' => 'http://bostonartcc.net',
+	'webmaster' => [
+		'name' => 'Mike Dugan',
+		'email' => 'mike@dugan.io'
+	],
 
 	/*
 	|--------------------------------------------------------------------------
@@ -39,7 +43,7 @@ return [
 	|
 	*/
 
-	'timezone' => 'UTC',
+	'timezone' => 'America/New_York',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -78,7 +82,7 @@ return [
 	|
 	*/
 
-	'key' => env('APP_KEY', 'SomeRandomString'),
+	'key' => env('APP_KEY', 'LwdGH5qKB91JMoXJ1jsUAhhBp5EqOdF7'),
 
 	'cipher' => MCRYPT_RIJNDAEL_128,
 
@@ -136,14 +140,27 @@ return [
 		'Illuminate\Validation\ValidationServiceProvider',
 		'Illuminate\View\ViewServiceProvider',
 
+		'Illuminate\Html\HtmlServiceProvider',
+
+		'Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider',
+	    'Barryvdh\Debugbar\ServiceProvider',
+	    'Cartalyst\Sentry\SentryServiceProvider',
+	    'Bugsnag\BugsnagLaravel\BugsnagLaravelServiceProvider',
+	    'Robbo\Presenter\PresenterServiceProvider',
+	    'Laracasts\Commander\CommanderServiceProvider',
+
 		/*
 		 * Application Service Providers...
 		 */
-		'App\Providers\AppServiceProvider',
-		'App\Providers\BusServiceProvider',
-		'App\Providers\ConfigServiceProvider',
-		'App\Providers\EventServiceProvider',
-		'App\Providers\RouteServiceProvider',
+		'Zbw\Providers\AppServiceProvider',
+		'Zbw\Providers\BusServiceProvider',
+		'Zbw\Providers\ConfigServiceProvider',
+		'Zbw\Providers\EventServiceProvider',
+		'Zbw\Providers\RouteServiceProvider',
+		'Zbw\Users\UsersServiceProvider',
+		'Zbw\Training\TrainingServiceProvider',
+		'Zbw\Cms\CmsServiceProvider',
+		'Zbw\Poker\PokerServiceProvider',
 
 	],
 
@@ -193,6 +210,14 @@ return [
 		'Validator' => 'Illuminate\Support\Facades\Validator',
 		'View'      => 'Illuminate\Support\Facades\View',
 
+		'Html'		=> 'Illuminate\Html\HtmlFacade',
+		'HTML'		=> 'Illuminate\Html\HtmlFacade',
+		'Form'		=> 'Illuminate\Html\FormFacade',
+
+		'Carbon'      => 'Carbon\Carbon',
+	    'Sentry'      => 'Cartalyst\Sentry\Facades\Laravel\Sentry',
+	    'Bugsnag'     => 'Bugsnag\BugsnagLaravel\BugsnagFacade',
+	    'Dispatcher'  => 'Zbw\Queues\QueueDispatcher',
 	],
 
 ];

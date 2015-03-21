@@ -1,0 +1,10 @@
+@extends('layouts.master')
+@section('title')
+@yield('title')
+@stop
+@section('header')
+@yield('header')
+@stop
+@section('content')
+    @yield('content')
+@stop
