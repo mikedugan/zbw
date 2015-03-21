@@ -31,7 +31,7 @@ $env = $app->detectEnvironment(function () {
 
     $hostname = gethostname();
     $local = ['mike-macpro', 'buntu', 'homestead', 'zbw', 'Mikes-iMac-2.local'];
-    $prod = ['server3.sitearray.com', 'bostonartcc.net', 'dev.bostonartcc.net'];
+    $prod = ['server3.sitearray.com', 'bostonartcc.net', 'dev.bostonartcc.net', 'snowy-peak'];
     if (in_array($hostname, $local)) {
         return 'local';
     } else if (in_array($hostname, $prod)) {
