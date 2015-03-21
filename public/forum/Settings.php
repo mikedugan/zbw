@@ -26,9 +26,9 @@ $cookiename = 'SMFCookie391';		# Name of the cookie to set for authentication.
 ########## Database Info ##########
 $db_type = 'mysql';
 $db_server = 'localhost';
-$db_name = getenv('forum_db');
-$db_user = getenv('db_user');
-$db_passwd = getenv('db_pass');
+$db_name = 'zbw_forum';
+$db_user = 'forge';
+$db_passwd = 'wILJVumvqyDTDbLsdn3M';
 $ssi_db_user = '';
 $ssi_db_passwd = '';
 $db_prefix = 'smf_';
