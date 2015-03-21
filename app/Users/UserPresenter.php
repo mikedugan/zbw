@@ -19,7 +19,7 @@ class UserPresenter extends Presenter
      */
     public function avatar($s = 100, $d = 'mm', $r = 'r', $img = false, $atts = [] ) {
         if(empty($this->settings->avatar)) {
-            $url = 'http://www.gravatar.com/avatar/';
+            $url = 'https://www.gravatar.com/avatar/';
             $url .= md5(strtolower(trim($this->email)));
             $url .= "?s=$s&d=$d&r=$r";
             if ($img) {
