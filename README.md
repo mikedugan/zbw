@@ -10,5 +10,5 @@ All content contained herein is approved only for use on the VATSIM network.
 
 ## License
 This software, as a whole, is proprietary and may be used, reproduced, or used in any form without the
-explicit consent of the author. Please contact me at [mike@dugan.io](mike@dugan.io) if you need
+explicit consent of the author. Please contact me at [mike@dugan.io](mailto:mike@dugan.io) if you need
 additional information.
