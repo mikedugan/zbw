@@ -4,11 +4,11 @@ return [
     'version' => '2.1.0',
 
     'teamspeak' => [
-        'host' => $_ENV['ts_host'],
-        'user' => $_ENV['ts_user'],
-        'password' => $_ENV['ts_pass'],
-        'query_port' => $_ENV['ts_queryport'],
-        'port' => $_ENV['ts_port'],
+        'host' => getenv('ts_host'),
+        'user' => getenv('ts_user'),
+        'password' => getenv('ts_pass'),
+        'query_port' => getenv('ts_queryport'),
+        'port' => getenv('ts_port'),
         'serveradmins' => [1240047, 1029885, 1093141, 1134052]
     ],
 
